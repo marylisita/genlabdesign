@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLSL Fragment Shaders From Zero: Your First 10 Lines // GenLab</title>
+    <meta name="description" content="Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="GLSL Fragment Shaders From Zero: Your First 10 Lines // GenLab">
+    <meta property="og:description" content="Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="GLSL Fragment Shaders From Zero: Your First 10 Lines // GenLab">
+    <meta property="twitter:description" content="Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GLSL Fragment Shaders From Zero: Your First 10 Lines",
+  "description": "Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.",
+  "author": {
+    "@type": "Person",
+    "name": "Kuronami"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GenLab Design",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://genlabdesign.com/images/win98.jpg"
+    }
+  },
+  "datePublished": "2026-06-30"
+}
+</script>
+
+<style>
+    /* =========================================
+       PREMIUM EDITORIAL & VOGUE STYLES
+       ========================================= */
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+    
+    .premium-hero {
+        position: relative;
+        min-height: 50vh; /* Altura reduzida para remover espaço branco */
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: none;
+    }
+
+    #hero-canvas {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Glassmorphic Base Cards - ZERO BORDERS */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        box-shadow: 0 15px 40px -10px rgba(0,0,0,0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19, 27, 50, 0.85);
+        border: none;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgba(6, 182, 212, 0.15); }
+
+    /* Custom Design Match Cards (Nodes) - ZERO BORDERS */
+    .node-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 1.25rem;
+        position: relative;
+        overflow: hidden;
+        padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dark .node-card {
+        background: rgba(30, 30, 35, 0.6);
+        border: none;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+    }
+    .node-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.1);
+    }
+    .dark .node-card:hover {
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.5);
+    }
+    
+    .node-top-line {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 4px;
+    }
+
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    .ed-dropcap::first-letter {
+        float: left;
+        font-family: 'Playfair Display', serif;
+        font-size: 6.5rem;
+        line-height: 0.75;
+        padding-top: 0.4rem;
+        padding-right: 1rem;
+        color: #111;
+        font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+    
+    .kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #06b6d4; /* Cyan */
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #06b6d4, #8b5cf6, #06b6d4);
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: gradient-shift 5s ease infinite;
+    }
+    .dark .text-gradient {
+        background: linear-gradient(90deg, #22d3ee, #a855f7, #22d3ee);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+    }
+    @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* Novo comportamento Sticky perfeito para o Editor */
+    .sticky-sidebar { 
+        position: sticky; 
+        top: 100px; 
+        height: calc(100vh - 120px); 
+        display: flex; 
+        flex-direction: column; 
+    }
+
+    .btn-cyber { padding: 12px 24px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; background: rgba(255,255,255,0.05); }
+    .btn-cyber:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .btn-cyber:active { transform: translateY(0); }
+
+    .btn-load { border-color: #06b6d4; color: #06b6d4; background: transparent; width: 100%; margin-top: 15px; }
+    .btn-load:hover { background: rgba(6, 182, 212, 0.1); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
+
+    /* GLSL Editor Styling */
+    .glsl-editor-wrap { background: #050505; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); flex-grow: 1; }
+    .glsl-textarea { flex-grow: 1; width: 100%; background: transparent; color: #a3e635; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; padding: 20px; border: none; outline: none; resize: none; line-height: 1.5; }
+    .glsl-textarea::selection { background: rgba(163, 230, 53, 0.3); }
+    
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-16 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-8">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Creative Coding Basics</span>
+                </div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    GLSL Fragment Shaders <span class="text-gradient">From Zero</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    Your first 10 lines of computational art.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID (Article Left, Sticky Editor Right) -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    
+    <!-- REMOVIDO o "items-start" para permitir que o aside ocupe 100% da altura do artigo -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 relative">
+        
+        <!-- ARTICLE CONTENT (Left) -->
+        <article class="lg:col-span-7 space-y-16">
+            
+            <section id="intro" class="reveal-element">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">What is a Fragment Shader?</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">Let us begin with the most honest question possible: What is a fragment shader?</p>
+                    <p>In traditional programming, code executes sequentially. A Central Processing Unit (CPU) reads instructions one by one. If you instruct a CPU to paint a screen consisting of two million pixels, it paints pixel one, then pixel two, up until pixel two million. It is incredibly intelligent, but restricted by linearity.</p>
+                    <p>A Graphics Processing Unit (GPU) possesses thousands of small, specialized cores. A <strong>Fragment Shader</strong> is a function written in GLSL (OpenGL Shading Language) that is sent to the GPU. The GPU executes this exact same function for <em>every single pixel on the screen simultaneously</em>.</p>
+                    <p>Because the code runs perfectly in parallel, it is extraordinarily fast. However, it imposes a severe constraint: Pixel A has no knowledge of what Pixel B is doing. You cannot use traditional loops to draw lines from one point to another. You must express your entire visual intent as pure mathematical geometry based exclusively on the pixel's coordinate on the screen.</p>
+                </div>
+            </section>
+
+            <!-- THE 10 EFFECTS -->
+            <section class="space-y-16 mt-16">
+                
+                <!-- 01 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">01. The Gradient (UV Space)</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        We begin by normalizing the screen coordinates. <code>gl_FragCoord.xy</code> provides the exact pixel location (e.g., 800x600). Dividing this by <code>u_resolution.xy</code> yields our <code>uv</code> vector, ranging from 0.0 to 1.0 on both axes. Mapping <code>uv.x</code> to the Red channel and <code>uv.y</code> to the Green channel generates an absolute gradient.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["01"]); ?>)'>[ LOAD EXAMPLE 01 ]</button>
+                </div>
+
+                <!-- 02 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">02. The Perfect Circle</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        In GLSL, we draw shapes using math, not commands. By measuring the distance <code>length()</code> from the current pixel to the center of the screen <code>vec2(0.5)</code>, we acquire a radial gradient. The <code>smoothstep()</code> function acts as a threshold, converting that gradient into a solid, anti-aliased circle.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["02"]); ?>)'>[ LOAD EXAMPLE 02 ]</button>
+                </div>
+
+                <!-- 03 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">03. The Grid</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        The <code>fract()</code> function is a cornerstone of generative logic. It returns only the fractional part of a number (e.g., <code>fract(1.2) = 0.2</code>). By multiplying our <code>uv</code> coordinates by 10 and applying <code>fract()</code>, we instantly subdivide our space into a repeating 10x10 grid. The <code>step()</code> function draws the sharp boundary lines.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["03"]); ?>)'>[ LOAD EXAMPLE 03 ]</button>
+                </div>
+
+                <!-- 04 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-purple-500 to-fuchsia-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">04. Procedural Noise</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        GLSL does not possess a native <code>random()</code> function. To generate noise, we manipulate sine waves destructively. We take the dot product of our coordinates against an arbitrary large vector, apply a sine function, and multiply it by a massive number (43758.5453) to obliterate any visible pattern.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["04"]); ?>)'>[ LOAD EXAMPLE 04 ]</button>
+                </div>
+
+                <!-- 05 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-fuchsia-500 to-pink-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">05. Cosine Color Cycling</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Introduced by Inigo Quilez, this algorithm utilizes a simple cosine wave offset by different phases for Red, Green, and Blue channels. By injecting <code>u_time</code> (a uniform variable constantly updated by JavaScript) into the equation, the colors cycle infinitely and organically.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["05"]); ?>)'>[ LOAD EXAMPLE 05 ]</button>
+                </div>
+
+                <!-- 06 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-pink-500 to-rose-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">06. Domain Warping</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Instead of animating the color, we can animate the fabric of space itself. By adding a time-driven sine wave to the <code>uv.x</code> coordinate based on the <code>uv.y</code> coordinate, the space distorts, generating fluid, flag-like movements.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["06"]); ?>)'>[ LOAD EXAMPLE 06 ]</button>
+                </div>
+
+                <!-- 07 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-rose-500 to-red-500"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">07. Fractal Brownian Motion (fBM)</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Pure static noise is harsh. Nature exhibits structure. FBM superimposes multiple layers (octaves) of smoothed noise, progressively increasing the frequency and decreasing the amplitude. This algorithm is the architectural foundation of rendering digital clouds, mountains, and fog.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["07"]); ?>)'>[ LOAD EXAMPLE 07 ]</button>
+                </div>
+
+                <!-- 08 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-cyan-400 to-emerald-400"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">08. Domain Repetition</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Returning to the <code>fract()</code> function: if we multiply our coordinates, apply <code>fract()</code>, and subtract 0.5, we reset the center of our coordinate system multiple times across the screen. Drawing a single circle within this warped domain yields an infinite array of identical circles.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["08"]); ?>)'>[ LOAD EXAMPLE 08 ]</button>
+                </div>
+
+                <!-- 09 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-emerald-400 to-lime-400"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">09. Simple 3D Raymarching</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Shaders operate in 2D, but we can simulate 3D via Raymarching. We cast a virtual ray from a camera (Ray Origin) through every pixel on the screen (Ray Direction), stepping forward until we intersect a mathematical Signed Distance Field (SDF) of a sphere.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["09"]); ?>)'>[ LOAD EXAMPLE 09 ]</button>
+                </div>
+
+                <!-- 10 -->
+                <div class="node-card reveal-element">
+                    <div class="node-top-line bg-gradient-to-r from-lime-400 to-yellow-400"></div>
+                    <div class="flex items-center gap-4 mb-4 mt-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white text-2xl m-0">10. Compositing & Mixing</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Real generative art relies on layering. By calculating multiple masks (e.g., two moving circles) and utilizing the <code>mix()</code> function, we can interpolate between diverse colors seamlessly based on intersecting geometries.
+                    </p>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["10"]); ?>)'>[ LOAD EXAMPLE 10 ]</button>
+                </div>
+            </section>
+        </article>
+
+        <!-- SIDEBAR (Right) - STICKY GLSL EDITOR -->
+        <aside class="lg:col-span-5 relative">
+            <div class="sticky-sidebar space-y-6">
+                
+                <!-- Flex-grow faz com que o editor ocupe o máximo de espaço vertical possível na viewport -->
+                <div class="glsl-editor-wrap reveal-element border border-gray-800 flex-grow">
+                    <div class="w-full bg-[#111] border-b border-gray-800 aspect-square relative shrink-0">
+                        <canvas id="live-glsl-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        <div class="absolute top-4 right-4 bg-black/50 backdrop-blur px-2 py-1 rounded text-gray-400 font-mono text-[10px] tracking-widest uppercase border border-white/10">WebGL 1.0</div>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col p-4">
+                        <div class="text-[10px] font-mono text-gray-500 mb-2">// Edit GLSL code below. Runs automatically.</div>
+                        
+                        <textarea id="shader-code" class="glsl-textarea" spellcheck="false"><?= $shaders["01"]; ?></textarea>
+                        
+                        <div id="compile-error" class="hidden mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded text-red-400 font-mono text-[10px] whitespace-pre-wrap overflow-x-auto shrink-0"></div>
+                        
+                        <button id="btn-compile" class="w-full btn-cyber border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 mt-4 shrink-0">
+                            [ COMPILE SHADER ]
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // 1. Intersection Observer
+    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+    // 2. LIVE GLSL EDITOR LOGIC
+    const canvas = document.getElementById('live-glsl-canvas');
+    const textarea = document.getElementById('shader-code');
+    const compileBtn = document.getElementById('btn-compile');
+    const errorLog = document.getElementById('compile-error');
+    
+    if (canvas && textarea && compileBtn) {
+        const gl = canvas.getContext('webgl');
+        
+        const vertexShaderSource = `
+            attribute vec2 position;
+            void main() { gl_Position = vec4(position, 0.0, 1.0); }
+        `;
+
+        let currentProgram = null;
+        let animationFrameId = null;
+
+        function compileShader(type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                const info = gl.getShaderInfoLog(shader);
+                gl.deleteShader(shader);
+                throw new Error(info);
+            }
+            return shader;
+        }
+
+        function createShaderProgram(fragmentSource) {
+            try {
+                // Prepend standard uniforms and precision to keep user code clean
+                const fullFragSource = `
+                    precision mediump float;
+                    uniform vec2 u_resolution;
+                    uniform float u_time;
+                    ${fragmentSource}
+                `;
+
+                const vs = compileShader(gl.VERTEX_SHADER, vertexShaderSource);
+                const fs = compileShader(gl.FRAGMENT_SHADER, fullFragSource);
+
+                const program = gl.createProgram();
+                gl.attachShader(program, vs);
+                gl.attachShader(program, fs);
+                gl.linkProgram(program);
+
+                if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                    throw new Error(gl.getProgramInfoLog(program));
+                }
+
+                errorLog.classList.add('hidden');
+                return program;
+            } catch (e) {
+                errorLog.innerText = "[ COMPILATION ERROR ]\n" + e.message;
+                errorLog.classList.remove('hidden');
+                return null;
+            }
+        }
+
+        function renderLoop(time) {
+            if (!currentProgram) return;
+
+            // Handle Resize
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+
+            gl.useProgram(currentProgram);
+
+            // Buffer setup
+            const buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+            const posLoc = gl.getAttribLocation(currentProgram, "position");
+            gl.enableVertexAttribArray(posLoc);
+            gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+            // Uniforms
+            const timeLoc = gl.getUniformLocation(currentProgram, "u_time");
+            const resLoc = gl.getUniformLocation(currentProgram, "u_resolution");
+            
+            gl.uniform1f(timeLoc, time * 0.001);
+            gl.uniform2f(resLoc, canvas.width, canvas.height);
+
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+            animationFrameId = requestAnimationFrame(renderLoop);
+        }
+
+        function updateShader() {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+            const newProgram = createShaderProgram(textarea.value);
+            if (newProgram) {
+                currentProgram = newProgram;
+                requestAnimationFrame(renderLoop);
+            }
+        }
+
+        compileBtn.addEventListener('click', () => {
+            compileBtn.innerText = "[ COMPILING... ]";
+            setTimeout(() => {
+                updateShader();
+                compileBtn.innerText = "[ COMPILE SHADER ]";
+            }, 100);
+        });
+
+        // Expose function for the "Load Example" buttons
+        window.loadShaderExample = (codeStr) => {
+            textarea.value = codeStr;
+            updateShader();
+            // Scroll to top of window slightly to show canvas if on mobile
+            if(window.innerWidth < 1024) {
+                document.getElementById('live-glsl-canvas').scrollIntoView({behavior: "smooth", block: "center"});
+            }
+        };
+
+        // Initial Load
+        updateShader();
+    }
+})();
+</script>
+
+</body>
+</html>

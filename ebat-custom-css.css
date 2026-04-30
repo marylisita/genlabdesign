@@ -1,0 +1,57 @@
+/* =====================================================
+   EBAT - CSS PERSONALIZADO PARA MODERNIZAÇÃO
+   =====================================================
+   Versão atual aplicada no site via WPCode (snippet ID 2019)
+   ===================================================== */
+
+/* =====================================================
+   1. POPUP "INSCRIÇÕES ABERTAS" — Design moderno
+   ===================================================== */
+.pum-container {
+  border-radius: 20px !important;
+  border: none !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
+  overflow: visible !important;
+  max-height: 90vh !important;
+}
+
+.pum-content {
+  overflow: visible !important;
+}
+
+.pum-close,
+.popmake-close {
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  border: none !important;
+  transition: background 0.2s !important;
+  z-index: 999 !important;
+}
+
+.pum-close:hover,
+.popmake-close:hover {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* =====================================================
+   2. BOTÕES — Gradiente Roxo EBAT
+   De #6a1b9a (roxo escuro) para #9c4dcc (roxo claro)
+   ===================================================== */
+.nectar-blocks-button .nectar-blocks-button__inner {
+  transition: all 0.3s ease !important;
+  background: linear-gradient(135deg, #6a1b9a, #9c4dcc) !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.nectar-blocks-button .nectar-blocks-button__inner:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(106, 27, 154, 0.3) !important;
+  background: linear-gradient(135deg, #7b1fa2, #ab47bc) !important;
+}
+
+/* =====================================================
+   FIM DO CSS PERSONALIZADO EBAT
+   ===================================================== */

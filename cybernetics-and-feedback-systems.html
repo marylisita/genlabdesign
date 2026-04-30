@@ -1,0 +1,961 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybernetics and Feedback: How Systems Think // GenLab</title>
+    <meta name="description" content="From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Cybernetics and Feedback: How Systems Think // GenLab">
+    <meta property="og:description" content="From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Cybernetics and Feedback: How Systems Think // GenLab">
+    <meta property="twitter:description" content="From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Cybernetics and Feedback: How Systems Think",
+  "description":"From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener's Cybernetics, feedback loops, and second-order systems.",
+  "author":{"@type":"Person","name":"Kuronami"},
+  "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+  "datePublished":"2026-05-10"
+}
+</script>
+
+<style>
+    /* =========================================
+       PREMIUM EDITORIAL & VOGUE STYLES
+       ========================================= */
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+    
+    .premium-hero {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: none;
+    }
+
+    #hero-canvas {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Glassmorphic Base Cards - ZERO BORDERS */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        box-shadow: 0 15px 40px -10px rgba(0,0,0,0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19, 27, 50, 0.85);
+        border: none;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.15); }
+
+    /* Custom Design Match Cards (Nodes) - ZERO BORDERS */
+    .node-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 1.25rem;
+        position: relative;
+        overflow: hidden;
+        padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dark .node-card {
+        background: rgba(30, 30, 35, 0.6);
+        border: none;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+    }
+    .node-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.1);
+    }
+    .dark .node-card:hover {
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.5);
+    }
+    
+    .node-top-line {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 4px;
+    }
+
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    .ed-dropcap::first-letter {
+        float: left;
+        font-family: 'Playfair Display', serif;
+        font-size: 6.5rem;
+        line-height: 0.75;
+        padding-top: 0.4rem;
+        padding-right: 1rem;
+        color: #111;
+        font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+    
+    .kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #10b981; /* Emerald */
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #10b981, #3b82f6, #10b981); /* Emerald to Blue */
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: gradient-shift 5s ease infinite;
+    }
+    .dark .text-gradient {
+        background: linear-gradient(90deg, #34d399, #60a5fa, #34d399);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+    }
+    @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+    .sticky-sidebar { position: sticky; top: 100px; }
+
+    /* Code Console Styles */
+    .code-console { background: #050505; border: none; border-radius: 16px; overflow: hidden; font-family: 'JetBrains Mono', monospace; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+    .console-header { background: #111827; padding: 12px 20px; display: flex; align-items: center; border-bottom: 1px solid #1f2937; }
+    .console-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .console-body { padding: 24px; color: #d1d5db; font-size: 0.85rem; line-height: 1.7; overflow-x: auto; }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .animate-blink { animation: blink 1s infinite; }
+
+    /* Custom Simulator UI */
+    .sim-workspace { background: #0a0a0f; border-radius: 24px; overflow: hidden; border: none; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .sim-canvas-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .sim-controls { padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; border-top: none; }
+    .sim-control label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #10b981; margin-bottom: 8px; }
+    .sim-control input[type="range"] { width: 100%; -webkit-appearance: none; height: 4px; background: #222; border-radius: 2px; outline: none; }
+    .sim-control input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #10b981; cursor: pointer; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+    
+    .sim-btn-row { padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .sim-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 20px; border-radius: 8px; border: none; background: rgba(255,255,255,0.08); color: #ccc; cursor: pointer; transition: all 0.3s; flex: 1; min-width: 150px; }
+    .sim-btn.active { background: rgba(16,185,129,0.2); color: #10b981; border: 1px solid #10b981; }
+    .sim-btn:hover { background: rgba(16,185,129,0.2); color: #10b981; transform: translateY(-2px); }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10 transition-colors duration-500">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Hero Text -->
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">System Theory</span>
+                </div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    Cybernetics & Feedback: <br>How Systems <span class="text-gradient">Think</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    From WWII anti-aircraft guns to AI reinforcement learning.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1948" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Norbert Wiener</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="2" data-suffix="nd">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Order Cybernetics</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="100" data-suffix="%">0%</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Feedback Loops</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual Card -->
+            <div class="lg:col-span-5 reveal-element hidden lg:block">
+                <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Abstract Network Diagram" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700 mix-blend-luminosity">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent opacity-80"></div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">Circular Causality</h4>
+                            <p class="text-xs text-gray-300 font-mono">The output of the system serves as its own input.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    
+    <!-- Top Leaderboard Ad Slot -->
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center reveal-element">
+        <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        <!-- ARTICLE CONTENT -->
+        <article class="lg:col-span-8 space-y-12">
+
+            <div class="bg-emerald-500/5 p-4 mb-8 rounded-lg reveal-element">
+                <p class="m-0 text-emerald-500 font-mono font-bold tracking-wide">> CRITICAL_LAB // SYSTEM_THEORY</p>
+                <p class="mt-1 mb-0 text-gray-500 dark:text-gray-400 text-sm font-mono">Process: Deconstructing the science that connects organisms, machines, and societies.</p>
+            </div>
+
+            <!-- SECTION 1: THE ORIGINS -->
+            <section id="origins" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">The Anti-Aircraft Problem</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Norbert Wiener and the Birth of Cybernetics</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">In 1948, mathematician Norbert Wiener published a book titled <em>Cybernetics: Or Control and Communication in the Animal and the Machine</em>. It laid the foundation for the entire digital age, yet its origins were deeply practical and born out of the exigencies of World War II.</p>
+                    <p>At MIT, Wiener was tasked with solving a lethal mathematical problem: how to accurately aim anti-aircraft guns at fast-moving enemy planes. You cannot fire directly at the plane because the shell takes time to travel. You must fire at where the plane <em>will be</em>. This requires predicting human behavior under extreme stress.</p>
+                    <p>Wiener realized that the pilot is a system constantly correcting their own errors. If the pilot veers off course, they pull the stick back to correct it. Wiener modeled this behavior as a <strong>feedback loop</strong>. He discovered that the mathematical equations governing the human nervous system attempting to steer a plane were fundamentally identical to the equations governing a machine attempting to steer a turret. The boundary between biology and engineering collapsed into a single science of control: Cybernetics.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 2: THE UNIVERSAL PRINCIPLE -->
+            <section id="feedback" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Universal Principle</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">1. Positive and Negative Feedback</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>At the core of cybernetics is <em>circular causality</em>. In classical physics, A causes B. In cybernetics, A causes B, which in turn causes a change in A. The system reads its own output to adjust its subsequent input.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-blue-400 to-cyan-500"></div>
+                            <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2 flex items-center gap-2">
+                                <span class="bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 px-2 py-1 rounded text-xs font-mono">[-]</span>
+                                Negative Feedback
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">The mechanism of stability and homeostasis. When a system strays from a target goal, it applies a corrective force in the opposite direction. Examples include a thermostat maintaining room temperature or the human body sweating to prevent overheating.</p>
+                        </div>
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-red-400 to-orange-500"></div>
+                            <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2 flex items-center gap-2">
+                                <span class="bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 px-2 py-1 rounded text-xs font-mono">[+]</span>
+                                Positive Feedback
+                            </h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">The mechanism of exponential growth and eventual collapse. The system amplifies its own output. Examples include a microphone screeching near a speaker, panic buying in financial markets, or viral algorithmic spread on social media.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SIMULATOR 1: THERMOSTAT -->
+            <section id="sim-thermostat" class="reveal-element mt-16 ml-4">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">2. Interactive: The Cybernetic Thermostat</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 mb-8">
+                    <p>A Proportional (P) controller is the simplest form of negative feedback. The system calculates the error (Target - Current) and multiplies it by the Gain to determine the corrective action. If the Gain is too high, the system overcorrects, resulting in violent oscillation.</p>
+                    <p class="font-bold text-emerald-500">> Increase the Feedback Gain to force the system into hysterical overshooting.</p>
+                </div>
+
+                <div class="sim-workspace">
+                    <div class="sim-canvas-wrap h-[200px]">
+                        <canvas id="thermostat-canvas"></canvas>
+                    </div>
+
+                    <div class="sim-controls">
+                        <div class="sim-control">
+                            <label>Target Temperature</label>
+                            <input type="range" id="sl-target" min="10" max="90" step="1" value="50">
+                        </div>
+                        <div class="sim-control">
+                            <label>Feedback Gain</label>
+                            <input type="range" id="sl-gain" min="0.01" max="1.1" step="0.01" value="0.1">
+                        </div>
+                        <div class="sim-control">
+                            <label>Environmental Noise</label>
+                            <input type="range" id="sl-noise" min="0" max="10" step="0.5" value="2">
+                        </div>
+                    </div>
+                    <div id="therm-status" class="p-4 bg-black/50 border-t border-gray-800 text-xs font-mono text-gray-400">
+                        > Awaiting system initialization...
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: THE 5 DOMAINS -->
+            <section id="domains" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Omnipresent Loop</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">3. How Cybernetics Rules the Modern World</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>Wiener's insight was that information is information, regardless of the vessel. This allowed cybernetics to become the meta-framework for almost every modern technological discipline.</p>
+
+                    <div class="space-y-6 mt-6">
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                            <h3 class="font-mono text-sm font-bold text-emerald-500 uppercase tracking-wider mb-2">Generative Art (Feedback Visuality)</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">In creative coding, feedback occurs when a system reads its own previous frame as the input for the next frame. Reaction-diffusion algorithms (Turing patterns) and Cellular Automata (Conway's Game of Life) are pure cybernetic engines: simple local rules generating complex global homeostasis.</p>
+                        </div>
+
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+                            <h3 class="font-mono text-sm font-bold text-blue-500 uppercase tracking-wider mb-2">Interface Design (Affordances)</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Don Norman, the pioneer of UX design, built his theories on cybernetic principles. The concept of an "affordance" relies on the user performing an action and the system providing immediate kinematic feedback. Without a closed feedback loop (a button clicking, a loader spinning), the user experiences cognitive dissonance.</p>
+                        </div>
+
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-purple-400 to-fuchsia-500"></div>
+                            <h3 class="font-mono text-sm font-bold text-purple-500 uppercase tracking-wider mb-2">Artificial Intelligence (Reinforcement)</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Reinforcement Learning (RL), the backbone of modern AI agents, is literal cybernetics. An agent takes an action in an environment, receives a reward or punishment (feedback), and adjusts its internal weights to maximize future rewards. The machine learns by steering itself through failure.</p>
+                        </div>
+
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                            <h3 class="font-mono text-sm font-bold text-amber-500 uppercase tracking-wider mb-2">Ecological Homeostasis</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">The Gaia hypothesis models the Earth as a cybernetic system. Predator-prey dynamics, carbon cycles, and global temperatures are regulated by massive negative feedback loops. Climate change represents a critical failure of these biological thermostats, shifting the planet into a devastating positive feedback spiral.</p>
+                        </div>
+
+                        <div class="node-card">
+                            <div class="node-top-line bg-gradient-to-r from-red-400 to-rose-500"></div>
+                            <h3 class="font-mono text-sm font-bold text-red-500 uppercase tracking-wider mb-2">Algorithmic Society</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Social media platforms operate as runaway positive feedback mechanisms. An algorithm measures user engagement (dwell time) and feeds back increasingly polarizing content to maximize that engagement, resulting in the systemic fragmentation of objective reality and the rise of ideological echo chambers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: SECOND ORDER -->
+            <section id="second-order" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Observer</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">4. Second-Order Cybernetics</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>In the 1970s, Heinz von Foerster revolutionized the field by introducing <em>Second-Order Cybernetics</em>. While the original discipline studied the control and communication of observed systems (like a thermostat or a guided missile), the second order is the cybernetics of observing systems.</p>
+                    <p>Von Foerster realized a critical philosophical flaw: the scientist is never truly outside the system looking in. The observer is part of the system. Their act of observing alters the feedback loop.</p>
+                    <p>In contemporary terms, an algorithm cannot be neutral because the programmer's biases are embedded in the code. A social media user cannot neutrally observe the feed, because the feed is actively rearranging itself based on how the user observes it. We are not just controlling the machine; the machine is cybernetically steering us.</p>
+                </div>
+            </section>
+
+            <!-- SIMULATOR 2: BOIDS -->
+            <section id="sim-boids" class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] mt-16 reveal-element ml-4">
+                <h4 class="text-blue-500 font-mono mb-4 text-xs uppercase tracking-widest">[ DISTRIBUTED_FEEDBACK_SIMULATOR ]</h4>
+                <p class="text-gray-400 text-sm mb-6">Craig Reynolds' Boids algorithm demonstrates how complex flocking behavior emerges purely from local, distributed feedback loops without any central leader.</p>
+                
+                <div class="sim-workspace">
+                    <div class="sim-canvas-wrap h-[300px]">
+                        <canvas id="boids-canvas"></canvas>
+                    </div>
+
+                    <div class="sim-btn-row">
+                        <button id="btn-sep" class="sim-btn active">[ SEPARATION ]</button>
+                        <button id="btn-ali" class="sim-btn active">[ ALIGNMENT ]</button>
+                        <button id="btn-coh" class="sim-btn active">[ COHESION ]</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mid Article Ad Slot -->
+            <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <!-- SECTION 5: CLOSING -->
+            <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-[#111a18] dark:to-[#11161a]">
+                <span class="kicker">Conclusion</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">5. The Enduring Legacy of Wiener</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p>Weiner's vision was both brilliant and terrifying. By abstracting biological intelligence into information processing, he enabled the creation of artificial systems that mimic life. However, he also warned us of the consequences. If a machine operates purely to maximize a numerical goal without ethical constraints, it will pursue that goal ruthlessly.</p>
+                    <p>The core lesson of cybernetics remains vital: no system exists in isolation. Whether we are architecting generative aesthetics, coding AI agents, or designing social platforms, we must understand the feedback loops we are initiating. The machine reads the output; we must ensure the output is something humanity can survive.</p>
+                </div>
+            </section>
+
+            <!-- REFERENCES -->
+            <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+                <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+                <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-3">
+                    <li><span class="text-emerald-500">[01]</span> <strong>Wiener, N. (1948).</strong> <em>Cybernetics: Or Control and Communication in the Animal and the Machine.</em> MIT Press.</li>
+                    <li><span class="text-emerald-500">[02]</span> <strong>Von Foerster, H. (1974).</strong> <em>Cybernetics of Cybernetics.</em> Biological Computer Laboratory.</li>
+                    <li><span class="text-emerald-500">[03]</span> <strong>Norman, D. (1988).</strong> <em>The Design of Everyday Things.</em> Basic Books.</li>
+                    <li><span class="text-emerald-500">[04]</span> <strong>Reynolds, C. W. (1987).</strong> <em>Flocks, Herds, and Schools: A Distributed Behavioral Model.</em> SIGGRAPH.</li>
+                </ul>
+            </div>
+
+            <!-- RELATED LINKS -->
+            <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+                <span class="kicker">Continue Reading</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <a href="digital-organisms-cellular-automata.html" class="block p-6 rounded-2xl bg-white dark:bg-darkSurface hover:shadow-xl transition-all group">
+                        <span class="text-xs font-mono text-emerald-500 font-bold uppercase tracking-wider block mb-2">Kinetic Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-emerald-500 transition-colors">Digital Organisms & Automata</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">An architectural analysis of Artificial Life and reaction-diffusion models.</p>
+                    </a>
+                    <a href="autonomous-ai-agents.html" class="block p-6 rounded-2xl bg-white dark:bg-darkSurface hover:shadow-xl transition-all group">
+                        <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider block mb-2">Tech Design</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">Autonomous AI Agents</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">How reinforcement learning translates cybernetics into digital coworkers.</p>
+                    </a>
+                </div>
+            </section>
+        </article>
+
+        <!-- SIDEBAR -->
+        <aside class="lg:col-span-4 space-y-8">
+            <div class="sticky-sidebar space-y-8">
+                <div class="glass-card p-6 reveal-element">
+                    <span class="kicker">On this page</span>
+                    <ul class="space-y-3 font-mono text-sm mt-4">
+                        <li><a href="#origins" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. The Anti-Aircraft Problem</a></li>
+                        <li><a href="#feedback" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Positive & Negative Feedback</a></li>
+                        <li><a href="#sim-thermostat" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Thermostat Simulator</a></li>
+                        <li><a href="#domains" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. The 5 Cybernetic Domains</a></li>
+                        <li><a href="#second-order" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Second-Order Cybernetics</a></li>
+                        <li><a href="#sim-boids" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Boids Simulator</a></li>
+                        <li><a href="#conclusion" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">7. Conclusion</a></li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center min-h-[400px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:250px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // 1. Intersection Observer
+    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                
+                if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const targetVal = parseInt(entry.target.dataset.count, 10);
+                    let currentVal = 0;
+                    const duration = 1500;
+                    const stepTime = Math.abs(Math.floor(duration / targetVal));
+                    const timer = setInterval(() => {
+                        currentVal += 1;
+                        entry.target.innerText = currentVal + (entry.target.dataset.suffix || '');
+                        if (currentVal >= targetVal) clearInterval(timer);
+                    }, stepTime);
+                }
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+    // 2. 3D Tilt Interaction
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        });
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'none'; 
+        });
+    });
+
+    // 3. Hero Particle Canvas (Networked Feedback Theme)
+    const heroCanvas = document.getElementById('hero-canvas');
+    if (heroCanvas) {
+        const ctx = heroCanvas.getContext('2d');
+        let w, h, nodes = [];
+        
+        function initHero() {
+            w = heroCanvas.width = window.innerWidth;
+            h = heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+            nodes = [];
+            for (let i = 0; i < 60; i++) {
+                nodes.push({
+                    x: Math.random() * w, y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
+                    targetX: w/2, targetY: h/2
+                });
+            }
+        }
+        window.addEventListener('resize', initHero);
+        initHero();
+
+        function drawHero() {
+            ctx.clearRect(0, 0, w, h);
+            const isDark = document.documentElement.classList.contains('dark');
+            const color = isDark ? 'rgba(52, 211, 153, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+            
+            nodes.forEach((n, i) => {
+                // Feedback pull to center
+                n.vx += (w/2 - n.x) * 0.0001;
+                n.vy += (h/2 - n.y) * 0.0001;
+                
+                n.x += n.vx; n.y += n.vy;
+                
+                // Friction
+                n.vx *= 0.99; n.vy *= 0.99;
+
+                ctx.fillStyle = color;
+                ctx.beginPath(); ctx.arc(n.x, n.y, 2, 0, Math.PI*2); ctx.fill();
+
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dist = Math.hypot(n.x - nodes[j].x, n.y - nodes[j].y);
+                    if (dist < 120) {
+                        ctx.strokeStyle = isDark ? `rgba(96, 165, 250, ${(1 - dist/120)*0.2})` : `rgba(59, 130, 246, ${(1 - dist/120)*0.2})`;
+                        ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                        
+                        // Push apart (Negative feedback)
+                        if(dist < 50) {
+                            n.vx += (n.x - nodes[j].x) * 0.005;
+                            n.vy += (n.y - nodes[j].y) * 0.005;
+                        }
+                    }
+                }
+            });
+            requestAnimationFrame(drawHero);
+        }
+        drawHero();
+    }
+
+    // 4. THERMOSTAT PID SIMULATOR
+    const tCanvas = document.getElementById('thermostat-canvas');
+    if (tCanvas) {
+        const tCtx = tCanvas.getContext('2d');
+        const slTarget = document.getElementById('sl-target');
+        const slGain = document.getElementById('sl-gain');
+        const slNoise = document.getElementById('sl-noise');
+        
+        let history = [];
+        let currentTemp = 20;
+        let timeStep = 0;
+
+        function drawThermostat() {
+            const w = tCanvas.width = tCanvas.parentElement.clientWidth;
+            const h = tCanvas.height = tCanvas.parentElement.clientHeight;
+            
+            const targetTemp = parseFloat(slTarget.value);
+            const gain = parseFloat(slGain.value);
+            const noise = parseFloat(slNoise.value);
+
+            // PID Logic (Proportional only for simplicity in showing oscillation)
+            const error = targetTemp - currentTemp;
+            currentTemp += (error * gain) + ((Math.random() - 0.5) * noise);
+
+            history.push(currentTemp);
+            if (history.length > w) history.shift();
+
+            tCtx.clearRect(0, 0, w, h);
+
+            // Draw Target Line
+            const targetY = h - (targetTemp / 100) * h;
+            tCtx.strokeStyle = 'rgba(59, 130, 246, 0.5)'; // Blue
+            tCtx.setLineDash([5, 5]);
+            tCtx.beginPath(); tCtx.moveTo(0, targetY); tCtx.lineTo(w, targetY); tCtx.stroke();
+            tCtx.setLineDash([]);
+
+            // Draw System Temperature
+            tCtx.strokeStyle = '#10b981'; // Emerald
+            tCtx.lineWidth = 2;
+            tCtx.beginPath();
+            for (let i = 0; i < history.length; i++) {
+                const x = w - history.length + i;
+                const y = h - (history[i] / 100) * h;
+                if (i === 0) tCtx.moveTo(x, y);
+                else tCtx.lineTo(x, y);
+            }
+            tCtx.stroke();
+
+            // Status output
+            const statusDiv = document.getElementById('therm-status');
+            if (statusDiv) {
+                let statusMsg = "STABLE HOMEOSTASIS";
+                let colorClass = "text-emerald-500";
+                if (gain > 0.8) { statusMsg = "HYPER-OSCILLATION (Overshooting)"; colorClass = "text-red-500"; }
+                if (gain < 0.05) { statusMsg = "SYSTEM LAG (Under-responsive)"; colorClass = "text-amber-500"; }
+                
+                statusDiv.innerHTML = `> CURRENT: ${currentTemp.toFixed(1)}°C | TARGET: ${targetTemp.toFixed(1)}°C <br><span class="${colorClass}">[STATUS] ${statusMsg}</span>`;
+            }
+
+            requestAnimationFrame(drawThermostat);
+        }
+        drawThermostat();
+    }
+
+    // 5. BOIDS / DISTRIBUTED FEEDBACK SIMULATOR
+    const bCanvas = document.getElementById('boids-canvas');
+    if (bCanvas) {
+        const bCtx = bCanvas.getContext('2d');
+        let bw, bh;
+        let boids = [];
+
+        let rules = { separation: true, alignment: true, cohesion: true };
+
+        document.getElementById('btn-sep').addEventListener('click', function() { rules.separation = !rules.separation; this.classList.toggle('active'); });
+        document.getElementById('btn-ali').addEventListener('click', function() { rules.alignment = !rules.alignment; this.classList.toggle('active'); });
+        document.getElementById('btn-coh').addEventListener('click', function() { rules.cohesion = !rules.cohesion; this.classList.toggle('active'); });
+
+        class Boid {
+            constructor(x, y) {
+                this.position = {x, y};
+                this.velocity = {x: (Math.random()-0.5)*4, y: (Math.random()-0.5)*4};
+                this.acceleration = {x: 0, y: 0};
+                this.maxForce = 0.2;
+                this.maxSpeed = 4;
+            }
+            
+            edges() {
+                if (this.position.x > bw) this.position.x = 0;
+                else if (this.position.x < 0) this.position.x = bw;
+                if (this.position.y > bh) this.position.y = 0;
+                else if (this.position.y < 0) this.position.y = bh;
+            }
+
+            flock(boids) {
+                let sep = {x:0,y:0}, ali = {x:0,y:0}, coh = {x:0,y:0};
+                let total = 0;
+                for (let other of boids) {
+                    let d = Math.hypot(this.position.x - other.position.x, this.position.y - other.position.y);
+                    if (other != this && d < 50) {
+                        if (rules.separation && d < 25) {
+                            let diff = {x: this.position.x - other.position.x, y: this.position.y - other.position.y};
+                            diff.x /= d; diff.y /= d;
+                            sep.x += diff.x; sep.y += diff.y;
+                        }
+                        if (rules.alignment) {
+                            ali.x += other.velocity.x; ali.y += other.velocity.y;
+                        }
+                        if (rules.cohesion) {
+                            coh.x += other.position.x; coh.y += other.position.y;
+                        }
+                        total++;
+                    }
+                }
+                
+                if (total > 0) {
+                    if (rules.separation) { sep.x /= total; sep.y /= total; }
+                    if (rules.alignment) { ali.x /= total; ali.y /= total; }
+                    if (rules.cohesion) { 
+                        coh.x /= total; coh.y /= total; 
+                        coh.x -= this.position.x; coh.y -= this.position.y; 
+                    }
+                }
+
+                this.acceleration.x += sep.x * 1.5 + ali.x * 1.0 + coh.x * 1.0;
+                this.acceleration.y += sep.y * 1.5 + ali.y * 1.0 + coh.y * 1.0;
+            }
+
+            update() {
+                this.position.x += this.velocity.x;
+                this.position.y += this.velocity.y;
+                this.velocity.x += this.acceleration.x;
+                this.velocity.y += this.acceleration.y;
+                
+                let speed = Math.hypot(this.velocity.x, this.velocity.y);
+                if(speed > this.maxSpeed) {
+                    this.velocity.x = (this.velocity.x / speed) * this.maxSpeed;
+                    this.velocity.y = (this.velocity.y / speed) * this.maxSpeed;
+                }
+                this.acceleration.x = 0; this.acceleration.y = 0;
+            }
+
+            show() {
+                const angle = Math.atan2(this.velocity.y, this.velocity.x);
+                bCtx.translate(this.position.x, this.position.y);
+                bCtx.rotate(angle);
+                bCtx.fillStyle = '#3b82f6';
+                bCtx.beginPath();
+                bCtx.moveTo(8, 0);
+                bCtx.lineTo(-4, 4);
+                bCtx.lineTo(-4, -4);
+                bCtx.closePath();
+                bCtx.fill();
+                bCtx.rotate(-angle);
+                bCtx.translate(-this.position.x, -this.position.y);
+            }
+        }
+
+        function initBoids() {
+            bw = bCanvas.width = bCanvas.parentElement.clientWidth;
+            bh = bCanvas.height = bCanvas.parentElement.clientHeight || 400;
+            boids = [];
+            for (let i = 0; i < 100; i++) boids.push(new Boid(Math.random()*bw, Math.random()*bh));
+        }
+
+        function drawBoids() {
+            bCtx.clearRect(0, 0, bw, bh);
+            for (let boid of boids) {
+                boid.edges();
+                boid.flock(boids);
+                boid.update();
+                boid.show();
+            }
+            requestAnimationFrame(drawBoids);
+        }
+
+        window.addEventListener('resize', initBoids);
+        initBoids(); drawBoids();
+    }
+
+})();
+</script>
+
+</body>
+</html>

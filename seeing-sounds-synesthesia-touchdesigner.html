@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seeing Sounds: The Geometry of Silence // GenLab</title>
+    <meta name="description" content="My journey through generative art, TouchDesigner, drone music, and synesthesia as I graduate from university.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Seeing Sounds: The Geometry of Silence // GenLab">
+    <meta property="og:description" content="My journey through generative art, TouchDesigner, drone music, and synesthesia as I graduate from university.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Seeing Sounds: The Geometry of Silence // GenLab">
+    <meta property="twitter:description" content="My journey through generative art, TouchDesigner, drone music, and synesthesia as I graduate from university.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/seeing-sounds-synesthesia-touchdesigner.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/seeing-sounds-synesthesia-touchdesigner.php">
+<meta property="og:title" content="Seeing Sounds: How I Built Generative Visuals from Silence">
+<meta property="og:description" content="My graduation project started with ambient drone music from 2019 and ended with TouchDesigner code that turns sound frequencies into geometry. Here's how.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seeing Sounds: How I Built Generative Visuals from Silence">
+<meta name="twitter:description" content="My graduation project started with ambient drone music from 2019 and ended with TouchDesigner code that turns sound frequencies into geometry. Here's how.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200">
+
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"Seeing Sounds: My Journey Through Synesthesia, Drone Music, and TouchDesigner",
+ "description":"My journey through generative art, creative coding, drone music, and synesthesia as I graduate from university.",
+ "author":{"@type":"Person","name":"Bel"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-03-24"
+}
+</script>
+
+<style>
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+ 
+ .premium-hero {
+ position: relative;
+ min-height: 85vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ background: radial-gradient(circle at 50% 120%, rgba(139, 92, 246, 0.1), transparent 70%);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); background: radial-gradient(circle at 50% 120%, rgba(139, 92, 246, 0.15), transparent 70%); }
+
+ #drone-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0;
+ opacity: 0.7;
+ pointer-events: none;
+ }
+
+ .glass-card {
+ background: rgba(255, 255, 255, 0.7);
+ border: 1px solid rgba(0, 0, 0, 0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19, 27, 50, 0.6);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover { border-color: rgba(167, 139, 250, 0.3); }
+
+ .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+ 
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #a78bfa; 
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ .text-gradient {
+ background: linear-gradient(90deg, #a78bfa, #3b82f6, #a78bfa);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 8s ease infinite;
+ }
+ .dark .text-gradient { background: linear-gradient(90deg, #d8b4fe, #93c5fd, #d8b4fe); -webkit-background-clip: text; }
+ @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+ .td-node {
+ background: #2a2a2a; border: 1px solid #444; border-radius: 6px; padding: 10px; width: 120px;
+ display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2;
+ }
+ .td-node-header { background: #444; width: 100%; text-align: center; font-size: 0.6rem; padding: 3px 0; border-radius: 4px 4px 0 0; margin-bottom: 8px; font-weight: bold; color: #fff;}
+ .td-node.chop .td-node-header { background: #4b6b3e; }
+ .td-node.sop .td-node-header { background: #3e5a6b; }
+ .td-node.top .td-node-header { background: #6b3e6b; }
+ 
+ .td-wire { height: 2px; background: #555; z-index: 1; transition: background 0.3s; width: 30px; }
+ .td-wire.active { background: #a78bfa; box-shadow: 0 0 8px #a78bfa; animation: pulse-wire 1.5s infinite; }
+ @keyframes pulse-wire { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+ #kandinsky-canvas { transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 16px; overflow: hidden; }
+ .shape-element { position: absolute; transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); opacity: 0; transform: scale(0.5) rotate(0deg); }
+ .shape-element.active { opacity: 1; transform: scale(1) rotate(45deg); }
+
+ .diary-date {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.85rem;
+ color: #a78bfa;
+ 
+ padding-left: 1rem;
+ margin-bottom: 2rem;
+ }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10 relative">
+ <canvas id="drone-canvas"></canvas>
+ 
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+ <div class="lg:col-span-8">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-[#a78bfa] animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Diary / Behind the Scenes</span>
+ </div>
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ Seeing Sounds: The <br>
+ <span class="text-gradient">Geometry of Silence</span>
+ </h1>
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ My journey through generative art, TouchDesigner, drone music, and my Final Project.
+ </p>
+ </div>
+ </div>
+ </div>
+</header>
+
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+ 
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+ <article class="lg:col-span-8 space-y-12">
+ 
+ <div class="diary-date reveal-element">
+ ENTRY LOG: RIO DE JANEIRO // 05:30 AM
+ </div>
+
+ <section id="the-void" class="reveal-element">
+ <div class="font-sans text-lg text-gray-800 dark:text-gray-300 leading-relaxed space-y-6 text-left md:text-justify">
+ <p class="ed-dropcap">When I first started university five years ago, my understanding of design was entirely confined to grids, typography, and brand manuals. I never imagined that my graduation project would involve writing code to generate living geometry from ambient noise.</p>
+ <p>The inspiration came from a very specific atmosphere: the quiet, low hum that hangs over Guanabara Bay in the early hours of the morning, just before Rio wakes up. That distinct silence became the baseline for my Final Project in <strong>generative art</strong>. Instead of drawing a static composition, I decided to use <strong>creative coding</strong> to build a series of <strong>audioreactive visuals</strong> that materialize sound frequencies into physical space on the screen.</p>
+ </div>
+ </section>
+
+ <section id="the-sound" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] dark:from-[#111] dark:to-[#0a0a0a]">
+ <span class="kicker">Audio Engineering</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Designing the Void: Project Gemini</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p>Most people think of design as purely visual, but in generative art, I started with my ears. I returned to an ambient drone album I composed back in 2019 called <em>Gemini</em>. Inspired by the constellation, the tracks were originally designed to document a sonic journey through deep space.</p>
+ 
+ <div class="my-8 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800">
+ <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/shaunary/sets/gemini&color=%23a78bfa&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"></iframe>
+ </div>
+
+ <p>Working with drone music is a unique process because it relies on sustained tones and gradual frequency shifts rather than traditional beats or melodies. It demands patience. In a digital landscape built to fracture our attention into fifteen-second scrolling loops, drone music forces stillness.</p>
+ <p>It physically occupies the room. By using these tracks as my foundation, my goal was to build a digital sanctuary where the listener is forced to sit, observe, and absorb the slow progression of the sound.</p>
+ </div>
+ </section>
+
+ <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <section id="kandinsky" class="reveal-element mt-16">
+ <span class="kicker pl-4">Visual Theory</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Ghost of Kandinsky</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">The immediate challenge was figuring out how to give a physical body to a sound that lacks a clear rhythm. To solve this, I turned to Wassily Kandinsky and the concept of <strong>synesthesia in art</strong> as my theoretical baseline.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Kandinsky didn’t just paint; he experienced synesthesia, mapping colors to temperatures and sounds to specific shapes—a yellow C-sharp, a deep blue cello note. My project is an attempt to translate his theories into modern creative code. I started asking practical questions: what is the geometric equivalent of a 440Hz sine wave? How does a distorted bass frequency alter the visual temperature of the canvas? By feeding audio data directly into the system, the underlying math dictates the visual output, turning sound into an architect of <strong>generative geometry</strong>.</p>
+
+ <div class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-xl mt-8">
+ <div class="flex items-center gap-3 mb-4">
+ <h4 class="text-[#a78bfa] font-mono text-xs uppercase tracking-widest m-0">[ SYNESTHESIA_MAPPER.EXE ]</h4>
+ <span class="bg-[#a78bfa]/20 text-[#a78bfa] text-[10px] px-2 py-0.5 rounded font-mono font-bold">AUDIO ENABLED 🔊</span>
+ </div>
+ <p class="text-gray-400 text-sm mb-6">Select a sound frequency to trigger its geometric and thermal equivalent in real-time. (Ensure volume is low).</p>
+ 
+ <div class="flex flex-wrap gap-3 mb-6">
+ <button id="btn-syn-drone" class="flex-1 min-w-[100px] border border-gray-600 text-gray-500 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all hover:bg-white/5">
+ [ DEEP SPACE DRONE ]
+ </button>
+ <button id="btn-syn-shimmer" class="flex-1 min-w-[100px] border border-gray-600 text-gray-500 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all hover:bg-white/5">
+ [ STARLIGHT SHIMMER ]
+ </button>
+ <button id="btn-syn-bass" class="flex-1 min-w-[100px] border border-gray-600 text-gray-500 py-2 rounded font-mono text-xs uppercase tracking-wider transition-all hover:bg-white/5">
+ [ NEBULA BASS ]
+ </button>
+ </div>
+ 
+ <div id="kandinsky-canvas" class="w-full h-48 bg-[#111] relative border border-gray-800 flex items-center justify-center">
+ <span class="text-gray-700 font-mono text-xs z-10">Awaiting audio input...</span>
+ </div>
+ </div>
+ </section>
+
+ <section id="touchdesigner" class="reveal-element mt-16">
+ <span class="kicker pl-4">The Algorithm</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Wrestling with the Nodes</h2>
+ 
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">To build these <strong>interactive systems</strong>, I spend most of my days inside TouchDesigner. As a leading tool for creative coding and real-time generative art, it is a node-based programming environment where data flows through interconnected operators, affectionately called 'noodle soup'.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">My workflow involves extracting the peak and RMS data from the audio tracks using CHOPs (Channel Operators). I then route those specific values into TOPs (Texture Operators) and SOPs (Surface Operators). For instance, a low-frequency drone might trigger noise displacement on a 3D sphere, making the geometry physically vibrate in sync with the track. It is a delicate balancing act—one wrong connection crashes the software, but the right one perfectly aligns the visual output with the audio source.</p>
+
+ <div class="bg-[#1a1a1a] rounded-2xl p-6 md:p-8 border border-gray-800 shadow-inner relative overflow-hidden">
+ <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 15px 15px;"></div>
+ 
+ <div class="flex justify-between items-center mb-8 relative z-10 flex-wrap gap-4">
+ <span class="text-[#a78bfa] font-mono text-xs font-bold uppercase tracking-widest">Network Editor</span>
+ <button id="btn-play-node" data-playing="false" class="border border-gray-600 text-gray-400 px-4 py-2 rounded text-xs font-mono hover:bg-white/5 transition-all flex items-center gap-2">
+ [ PLAY AUDIO CHOP ] 🔊
+ </button>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10 w-full">
+ <!-- Nodes Container -->
+ <div class="lg:col-span-3 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-2 px-2">
+ <div class="td-node chop w-full md:w-[120px]">
+ <div class="td-node-header">AudioFileIn (CHOP)</div>
+ <span class="font-mono text-xs text-gray-400 mt-2">val: <span class="td-val text-green-400">0.000</span></span>
+ </div>
+ <div class="td-wire hidden md:block"></div>
+ <div class="td-node chop w-full md:w-[120px]">
+ <div class="td-node-header">Math (CHOP)</div>
+ <span class="font-mono text-xs text-gray-400 mt-2">mul: <span class="td-val text-yellow-400">0.000</span></span>
+ </div>
+ <div class="td-wire hidden md:block"></div>
+ <div class="td-node sop w-full md:w-[120px]">
+ <div class="td-node-header">Noise (SOP)</div>
+ <span class="font-mono text-xs text-gray-400 mt-2"><span class="td-val text-blue-400">Disp: 0.000</span></span>
+ </div>
+ </div>
+ 
+ <!-- Render Sphere Output -->
+ <div class="lg:col-span-1 bg-[#0a0a0a] rounded-xl border border-gray-800 h-32 flex items-center justify-center relative overflow-hidden shadow-inner w-full">
+ <span class="absolute top-2 left-3 text-[9px] text-gray-500 font-mono tracking-widest uppercase">Render (TOP)</span>
+ <div id="td-sphere" class="w-16 h-16 bg-gradient-to-tr from-blue-600 via-purple-500 to-pink-500 rounded-full transition-all duration-[100ms] ease-linear shadow-[0_0_20px_rgba(168,85,247,0.3)]"></div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- MATRIZ CSD -->
+ <section id="csd-matrix" class="reveal-element mt-16">
+ <span class="kicker pl-4">Methodology</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Mapping the Unknown: The CSD Matrix</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Before opening TouchDesigner and connecting audio channels to geometry, I needed to organize the project scope. In design research, we use a CSD Matrix (Certainties, Suppositions, and Doubts) to separate technical requirements from aesthetic assumptions. I applied this framework to my generative system.</p>
+
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+ <!-- Certainties -->
+ <div class="bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-6 shadow-sm">
+ <h4 class="font-mono font-bold text-emerald-600 dark:text-emerald-400 mb-4 tracking-widest text-sm">[ CERTAINTIES ]</h4>
+ <ul class="space-y-4 font-sans text-sm text-gray-800 dark:text-gray-300">
+ <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">></span> <span>The final output must maintain a stable 60fps frame rate during real-time rendering.</span></li>
+ <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">></span> <span>The system must mathematically map specific audio frequencies to distinct geometric behaviors.</span></li>
+ <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold">></span> <span>The project bridges pure generative art and visual communication design.</span></li>
+ </ul>
+ </div>
+ 
+ <!-- Suppositions -->
+ <div class="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-2xl p-6 shadow-sm">
+ <h4 class="font-mono font-bold text-blue-600 dark:text-blue-400 mb-4 tracking-widest text-sm">[ SUPPOSITIONS ]</h4>
+ <ul class="space-y-4 font-sans text-sm text-gray-800 dark:text-gray-300">
+ <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">></span> <span>The TouchDesigner network can be scaled and adapted for different spatial formats (projections, screens).</span></li>
+ <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">></span> <span>Generative workflows offer a competitive advantage over manual keyframing in creating immersive experiences.</span></li>
+ <li class="flex items-start gap-2"><span class="text-blue-500 font-bold">></span> <span>The target audience will find the slow, non-linear ambient visuals engaging.</span></li>
+ </ul>
+ </div>
+
+ <!-- Doubts -->
+ <div class="bg-purple-50 dark:bg-purple-900/10 border border-purple-200 dark:border-purple-800 rounded-2xl p-6 shadow-sm">
+ <h4 class="font-mono font-bold text-purple-600 dark:text-purple-400 mb-4 tracking-widest text-sm">[ DOUBTS ]</h4>
+ <ul class="space-y-4 font-sans text-sm text-gray-800 dark:text-gray-300">
+ <li class="flex items-start gap-2"><span class="text-purple-500 font-bold">></span> <span>How to properly validate the synesthetic mapping with users without relying on subjective bias?</span></li>
+ <li class="flex items-start gap-2"><span class="text-purple-500 font-bold">></span> <span>What is the optimal balance between manual control (VJing) and full algorithmic autonomy?</span></li>
+ <li class="flex items-start gap-2"><span class="text-purple-500 font-bold">></span> <span>Will there be latency issues when converting the audio buffer into mesh displacements in complex scenes?</span></li>
+ </ul>
+ </div>
+ </div>
+ </section>
+
+ <section id="reality" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-white dark:bg-darkSurface">
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Beyond the Screen: Graduation</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+ Graduating from university is a strange space. You are halfway out the door, navigating the shift from student to professional, while still tied to academic deadlines. This project became my way of making sense of that transition.
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+ I wanted this Final Project to be more than just a graduation requirement. I wanted it to reflect the kind of designer I am becoming—someone who writes code to create art and interactive systems, rather than just delivering static visual interfaces.
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-bold text-[#a78bfa] mt-8">
+ The process is not always smooth. There are days when the node networks break and the audio output is just a mess of noise. But then, a shape on the screen finally aligns with a chord I wrote for <em>Gemini</em>. The math translates into something you can feel, and the system works.
+ </p>
+ </section>
+
+ <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element text-center">
+ <h4 class="font-serif text-2xl text-gray-900 dark:text-white mb-4 italic">What about you?</h4>
+ <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto">Synesthesia changes how we process stimuli. Leave a comment if you map sounds to specific colors in your daily life.</p>
+ <a href="contact.html" class="inline-block border-2 border-[#a78bfa] text-[#a78bfa] font-mono text-sm font-bold uppercase tracking-widest py-3 px-8 rounded hover:bg-[#a78bfa] hover:text-white transition-all">Send me a message</a>
+ </div>
+
+ <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+ <span class="kicker">Continue Reading</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Lab Notes</h2>
+ 
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+ <a href="what-is-generative-art.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-pink-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-pink-500 font-bold uppercase tracking-wider block mb-2">Digital Culture</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-pink-500 transition-colors">What is Generative Art?</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">A guide explaining rules, math, and aesthetics.</p>
+ </a>
+ <a href="creative-coding-art-technology.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-blue-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider block mb-2">UX & Design</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">Creative Coding in Art</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">How algorithms become the paintbrush for digital artists.</p>
+ </a>
+ </div>
+ </section>
+ </article>
+
+ <!-- SIDEBAR -->
+ <aside class="lg:col-span-4 space-y-8">
+ <div class="sticky top-24 space-y-8">
+ <div class="glass-card p-6">
+ <span class="kicker">Diary Index</span>
+ <ul class="space-y-4 font-mono text-xs mt-6">
+ <li><a href="#the-void" class="flex items-center gap-3 text-purple-600 dark:text-[#a78bfa] hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-[#a78bfa]"></div> 1. The Void & University</a></li>
+ <li><a href="#the-sound" class="flex items-center gap-3 text-blue-600 dark:text-blue-400 hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-blue-500"></div> 2. Project Gemini</a></li>
+ <li><a href="#kandinsky" class="flex items-center gap-3 text-yellow-600 dark:text-yellow-400 hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-yellow-500"></div> 3. Kandinsky's Ghost</a></li>
+ <li><a href="#touchdesigner" class="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-emerald-500"></div> 4. TouchDesigner Nodes</a></li>
+ <li><a href="#csd-matrix" class="flex items-center gap-3 text-pink-600 dark:text-pink-400 hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-pink-500"></div> 5. The CSD Matrix</a></li>
+ <li><a href="#reality" class="flex items-center gap-3 text-indigo-600 dark:text-indigo-400 hover:opacity-70 transition-opacity"><div class="w-2 h-2 rounded-full bg-indigo-500"></div> 6. Graduation</a></li>
+ </ul>
+ </div>
+
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+ </div>
+ </aside>
+
+ </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('is-visible');
+ obs.unobserve(entry.target); 
+ }
+ });
+ }, observerOptions);
+
+ document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+ const canvas = document.getElementById('drone-canvas');
+ if(canvas) {
+ const ctx = canvas.getContext('2d');
+ let width, height, time = 0;
+ function initCanvas() {
+ width = canvas.width = window.innerWidth;
+ height = canvas.height = canvas.parentElement.offsetHeight;
+ }
+ function drawCanvas() {
+ ctx.clearRect(0, 0, width, height);
+ const isDark = document.documentElement.classList.contains('dark');
+ const color = isDark ? 'rgba(167, 139, 250, 0.05)' : 'rgba(167, 139, 250, 0.1)';
+ 
+ ctx.beginPath();
+ for(let x = 0; x < width; x += 5) {
+                let y = height/2 + Math.sin(x * 0.002 + time) * 100 * Math.sin(time * 0.5);
+                y += Math.sin(x * 0.005 - time * 1.5) * 50;
+                if(x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 100;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            time += 0.005;
+            requestAnimationFrame(drawCanvas);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawCanvas();
+    }
+
+    let audioCtx = null;
+    let activeOscillators = [];
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if(audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function stopAudio() {
+        activeOscillators.forEach(node => {
+ try {
+ node.gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+ setTimeout(() => { node.osc.stop(); node.osc.disconnect(); }, 500);
+ } catch(e){}
+ });
+ activeOscillators = [];
+ }
+
+ function playTone(freq1, freq2, type, vol, tremoloFreq = 0) {
+ initAudio(); stopAudio();
+ const masterGain = audioCtx.createGain();
+ masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+ masterGain.gain.linearRampToValueAtTime(vol, audioCtx.currentTime + 1);
+ masterGain.connect(audioCtx.destination);
+
+ const osc1 = audioCtx.createOscillator(); 
+ osc1.type = type; osc1.frequency.value = freq1;
+ osc1.connect(masterGain); osc1.start(); 
+ activeOscillators.push({osc: osc1, gain: masterGain});
+
+ if (freq2) {
+ const osc2 = audioCtx.createOscillator(); 
+ osc2.type = type; osc2.frequency.value = freq2;
+ osc2.connect(masterGain); osc2.start(); 
+ activeOscillators.push({osc: osc2, gain: masterGain});
+ }
+
+ if (tremoloFreq > 0) {
+ const lfo = audioCtx.createOscillator(); 
+ lfo.type = 'sine'; lfo.frequency.value = tremoloFreq;
+ const lfoGain = audioCtx.createGain(); 
+ lfoGain.gain.value = vol / 1.5;
+ lfo.connect(lfoGain); lfoGain.connect(masterGain.gain); 
+ lfo.start(); activeOscillators.push({osc: lfo, gain: lfoGain});
+ }
+ }
+
+ const btnPlayNode = document.getElementById('btn-play-node');
+ const tdWires = document.querySelectorAll('.td-wire');
+ const tdValues = document.querySelectorAll('.td-val');
+ const sphere = document.getElementById('td-sphere');
+ let nodeInterval;
+
+ if (btnPlayNode) {
+ btnPlayNode.addEventListener('click', () => {
+ const isPlaying = btnPlayNode.dataset.playing === 'true';
+ if (isPlaying) {
+ btnPlayNode.dataset.playing = 'false';
+ btnPlayNode.innerText = '[ PLAY AUDIO CHOP ]';
+ btnPlayNode.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500');
+ tdWires.forEach(w => w.classList.remove('active'));
+ clearInterval(nodeInterval);
+ tdValues.forEach(v => v.innerText = '0.000');
+ 
+ if (sphere) {
+ sphere.style.transform = 'scale(1)';
+ sphere.style.borderRadius = '50%';
+ sphere.style.filter = 'brightness(1) hue-rotate(0deg)';
+ }
+ stopAudio();
+ } else {
+ btnPlayNode.dataset.playing = 'true';
+ btnPlayNode.innerText = '[ STOP CHOP ]';
+ btnPlayNode.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500');
+ tdWires.forEach(w => w.classList.add('active'));
+ playTone(110, 111, 'sine', 0.1, 1.5); 
+ 
+ nodeInterval = setInterval(() => {
+ const audioVal = (Math.random() * 0.8 + 0.2).toFixed(3);
+ const mathVal = (audioVal * 2.5).toFixed(3);
+ 
+ tdValues[0].innerText = audioVal;
+ tdValues[1].innerText = mathVal;
+ tdValues[2].innerText = `Disp: ${mathVal}`;
+ 
+ if (sphere) {
+ const scale = 0.8 + (parseFloat(mathVal) * 0.15);
+ const br1 = 30 + Math.random() * 40;
+ const br2 = 30 + Math.random() * 40;
+ const br3 = 30 + Math.random() * 40;
+ const br4 = 30 + Math.random() * 40;
+ 
+ sphere.style.transform = `scale(${scale})`;
+ sphere.style.borderRadius = `${br1}% ${100-br1}% ${br2}% ${100-br2}% / ${br3}% ${br4}% ${100-br4}% ${100-br3}%`;
+ sphere.style.filter = `brightness(${1 + parseFloat(mathVal) * 0.1}) hue-rotate(${parseFloat(mathVal) * 15}deg)`;
+ }
+ }, 100);
+ }
+ });
+ }
+
+ const btnDrone = document.getElementById('btn-syn-drone');
+ const btnShimmer = document.getElementById('btn-syn-shimmer');
+ const btnBass = document.getElementById('btn-syn-bass');
+ const synCanvas = document.getElementById('kandinsky-canvas');
+ 
+ if (btnDrone && synCanvas) {
+ const resetBtns = () => {
+ [btnDrone, btnShimmer, btnBass].forEach(b => {
+ b.classList.remove('border-white', 'text-white', 'bg-white/10');
+ b.classList.add('border-gray-600', 'text-gray-500');
+ });
+ synCanvas.innerHTML = '';
+ };
+
+ const drawShape = (type, color, style) => {
+ const shape = document.createElement('div');
+ shape.className = `shape-element ${style}`;
+ shape.style.background = color;
+ synCanvas.appendChild(shape);
+ setTimeout(() => shape.classList.add('active'), 50);
+ };
+
+ btnDrone.addEventListener('click', () => {
+ resetBtns();
+ btnDrone.classList.add('border-white', 'text-white', 'bg-white/10');
+ btnDrone.classList.remove('border-gray-600', 'text-gray-500');
+ synCanvas.style.background = '#0f172a';
+ drawShape('circle', 'linear-gradient(to right, #1e3a8a, #312e81)', 'w-64 h-64 rounded-full blur-xl left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2');
+ playTone(55, 56, 'sine', 0.2);
+ });
+
+ btnShimmer.addEventListener('click', () => {
+ resetBtns();
+ btnShimmer.classList.add('border-white', 'text-white', 'bg-white/10');
+ btnShimmer.classList.remove('border-gray-600', 'text-gray-500');
+ synCanvas.style.background = '#fef08a';
+ drawShape('triangle', '#eab308', 'w-0 h-0 border-l-[50px] border-l-transparent border-b-[80px] border-b-yellow-500 border-r-[50px] border-r-transparent left-1/4 top-1/4');
+ drawShape('line', '#ca8a04', 'w-48 h-1 bg-yellow-600 left-1/2 top-2/3 rotate-12');
+ playTone(440, 880, 'sine', 0.05, 8);
+ });
+
+ btnBass.addEventListener('click', () => {
+ resetBtns();
+ btnBass.classList.add('border-white', 'text-white', 'bg-white/10');
+ btnBass.classList.remove('border-gray-600', 'text-gray-500');
+ synCanvas.style.background = '#450a0a';
+ drawShape('square', '#7f1d1d', 'w-40 h-40 bg-red-900 left-1/3 top-1/3 rotate-45 mix-blend-screen');
+ drawShape('circle', '#991b1b', 'w-32 h-32 rounded-full bg-red-800 left-2/3 top-1/2 blur-md');
+ playTone(73.42, 74, 'triangle', 0.15);
+ });
+ 
+ synCanvas.parentElement.addEventListener('mouseleave', () => {
+ resetBtns(); stopAudio();
+ });
+ }
+})();
+</script>
+
+</body>
+</html>

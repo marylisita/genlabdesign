@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Uncanny Valley of the Fake: Deepfakes, Simulacra, and the Collapse of Evidence // GenLab</title>
+    <meta name="description" content="An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="The Uncanny Valley of the Fake: Deepfakes, Simulacra, and the Collapse of Evidence // GenLab">
+    <meta property="og:description" content="An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="The Uncanny Valley of the Fake: Deepfakes, Simulacra, and the Collapse of Evidence // GenLab">
+    <meta property="twitter:description" content="An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"The Uncanny Valley of the Fake: Deepfakes, Simulacra, and the Collapse of Evidence",
+  "description":"An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.",
+  "author":{"@type":"Person","name":"Kuronami"},
+  "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+  "datePublished":"2026-05-15"
+}
+</script>
+
+<style>
+    /* =========================================
+       PREMIUM EDITORIAL & VOGUE STYLES
+       ========================================= */
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+    
+    .premium-hero {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: none;
+    }
+
+    #hero-canvas {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Glassmorphic Base Cards - ZERO BORDERS */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        box-shadow: 0 15px 40px -10px rgba(0,0,0,0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19, 27, 50, 0.85);
+        border: none;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgba(225, 29, 72, 0.15); }
+
+    /* Custom Design Match Cards (Nodes) - ZERO BORDERS */
+    .node-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 1.25rem;
+        position: relative;
+        overflow: hidden;
+        padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dark .node-card {
+        background: rgba(30, 30, 35, 0.6);
+        border: none;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+    }
+    .node-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.1);
+    }
+    .dark .node-card:hover {
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.5);
+    }
+    
+    .node-top-line {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 4px;
+    }
+
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    .ed-dropcap::first-letter {
+        float: left;
+        font-family: 'Playfair Display', serif;
+        font-size: 6.5rem;
+        line-height: 0.75;
+        padding-top: 0.4rem;
+        padding-right: 1rem;
+        color: #111;
+        font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+    
+    .kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #e11d48; /* Rose/Red */
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #e11d48, #9333ea, #e11d48); /* Rose to Purple */
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: gradient-shift 5s ease infinite;
+    }
+    .dark .text-gradient {
+        background: linear-gradient(90deg, #fb7185, #c084fc, #fb7185);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+    }
+    @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+    .sticky-sidebar { position: sticky; top: 100px; }
+
+    /* Custom Simulator UI */
+    .sim-workspace { background: #0a0a0f; border-radius: 24px; overflow: hidden; border: none; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .sim-canvas-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .sim-controls { padding: 1.5rem; border-top: none; }
+    .sim-control label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: #e11d48; margin-bottom: 8px; }
+    .sim-control input[type="range"] { width: 100%; -webkit-appearance: none; height: 4px; background: #222; border-radius: 2px; outline: none; }
+    .sim-control input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #e11d48; cursor: pointer; box-shadow: 0 0 10px rgba(225, 29, 72, 0.5); }
+    
+    .sim-btn-row { padding: 1rem 1.5rem 1.5rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .sim-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 20px; border-radius: 8px; border: none; background: rgba(255,255,255,0.08); color: #ccc; cursor: pointer; transition: all 0.3s; flex: 1; min-width: 150px; }
+    .sim-btn.active { background: rgba(225,29,72,0.2); color: #e11d48; border: 1px solid #e11d48; }
+    .sim-btn:hover { background: rgba(225,29,72,0.2); color: #e11d48; transform: translateY(-2px); }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Epistemology & Tech</span>
+                </div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    The Uncanny Valley <br>of the <span class="text-gradient">Fake</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    Deepfakes, Simulacra, and the Collapse of Evidence.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1970" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Masahiro Mori</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="100" data-suffix="%">0%</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Simulacrum</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="0" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Visual Certainty</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 reveal-element hidden lg:block">
+                <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+                    <img src="./images/deepfake.jpg" alt="Abstract Facial Geometry" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700 mix-blend-luminosity">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent opacity-80"></div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">Indexical Collapse</h4>
+                            <p class="text-xs text-gray-300 font-mono">Seeing is no longer believing. The photograph is dead.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+        <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <article class="lg:col-span-8 space-y-12">
+            
+            <div class="bg-red-500/5 p-4 mb-8 rounded-lg reveal-element">
+                <p class="m-0 text-red-500 font-mono font-bold tracking-wide">> CRITICAL_LAB // EPISTEMOLOGY_OF_THE_FAKE</p>
+                <p class="mt-1 mb-0 text-gray-500 dark:text-gray-400 text-sm font-mono">Process: Analyzing the structural failure of visual verification in the post-human era.</p>
+            </div>
+
+            <!-- SECTION 1: INTRODUCTION -->
+            <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">The Death of the Photograph</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">How Do We Know What Is Real?</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">For over a century, human society operated under a shared epistemological agreement: photography and video were indexical. They were physical traces of light captured in a specific moment of time. We trusted our eyes because the camera was a mechanical witness.</p>
+                    <p>The proliferation of generative artificial intelligence has permanently severed this link. We are currently navigating a profound epistemological crisis. The fundamental question is no longer whether an image has been manipulated, but whether a baseline reality still exists within the digital ecosystem.</p>
+                    <p>When the visual record can be synthesized perfectly by a neural network, society loses its shared mechanism for establishing truth. This crisis extends far beyond artistic experimentation, dictating outcomes in global elections, judicial systems, and geopolitical conflicts.</p>
+                </div>
+            </section>
+
+            <!-- SECTION 2: MASAHIRO MORI -->
+            <section id="mori" class="reveal-element mt-16">
+                <span class="kicker pl-4">Robotics & Perception</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">1. Traversing the Uncanny Valley</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">In 1970, Japanese robotics professor Masahiro Mori introduced the concept of the <em>Uncanny Valley</em> (Bukimi no Tani). He posited that as a robot becomes more human-like, our emotional response to it becomes increasingly positive. However, right before it reaches perfect human resemblance, the response plummets into revulsion. The entity appears eerie, corpse-like, or psychopathic.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">Early deepfakes and CGI resided securely within this valley. Asymmetries in eye movement, unnatural skin textures, and temporal flickering signaled to the human brain that the object was a fabrication. Our biological hardware served as the ultimate deepfake detector.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Modern latent diffusion models have bypassed the valley entirely. They do not simulate humanity; they synthesize it perfectly. When the output crosses the valley and ascends the far peak of realism, cognitive revulsion disappears, replaced by complete, misplaced trust.</p>
+
+                <!-- SIMULATOR 1: EPISTEMOLOGICAL SCALE -->
+                <div class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-xl ml-4">
+                    <h4 class="text-red-500 font-mono mb-4 text-xs uppercase tracking-widest">[ EPISTEMOLOGICAL_SCALE_SIMULATOR ]</h4>
+                    <p class="text-gray-400 text-sm mb-6">Observe the cognitive transition from obvious abstraction to the imperceptible hyperreal.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-800 bg-[#0a0a0a]">
+                            <canvas id="mori-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        </div>
+                        <div class="flex flex-col justify-center h-full">
+                            <div class="mb-8">
+                                <div class="flex justify-between text-gray-400 mb-2 font-mono text-sm">
+                                    <span>Visual Fidelity Index</span>
+                                    <span id="val-fidelity" class="text-red-500 font-bold">0%</span>
+                                </div>
+                                <input type="range" id="sl-fidelity" class="sim-control w-full" min="0" max="100" step="1" value="0">
+                            </div>
+                            <div id="mori-status" class="font-mono text-sm text-gray-400 min-h-[100px] border-t border-gray-800 pt-4">
+                                > System idle...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: BAUDRILLARD -->
+            <section id="baudrillard" class="reveal-element mt-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="order-2 md:order-1 glass-card overflow-hidden h-80">
+                        <img src="https://images.unsplash.com/photo-1520299607509-dcd935f9a839?q=80&w=1331&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover filter hue-rotate-90">
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <span class="kicker">Philosophy</span>
+                        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">2. Baudrillard and the Map</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">French philosopher Jean Baudrillard anticipated this condition in <em>Simulacra and Simulation</em> (1981). He famously declared that "the map precedes the territory."</p>
+                        <p class="text-gray-600 dark:text-gray-300">A deepfake is not merely a fake video. It is a simulacrum: a copy for which no original ever existed. When a synthesized video of a politician declaring war circulates on social media, the fact that the event never occurred in physical reality is secondary. The political, emotional, and market reactions generated by the video are entirely real.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mid Article Ad Slot -->
+            <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <!-- SECTION 4: CHEAPFAKES & ELECTIONS -->
+            <section id="elections" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Threat Landscape</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">3. Cheapfakes and Electoral Collapse</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">While media attention focuses heavily on sophisticated, hyper-realistic deepfakes, the most immediate threat vectors are often surprisingly rudimentary.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">The term <strong>"Cheapfake"</strong> refers to low-tech audiovisual manipulation: slowing down a video to make a political candidate appear inebriated, deceptively cropping footage to remove context, or simply applying an entirely false caption to an unrelated photograph.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-4 mt-8">
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-red-400 to-orange-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 mt-2">The Speed of Context</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0">In high-stakes environments like national elections (as observed in recent cycles in India, Indonesia, and the United States), cheapfakes often cause more damage than deepfakes. Disinformation does not require perfect rendering; it requires rapid, emotional resonance within preexisting partisan networks.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 mt-2">Synthetic CSAM</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0">The darkest manifestation of this technology is the proliferation of synthetic Child Sexual Abuse Material (CSAM) and non-consensual intimate imagery. Law enforcement structures, historically dependent on visual identification for victim rescue, are structurally paralyzed when the imagery is entirely algorithmic.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: LIAR'S DIVIDEND -->
+            <section id="dividend" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Legal Abyss</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">4. Plausible Deniability and The Liar's Dividend</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">The existence of flawless deepfakes creates a devastating secondary effect known as the <strong>Liar's Dividend</strong>. When the public knows that any video or audio recording can be synthesized, perpetrators of actual crimes can simply claim that legitimate, authentic evidence is an AI fabrication.</p>
+
+                <!-- SIMULATOR 2: EVIDENTIARY COLLAPSE -->
+                <div class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-xl ml-4">
+                    <h4 class="text-purple-500 font-mono mb-4 text-xs uppercase tracking-widest">[ EVIDENTIARY_COLLAPSE_SIMULATOR ]</h4>
+                    <p class="text-gray-400 text-sm mb-6">Execute the sequence to observe how the Liar's Dividend neutralizes objective truth.</p>
+                    
+                    <div class="sim-workspace bg-transparent shadow-none">
+                        <div class="sim-btn-row border-none p-0 flex flex-col md:flex-row gap-4 mb-6">
+                            <button id="btn-sim-leak" class="sim-btn text-red-500 hover:text-red-400">[ 1. UPLOAD_SCANDAL_VIDEO ]</button>
+                            <button id="btn-sim-deny" class="sim-btn text-purple-500 hover:text-purple-400">[ 2. CLAIM_DEEPFAKE ]</button>
+                            <button id="btn-sim-c2pa" class="sim-btn text-gray-500 hover:text-gray-400">[ 3. RUN_C2PA_AUDIT ]</button>
+                        </div>
+                        <div id="dividend-terminal" class="font-mono text-sm border-t border-gray-800 pt-4 min-h-[160px] text-gray-300 leading-relaxed">
+                            <div class="text-gray-600">> Awaiting action sequence...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: INFRASTRUCTURE (C2PA) -->
+            <section id="infrastructure" class="reveal-element mt-16">
+                <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">5. The Infrastructure of Provenance (C2PA)</h3>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Detecting deepfakes algorithmically is a losing battle; generation models will always eventually outpace detection models. The proposed systemic solution is <strong>Provenance</strong>.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">The Coalition for Content Provenance and Authenticity (C2PA) aims to establish a cryptographically secure metadata trail for digital media. Instead of asking "Is this fake?", the system asks "Where did this originate?" Content is signed securely at the hardware level (by the camera sensor) and maintains a tamper-evident ledger of all subsequent edits.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">However, provenance is a structural band-aid on an epistemological wound. It requires global hardware adoption, social platform enforcement, and user literacy to succeed.</p>
+            </section>
+
+            <!-- CONCLUSION (WITHOUT RESOLUTION) -->
+            <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-red-50 to-purple-50 dark:from-[#1a1114] dark:to-[#1a1125]">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: The Dark Forest of Truth</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    There is no resolution to the post-reality condition. The destruction of the indexical image is permanent.
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                    Society is entering a dark forest where visual data can no longer be processed at face value. Truth will no longer be something we perceive directly through our screens; it will be something we must actively reconstruct through cryptographic consensus, institutional trust, and relentless skepticism. The map has entirely eclipsed the territory.
+                </p>
+            </section>
+
+            <!-- REFERENCES -->
+            <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+                <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+                <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-3">
+                    <li><span class="text-red-500">[01]</span> <strong>Mori, M. (1970).</strong> <em>The Uncanny Valley.</em> Energy, 7(4), 33-35.</li>
+                    <li><span class="text-red-500">[02]</span> <strong>Baudrillard, J. (1981).</strong> <em>Simulacra and Simulation.</em> Éditions Galilée.</li>
+                    <li><span class="text-red-500">[03]</span> <strong>Chesney, R., & Citron, D. (2019).</strong> <em>Deepfakes and the New Disinformation War.</em> Foreign Affairs.</li>
+                    <li><span class="text-red-500">[04]</span> <strong>C2PA.</strong> <em>Technical Specifications for Digital Provenance.</em></li>
+                </ul>
+            </div>
+
+            <!-- RELATED PROTOCOLS / LINKS -->
+            <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+                <span class="kicker">Continue Reading</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <a href="post-reality-internet.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-red-500 hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-red-500 font-bold uppercase tracking-wider block mb-2">Hyperreality Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">The Post-Reality Internet</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Algorithmic distribution and the structural collapse of digital networks.</p>
+                    </a>
+                    <a href="preemptive-cybersecurity-digital-provenance.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-purpleBrand hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-purpleBrand font-bold uppercase tracking-wider block mb-2">Cyber Resilience</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-purpleBrand transition-colors">Digital Provenance & Defense</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">How AI is shifting cyber defense from reactive to preemptive.</p>
+                    </a>
+                </div>
+            </section>
+        </article>
+
+        <!-- SIDEBAR (Right) -->
+        <aside class="lg:col-span-4 space-y-8">
+            <div class="sticky-sidebar space-y-8">
+                <!-- TOC Card -->
+                <div class="glass-card p-6">
+                    <span class="kicker">Article Map</span>
+                    <ul class="space-y-3 font-mono text-sm mt-4">
+                        <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Introduction</a></li>
+                        <li><a href="#mori" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. The Uncanny Valley</a></li>
+                        <li><a href="#baudrillard" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Baudrillard's Map</a></li>
+                        <li><a href="#elections" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Cheapfakes & Elections</a></li>
+                        <li><a href="#dividend" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. The Liar's Dividend</a></li>
+                        <li><a href="#infrastructure" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Provenance Infrastructure</a></li>
+                        <li><a href="#conclusion" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Conclusion</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Sticky Ad Slot -->
+                <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // 1. Intersection Observer
+    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                
+                if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const targetVal = parseInt(entry.target.dataset.count, 10);
+                    let currentVal = 0;
+                    const duration = 1500;
+                    const stepTime = Math.abs(Math.floor(duration / targetVal));
+                    const timer = setInterval(() => {
+                        currentVal += 1;
+                        entry.target.innerText = currentVal + (entry.target.dataset.suffix || '');
+                        if (currentVal >= targetVal) clearInterval(timer);
+                    }, stepTime);
+                }
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+    // 2. 3D Tilt
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        });
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+
+    // 3. Hero Particle Canvas (Facial Mesh dissolving)
+    const canvas = document.getElementById('hero-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let w, h, nodes = [];
+        
+        function initHero() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = canvas.parentElement.offsetHeight;
+            nodes = [];
+            // Create a rough central cluster to mimic a digital face
+            for (let i = 0; i < 150; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.random() * 150;
+                nodes.push({
+                    x: w/2 + Math.cos(angle) * radius,
+                    y: h/2 + Math.sin(angle) * radius,
+                    originX: w/2 + Math.cos(angle) * radius,
+                    originY: h/2 + Math.sin(angle) * radius,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    glitchPhase: Math.random() * 100
+                });
+            }
+        }
+        window.addEventListener('resize', initHero);
+        initHero();
+
+        function drawHero() {
+            ctx.clearRect(0, 0, w, h);
+            const isDark = document.documentElement.classList.contains('dark');
+            const color = isDark ? 'rgba(251, 113, 133, 0.5)' : 'rgba(225, 29, 72, 0.5)'; // Rose/Red
+            
+            nodes.forEach((n, i) => {
+                n.glitchPhase++;
+                // Occasionally glitch position
+                if (n.glitchPhase % 100 > 95) {
+                    n.x = n.originX + (Math.random() - 0.5) * 100;
+                    n.y = n.originY + (Math.random() - 0.5) * 100;
+                } else {
+                    // Drift back to origin
+                    n.x += (n.originX - n.x) * 0.05 + Math.sin(n.glitchPhase*0.1);
+                    n.y += (n.originY - n.y) * 0.05 + Math.cos(n.glitchPhase*0.1);
+                }
+
+                ctx.fillStyle = color;
+                ctx.beginPath(); ctx.arc(n.x, n.y, 1.5, 0, Math.PI*2); ctx.fill();
+
+                let connections = 0;
+                for (let j = i + 1; j < nodes.length; j++) {
+                    if (connections > 3) break;
+                    const dist = Math.hypot(n.x - nodes[j].x, n.y - nodes[j].y);
+                    if (dist < 40) {
+                        ctx.strokeStyle = isDark ? `rgba(192, 132, 252, ${(1 - dist/40)*0.2})` : `rgba(147, 51, 234, ${(1 - dist/40)*0.2})`;
+                        ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+                        connections++;
+                    }
+                }
+            });
+            requestAnimationFrame(drawHero);
+        }
+        drawHero();
+    }
+
+    // 4. THE EPISTEMOLOGICAL SCALE SIMULATOR (Mori to Baudrillard)
+    const mCanvas = document.getElementById('mori-canvas');
+    if (mCanvas) {
+        const mCtx = mCanvas.getContext('2d');
+        const slFidelity = document.getElementById('sl-fidelity');
+        const valFidelity = document.getElementById('val-fidelity');
+        const statusTerm = document.getElementById('mori-status');
+        
+        let mw, mh;
+        let time = 0;
+
+        function initMori() {
+            mw = mCanvas.width = mCanvas.parentElement.clientWidth;
+            mh = mCanvas.height = mCanvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', initMori);
+        initMori();
+
+        function drawMori() {
+            mCtx.clearRect(0, 0, mw, mh);
+            const fidelity = parseInt(slFidelity.value, 10);
+            valFidelity.innerText = fidelity + '%';
+
+            const cx = mw / 2;
+            const cy = mh / 2;
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (fidelity < 40) {
+                // State: Abstract / Safe
+                statusTerm.innerHTML = "> STATE: ABSTRACT. Human perception registers entity as safe artificial geometry. Cognitive empathy is low but stable.";
+                statusTerm.style.color = isDark ? '#9ca3af' : '#6b7280';
+                
+                mCtx.fillStyle = isDark ? '#4b5563' : '#9ca3af';
+                mCtx.fillRect(cx - 40, cy - 40, 80, 80);
+                mCtx.fillStyle = isDark ? '#9ca3af' : '#4b5563';
+                mCtx.beginPath(); mCtx.arc(cx, cy, 20, 0, Math.PI*2); mCtx.fill();
+            } 
+            else if (fidelity >= 40 && fidelity < 85) {
+                // State: Uncanny Valley
+                statusTerm.innerHTML = "> STATE: UNCANNY VALLEY. Entity approximates human form but exhibits micro-asymmetries. Cognitive revulsion triggered.";
+                statusTerm.style.color = '#e11d48';
+
+                // Jittering, distorted geometry
+                const jitterX = (Math.random() - 0.5) * 10;
+                const jitterY = (Math.random() - 0.5) * 10;
+                
+                mCtx.strokeStyle = '#e11d48';
+                mCtx.lineWidth = 2;
+                mCtx.beginPath();
+                mCtx.ellipse(cx + jitterX, cy, 60, 40, 0, 0, Math.PI*2);
+                mCtx.stroke();
+                
+                // Dead, unblinking iris
+                mCtx.fillStyle = '#000';
+                mCtx.beginPath(); mCtx.arc(cx + jitterX/2, cy + jitterY, 15, 0, Math.PI*2); mCtx.fill();
+                
+                // Glitch lines
+                mCtx.fillStyle = 'rgba(225, 29, 72, 0.4)';
+                mCtx.fillRect(cx - 80, cy + jitterY * 2, 160, 4);
+            } 
+            else {
+                // State: Hyperreal / Simulacrum
+                statusTerm.innerHTML = "> STATE: HYPERREAL. Perfect simulation achieved. Visual evidence is decoupled from physical truth.<br><span class='text-purple-500 font-bold'>[ AUTHENTICITY SCORE: 0% ]</span>";
+                statusTerm.style.color = '#a855f7';
+
+                // Perfect, glowing, symmetric but synthetic structure
+                const pulse = Math.sin(time * 0.1) * 5;
+                
+                const grad = mCtx.createRadialGradient(cx, cy, 10, cx, cy, 80 + pulse);
+                grad.addColorStop(0, '#000');
+                grad.addColorStop(0.5, '#a855f7');
+                grad.addColorStop(1, 'transparent');
+                
+                mCtx.fillStyle = grad;
+                mCtx.beginPath();
+                mCtx.ellipse(cx, cy, 80 + pulse, 50 + pulse/2, 0, 0, Math.PI*2);
+                mCtx.fill();
+
+                // Synthetic catchlight
+                mCtx.fillStyle = '#fff';
+                mCtx.beginPath(); mCtx.arc(cx + 20, cy - 10, 4, 0, Math.PI*2); mCtx.fill();
+            }
+
+            time++;
+            requestAnimationFrame(drawMori);
+        }
+        drawMori();
+    }
+
+    // 5. THE LIAR'S DIVIDEND SIMULATOR
+    const btnLeak = document.getElementById('btn-sim-leak');
+    const btnDeny = document.getElementById('btn-sim-deny');
+    const btnC2pa = document.getElementById('btn-sim-c2pa');
+    const termDiv = document.getElementById('dividend-terminal');
+    let isDivRunning = false;
+
+    if (btnLeak && btnDeny && btnC2pa && termDiv) {
+        const typeOut = (text, colorClass, callback) => {
+            const div = document.createElement('div');
+            div.className = colorClass + ' mt-2';
+            termDiv.appendChild(div);
+            let i = 0;
+            const type = setInterval(() => {
+                div.innerHTML = text.substring(0, i) + (i < text.length ? "<span class='animate-blink'>█</span>" : "");
+                i++;
+                if (i > text.length) {
+                    clearInterval(type);
+                    if(callback) callback();
+                }
+            }, 15);
+        };
+
+        const resetButtons = () => {
+            btnLeak.style.opacity = '1'; btnDeny.style.opacity = '1'; btnC2pa.style.opacity = '1';
+            isDivRunning = false;
+        };
+
+        btnLeak.addEventListener('click', () => {
+            if (isDivRunning) return;
+            isDivRunning = true;
+            btnLeak.style.opacity = '0.5'; btnDeny.style.opacity = '0.5'; btnC2pa.style.opacity = '0.5';
+            termDiv.innerHTML = "<div class='text-gray-500'>> TIMELINE: T-0. Video evidence of political corruption uploaded to social network.</div>";
+            
+            setTimeout(() => {
+                typeOut("> Viral velocity metrics: Extreme. Public trust eroding rapidly.", 'text-red-400', resetButtons);
+            }, 500);
+        });
+
+        btnDeny.addEventListener('click', () => {
+            if (isDivRunning) return;
+            isDivRunning = true;
+            btnLeak.style.opacity = '0.5'; btnDeny.style.opacity = '0.5'; btnC2pa.style.opacity = '0.5';
+            termDiv.innerHTML = "<div class='text-gray-500'>> TIMELINE: T+12h. Official press conference held.</div>";
+            
+            setTimeout(() => {
+                typeOut("> STATEMENT: 'The video is a sophisticated AI deepfake engineered by political opponents.'<br><span class='text-purple-500 font-bold'>[!] THE LIAR'S DIVIDEND ACTIVATED. Public cannot verify visual truth. Polarization increases.</span>", 'text-purple-400', resetButtons);
+            }, 500);
+        });
+
+        btnC2pa.addEventListener('click', () => {
+            if (isDivRunning) return;
+            isDivRunning = true;
+            btnLeak.style.opacity = '0.5'; btnDeny.style.opacity = '0.5'; btnC2pa.style.opacity = '0.5';
+            termDiv.innerHTML = "<div class='text-gray-500'>> TIMELINE: T+24h. Independent journalists run C2PA cryptographic audit on the source file.</div>";
+            
+            setTimeout(() => {
+                typeOut("> Scanning for Content Credentials...<br>> <span class='text-red-500'>ERROR: Cryptographic signature absent.</span><br><span class='text-gray-500 font-bold'>[EPISTEMOLOGICAL COLLAPSE] Without hardware-level provenance, the truth remains permanently inaccessible.</span>", 'text-gray-400', resetButtons);
+            }, 500);
+        });
+    }
+
+})();
+</script>
+
+</body>
+</html>

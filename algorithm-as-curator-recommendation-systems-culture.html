@@ -1,0 +1,1059 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Algorithm as Curator: How Recommendation Systems Shape Culture // GenLab</title>
+    <meta name="description" content="What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, TikTok\">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="The Algorithm as Curator: How Recommendation Systems Shape Culture // GenLab">
+    <meta property="og:description" content="What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, TikTok\">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="The Algorithm as Curator: How Recommendation Systems Shape Culture // GenLab">
+    <meta property="twitter:description" content="What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, TikTok\">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/algorithm-as-curator-recommendation-systems-culture.html">
+<meta property="og:type"        content="article">
+<meta property="og:site_name"   content="GenLab">
+<meta property="og:url"         content="https://www.genlabdesign.com/algorithm-as-curator-recommendation-systems-culture.php">
+<meta property="og:title"       content="The Algorithm as Curator: How Recommendation Systems Shape Culture">
+<meta property="og:description" content="What you see online is not what exists, it is what a model predicts you will engage with. How collaborative filtering, filter bubbles, and TikTok's for-you page became the most powerful editors in history.">
+<meta property="og:image"       content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="The Algorithm as Curator: How Recommendation Systems Shape Culture">
+<meta name="twitter:description" content="What you see online is not what exists, it is what a model predicts you will engage with. How collaborative filtering, filter bubbles, and TikTok's for-you page became the most powerful editors in history.">
+<meta name="twitter:image"       content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Algorithm as Curator: How Recommendation Systems Shape Culture",
+  "description": "A critical analysis of collaborative filtering, filter bubbles, and algorithmic monoculture, how recommendation systems became the most powerful editors in history.",
+  "author": { "@type": "Person", "name": "Kuronami" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GenLab Design",
+    "logo": { "@type": "ImageObject", "url": "https://genlabdesign.com/images/win98.jpg" }
+  },
+  "datePublished": "2026-04-01",
+  "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop"
+}
+</script>
+
+<style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+
+    .premium-hero {
+        position: relative; min-height: 90vh;
+        display: flex; align-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+    #hero-canvas {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0; pointer-events: none;
+    }
+
+    .glass-card {
+        background: rgba(255,255,255,0.7);
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-radius: 24px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19,27,50,0.6);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .glass-card:hover { border-color: rgba(168,85,247,0.3); }
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    .ed-dropcap::first-letter {
+        float: left; font-family: 'Playfair Display', serif;
+        font-size: 6.5rem; line-height: 0.75;
+        padding-top: 0.4rem; padding-right: 1rem;
+        color: #111; font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+
+    .kicker {
+        display: inline-block; margin-bottom: 12px; color: #a855f7;
+        font-weight: 800; font-size: 0.75rem; letter-spacing: 0.2em;
+        text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7);
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: gradient-shift 5s ease infinite;
+    }
+    @keyframes gradient-shift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1),
+                    transform 0.8s cubic-bezier(0.165,0.84,0.44,1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+    .sticky-sidebar { position: sticky; top: 100px; }
+
+    /* Pull quote */
+    .pull-quote {
+        
+        padding: 1.25rem 2rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem; font-style: italic;
+        color: #374151;
+        background: rgba(168,85,247,0.03);
+        border-radius: 0 16px 16px 0;
+    }
+    .dark .pull-quote { color: #d1d5db; background: rgba(168,85,247,0.06); }
+
+    /* Network simulation canvas */
+    #network-canvas {
+        width: 100%; display: block;
+        border-radius: 14px;
+        border: 1px solid rgba(168,85,247,0.15);
+        cursor: pointer;
+    }
+
+    /* Bubble sim canvas */
+    #bubble-canvas {
+        width: 100%; display: block;
+        border-radius: 14px;
+        border: 1px solid rgba(244,114,182,0.15);
+    }
+
+    /* Feed comparison grid */
+    .feed-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .feed-col {
+        background: #0a0a0a;
+        border-radius: 14px;
+        padding: 16px;
+        min-height: 320px;
+    }
+    .feed-col-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+    .feed-item {
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 0.78rem;
+        font-family: 'JetBrains Mono', monospace;
+        line-height: 1.5;
+        transition: all 0.4s ease;
+        border: 1px solid transparent;
+    }
+    .feed-item.cat-tech    { background: rgba(168,85,247,0.12); border-color: rgba(168,85,247,0.2); color: #c084fc; }
+    .feed-item.cat-art     { background: rgba(236,72,153,0.12); border-color: rgba(236,72,153,0.2); color: #f472b6; }
+    .feed-item.cat-sci     { background: rgba(103,232,249,0.12); border-color: rgba(103,232,249,0.2); color: #67e8f9; }
+    .feed-item.cat-pol     { background: rgba(251,191,36,0.12); border-color: rgba(251,191,36,0.2);  color: #fbbf24; }
+    .feed-item.cat-random  { background: rgba(156,163,175,0.10); border-color: rgba(156,163,175,0.2); color: #9ca3af; }
+    .feed-item.new-entry   { animation: slide-in 0.35s ease forwards; }
+
+    @keyframes slide-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ctrl buttons */
+    .ctrl-row {
+        display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .ctrl-btn {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem; font-weight: 700;
+        padding: 7px 16px;
+        border-radius: 99px;
+        cursor: pointer;
+        border: 1px solid;
+        transition: all 0.18s;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: transparent;
+    }
+    .ctrl-btn-purple { color: #c084fc; border-color: #7c3aed44; }
+    .ctrl-btn-purple:hover { background: rgba(168,85,247,0.15); }
+    .ctrl-btn-pink   { color: #f472b6; border-color: #be185d44; }
+    .ctrl-btn-pink:hover { background: rgba(236,72,153,0.15); }
+    .ctrl-btn-gray   { color: #9ca3af; border-color: #4b556344; }
+    .ctrl-btn-gray:hover { background: rgba(75,85,99,0.15); }
+    .ctrl-btn-cyan   { color: #67e8f9; border-color: #0e748044; }
+    .ctrl-btn-cyan:hover { background: rgba(103,232,249,0.12); }
+
+    /* Slider row */
+    .slider-row {
+        display: flex; align-items: center; gap: 14px; margin-bottom: 10px;
+    }
+    .slider-row label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.1em; color: #6b7280;
+        min-width: 130px;
+    }
+    .slider-row input[type=range] { flex: 1; }
+    .slider-row span {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem; color: #a855f7;
+        min-width: 40px; text-align: right;
+    }
+
+    /* Stat terminal line */
+    .term-line {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem; color: #6b7280;
+        margin-bottom: 6px;
+    }
+    .term-line span { color: #a855f7; }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- ═══ HERO ════════════════════════════════════════════════════════ -->
+<header class="premium-hero z-10">
+    <canvas id="hero-canvas"></canvas>
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Critical Analysis // Systems</span>
+                </div>
+
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    The <span class="text-gradient">Algorithm</span><br>as Curator
+                </h1>
+
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    What you see is not what exists.<br>It is what a model predicts you will engage with.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="70" data-suffix="%">0%</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">YouTube watch time from recommendations</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1" data-suffix=" rule">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Maximize predicted engagement</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="0" data-suffix=" editors">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Human editors in the loop</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 reveal-element">
+                <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1665690399857-9de8bbbeb108?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                         alt="Network of connected nodes representing recommendation graphs"
+                         class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">The Invisible Editorial Layer</h4>
+                            <p class="text-xs text-gray-300 font-mono">Between content and audience, a model decides what gets seen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ═══ MAIN ═════════════════════════════════════════════════════════ -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+        <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block;text-align:center;min-width:728px;min-height:90px;"
+             data-ad-layout="in-article" data-ad-format="fluid"
+             data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+        <!-- ─── ARTICLE ──────────────────────────────────────── -->
+        <article class="lg:col-span-8 space-y-12">
+
+            <!-- INTRO -->
+            <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">The Argument</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">There Has Always Been a Curator. Now It Is a Machine.</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p class="ed-dropcap">Before the internet, a small number of human editors decided what most people saw. Newspaper editors chose front pages. Television programmers built schedules. Record label A&R scouts picked what got pressed. The cultural bottleneck was editorial, a human judgment, applied at scale, with visible accountability. You knew who made the call. You could argue with them, fire them, replace them.</p>
+                    <p>That bottleneck still exists. It is just no longer human. Today, a graduated series of recommendation models decides what 5 billion people encounter on their feeds, for-you pages, autoplay queues, and search results. The editorial logic has not disappeared, it has been automated, scaled to milliseconds, and optimized against a single metric: predicted engagement. The curation is more total than anything a newspaper editor could achieve. And it runs without a masthead.</p>
+                    <p>This is not primarily a story about bias, filter bubbles, or manipulation, though it touches all three. It is a story about a structural shift in how culture gets distributed. The algorithm is not a passive conduit. It is the most consequential editor in history. Understanding how it works is prerequisite to understanding contemporary culture, media, politics, and increasingly, art.</p>
+                </div>
+            </section>
+
+            <!-- HOW COLLABORATIVE FILTERING WORKS -->
+            <section id="collab-filter" class="reveal-element">
+                <span class="kicker">The Mechanism</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Collaborative Filtering: You Are Your Neighbors</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5 mb-8">
+                    <p>The dominant technique behind most recommendation systems, from Netflix in 2006 to Spotify today, is collaborative filtering. The idea is straightforward: find users whose past behavior resembles yours, then recommend what they liked that you have not yet seen. You are not being analyzed as an individual. You are being placed in a cluster of similar behavior patterns, and that cluster's aggregate taste is projected onto you.</p>
+                    <p>The math beneath this is matrix factorization. Your interactions with content (plays, clicks, completions, skips, pauses) become a row in a massive sparse matrix. The model learns low-dimensional representations, embeddings, of both users and items in the same vector space. A recommendation is generated by finding items whose embedding vector is close to yours in that space. Distance in the embedding space means predicted preference in the real world.</p>
+                    <p>What makes this powerful, and dangerous, is that it operates entirely on behavioral signal. The system does not know that a song is beautiful or that an article is true. It knows that people who played that song also played this one. It knows that users who clicked that headline also clicked this one. The signal it optimizes for is correlation of behavior, not quality of content. Those two things can diverge enormously.</p>
+                </div>
+
+                <div class="pull-quote reveal-element">
+                    "The algorithm does not know what you like. It knows what people like you clicked. That gap is everything."
+                </div>
+            </section>
+
+            <!-- CASE STUDY: SPOTIFY -->
+            <section id="spotify" class="reveal-element">
+                <span class="kicker">Case Study 01</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Discover Weekly: Collaborative Filtering Done Right</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>Spotify's Discover Weekly, launched in 2015, became the clearest public demonstration that collaborative filtering at scale could feel personal. Every Monday, 30 tracks you had never heard, selected specifically for you, appeared in your sidebar. Users described it as "a friend who really knows music." What it actually was: a model that found users whose listening history matched yours, located tracks they loved that you had skipped, and ranked those by predicted fit.</p>
+                    <p>The system works because music behavior is rich signal. A skip at 40 seconds means something different from a skip at 10 seconds. Adding a song to a playlist is different from playing it once. Listening at 2am is different from listening during a commute. Spotify's model ingests all of this, building a behavioral fingerprint fine-grained enough that two users with similar tastes can be reliably found in a corpus of 600 million accounts.</p>
+                    <p>The limitation appeared gradually. Discover Weekly is good at giving you more of what you have already shown you like. It is not good at giving you things genuinely outside your established taste, because those items are, by definition, far from your current cluster. The system optimizes for engagement in the next session, not for broadening your musical world over years. Users noticed: over time, their recommendations started feeling circular. The model knew them too well to surprise them.</p>
+                    <p>This is the exploration-exploitation tradeoff made structural. Exploit what the model knows you like, and engagement stays high but diversity collapses. Explore outside your cluster, and you risk showing someone something they skip, which is counted as a failed recommendation. Most systems, optimizing for engagement metrics, bias heavily toward exploitation.</p>
+                </div>
+            </section>
+
+            <!-- CASE STUDY: TIKTOK -->
+            <section id="tiktok" class="reveal-element">
+                <span class="kicker">Case Study 02</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">TikTok's For-You Page: The Most Effective Recommendation System Ever Built</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>TikTok's for-you page operates on a different architecture than Spotify or Netflix. It is not primarily collaborative. It is content-based, reinforced by a feedback loop that updates faster than any previous consumer product. When you open TikTok, the first video you see is not chosen based on your history. It is a probe, a test of your response. The first few seconds of your engagement pattern (does your thumb hover? do you rewatch? do you scroll past immediately?) get fed back into the model before the next video loads.</p>
+                    <p>ByteDance calls this the interest graph. Unlike the social graph (Facebook: who you know) or the behavioral graph (Spotify: what you played), the interest graph is built from pure content engagement, what held your attention, measured to the millisecond. The model has no structural incentive to show you friends, news, or geographically proximate content. It only asks: what keeps this person watching?</p>
+                    <p>The result is an experience that feels uncanny in its accuracy within hours of first use. The system learned your taste faster than any human recommendation could because it had immediate, high-resolution behavioral signal and was running inference continuously. It also produced outcomes that have been widely documented: users with no prior interest in eating disorders, conspiracy theories, or self-harm content reporting gradual immersion in those communities through a sequence of small, engagement-maximizing steps that individually seemed harmless.</p>
+                    <p>The for-you page does not intend to radicalize anyone. It intends to maximize session length. Those two objectives can produce the same path.</p>
+                </div>
+            </section>
+
+            <!-- FILTER BUBBLE SIMULATION -->
+            <section id="bubble-sim" class="border border-gray-800 bg-[#050505] rounded-2xl p-6 md:p-8 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] reveal-element">
+                <h4 class="text-purple-500 font-mono text-sm uppercase tracking-widest mb-1">[ FILTER_BUBBLE_SIMULATOR ]</h4>
+                <p class="text-gray-500 font-mono text-xs mb-6">Two users. Different starting preferences. Watch what each feed shows as the algorithm learns.</p>
+
+                <div class="feed-grid mb-6">
+                    <div class="feed-col">
+                        <div class="feed-col-label" style="color:#a855f7;">USER_A // tech-dominant</div>
+                        <div id="feed-col-a"></div>
+                    </div>
+                    <div class="feed-col">
+                        <div class="feed-col-label" style="color:#fbbf24;">USER_B // politics-dominant</div>
+                        <div id="feed-col-b"></div>
+                    </div>
+                </div>
+
+                <div class="slider-row">
+                    <label>Exploration rate</label>
+                    <input type="range" min="0" max="1" step="0.05" value="0.3"
+                           oninput="setExplore(this.value)">
+                    <span id="explore-val">30%</span>
+                </div>
+                <p class="text-gray-600 font-mono text-xs mb-4">Low exploration = algorithm aggressively exploits known preferences. High = injects diverse content.</p>
+
+                <div class="ctrl-row">
+                    <button class="ctrl-btn ctrl-btn-purple" id="btn-feed" onclick="startFeed()">[ Play ]</button>
+                    <button class="ctrl-btn ctrl-btn-gray" onclick="stopFeed()">[ Pause ]</button>
+                    <button class="ctrl-btn ctrl-btn-cyan" onclick="injectDiversity()">[ Inject diversity ]</button>
+                </div>
+            </section>
+
+            <!-- ALGORITHMIC MONOCULTURE -->
+            <section id="monoculture" class="reveal-element">
+                <span class="kicker">The Structural Problem</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">When Everyone Optimizes for the Same Signal, Diversity Collapses</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>The filter bubble, the term Eli Pariser coined in 2011, describes the personalization effect: each user ends up in an information environment tailored to their existing beliefs and preferences. But this framing misses a deeper structural problem. The issue is not just that different users see different things. It is that all users are being served by systems optimizing for the same objective: engagement. And engagement, measured at scale, tends to reward a narrower range of content than diversity would suggest.</p>
+                    <p>Research from MIT and from Recsys conferences consistently finds that recommendation systems left to pure engagement optimization gradually converge on a smaller set of popular content, emotional triggers, and topic clusters, regardless of how diverse the initial content pool was. The model learns that certain content categories (conflict, outrage, aspiration, fear, beauty) reliably hold attention longer. It weights those categories upward. Over millions of users, this creates something closer to broadcast television than a library: a system that appeared to offer infinite choice but actually converges on a limited emotional range.</p>
+                    <p>For culture, the implications extend past politics. Music genres get flattened into tempo-and-mood clusters. Visual art gets optimized for thumbnail legibility. Writing gets shortened to match attention patterns. The algorithm does not destroy these forms, it shapes them. Creators who want distribution learn, often without explicit instruction, what the model rewards. The aesthetic of the recommendation era is not accidental.</p>
+                </div>
+
+                <div class="glass-card p-8 mt-8 reveal-element">
+                    <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Documented Effects of Engagement Optimization</h3>
+                    <div class="space-y-4">
+                        
+                        <div class="flex gap-4 items-start border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0">
+                            <span class="font-mono text-xs font-bold text-purple-400 min-w-[80px] pt-0.5"><?= $domain ?></span>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><?= htmlspecialchars($text) ?></p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+            <!-- NETWORK SIMULATION -->
+            <section id="network-sim" class="border border-gray-800 bg-[#050505] rounded-2xl p-6 md:p-8 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] reveal-element">
+                <h4 class="text-purple-500 font-mono text-sm uppercase tracking-widest mb-1">[ RECOMMENDATION_NETWORK_ENGINE ]</h4>
+                <p class="text-gray-500 font-mono text-xs mb-5">Nodes are users. Edges are shared content preferences. Watch clusters form as the algorithm reinforces connections within categories and weakens cross-category links. Adjust exploration rate to see how diversity is preserved or lost.</p>
+
+                <canvas id="network-canvas"></canvas>
+
+                <p id="net-stat" class="term-line mt-4">
+                    > TICK: <span>0</span>&nbsp;&nbsp;EDGES: <span>—</span>&nbsp;&nbsp;CROSS-CAT: <span>—</span>&nbsp;&nbsp;EXPLORE: <span>—</span>
+                </p>
+
+                <div class="slider-row mt-4">
+                    <label>Exploration rate</label>
+                    <input type="range" min="0" max="1" step="0.05" value="0.3"
+                           oninput="setExplore(this.value)">
+                    <span id="explore-val">30%</span>
+                </div>
+
+                <div class="ctrl-row">
+                    <button class="ctrl-btn ctrl-btn-purple" id="btn-start" onclick="startNet()">[ Run ]</button>
+                    <button class="ctrl-btn ctrl-btn-gray" onclick="pauseNet()">[ Pause ]</button>
+                    <button class="ctrl-btn ctrl-btn-gray" onclick="resetNet()">[ Reset ]</button>
+                    <button class="ctrl-btn ctrl-btn-cyan" onclick="breakBubble()">[ Break the bubble ]</button>
+                </div>
+                <p class="text-gray-700 font-mono text-xs mt-3">At low exploration: watch same-category clusters pull together and cross-category edges dissolve. "Break the bubble" injects random cross-category connections.</p>
+            </section>
+
+            <!-- AD mid -->
+            <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block;text-align:center;min-width:728px;min-height:90px;"
+                     data-ad-layout="in-article" data-ad-format="fluid"
+                     data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <!-- GENERATIVE ART CONNECTION -->
+            <section id="genart" class="reveal-element">
+                <span class="kicker">The Connection</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Algorithms That Generate Culture vs. Algorithms That Curate It</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>Generative art and recommendation systems both involve algorithms producing cultural output. The difference is one of direction. A generative artwork starts with a system its author designed and produces outputs, images, sounds, structures, that did not exist before. The algorithm generates.</p>
+                    <p>A recommendation system starts with cultural output that already exists and routes it toward audiences. The algorithm curates. But the curation is not neutral: by deciding what reaches whom, the recommendation system actively shapes what gets made. Creators who observe what the algorithm rewards will make more of it. The curation feeds back into the generation. The two processes are not separate.</p>
+                    <p>This feedback loop is the most important structural feature of contemporary culture production. The independent variable, what creators make, is increasingly dependent on the dependent variable, what the algorithm distributes. The system is closed. Anything that does not fit the recommendation model's preference for engagement has systematically reduced reach. Not censored. Just invisible.</p>
+                    <p>For artists working in generative and digital practices, this creates a specific dilemma. Work that is complex, slow, or requires context to appreciate performs poorly in algorithmic distribution. The for-you page is not built for Vera Molnár's plotter drawings or a six-minute ambient piece. It is built for the immediate hook. Navigating this without abandoning the work that matters is one of the defining creative challenges of working in 2026.</p>
+                </div>
+            </section>
+
+            <!-- WHAT CAN BE DONE -->
+            <section id="responses" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">Responses</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">What Platform Design Could Actually Change</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>The filter bubble problem has produced two categories of proposed response: regulatory and design-based. Both are incomplete on their own.</p>
+                    <p>Regulatory approaches, algorithmic transparency requirements, mandatory audit trails, opt-out mechanisms for personalization, address accountability without touching incentives. A platform required to explain its algorithm will explain it. It will not necessarily change it, because the economic incentive to maximize engagement remains untouched.</p>
+                    <p>Design-based responses are more interesting. Spotify's "2023 Wrapped" and "Blend" features are essentially de-personalization experiments, they show you what you listened to in aggregate, or force you to discover what a friend listened to. These work because they redirect attention from the model's predictions to the user's actual revealed preferences, which are often surprising to the user themselves.</p>
+                    <p>The exploration-exploitation slider is not metaphorical, it is a real design choice that every recommendation system makes, usually without user input. Some researchers propose making it explicit: give users a visible control over how much novelty their feed contains. The evidence from small-scale experiments suggests users who are aware of the trade-off make different choices than those who are not.</p>
+                    <p>None of this resolves the structural issue. A recommendation system optimizing for any engagement metric, even a more nuanced one, will still generate feedback loops. The most honest description of the situation is that we have deployed systems with more cultural influence than any previous editorial institution, while understanding their long-term effects only partially, and while the economic incentives to deploy them remain stronger than the incentives to constrain them.</p>
+                </div>
+            </section>
+
+            <!-- CONCLUSION -->
+            <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">Conclusion</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Editor That Does Not Know It Is Editing</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+                    <p>The newspaper editor knows they are making choices. They can articulate them, defend them, be held accountable for them. The recommendation algorithm is making choices of greater scale and consequence while optimizing for a metric that is not "what is good for the audience" or "what is culturally valuable." It is optimizing for what the model predicts you will engage with next.</p>
+                    <p>That prediction is based on your past behavior, aggregated with the behavior of people the model considers similar to you. It is not based on what might challenge you, change you, or expand your world. It is based on what you have already shown you will click. There is no malice in this. There is no intent to narrow culture. There is simply a loss function, and the loss function does not include diversity, surprise, or long-term cultural health as terms.</p>
+                    <p>Understanding this does not make the algorithm less powerful. It makes it legible. And legibility is the prerequisite for any meaningful response, whether that response comes from regulation, platform design, individual practice, or the decision of a generative artist to build their own distribution channels rather than compete for placement in a for-you page that was never designed for their work.</p>
+                </div>
+            </section>
+
+        </article>
+
+        <!-- ─── SIDEBAR ───────────────────────────────────────── -->
+        <aside class="lg:col-span-4">
+            <div class="sticky-sidebar space-y-6">
+
+                <div class="glass-card p-6 reveal-element">
+                    <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
+                    <nav class="space-y-1">
+                        
+                        <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+                            <span class="text-purple-400 font-mono text-xs">→</span>
+                            <?= htmlspecialchars($label) ?>
+                        </a>
+                        
+                    </nav>
+                </div>
+
+                <div class="glass-card p-6 reveal-element">
+                    <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-4">Key Terms</h3>
+                    <div class="space-y-3 text-sm">
+                        
+                        <div class="border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0 last:pb-0">
+                            <strong class="text-gray-900 dark:text-white block mb-0.5 text-sm"><?= htmlspecialchars($term) ?></strong>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs leading-relaxed"><?= htmlspecialchars($def) ?></span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:block;width:300px;height:250px;"
+                         data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+
+                <div class="glass-card p-6 reveal-element">
+                    <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Related Posts</h3>
+                    <div class="space-y-4">
+                        
+                        <a href="<?= $href ?>" class="block group <?= $i ? 'border-t border-gray-100 dark:border-gray-800 pt-4' : '' ?>">
+                            <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"><?= htmlspecialchars($title) ?></p>
+                            <p class="font-mono text-xs text-gray-400 mt-1"><?= $sys ?></p>
+                        </a>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    /* ── 1. Scroll observer + counters ─────────────────────── */
+    const obs = new IntersectionObserver((entries, o) => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('is-visible');
+            if (e.target.classList.contains('num-counter') && !e.target.dataset.done) {
+                e.target.dataset.done = 1;
+                const target = +e.target.dataset.count;
+                let cur = 0;
+                const step = Math.max(1, Math.floor(1400 / target));
+                const t = setInterval(() => {
+                    cur++;
+                    e.target.textContent = cur + (e.target.dataset.suffix || '');
+                    if (cur >= target) clearInterval(t);
+                }, step);
+            }
+            o.unobserve(e.target);
+        });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal-element, .num-counter').forEach(el => obs.observe(el));
+
+    /* ── 2. Tilt ────────────────────────────────────────────── */
+    document.querySelectorAll('.tilt-fx').forEach(c => {
+        c.addEventListener('mousemove', e => {
+            const r = c.getBoundingClientRect();
+            c.style.transform = `perspective(1000px) rotateX(${((e.clientY-r.top-r.height/2)/(r.height/2))*-7}deg) rotateY(${((e.clientX-r.left-r.width/2)/(r.width/2))*7}deg) scale3d(1.02,1.02,1.02)`;
+        });
+        c.addEventListener('mouseleave', () => {
+            c.style.transition = 'transform .5s cubic-bezier(.25,1,.5,1)';
+            c.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+        });
+        c.addEventListener('mouseenter', () => c.style.transition = 'none');
+    });
+
+    /* ── 3. Hero canvas, network of nodes + edges ─────────── */
+    const hero = document.getElementById('hero-canvas');
+    if (hero) {
+        const ctx = hero.getContext('2d');
+        let W, H, nodes;
+        const N = 40;
+        const init = () => {
+            W = hero.width  = window.innerWidth;
+            H = hero.height = hero.parentElement.offsetHeight;
+            nodes = Array.from({length: N}, () => ({
+                x: Math.random()*W, y: Math.random()*H,
+                vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+                r: Math.random()*2+1.5,
+                hue: Math.random()>.5 ? 270 : 330
+            }));
+        };
+        const draw = () => {
+            ctx.clearRect(0,0,W,H);
+            const dark = document.documentElement.classList.contains('dark');
+            // edges
+            for (let i=0;i<N;i++) for (let j=i+1;j<N;j++) {
+                const d = Math.hypot(nodes[i].x-nodes[j].x, nodes[i].y-nodes[j].y);
+                if (d < 100) {
+                    ctx.strokeStyle = `rgba(168,85,247,${(1-d/100)*.18})`;
+                    ctx.lineWidth=1;
+                    ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y); ctx.stroke();
+                }
+            }
+            // nodes
+            nodes.forEach(n => {
+                n.x+=n.vx; n.y+=n.vy;
+                if(n.x<0||n.x>W) n.vx*=-1;
+                if(n.y<0||n.y>H) n.vy*=-1;
+                ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+                ctx.fillStyle = dark ? `hsla(${n.hue},70%,70%,.6)` : `hsla(${n.hue},70%,55%,.6)`;
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        };
+        window.addEventListener('resize', init);
+        init(); draw();
+    }
+
+    /* ── 4. NETWORK SIMULATION ──────────────────────────────── */
+    const nc = document.getElementById('network-canvas');
+    if (!nc) return;
+    const nctx = nc.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const NW = 700, NH = 420;
+    nc.width = NW*dpr; nc.height = NH*dpr;
+    nc.style.width = NW+'px'; nc.style.height = NH+'px';
+    nctx.scale(dpr, dpr);
+
+    const CATS = ['tech','art','sci','pol'];
+    const CAT_COLOR = { tech:'#a855f7', art:'#f472b6', sci:'#67e8f9', pol:'#fbbf24' };
+    const CAT_LABEL = { tech:'Technology', art:'Art & Design', sci:'Science', pol:'Politics' };
+
+    let netNodes = [], netEdges = [], ticks = 0;
+    let explorationRate = 0.3;  // 0=exploit 1=explore
+    let netRunning = false;
+    let netTimer = null;
+    const STAT_EL = document.getElementById('net-stat');
+
+    function buildNetwork(n=24) {
+        netNodes = [];
+        netEdges = [];
+        for (let i=0;i<n;i++) {
+            const cat = CATS[Math.floor(Math.random()*CATS.length)];
+            netNodes.push({
+                id:i, x:80+Math.random()*(NW-160), y:60+Math.random()*(NH-120),
+                vx:0, vy:0, cat, r:8,
+                engagements: 1 + Math.floor(Math.random()*4),
+                age:0
+            });
+        }
+        // initial edges by shared category
+        netNodes.forEach(a => {
+            netNodes.forEach(b => {
+                if (b.id<=a.id) return;
+                if (a.cat===b.cat && Math.random()<0.55) netEdges.push({a:a.id,b:b.id,str:0.6});
+                else if (Math.random()<0.08) netEdges.push({a:a.id,b:b.id,str:0.2});
+            });
+        });
+        ticks=0;
+        drawNetwork();
+    }
+
+    function tickNetwork() {
+        ticks++;
+        // Algorithmic recommendation step: strengthen same-cat edges, weaken cross-cat
+        netEdges.forEach(e => {
+            const a = netNodes[e.a], b = netNodes[e.b];
+            if (a.cat===b.cat) e.str = Math.min(1, e.str + 0.012*(1-explorationRate));
+            else e.str = Math.max(0, e.str - 0.008*(1-explorationRate));
+        });
+        // Remove very weak edges
+        netEdges = netEdges.filter(e => e.str > 0.05);
+
+        // Force-directed layout nudge
+        netNodes.forEach(a => { a.vx=0; a.vy=0; });
+        netEdges.forEach(e => {
+            const a = netNodes[e.a], b = netNodes[e.b];
+            const dx=b.x-a.x, dy=b.y-a.y;
+            const d=Math.max(1,Math.hypot(dx,dy));
+            const target = a.cat===b.cat ? 80 : 180;
+            const f = (d-target)*0.012*e.str;
+            a.vx+=dx/d*f; a.vy+=dy/d*f;
+            b.vx-=dx/d*f; b.vy-=dy/d*f;
+        });
+        // Repulsion
+        for(let i=0;i<netNodes.length;i++) for(let j=i+1;j<netNodes.length;j++){
+            const a=netNodes[i],b=netNodes[j];
+            const dx=b.x-a.x,dy=b.y-a.y;
+            const d=Math.max(5,Math.hypot(dx,dy));
+            const f=500/(d*d);
+            a.vx-=dx/d*f; a.vy-=dy/d*f;
+            b.vx+=dx/d*f; b.vy+=dy/d*f;
+        }
+        netNodes.forEach(n=>{
+            n.x=Math.max(20,Math.min(NW-20,n.x+n.vx*0.5));
+            n.y=Math.max(20,Math.min(NH-20,n.y+n.vy*0.5));
+        });
+
+        // Stats
+        const crossCat = netEdges.filter(e=>netNodes[e.a].cat!==netNodes[e.b].cat).length;
+        const totalE = netEdges.length;
+        const diversity = totalE>0 ? Math.round(crossCat/totalE*100) : 0;
+        if(STAT_EL) STAT_EL.innerHTML =
+            `> TICK: <span>${ticks}</span>&nbsp;&nbsp;EDGES: <span>${totalE}</span>&nbsp;&nbsp;CROSS-CAT: <span>${diversity}%</span>&nbsp;&nbsp;EXPLORE: <span>${Math.round(explorationRate*100)}%</span>`;
+
+        drawNetwork();
+    }
+
+    function drawNetwork() {
+        nctx.clearRect(0,0,NW,NH);
+        // edges
+        netEdges.forEach(e=>{
+            const a=netNodes[e.a],b=netNodes[e.b];
+            const same=a.cat===b.cat;
+            nctx.strokeStyle=same
+                ? CAT_COLOR[a.cat]+(Math.round(e.str*160).toString(16).padStart(2,'0'))
+                : 'rgba(107,114,128,0.25)';
+            nctx.lineWidth=same?e.str*2.5:0.5;
+            nctx.beginPath(); nctx.moveTo(a.x,a.y); nctx.lineTo(b.x,b.y); nctx.stroke();
+        });
+        // nodes
+        netNodes.forEach(n=>{
+            nctx.beginPath(); nctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+            nctx.fillStyle=CAT_COLOR[n.cat]+'cc';
+            nctx.fill();
+            nctx.strokeStyle=CAT_COLOR[n.cat];
+            nctx.lineWidth=1.5; nctx.stroke();
+        });
+        // legend
+        let lx=16, ly=NH-20;
+        CATS.forEach(c=>{
+            nctx.beginPath(); nctx.arc(lx+5,ly-4,5,0,Math.PI*2);
+            nctx.fillStyle=CAT_COLOR[c]; nctx.fill();
+            nctx.fillStyle='rgba(200,200,200,0.7)';
+            nctx.font='11px JetBrains Mono, monospace';
+            nctx.fillText(CAT_LABEL[c], lx+14, ly);
+            lx += nctx.measureText(CAT_LABEL[c]).width+34;
+        });
+    }
+
+    window.startNet = () => {
+        if(netRunning) return;
+        netRunning=true;
+        netTimer=setInterval(tickNetwork,80);
+        document.getElementById('btn-start').textContent='[ RUNNING ]';
+    };
+    window.pauseNet = () => {
+        netRunning=false; clearInterval(netTimer);
+        document.getElementById('btn-start').textContent='[ RESUME ]';
+    };
+    window.resetNet = () => {
+        pauseNet(); buildNetwork();
+        document.getElementById('btn-start').textContent='[ RUN ]';
+    };
+    window.breakBubble = () => {
+        // Inject random cross-category edges
+        for(let i=0;i<12;i++){
+            const a=netNodes[Math.floor(Math.random()*netNodes.length)];
+            const candidates=netNodes.filter(n=>n.cat!==a.cat);
+            if(!candidates.length) continue;
+            const b=candidates[Math.floor(Math.random()*candidates.length)];
+            if(!netEdges.find(e=>(e.a===a.id&&e.b===b.id)||(e.a===b.id&&e.b===a.id)))
+                netEdges.push({a:a.id,b:b.id,str:0.45});
+        }
+        drawNetwork();
+    };
+    window.setExplore = v => {
+        explorationRate = +v;
+        document.getElementById('explore-val').textContent = Math.round(v*100)+'%';
+    };
+
+    buildNetwork();
+
+    /* ── 5. FILTER BUBBLE COMPARISON ───────────────────────── */
+    const FEED_POOL = {
+        tech:   ['GPT-5 drops next month','WebGPU hits 60fps','New WASM spec draft','Rust surpasses Go adoption','Anthropic raises $2.4B'],
+        art:    ['Refik Anadol at MoMA','New p5.js release','Generative poster series','AI art ≠ generative art','NFT market analysis 2026'],
+        sci:    ['CRISPR gene edit approved','Webb captures new nebula','Quantum advantage confirmed','mRNA cancer vaccine trials','Dark matter signal detected'],
+        pol:    ['Senate bill on AI liability','EU AI Act enforcement','Brazil digital sovereignty law','Algorithmic accountability push','Open-source AI mandate'],
+        random: ['404 Page of the Year','Retro OS revival','The last IRC server','Geocities archive restored','ASCII art comeback'],
+    };
+
+    let feedUserA = {cat:'tech', history:['tech','tech','tech','art'], step:0};
+    let feedUserB = {cat:'pol',  history:['pol','pol','sci','pol'],   step:0};
+
+    function pickItem(user) {
+        // Simulate recommendation: with probability = explore slider, pick random; else pick user's dominant cat
+        const explore = 1 - explorationRate;
+        const catFreq = {};
+        user.history.forEach(c => catFreq[c]=(catFreq[c]||0)+1);
+        const dominant = Object.entries(catFreq).sort((a,b)=>b[1]-a[1])[0][0];
+        const cat = Math.random()>explore ? Object.keys(FEED_POOL)[Math.floor(Math.random()*5)] : dominant;
+        const pool = FEED_POOL[cat];
+        const text = pool[Math.floor(Math.random()*pool.length)];
+        user.history.push(cat);
+        if(user.history.length>12) user.history.shift();
+        return {cat, text};
+    }
+
+    function renderFeed(colId, user, label, color) {
+        const col = document.getElementById(colId);
+        if(!col) return;
+        const item = pickItem(user);
+        const div = document.createElement('div');
+        div.className = `feed-item cat-${item.cat} new-entry`;
+        div.textContent = '> '+item.text;
+        col.insertBefore(div, col.children[2]);
+        while(col.children.length>8) col.removeChild(col.lastChild);
+        setTimeout(()=>div.classList.remove('new-entry'),400);
+    }
+
+    function seedFeed(colId, user) {
+        const col=document.getElementById(colId);
+        if(!col) return;
+        for(let i=0;i<5;i++) {
+            const item=pickItem(user);
+            const div=document.createElement('div');
+            div.className=`feed-item cat-${item.cat}`;
+            div.textContent='> '+item.text;
+            col.appendChild(div);
+        }
+    }
+
+    const colA=document.getElementById('feed-col-a');
+    const colB=document.getElementById('feed-col-b');
+    if(colA&&colB){ seedFeed('feed-col-a',feedUserA); seedFeed('feed-col-b',feedUserB); }
+
+    let feedTimer=null;
+    window.startFeed = ()=>{
+        if(feedTimer) return;
+        feedTimer=setInterval(()=>{
+            renderFeed('feed-col-a',feedUserA);
+            renderFeed('feed-col-b',feedUserB);
+        },1400);
+        document.getElementById('btn-feed').textContent='[ RUNNING ]';
+    };
+    window.stopFeed = ()=>{
+        clearInterval(feedTimer); feedTimer=null;
+        document.getElementById('btn-feed').textContent='[ PLAY ]';
+    };
+    window.injectDiversity = ()=>{
+        feedUserA.history=['tech','art','sci','pol','random','tech'];
+        feedUserB.history=['pol','sci','art','random','pol','sci'];
+        renderFeed('feed-col-a',feedUserA);
+        renderFeed('feed-col-b',feedUserB);
+    };
+
+})();
+</script>
+
+</body>
+</html>

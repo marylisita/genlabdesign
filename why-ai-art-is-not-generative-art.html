@@ -1,0 +1,908 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why AI Art Is Not Generative Art // GenLab</title>
+    <meta name="description" content="Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different practices, and why the confusion erases 60 years of history.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Why AI Art Is Not Generative Art // GenLab">
+    <meta property="og:description" content="Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different practices, and why the confusion erases 60 years of history.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Why AI Art Is Not Generative Art // GenLab">
+    <meta property="twitter:description" content="Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different practices, and why the confusion erases 60 years of history.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/why-ai-art-is-not-generative-art.html">
+<meta property="og:type"        content="article">
+<meta property="og:site_name"   content="GenLab">
+<meta property="og:url"         content="https://www.genlabdesign.com/why-ai-art-is-not-generative-art.php">
+<meta property="og:title"       content="Why AI Art Is Not Generative Art">
+<meta property="og:description" content="Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different, and why the confusion erases 60 years of history.">
+<meta property="og:image"       content="https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1200&auto=format&fit=crop">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Why AI Art Is Not Generative Art">
+<meta name="twitter:description" content="Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different, and why the confusion erases 60 years of history.">
+<meta name="twitter:image"       content="https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1200&auto=format&fit=crop">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Why AI Art Is Not Generative Art",
+ "description": "A structural analysis of the differences between AI image generation and generative art, covering authorship, process transparency, system design, and historical context.",
+ "author": { "@type": "Person", "name": "Kuronami" },
+ "publisher": {
+ "@type": "Organization",
+ "name": "GenLab Design",
+ "logo": { "@type": "ImageObject", "url": "https://genlabdesign.com/images/win98.jpg" }
+ },
+ "datePublished": "2026-03-30",
+ "image": "https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1200&auto=format&fit=crop"
+}
+</script>
+
+<style>
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+
+ .premium-hero {
+ position: relative;
+ min-height: 90vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+ #hero-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0; opacity: 0.6; pointer-events: none;
+ }
+
+ .glass-card {
+ background: rgba(255,255,255,0.7);
+ border: 1px solid rgba(0,0,0,0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19,27,50,0.6);
+ border: 1px solid rgba(255,255,255,0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover { border-color: rgba(168,85,247,0.3); }
+
+ .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #a855f7;
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ .text-gradient {
+ background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 5s ease infinite;
+ }
+ @keyframes gradient-shift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1), transform 0.8s cubic-bezier(0.165,0.84,0.44,1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+ .sticky-sidebar { position: sticky; top: 100px; }
+
+ /* Diff table */
+ .diff-table { width: 100%; border-collapse: collapse; }
+ .diff-table th, .diff-table td {
+ padding: 14px 18px;
+ text-align: left;
+ border-bottom: 1px solid rgba(0,0,0,0.07);
+ font-size: 0.875rem;
+ vertical-align: top;
+ }
+ .dark .diff-table th,
+ .dark .diff-table td { border-bottom-color: rgba(255,255,255,0.07); }
+ .diff-table th {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.65rem;
+ letter-spacing: 0.15em;
+ text-transform: uppercase;
+ background: rgba(168,85,247,0.05);
+ }
+ .diff-table th:nth-child(2) { color: #a855f7; }
+ .diff-table th:nth-child(3) { color: #f472b6; }
+ .diff-table tr:last-child td { border-bottom: none; }
+
+ /* Taxonomy classifier */
+ .tax-btn {
+ display: block; width: 100%; text-align: left;
+ padding: 14px 18px;
+ border: 1px solid #2a2a2a;
+ border-radius: 10px;
+ background: transparent;
+ color: #888;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.78rem;
+ cursor: pointer;
+ transition: all 0.2s;
+ margin-bottom: 8px;
+ }
+ .tax-btn:hover { border-color: #a855f7; color: #c084fc; background: rgba(168,85,247,0.05); }
+ .tax-btn.selected-gen { border-color: #a855f7; color: #c084fc; background: rgba(168,85,247,0.1); }
+ .tax-btn.selected-ai { border-color: #f472b6; color: #f9a8d4; background: rgba(244,114,182,0.1); }
+ .tax-btn.selected-neither { border-color: #6b7280; color: #9ca3af; background: rgba(107,114,128,0.1); }
+
+ /* Pull quote */
+ .pull-quote {
+ 
+ padding: 1.5rem 2rem;
+ font-family: 'Playfair Display', serif;
+ font-size: 1.5rem;
+ font-style: italic;
+ color: #374151;
+ background: rgba(168,85,247,0.03);
+ border-radius: 0 16px 16px 0;
+ }
+ .dark .pull-quote { color: #d1d5db; background: rgba(168,85,247,0.06); }
+
+ @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+ .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<header class="premium-hero z-10">
+ <canvas id="hero-canvas"></canvas>
+
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+ <div class="lg:col-span-7">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Aesthetics Lab // Critical Analysis</span>
+ </div>
+
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ Why AI Art Is <span class="text-gradient">Not</span> Generative Art
+ </h1>
+
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ They look similar. They are structurally opposite.
+ </p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="60" data-suffix="yrs">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Generative Art Predates AI Art</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="0" data-suffix=" prompts">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Prompts in True Generative Art</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="3" data-suffix=" diffs">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Structural Differences That Matter</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="lg:col-span-5 reveal-element">
+ <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+ <img src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=800&auto=format&fit=crop"
+                         alt="Abstract generative art versus AI-generated image"
+                         class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+ <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+ <div class="absolute bottom-6 left-6 right-6">
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">The Surface Problem</h4>
+ <p class="text-xs text-gray-300 font-mono">Both produce unexpected images. That is where the similarity ends.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════ -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+
+ <!-- Ad -->
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle"
+             style="display:block;text-align:center;min-width:728px;min-height:90px;"
+             data-ad-layout="in-article" data-ad-format="fluid"
+             data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+ <!-- ─── ARTICLE ─── -->
+ <article class="lg:col-span-8 space-y-12">
+
+ <!-- INTRO -->
+ <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">The Argument</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The Conflation Is Not Harmless</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+ <p class="ed-dropcap">Sometime around 2021, the word "generative" got stolen. It migrated from creative coding communities, where it had a precise, decades-old meaning, into marketing copy for AI image tools. Midjourney called its outputs "generative." OpenAI's image tools were "generative AI." The art press followed, and suddenly everything unexpected-looking became generative art. This is wrong, and the wrongness matters.</p>
+ <p>Vera Molnár was writing FORTRAN programs to produce systematic visual output in the 1960s. Harold Cohen spent 20 years building AARON, an autonomous drawing system, before most people had a home computer. Casey Reas co-created Processing in 2001 specifically to give artists a programming language for algorithmic image-making. None of these practices resemble typing a sentence into a text box and receiving an image.</p>
+ <p>Calling both things "generative art" is not a loose synonym, it is a category error that erases 60 years of practice, collapses very different theories of authorship, and makes it harder to talk precisely about either medium. This article draws the line back.</p>
+ </div>
+ </section>
+
+ <!-- WHAT GENERATIVE ART IS -->
+ <section id="what-gen-is" class="reveal-element">
+ <span class="kicker">Definition 01</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">What Generative Art Actually Is</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5 mb-8">
+ <p>Generative art is any practice in which the artist designs a system, a set of rules, algorithms, constraints, or processes, and that system produces the artwork, either autonomously or semi-autonomously. The artist's creative act is the design of the system. The system's execution is the final work.</p>
+ <p>This definition, consistent with how the V&A, Tate, and researchers like Philip Galanter use the term, has two critical components. First, the artist <em>builds</em> the system, they don't merely operate it. Second, the system has a degree of autonomy that creates outputs the artist did not directly specify. The tension between authored rules and unspecified outcomes is the medium's engine.</p>
+ <p>Sol LeWitt's Wall Drawings make this clear without any technology involved. LeWitt wrote instruction sets, "Draw lines from corners, sides, and center of the wall to random points on the wall", and others executed them. The artwork is the instruction set. Each execution is a new iteration of the same generative system. There is no AI. There is no computer. There is a rule-based process with emergent output.</p>
+ </div>
+
+ <div class="pull-quote reveal-element">
+ "The system is the artwork. The output is evidence of the system running."
+ </div>
+
+ <div class="mt-8 space-y-5 font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+ <p>In digital practice, this translates to artists writing code in Processing, p5.js, GLSL, or custom environments. The code encodes the system, noise functions, recursive rules, particle physics, cellular automata. When you run it, the system produces an image or animation that nobody drew. The artist's fingerprint is in the logic, not the pixels.</p>
+ <p>The key attribute is <strong>authorship of the process</strong>. The generative artist does not delegate to a system someone else built, they build the system themselves. Understanding what it does, why it does it, and how to change its behavior is intrinsic to the practice.</p>
+ </div>
+ </section>
+
+ <!-- WHAT AI ART IS -->
+ <section id="what-ai-is" class="reveal-element">
+ <span class="kicker">Definition 02</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">What AI Image Generation Actually Is</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+ <p>Tools like Stable Diffusion, Midjourney, and DALL-E 3 are latent diffusion models. They work by learning a compressed representation of image-space from billions of image-text pairs, then learning to reverse a noise-addition process guided by text embeddings. When you type a prompt, the model navigates this latent space toward a region that satisfies your description and renders an image from it.</p>
+ <p>The process is extraordinary. The models are engineering achievements that required years of research and compute budgets most artists could never access. The outputs can be aesthetically stunning. None of that is in dispute.</p>
+ <p>What the practice involves for the user is <strong>directing</strong>, choosing words, adjusting parameters, selecting from outputs, iterating on prompts. This is closer to art direction than system design. The "system" in this case, the neural network, its weights, its training pipeline, was built by Stability AI, Midjourney, or OpenAI. The user operates it. Even with sophisticated techniques like LoRA fine-tuning or ControlNet, the user shapes an existing system rather than authoring one from scratch.</p>
+ <p>This does not diminish AI art as a creative practice. It means it is a <em>different</em> creative practice, with a different relationship to authorship, process, and the machine.</p>
+ </div>
+ </section>
+
+ <!-- 3 STRUCTURAL DIFFERENCES -->
+ <section id="differences" class="reveal-element">
+ <span class="kicker">The Breakdown</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8">Three Structural Differences</h2>
+
+ <!-- Diff 1 -->
+ <div class="glass-card p-8 mb-6 reveal-element">
+ <div class="flex items-center gap-4 mb-4">
+ <span class="font-mono text-3xl font-bold text-purple-400">01</span>
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white">Who Builds the System</h3>
+ </div>
+ <div class="font-sans text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-3">
+ <p>In generative art, the artist authors the system. They write the code, define the parameters, choose the mathematical functions, and understand, at least in principle, why the system behaves as it does. The unexpected output emerges from <em>their</em> logic.</p>
+ <p>In AI image generation, the system was built by engineers at a company, trained on data the user didn't curate, using architectures the user didn't design. The user's creative input happens at the interface layer: prompts, sliders, seed numbers. The model's behavior is largely opaque, even to its creators.</p>
+ <p><strong>The generative artist is a system author. The AI art user is a system operator.</strong> Both are legitimate roles. They are not the same role.</p>
+ </div>
+ </div>
+
+ <!-- Diff 2 -->
+ <div class="glass-card p-8 mb-6 reveal-element">
+ <div class="flex items-center gap-4 mb-4">
+ <span class="font-mono text-3xl font-bold text-pink-400">02</span>
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white">Process Transparency</h3>
+ </div>
+ <div class="font-sans text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-3">
+ <p>A generative artwork is, in principle, fully reproducible and explicable. If you have the source code and the seed, you get the same output. The system is transparent to its author. You can trace why a particular pattern appears, it comes from this noise function, these parameters, this recursive rule.</p>
+ <p>A latent diffusion model is a black box with billions of parameters. Nobody, not the people who built it, can tell you precisely why a given prompt produced a given pixel arrangement. The model has learned correlations from data in ways that are not interpretable in human terms. The artist's intent enters as language and exits as pixels, with an opaque transformation in between.</p>
+ <p>This opacity is not a flaw in AI tools, it is a feature of how neural networks work. But it means the relationship between authorial intention and output is fundamentally different from generative code, where the artist can inspect, modify, and understand every layer of the process.</p>
+ </div>
+ </div>
+
+ <!-- Diff 3 -->
+ <div class="glass-card p-8 reveal-element">
+ <div class="flex items-center gap-4 mb-4">
+ <span class="font-mono text-3xl font-bold text-cyan-400">03</span>
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white">What "Unexpected" Means</h3>
+ </div>
+ <div class="font-sans text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-3">
+ <p>Both practices can produce images that surprise their makers. But the nature of that surprise differs completely.</p>
+ <p>In generative art, surprise emerges from the <em>complexity of the system the artist designed</em>. You wrote a rule for how particles interact, and watching thousands of particles follow that rule produces patterns you didn't anticipate. The surprise is earned, it comes from your own logic operating at a scale you couldn't fully simulate mentally. Casey Reas described this as "the machine revealing the implications of the code."</p>
+ <p>In AI image generation, surprise comes from the <em>model's training data and its interpolation of your prompt</em>. The unexpected visual was somewhere in the model's latent space before you typed anything. You steered toward it, but you didn't build the territory. The surprise is a discovery rather than an emergence.</p>
+ <p><strong>One surprise is what your system does. The other is what someone else's system contains.</strong> These are genuinely different experiences, and conflating them obscures what makes each practice compelling.</p>
+ </div>
+ </div>
+ </section>
+
+ <!-- COMPARISON TABLE -->
+ <section id="table" class="glass-card overflow-hidden reveal-element">
+ <div class="p-6 border-b border-gray-100 dark:border-gray-800">
+ <span class="kicker">Side by Side</span>
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white">The Structural Comparison</h3>
+ </div>
+ <div class="overflow-x-auto">
+ <table class="diff-table">
+ <thead>
+ <tr>
+ <th class="text-gray-400">Dimension</th>
+ <th>Generative Art</th>
+ <th>AI Image Generation</th>
+ </tr>
+ </thead>
+ <tbody class="text-gray-700 dark:text-gray-300 text-sm">
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Who builds the system</td>
+ <td>The artist</td>
+ <td>Engineers at a company</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Artist's primary act</td>
+ <td>Writing rules, code, constraints</td>
+ <td>Prompting, directing, selecting</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Process transparency</td>
+ <td>Full, code is readable</td>
+ <td>Opaque, billions of parameters</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Source of surprise</td>
+ <td>Your own logic at scale</td>
+ <td>Model's latent space</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Reproducibility</td>
+ <td>Exact, same seed, same output</td>
+ <td>Approximate, seeds vary by model version</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Training required</td>
+ <td>Programming, mathematics</td>
+ <td>Prompt craft, model knowledge</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">Historical roots</td>
+ <td>1960s, Molnár, Nees, Nake</td>
+ <td>2014+, GANs, 2021+, diffusion</td>
+ </tr>
+ <tr>
+ <td class="font-mono text-xs text-gray-400">The machine's role</td>
+ <td>Executes the artist's rules</td>
+ <td>Interprets the artist's intent</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
+
+ <!-- WHY THE CONFUSION -->
+ <section id="why" class="reveal-element">
+ <span class="kicker">Root Cause</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Why the Confusion Happened</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+ <p>Three forces converged to collapse the distinction.</p>
+ <p><strong>Marketing language.</strong> "Generative AI" is a product category name chosen by technology companies. It describes what the models do, they generate outputs, not what the user does. The term was never meant to be an art historical claim, but it landed in a cultural conversation where "generative" already meant something else.</p>
+ <p><strong>The NFT moment.</strong> Between 2020 and 2022, NFT platforms used "generative art" to describe algorithmically varied profile-picture collections, 10,000 slight variations of the same character, produced by randomly combining trait layers. This was closer to graphic design automation than generative art as a practice, but it exposed millions of people to the word in a new context.</p>
+ <p><strong>Aesthetic surface similarity.</strong> Both AI art and generative art can produce images that look abstract, unexpected, and "computational." If you see two images side by side, one from a noise-field algorithm, one from Midjourney, they might look equally strange. Audiences unfamiliar with either process have no visual cue to distinguish them. The confusion is understandable from the outside. From the inside, the practices feel nothing alike.</p>
+ </div>
+ </section>
+
+ <!-- WHY IT MATTERS -->
+ <section id="matters" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Why It Matters</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">What Gets Lost in the Conflation</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+ <p>When AI art and generative art get lumped together, the specific intellectual contribution of generative practice disappears. The question "how did you make this?", which in generative art opens up conversations about mathematics, systems theory, emergence, and code, becomes "what prompt did you use?" The depth of one practice gets absorbed by the surface vocabulary of the other.</p>
+ <p>It also makes attribution collapse. If a gallery describes both a GLSL shader by a creative coder who spent months on it and a Midjourney output as "generative art," they have implicitly equated the skill, time, and conceptual investment behind each. That is not fair to either practice.</p>
+ <p>Finally, it erases history. Vera Molnár, Frieder Nake, Georg Nees, Manfred Mohr, Harold Cohen, these artists built the field from nothing in the 1960s and 70s, before anyone had personal computers. Describing a 2023 Stable Diffusion image as "generative art" without qualification treats that history as irrelevant.</p>
+ <p><strong>Precise language is not pedantry. It is respect for the people who built a discipline.</strong></p>
+ </div>
+ </section>
+
+ <!-- INTERACTIVE: Taxonomy Classifier -->
+ <section id="classifier" class="border border-gray-800 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] reveal-element">
+ <h4 class="text-purple-500 font-mono mt-0 mb-2 uppercase tracking-widest text-sm">[ TAXONOMY_CLASSIFIER ]</h4>
+ <p class="text-gray-500 font-mono text-xs mb-8">Read each case. Classify the practice. See the breakdown.</p>
+ <div id="taxonomy-tool"></div>
+ </section>
+
+ <!-- AD mid -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle"
+                     style="display:block;text-align:center;min-width:728px;min-height:90px;"
+                     data-ad-layout="in-article" data-ad-format="fluid"
+                     data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- CONCLUSION -->
+ <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Conclusion</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Two Practices. One Word. Wrong.</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-5">
+ <p>AI image generation and generative art are both serious creative practices. They deserve to be understood on their own terms, not flattened into each other by a shared adjective.</p>
+ <p>Generative art is about system authorship, designing the logic that produces the work. It requires programming knowledge, mathematical thinking, and an intimate relationship with the process. The artist and the algorithm are collaborators because the artist wrote the algorithm.</p>
+ <p>AI image generation is about intent communication, expressing what you want to a system that has absorbed the visual output of human civilization and learned to navigate it. It requires taste, prompt craft, and an understanding of how models respond. The artist and the algorithm are collaborators because the artist directs the algorithm.</p>
+ <p>Both collaborations are legitimate. Neither erases the other. But they are different kinds of collaboration, with different histories, different skill sets, and different theories of what it means to make something. Calling them both "generative art" does not honor that complexity, it discards it.</p>
+ <p>The line matters. Draw it clearly.</p>
+ </div>
+ </section>
+
+ </article>
+
+ <!-- ─── SIDEBAR ─── -->
+ <aside class="lg:col-span-4">
+ <div class="sticky-sidebar space-y-6">
+
+ <!-- TOC -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
+ <nav class="space-y-1">
+ 
+ <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+ <span class="text-purple-400 font-mono text-xs">→</span>
+ <?= htmlspecialchars($label) ?>
+ </a>
+ 
+ </nav>
+ </div>
+
+ <!-- Key Artists -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Generative Art Pioneers</h3>
+ <div class="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+ 
+ <div class="flex flex-col border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0 last:pb-0">
+ <div class="flex justify-between mb-0.5">
+ <span class="font-bold text-gray-900 dark:text-white"><?= $name ?></span>
+ <span class="font-mono text-xs text-purple-400"><?= $year ?></span>
+ </div>
+ <span class="text-xs text-gray-500 dark:text-gray-400"><?= $note ?></span>
+ </div>
+ 
+ </div>
+ </div>
+
+ <!-- Ad -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block;width:300px;height:250px;"
+                         data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- Related -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Related Posts</h3>
+ <div class="space-y-4">
+ 
+ <a href="<?= $href ?>" class="block group <?= $i > 0 ? 'border-t border-gray-100 dark:border-gray-800 pt-4' : '' ?>">
+ <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"><?= htmlspecialchars($title) ?></p>
+ <p class="font-mono text-xs text-gray-400 mt-1"><?= $sys ?></p>
+ </a>
+ 
+ </div>
+ </div>
+
+ </div>
+ </aside>
+
+ </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ // 1. Intersection Observer + counters
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (!entry.isIntersecting) return;
+ entry.target.classList.add('is-visible');
+ if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ const target = parseInt(entry.target.dataset.count, 10);
+ let current = 0;
+ const step = Math.max(1, Math.floor(1500 / target));
+ const timer = setInterval(() => {
+ current++;
+ entry.target.innerText = current + (entry.target.dataset.suffix || '');
+ if (current >= target) clearInterval(timer);
+ }, step);
+ }
+ obs.unobserve(entry.target);
+ });
+ }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+ document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+ // 2. 3D Tilt
+ document.querySelectorAll('.tilt-fx').forEach(card => {
+ card.addEventListener('mousemove', e => {
+ const r = card.getBoundingClientRect();
+ const rx = ((e.clientY - r.top - r.height/2) / (r.height/2)) * -7;
+ const ry = ((e.clientX - r.left - r.width /2) / (r.width /2)) * 7;
+ card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`;
+ });
+ card.addEventListener('mouseleave', () => {
+ card.style.transition = 'transform 0.5s cubic-bezier(0.25,1,0.5,1)';
+ card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+ });
+ card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+ });
+
+ // 3. Hero Particle Canvas
+ const canvas = document.getElementById('hero-canvas');
+ if (canvas) {
+ const ctx = canvas.getContext('2d');
+ let W, H, particles;
+ const init = () => {
+ W = canvas.width = window.innerWidth;
+ H = canvas.height = canvas.parentElement.offsetHeight;
+ particles = Array.from({ length: Math.min(Math.floor(W/30), 80) }, () => ({
+ x: Math.random()*W, y: Math.random()*H,
+ vx: (Math.random()-.5)*.5, vy: (Math.random()-.5)*.5,
+ r: Math.random()*2+1, purple: Math.random()>.5
+ }));
+ };
+ const draw = () => {
+ ctx.clearRect(0,0,W,H);
+ const dark = document.documentElement.classList.contains('dark');
+ particles.forEach((p,i) => {
+ p.x+=p.vx; p.y+=p.vy;
+ if(p.x<0||p.x>W) p.vx*=-1;
+ if(p.y<0||p.y>H) p.vy*=-1;
+ ctx.fillStyle = p.purple
+ ? (dark?'rgba(192,132,252,.5)':'rgba(168,85,247,.5)')
+ : (dark?'rgba(244,114,182,.5)':'rgba(236,72,153,.5)');
+ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+ for(let j=i+1;j<particles.length;j++){
+                    const q=particles[j], d=Math.hypot(p.x-q.x,p.y-q.y);
+                    if(d<120){
+                        ctx.strokeStyle=`rgba(168,85,247,${(1-d/120)*.25})`;
+                        ctx.lineWidth=1;
+                        ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(draw);
+        };
+        window.addEventListener('resize', init);
+        init(); draw();
+    }
+
+    // 4. Taxonomy Classifier
+    const examples = [
+        {
+            label: '[ VERA_MOLNAR_1968 ]',
+            desc: 'Vera Molnár writes a FORTRAN program that draws systematically distorted squares. She adjusts the rules; the machine iterates thousands of variations.',
+            verdict: 'gen',
+            explain: 'Generative Art. The artist designed a rule-based system with controlled randomness. The output exists because of the system, not in spite of it. Molnár never drew a single square manually.'
+        },
+        {
+            label: '[ MIDJOURNEY_PROMPT ]',
+            desc: 'A designer types "cyberpunk city at dusk, neon rain, Blade Runner aesthetic, 8K" into Midjourney and generates four images.',
+            verdict: 'ai',
+            explain: 'AI Image Generation. The designer expressed intent through language. The model, trained on billions of images, executed the render. There is no system the designer built; there is a model someone else trained.'
+        },
+        {
+            label: '[ SOL_LEWITT_WALL_DRAWING ]',
+            desc: 'Sol LeWitt writes a set of instructions in 1971: "Lines from the midpoints of four sides, drawn to a random point on the wall." Gallery workers execute the drawing.',
+            verdict: 'gen',
+            explain: 'Generative Art, and notably, not digital. The artwork is the instruction set, not the execution. Each installation differs. LeWitt\'s practice defined the medium before computers were involved.'
+        },
+        {
+            label: '[ PHOTOSHOP_DIGITAL_PAINTING ]',
+            desc: 'An illustrator spends 40 hours painting a character portrait in Photoshop, using custom brushes and layers.',
+            verdict: 'neither',
+            explain: 'Neither. This is digital art, skilled craft executed with a digital tool. The computer is a canvas, not a system or a generator. Exceptional work, but a different medium entirely.'
+        },
+        {
+            label: '[ P5JS_NOISE_FIELD ]',
+            desc: 'A coder writes a p5.js sketch that generates flow fields from Perlin noise, letting the algorithm place thousands of curved lines autonomously.',
+            verdict: 'gen',
+            explain: 'Generative Art. The coder authored the algorithm. The visual output, its specific curvatures, density, emergent patterns, was determined by the system, not by manual placement. Each seed produces a unique image.'
+        },
+        {
+            label: '[ STABLE_DIFFUSION_FINE_TUNED ]',
+            desc: 'An artist fine-tunes Stable Diffusion on their own illustrations, then uses LoRA weights to generate new works in their personal style.',
+            verdict: 'ai',
+            explain: 'AI Art, sophisticated AI Art. The artist shaped the model\'s aesthetic through training data. But the generation engine, the diffusion process, the latent space navigation, was not built by them. Authorship is more complex here, but the medium remains AI image generation.'
+        },
+    ];
+
+    let currentIdx = 0;
+    const container = document.getElementById('taxonomy-tool');
+    if (!container) return;
+
+    const VERDICTS = {
+        gen:     { label: 'GENERATIVE ART',     color: '#a855f7', border: 'border-purple-500' },
+        ai:      { label: 'AI IMAGE GENERATION', color: '#f472b6', border: 'border-pink-400'  },
+        neither: { label: 'DIGITAL ART (NEITHER)', color: '#9ca3af', border: 'border-gray-500' },
+    };
+
+    function renderExample() {
+        const ex = examples[currentIdx];
+        container.innerHTML = `
+            <p class="text-gray-500 font-mono text-xs mb-1 uppercase tracking-widest">> Case ${currentIdx+1} of ${examples.length}</p>
+ <p class="text-purple-400 font-mono font-bold text-sm mb-4">${ex.label}</p>
+ <p class="text-gray-200 text-base leading-relaxed mb-8 font-sans">${ex.desc}</p>
+ <p class="text-gray-500 font-mono text-xs mb-3 uppercase tracking-widest">Classify this practice:</p>
+ <button class="tax-btn" onclick="classify('gen')">[ GENERATIVE ART ]</button>
+ <button class="tax-btn" onclick="classify('ai')">[ AI IMAGE GENERATION ]</button>
+ <button class="tax-btn" onclick="classify('neither')">[ DIGITAL ART / NEITHER ]</button>
+ <div class="mt-4 flex gap-1.5">
+ ${examples.map((_,i)=>`<div class="h-1 flex-1 rounded-full ${i<currentIdx?'bg-purple-500':i===currentIdx?'bg-purple-400':'bg-gray-700'}"></div>`).join('')}
+ </div>
+ `;
+ }
+
+ window.classify = function(pick) {
+ const ex = examples[currentIdx];
+ const v = VERDICTS[ex.verdict];
+ const correct = pick === ex.verdict;
+ container.innerHTML = `
+ <p class="font-mono text-xs text-gray-500 mb-3 uppercase tracking-widest">> ${correct ? 'CORRECT' : 'CLOSE, HERE IS THE BREAKDOWN'}</p>
+ <p class="font-mono font-bold text-lg mb-3" style="color:${v.color}">${v.label}</p>
+ <p class="text-gray-300 text-sm leading-relaxed mb-8 font-sans">${ex.explain}</p>
+ <button onclick="nextExample()" class="font-mono text-xs text-purple-400 border border-purple-800 px-5 py-2.5 rounded-full hover:bg-purple-900/20 transition-colors">
+ ${currentIdx < examples.length-1 ? '[ NEXT_CASE ]' : '[ RESTART ]'}
+            </button>
+ `;
+ };
+
+ window.nextExample = function() {
+ currentIdx = (currentIdx + 1) % examples.length;
+ renderExample();
+ };
+
+ renderExample();
+})();
+</script>
+
+</body>
+</html>

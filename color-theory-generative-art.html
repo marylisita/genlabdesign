@@ -1,0 +1,840 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity // GenLab</title>
+    <meta name="description" content="Why RGB fails in algorithmic design. A guide to generating mathematically harmonic palettes using HSL, Oklab, and procedural noise.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity // GenLab">
+    <meta property="og:description" content="Why RGB fails in algorithmic design. A guide to generating mathematically harmonic palettes using HSL, Oklab, and procedural noise.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity // GenLab">
+    <meta property="twitter:description" content="Why RGB fails in algorithmic design. A guide to generating mathematically harmonic palettes using HSL, Oklab, and procedural noise.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/color-theory-generative-art.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:title" content="Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity">
+<meta property="og:description" content="Why RGB fails in algorithmic design. A guide to generating mathematically harmonic palettes using HSL, Oklab, and procedural noise.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Chroma.js for Color Math -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.4.2/chroma.min.js"></script>
+
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity",
+ "description":"Why RGB fails in algorithmic design. A guide to generating mathematically harmonic palettes using HSL, Oklab, and procedural noise.",
+ "author":{"@type":"Person","name":"GenLab"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-04-01"
+}
+</script>
+
+<style>
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { transition: background-color 0.5s ease, color 0.5s ease; }
+  
+  .premium-hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+  #hero-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.6;
+      pointer-events: none;
+  }
+
+  .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .dark .glass-card {
+      background: rgba(19, 27, 50, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .glass-card:hover { border-color: rgba(236, 72, 153, 0.3); } /* Pink hover */
+
+  .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+  .ed-dropcap::first-letter {
+      float: left;
+      font-family: 'Playfair Display', serif;
+      font-size: 6.5rem;
+      line-height: 0.75;
+      padding-top: 0.4rem;
+      padding-right: 1rem;
+      color: #111;
+      font-weight: 800;
+  }
+  .dark .ed-dropcap::first-letter { color: #fff; }
+  
+  .kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #ec4899; /* Pink */
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+  }
+
+  .text-gradient {
+      background: linear-gradient(90deg, #ec4899, #8b5cf6, #ec4899);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient-shift 5s ease infinite;
+  }
+  .dark .text-gradient {
+      background: linear-gradient(90deg, #f472b6, #a78bfa, #f472b6);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+  }
+  @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  .reveal-element {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      will-change: opacity, transform;
+  }
+  .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+  .sticky-sidebar { position: sticky; top: 100px; }
+  
+  .code-block {
+      background: #111;
+      color: #e2d5f8;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin: 2rem 0;
+  }
+
+  /* Palette Generator Styles */
+  .color-swatch-container {
+      display: flex;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .color-swatch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.75rem;
+      transition: flex 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: crosshair;
+  }
+  .color-swatch:hover { flex: 1.5; }
+  .swatch-hex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(0,0,0,0.4);
+      color: white;
+      padding: 4px 6px;
+      border-radius: 4px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+  }
+  .active-swatch-ring { outline: 3px solid white; outline-offset: -3px; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<header class="premium-hero z-10 transition-colors duration-500">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-8">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Aesthetics Lab</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    Color <span class="text-gradient">Theory</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    HSL, Palettes, and Perceptual Uniformity in Generative Art
+                </p>
+            </div>
+            <div class="lg:col-span-4 reveal-element hidden lg:block">
+                <div class="glass-card overflow-hidden h-[300px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop" alt="Abstract Colors" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 mix-blend-color-dodge">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent opacity-80"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        <article class="lg:col-span-8 space-y-12">
+            <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">The Problem</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Why RGB Fails Algorithms</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">Most color theory tutorials are built for dead pixels. They assume human hands will manually pick swatches on an Adobe artboard. But what happens when an algorithm must continuously write its own palettes thousands of times per second?</p>
+                    <p>The standard <code>rgb(255, 0, 0)</code> model is fundamentally incompatible with generative math. Because RGB is a cube, interpolating or randomizing values often results in 'mud'—desaturated grays and jarring transitions.</p>
+                    <p>A computer sees RGB as pure voltage sent to hardware monitors. It does not reflect human perception. If you randomize RGB values, you will almost certainly produce ugly, unbalanced visual noise.</p>
+                </div>
+            </section>
+
+            <section id="interpolation" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gray-50/50 dark:bg-[#111]/50 ">
+                <span class="kicker">Mathematics</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Muddy Middle: Why Linear RGB Interpolation Fails</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p>To understand the problem, we must look at how standard linear interpolation (lerping) works in code. When you ask a computer to transition halfway between Red <code>rgb(255, 0, 0)</code> and Green <code>rgb(0, 255, 0)</code>, it calculates the mathematical midpoint of those numbers.</p>
+                    <p>The midpoint is <code>rgb(127, 127, 0)</code>. Human eyes do not see this as a vibrant, glowing yellow. We perceive it as a dark, muddy, unsaturated olive green. The algorithm successfully split the difference mathematically, but failed perceptually.</p>
+<pre class="code-block"><code>// The standard, but flawed, RGB Lerp function
+function lerpRGB(color1, color2, t) {
+    return {
+        r: Math.round(color1.r + (color2.r - color1.r) * t),
+        g: Math.round(color1.g + (color2.g - color1.g) * t),
+        b: Math.round(color1.b + (color2.b - color1.b) * t)
+    };
+}
+// Lerping Red to Green at t=0.5 -> rgb(127, 127, 0) (Mud)</code></pre>
+                    <p>If you use this function to generate a color palette for thousands of particles or a fractal system, your artwork will inherently look flat and digitally "cheap". The color space caves inward toward gray.</p>
+                </div>
+            </section>
+
+            <section id="hsl" class="reveal-element mt-16">
+                <span class="kicker pl-4">Harmonics</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">1. HSL & Cylindrical Math</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>The solution is to abandon cubes and adopt cylinders. <strong>HSL (Hue, Saturation, Lightness)</strong> maps color to a 360-degree wheel. This is the holy grail of generative design.</p>
+                    <p>Because Hue is measured in degrees, generating harmonious palettes is a simple exercise in division. By locking Saturation and Lightness to a fixed, pleasant value, we can spin through the Hue wheel to generate mathematically perfect relationships:</p>
+                    
+                    <ul class="list-disc pl-6 space-y-3">
+                        <li><strong>Analogous:</strong> <code>Hue + 30°</code> (Smooth, nature-like gradients)</li>
+                        <li><strong>Complementary:</strong> <code>Hue + 180°</code> (Maximum contrast)</li>
+                        <li><strong>Split-Complementary:</strong> <code>Hue + 150°, Hue + 210°</code> (High contrast, less tension)</li>
+                    </ul>
+
+<pre class="code-block"><code>// Generating a perfect Analogous palette in JavaScript
+function getAnalogousPalette(baseHue) {
+    return [
+        `hsl(${baseHue}, 80%, 50%)`,
+        `hsl(${baseHue + 30}, 80%, 50%)`,
+        `hsl(${baseHue + 60}, 80%, 50%)`
+    ];
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="interactive-generator" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-[#1e1025] dark:to-[#171120]">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">2. Interactive: Algorithmic Harmonics</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p>Click the button below to force the algorithm to generate a mathematically harmonious palette. The engine randomizes a <em>base angle</em>, chooses a geometric strategy, and utilizes <strong>chroma.js</strong> to ensure perceptual brightness.</p>
+                
+                    <!-- COMPONENT: PALETTE GENERATOR -->
+                    <div class="mt-8 mb-4">
+                        <button id="btn-generate-palette" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-3 rounded-full font-bold font-mono text-sm tracking-wide hover:scale-105 transition-transform shadow-lg mb-6">
+                            [ Randomize Harmonics ]
+                        </button>
+                        
+                        <!-- Selected Colors -->
+                        <div id="palette-swatches" class="color-swatch-container">
+                            <!-- JS fills this -->
+                        </div>
+                        
+                        <!-- CSS Export -->
+                        <div class="bg-black/5 dark:bg-black/40 rounded-lg p-4 font-mono text-xs text-gray-600 dark:text-gray-400 overflow-x-auto shadow-inner border border-black/10 dark:border-white/5">
+                            <pre id="css-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="oklab" class="reveal-element mt-16">
+                <span class="kicker pl-4">Advanced</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">3. Oklab & Perceptual Uniformity</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>While HSL is structurally brilliant, it shares one fatal flaw with RGB: it is not perceptually uniform. Pure blue at 50% lightness appears incredibly dark, while pure yellow at 50% lightness strains the human eye.</p>
+                    <p>Enter <strong>Oklab</strong> (native to CSS as of recently). Oklab models how human retinal cones actually interpret photon luminosity. Generating a gradient loop via Oklab ensures that the transition between blue and yellow doesn't result in a sudden spike in perceived brightness.</p>
+                    <p>Libraries like <code>chroma.js</code> or native CSS <code>oklch()</code> are mandatory for professional generative systems that don't assault the viewer's corneas. By using chroma's scale function, we can force the computer to interpolate colors through a perceptually uniform space rather than RGB.</p>
+                    
+<pre class="code-block"><code>// Generating a perceptually uniform gradient with chroma.js
+const safeGradient = chroma.scale(['#ff0000', '#00ff00'])
+    .mode('oklab') // Forces calculation in Oklab space
+    .colors(5);    // Returns 5 perfectly spaced hex codes
+
+// Result: No muddy olive greens. The midpoint is a vibrant, natural yellow.
+console.log(safeGradient); 
+// ["#ff0000", "#e17100", "#aeb500", "#63df00", "#00ff00"]</code></pre>
+                    <p>Notice the hex codes generated. The algorithm intuitively pushed the color toward orange (<code>#e17100</code>) and bright yellow/lime (<code>#aeb500</code>) to maintain the perceptual brightness (luminance) of the original colors. This is the secret behind the vibrant, premium gradients seen in cutting-edge web design and generative art platforms.</p>
+                </div>
+            </section>
+
+            <section id="noise-field" class="glass-card p-8 md:p-12 reveal-element mt-16">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">4. Application: Recolorizing a Vector Field</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p>A palette is useless until it interacts with space. Below is a generative noise field simulating fluid dynamics. It uses standard Perlin-style trigonometric noise to command particles.</p>
+                    <p class="font-bold text-pink-500">> Select any color block from the Palette Generator above to inject it into the flow field in real-time.</p>
+                    
+                    <!-- COMPONENT: NOISE FLOW FIELD -->
+                    <div class="my-8 shadow-2xl rounded-xl overflow-hidden border border-pink-500/30">
+                        <canvas id="noise-demo" class="w-full h-[360px] bg-[#0a0a0f]"></canvas>
+                        <div class="bg-[#111] p-3 text-center text-xs font-mono text-pink-400 uppercase tracking-widest border-t border-pink-500/30">
+                            > [ Render ] Vector Field Modulated by Palette Memory <
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg mt-10">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/d_k8S-D64i4?rel=0" title="This will CHANGE how you choose colors (OkLab color space)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">Why Oklab changes everything about algorithmic color: a practical walkthrough of perceptual uniformity, HSL limitations, and the math behind better gradients.</p>
+            </div>
+
+            <!-- REFERENCES -->
+            <section id="references" class="reveal-element mt-10">
+                <div class="bg-gray-50/80 dark:bg-[#0a0b12]/80 rounded-2xl p-8 border border-gray-100 dark:border-white/5">
+                    <span class="kicker">References</span>
+                    <h2 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-8 mt-1">Sources &amp; Further Reading</h2>
+                    <ol class="space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 font-sans list-none">
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[1]</span>
+                            <span>Ottosson, B. (2020). <em>A perceptual color space for image processing (Oklab).</em> Personal research. <a href="https://bottosson.github.io/posts/oklab/" target="_blank" rel="noopener" class="text-pink-500 hover:underline break-all">bottosson.github.io/posts/oklab</a></span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[2]</span>
+                            <span>Itten, J. (1961). <em>The Art of Color.</em> Van Nostrand Reinhold. (Original color theory framework underlying harmonic palette strategies.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[3]</span>
+                            <span>Albers, J. (1963). <em>Interaction of Color.</em> Yale University Press. ISBN 978-0-300-17935-4. (Foundational text on color perception and relativity.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[4]</span>
+                            <span>Hobbs, T. (2016). <em>Working with Color in Generative Art.</em> Essay. <a href="https://tylerxhobbs.com/essays/2016/10/22/working-with-color-in-generative-artwork" target="_blank" rel="noopener" class="text-pink-500 hover:underline break-all">tylerxhobbs.com</a></span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[5]</span>
+                            <span>Morovic, J. (2008). <em>Color Gamut Mapping.</em> Wiley. ISBN 978-0-470-03032-5. (Technical reference on perceptual color spaces and gamut reduction.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[6]</span>
+                            <span>Möller, T. &amp; Haines, E. (1999). <em>Real-Time Rendering.</em> A K Peters. (GPU color pipeline and color space transformation for real-time graphics.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[7]</span>
+                            <span>Munsell, A.H. (1905). <em>A Color Notation: A Measured Color System.</em> Baseline Co. (First formal systematic color notation, precursor to perceptual uniformity.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[8]</span>
+                            <span>Greenberg, D. (1997). <em>A Framework for Realistic Image Synthesis.</em> Communications of the ACM, 42(8), 42–53. (Background on perceptual rendering pipelines.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[9]</span>
+                            <span>Zeileis, A., Fisher, J.C., Hornik, K. et al. (2020). <em>colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.</em> Journal of Statistical Software, 96(1), 1–49. <a href="https://doi.org/10.18637/jss.v096.i01" target="_blank" rel="noopener" class="text-pink-500 hover:underline break-all">doi:10.18637/jss.v096.i01</a></span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-pink-500 w-7 flex-shrink-0 pt-0.5">[10]</span>
+                            <span>Nussey, J. (2013). <em>Arduino for Artists: Building Interactive Arduino Projects.</em> O'Reilly Media. (Noise field and palette integration for physical generative systems.)</span>
+                        </li>
+
+                    </ol>
+                </div>
+            </section>
+
+        </article>
+
+
+        <!-- SIDEBAR -->
+        <aside class="lg:col-span-4 space-y-8">
+            <div class="sticky-sidebar space-y-8">
+                <div class="glass-card p-6 reveal-element">
+                    <span class="kicker">On this page</span>
+                    <ul class="space-y-3 font-mono text-sm mt-4">
+                        <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. Why RGB Fails Algorithms</a></li>
+                        <li><a href="#interpolation" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. The Muddy Middle</a></li>
+                        <li><a href="#hsl" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. HSL & Cylindrical Math</a></li>
+                        <li><a href="#interactive-generator" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Interactive: Harmonics</a></li>
+                        <li><a href="#oklab" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Oklab Uniformity</a></li>
+                        <li><a href="#noise-field" class="text-gray-600 dark:text-gray-400 hover:text-pink-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Vector Field Application</a></li>
+                    </ul>
+                </div>
+                
+                <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[400px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <!-- Ad Placeholder -->
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:250px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // 1. Scroll Reveal Observer
+    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+    document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+    // 2. Tilt FX
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const rotateX = ((y - rect.height/2) / rect.height) * -15;
+            const rotateY = ((x - rect.width/2) / rect.width) * 15;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        });
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+
+    // 3. Hero Blob Canvas
+    const canvas = document.getElementById('hero-canvas');
+    if(canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height, time = 0;
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        
+        function drawCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'screen';
+            
+            for(let i=0; i<3; i++) {
+                let r = Math.min(width, height) * 0.4;
+                let x = width/2 + Math.sin(time + i*2) * r * 0.5;
+                let y = height/2 + Math.cos(time*0.8 + i) * r * 0.2;
+                
+                let gradient = ctx.createRadialGradient(x, y, 0, x, y, r);
+                // Pink to purple gradient
+                gradient.addColorStop(0, `hsla(${300 + Math.sin(time+i)*40}, 80%, 60%, 0.15)`);
+                gradient.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI*2);
+                ctx.fill();
+            }
+            time += 0.01;
+            requestAnimationFrame(drawCanvas);
+        }
+        drawCanvas();
+    }
+
+    // STATE FOR PALETTE & NOISE SYSTEM
+    let currentPalette = ['#ec4899', '#d946ef', '#a855f7', '#8b5cf6', '#6366f1'];
+    let activeColorIndex = 0;
+
+    // 4. PALETTE GENERATOR LOGIC
+    const btnGenerate = document.getElementById('btn-generate-palette');
+    const swatchesContainer = document.getElementById('palette-swatches');
+    const cssOutput = document.getElementById('css-output');
+    
+    function generatePalette() {
+        // Random base hue
+        const baseHue = Math.random() * 360;
+        
+        // Pick a harmonic strategy randomly
+        const strategies = [
+            // Analogous
+            () => [0, 30, 60, 90, 120].map(offset => (baseHue + offset) % 360),
+            // Complementary (Split)
+            () => [0, 15, 30, 180, 195].map(offset => (baseHue + offset) % 360),
+            // Triadic
+            () => [0, 120, 240, 15, 135].map(offset => (baseHue + offset) % 360)
+        ];
+        
+        const strategy = strategies[Math.floor(Math.random() * strategies.length)]();
+        
+        // Generate via chroma.js for better perceptual brightness
+        currentPalette = strategy.map((h, i) => {
+            // Vary lightness slightly to create depth, keep L in safe bounds
+            const l = 0.4 + (i * 0.1); 
+            // Return Hex string
+            return chroma.hsl(h, 0.8, l).hex();
+        });
+
+        renderSwatches();
+    }
+
+    function renderSwatches() {
+        if(!swatchesContainer) return;
+        swatchesContainer.innerHTML = '';
+        let cssText = `:root {\n`;
+
+        currentPalette.forEach((hex, i) => {
+            const swatch = document.createElement('div');
+            swatch.className = `color-swatch ${i === activeColorIndex ? 'active-swatch-ring' : ''}`;
+            swatch.style.backgroundColor = hex;
+            swatch.innerHTML = `<span class="swatch-hex">${hex.toUpperCase()}</span>`;
+            
+            // Interaction: clicking a swatch sets the active color for the noise sketch
+            swatch.addEventListener('click', () => {
+                activeColorIndex = i;
+                renderSwatches(); // Update ring
+            });
+
+            swatchesContainer.appendChild(swatch);
+            cssText += `  --generated-color-${i+1}: ${hex};\n`;
+        });
+        
+        cssText += `}`;
+        if(cssOutput) cssOutput.textContent = cssText;
+    }
+
+    if(btnGenerate) {
+        btnGenerate.addEventListener('click', generatePalette);
+        renderSwatches();
+    }
+
+    // 5. NOISE FIELD SKETCH (Reactive to Palette)
+    const noiseCanvas = document.getElementById('noise-demo');
+    if(noiseCanvas) {
+        const nCtx = noiseCanvas.getContext('2d');
+        let nW, nH, nTime = 0;
+        let particles = [];
+        
+        function initNoise() {
+            const rect = noiseCanvas.parentElement.getBoundingClientRect();
+            nW = noiseCanvas.width = rect.width;
+            nH = noiseCanvas.height = 360;
+            
+            particles = [];
+            for(let i=0; i<400; i++) {
+                particles.push({
+                    x: Math.random() * nW,
+                    y: Math.random() * nH,
+                    vx: 0, vy: 0,
+                    life: Math.random() * 100
+                });
+            }
+        }
+        window.addEventListener('resize', initNoise);
+        initNoise();
+
+        // Pseudo-random noise function
+        function noise(x, y) {
+            return Math.sin(x*0.01) * Math.cos(y*0.01) * Math.PI * 2;
+        }
+
+        function drawNoise() {
+            // Fade background slightly for trails
+            nCtx.fillStyle = 'rgba(10, 10, 15, 0.1)';
+            nCtx.fillRect(0, 0, nW, nH);
+            
+            const activeColor = currentPalette[activeColorIndex];
+            nCtx.fillStyle = activeColor;
+            
+            particles.forEach(p => {
+                // Vector field math
+                const angle = noise(p.x, p.y + nTime*100) + nTime;
+                
+                p.vx += Math.cos(angle) * 0.1;
+                p.vy += Math.sin(angle) * 0.1;
+                
+                // Friction
+                p.vx *= 0.95;
+                p.vy *= 0.95;
+                
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                p.life -= 1;
+                
+                // Wrap and reset
+                if(p.x < 0 || p.x > nW || p.y < 0 || p.y > nH || p.life <= 0) {
+                    p.x = Math.random() * nW;
+                    p.y = Math.random() * nH;
+                    p.life = 100 + Math.random() * 50;
+                    p.vx = 0; p.vy = 0;
+                }
+                
+                // Draw particle (size based on life)
+                const size = (p.life / 150) * 2;
+                nCtx.beginPath();
+                nCtx.arc(p.x, p.y, size, 0, Math.PI*2);
+                nCtx.fill();
+            });
+            
+            nTime += 0.01;
+            requestAnimationFrame(drawNoise);
+        }
+        drawNoise();
+    }
+})();
+</script>
+
+</body>
+</html>

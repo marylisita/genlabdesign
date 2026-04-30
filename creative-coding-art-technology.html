@@ -1,0 +1,955 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Coding in Art Technology // GenLab</title>
+    <meta name="description" content="Creative coding merges programming with aesthetic intent. Explore how generative design and interactive media define modern art.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Creative Coding in Art Technology // GenLab">
+    <meta property="og:description" content="Creative coding merges programming with aesthetic intent. Explore how generative design and interactive media define modern art.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Creative Coding in Art Technology // GenLab">
+    <meta property="twitter:description" content="Creative coding merges programming with aesthetic intent. Explore how generative design and interactive media define modern art.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/creative-coding-art-technology.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/creative-coding-art-technology.php">
+<meta property="og:title" content="Creative Coding in Art and Technology: How Code Became a Medium">
+<meta property="og:description" content="From p5.js sketches to generative installations, how programming became one of the most expressive tools in contemporary art and design.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Creative Coding in Art and Technology: How Code Became a Medium">
+<meta name="twitter:description" content="From p5.js sketches to generative installations, how programming became one of the most expressive tools in contemporary art and design.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200">
+
+<!-- ARTICLE SCHEMA MARKUP (RICH SNIPPETS) -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"Creative Coding in Art Technology",
+ "description":"Creative coding merges programming with aesthetic intent. Explore how generative design and interactive media define modern art.",
+ "author":{"@type":"Person","name":"Kuronami"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-03-13"
+}
+</script>
+
+<style>
+ /* =========================================
+ PREMIUM EDITORIAL & VOGUE STYLES
+ ========================================= */
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+ 
+ .premium-hero {
+ position: relative;
+ min-height: 90vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+ /* Particle Canvas Background */
+ #hero-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0;
+ opacity: 0.6;
+ pointer-events: none;
+ }
+
+ /* Glassmorphic Cards */
+ .glass-card {
+ background: rgba(255, 255, 255, 0.7);
+ border: 1px solid rgba(0, 0, 0, 0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19, 27, 50, 0.6);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover {
+ border-color: rgba(236, 72, 153, 0.3); /* Pink border on hover */
+ }
+
+ /* 3D Tilt Effect */
+ .tilt-fx {
+ transform-style: preserve-3d;
+ transform: perspective(1000px);
+ }
+
+ /* Typography */
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+ 
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #ec4899; /* Pink */
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ /* Gradient Text */
+ .text-gradient {
+ background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7); /* Purple to Pink */
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 5s ease infinite;
+ }
+ .dark .text-gradient {
+ background: linear-gradient(90deg, #c084fc, #f472b6, #c084fc);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ }
+ @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+ /* Animated Data Bars */
+ .bar-track {
+ height: 12px;
+ border-radius: 999px;
+ background: rgba(0,0,0,0.05);
+ overflow: hidden;
+ }
+ .dark .bar-track { background: rgba(255,255,255,0.08); }
+ 
+ .bar-fill {
+ height: 100%;
+ width: 0%;
+ background: linear-gradient(90deg, #a855f7, #ec4899);
+ border-radius: 999px;
+ transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+ }
+ .dark .bar-fill { background: linear-gradient(90deg, #c084fc, #f472b6); box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+
+ /* Scroll Reveal */
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible {
+ opacity: 1;
+ transform: translateY(0);
+ }
+
+ /* Sticky Sidebar */
+ .sticky-sidebar {
+ position: sticky;
+ top: 100px;
+ }
+
+ .faq-box { border: 1px solid rgba(0,0,0,0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px; background: rgba(255,255,255,0.5); }
+ .dark .faq-box { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); }
+ .faq-box strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; color: #111; }
+ .dark .faq-box strong { color: #fff; }
+
+ .btn-cyber { padding: 12px 24px; border-radius: 8px; font-family: monospace; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer; border: 2px solid transparent; }
+ .btn-cyber:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+ .btn-cyber:active { transform: translateY(0); }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+ <canvas id="hero-canvas"></canvas>
+ 
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+ 
+ <!-- Hero Text -->
+ <div class="lg:col-span-7">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Aesthetics Lab</span>
+ </div>
+ 
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ <span class="text-gradient">Creative Coding</span><br>in Art Technology
+ </h1>
+ 
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ How Code is Reshaping Modern Art
+ </p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="15" data-suffix="">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Systemic Shifts</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="90" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Web Framework Adoption</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="100" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Algorithmic Generation</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Hero Visual Card -->
+ <div class="lg:col-span-5 reveal-element">
+ <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+ <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop" alt="Abstract Code and Art Synthesis" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+ <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+ 
+ <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">Code as a Medium</h4>
+ <p class="text-xs text-gray-300 font-mono">The computer acts as the canvas and the brush.</p>
+ </div>
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">Living Algorithms</h4>
+ <p class="text-xs text-gray-300 font-mono">Artworks that evolve, react, and generate themselves.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID (Content Left, Sidebar Right) -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+ 
+ <!-- Top Leaderboard Ad Slot -->
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+ 
+ <!-- ARTICLE CONTENT (Left) -->
+ <article class="lg:col-span-8 space-y-12">
+ 
+ <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Introduction</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">What Creative Coding Means</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p class="ed-dropcap">Creative coding merges programming with aesthetic intent. Artists write algorithms and digital systems to produce interactive, dynamic, and generative artworks.</p>
+ <p>Creative coding is the practice of using computer code as a form of expression. Artists write programs that produce visuals, animations, music, interactive installations, and immersive experiences. The computer acts as the canvas and the brush.</p>
+ <p>This field blends art, design, mathematics, and computer science. The result: artworks that artwork evolves, reacts, and generates itself through algorithms. It influences digital installations, video games, VR experiences, generative NFTs, data visualization, and interactive exhibitions.</p>
+ </div>
+ </section>
+
+ <section id="evolution" class="reveal-element mt-12">
+ <span class="kicker pl-4">The shift</span>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+ <div>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">The Evolution of Digital Expression</h2>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">The integration of computers in the late 20th century established a new creative baseline. Early pioneers wrote scripts to generate patterns and shapes, defining the foundation of creative coding.</p>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">Algorithmic creativity uses mathematical rules to produce visuals systematically. The artist builds a logic framework, and the machine executes the variations.</p>
+ </div>
+ <div class="glass-card overflow-hidden h-80">
+ <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover">
+ </div>
+ </div>
+ </section>
+
+ <section class="reveal-element mt-12">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Code as a Dynamic Material</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Creative coders use programming languages to dictate color palettes, spatial movement, geometry, lighting, and interactivity.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">Code functions as a dynamic material. An installation generates visuals based on weather data, sound inputs, or audience proximity. The artwork reacts continuously.</p>
+ </section>
+
+ <!-- ANIMATED DATA VIZ SECTION -->
+ <section id="languages" class="glass-card p-8 md:p-12 reveal-element data-section mt-12">
+ <span class="kicker">The Syntax of Art</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">Key Programming Languages for Creative Coders</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">Creative coding relies on specific programming languages and frameworks to scale digital art across platforms.</p>
+ 
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+ <!-- Bars -->
+ <div class="space-y-6 font-mono text-sm">
+ <div>
+ <div class="flex justify-between mb-2"><span class="font-bold text-gray-700 dark:text-gray-300">JAVASCRIPT (p5.js)</span><span class="text-pink-500">90%</span></div>
+ <div class="bar-track"><div class="bar-fill" data-width="90%"></div></div>
+ </div>
+ <div>
+ <div class="flex justify-between mb-2"><span class="font-bold text-gray-700 dark:text-gray-300">PYTHON (AI & Data)</span><span class="text-purple-500">85%</span></div>
+ <div class="bar-track"><div class="bar-fill" data-width="85%"></div></div>
+ </div>
+ <div>
+ <div class="flex justify-between mb-2"><span class="font-bold text-gray-700 dark:text-gray-300">JAVA (Processing)</span><span class="text-pink-500">75%</span></div>
+ <div class="bar-track"><div class="bar-fill" data-width="75%"></div></div>
+ </div>
+ <div>
+ <div class="flex justify-between mb-2"><span class="font-bold text-gray-700 dark:text-gray-300">C++ (OpenFrameworks)</span><span class="text-purple-500">60%</span></div>
+ <div class="bar-track"><div class="bar-fill" data-width="60%"></div></div>
+ </div>
+ </div>
+
+ <!-- Radial Ring -->
+ <div class="flex flex-col items-center justify-center">
+ <div class="relative w-[240px] h-[240px] flex items-center justify-center mb-6">
+ <svg class="w-full h-full -rotate-90 absolute top-0 left-0">
+ <circle cx="120" cy="120" r="100" fill="none" stroke="rgba(236, 72, 153, 0.1)" stroke-width="16"></circle>
+ <circle id="progressRing" cx="120" cy="120" r="100" fill="none" stroke="url(#gradient)" stroke-width="16" stroke-linecap="round" stroke-dasharray="628.32" stroke-dashoffset="628.32"></circle>
+ <defs>
+ <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+ <stop offset="0%" stop-color="#a855f7" />
+ <stop offset="100%" stop-color="#ec4899" />
+ </linearGradient>
+ </defs>
+ </svg>
+ <div class="text-center absolute">
+ <div id="ringValue" class="text-5xl font-black text-gray-900 dark:text-white font-sans">0%</div>
+ <div class="text-xs font-mono text-gray-500 uppercase tracking-widest mt-1">Framework<br>Accessibility</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Mid Article Ad Slot -->
+ <div class="my-8 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- VIDEO / INTERACTIVE DEMO SECTION -->
+ <section id="demo" class="reveal-element mt-16">
+ <span class="kicker pl-4">Live Execution</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Generative Art: When Code Creates Artwork</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Generative systems follow predefined rules to produce unique outputs on each execution. The interactive elements below show an algorithmic sketch and a code simulator.</p>
+
+ <!-- 1. Video Player Style Canvas (Acts as the Video Demo) -->
+ <div class="rounded-[2rem] overflow-hidden shadow-2xl bg-black relative aspect-video border border-gray-800 mb-10 group">
+ <canvas id="gen-art-demo" width="800" height="450" class="w-full h-full object-cover"></canvas>
+ <div class="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-white font-mono text-xs font-bold border border-white/20 flex items-center gap-2">
+ <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> LIVE_RENDER_LOOP
+ </div>
+ </div>
+
+ <!-- 2. Interactive Terminal Simulator -->
+ <div class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+ <h4 class="text-white font-mono mb-4 text-sm uppercase tracking-widest">[ CREATIVE_CODING_ENVIRONMENT ]</h4>
+ 
+ <div class="flex flex-col md:flex-row gap-3 mb-6">
+ <button id="btn-sim-p5" class="flex-1 border border-pink-600 text-pink-500 py-2 rounded font-mono text-xs hover:bg-pink-900/30 transition-colors">
+ [ RUN_P5_JS_SKETCH ]
+ </button>
+ <button id="btn-sim-py" class="flex-1 border border-purple-600 text-purple-400 py-2 rounded font-mono text-xs hover:bg-purple-900/30 transition-colors">
+ [ RUN_PYTHON_AI_MODEL ]
+ </button>
+ </div>
+ 
+ <div id="sim-terminal" class="font-mono text-sm border-t border-gray-800 pt-6 min-h-[160px] text-gray-300 leading-relaxed">
+ <div class="text-gray-600">> Awaiting compilation directive...</div>
+ </div>
+ </div>
+ </section>
+
+ <section id="applications" class="reveal-element mt-16">
+ <span class="kicker pl-4">Beyond the Canvas</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Interactive Installations & Artificial Intelligence</h2>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center mt-8">
+ <div class="mb-8 md:mb-0">
+ <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">Interactive installations integrate the audience into the system environment. Visitors influence the output through spatial movement and sound. Sensors process these inputs and alter the software's state in real time.</p>
+ <p class="text-gray-700 dark:text-gray-300 leading-relaxed">Machine learning models generate images, spatial geometries, and animations. Artists train algorithms on specific datasets and adjust the output parameters. Generative Adversarial Networks (GANs) and diffusion models produce artifacts that rely heavily on computational logic.</p>
+ </div>
+ <div>
+ <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop" alt="Interactive Data Installation" class="rounded-[2rem] shadow-xl w-full object-cover">
+ </div>
+ </div>
+ </section>
+
+ <!-- USE CASES GRID -->
+ <section id="use-cases" class="reveal-element mt-16">
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">The Expansive Domains of Art Tech</h2>
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+ <div class="glass-card p-6">
+ <h4 class="font-bold text-gray-900 dark:text-white">Virtual Reality</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">VR immerses viewers in fully rendered worlds. Creative coding builds the interactive landscapes and digital sculptures.</p>
+ </div>
+ <div class="glass-card p-6">
+ <h4 class="font-bold text-gray-900 dark:text-white">Augmented Reality</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">AR overlays digital art onto the physical world. It blends real environments with interactive digital elements.</p>
+ </div>
+ <div class="glass-card p-6">
+ <h4 class="font-bold text-gray-900 dark:text-white">Data Visualization</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">Data visualization transforms datasets into visual designs. It turns raw information into legible narratives.</p>
+ </div>
+ <div class="glass-card p-6">
+ <h4 class="font-bold text-gray-900 dark:text-white">Generative NFTs</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">Blockchain-based algorithms mint unique artwork at the moment of transaction, verifying ownership of code-driven art.</p>
+ </div>
+ </div>
+ </section>
+
+ <!-- LONG FORM -->
+ <section class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-[#1a1125] dark:to-[#221018]">
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: The Future of Art Technology</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+ Creative coding structures modern artistic expression. By integrating programming, logic design, and computation, artists build systems that are interactive and immersive. This fusion moves art beyond static forms into dynamic systems that respond to environmental and user inputs.
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4 font-bold">
+ Creative coding empowers developers and artists to explore technical aesthetics, relying strictly on the logic they design and the code they write.
+ </p>
+ </section>
+
+ <!-- FAQs -->
+ <section id="faq" class="reveal-element mt-16">
+ <span class="kicker pl-4">FAQ</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Frequently Asked Questions</h2>
+ 
+ <div class="faq-box">
+ <strong>What is creative coding in art technology?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">Creative coding is the use of programming languages and algorithms to create digital artwork, interactive media, and generative designs.</p>
+ </div>
+ <div class="faq-box">
+ <strong>Do artists need to know programming?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">Basic programming knowledge is required. Tools like Processing and p5.js lower the barrier to entry for visual thinkers.</p>
+ </div>
+ <div class="faq-box">
+ <strong>How does AI affect the artist's role?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">AI functions as a generative utility. It expands the production scale and acts as a collaborator in the computational process, operating strictly under human configuration.</p>
+ </div>
+ <div class="faq-box">
+ <strong>Where is creative coding used today?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">It is used in digital installations, museums, video games, advertising, VR experiences, and generative NFTs.</p>
+ </div>
+ </section>
+
+ <!-- REFERENCES -->
+ <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+ <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+ <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-3">
+ <li><span class="text-purple-500">[01]</span> <strong>Shiffman, D. (2012).</strong> <em>The Nature of Code: Simulating Natural Systems with Processing.</em></li>
+ <li><span class="text-purple-500">[02]</span> <strong>Reas, C., & McWilliams, C. (2010).</strong> <em>Form+Code in Design, Art, and Architecture.</em></li>
+ <li><span class="text-purple-500">[03]</span> <strong>Bohnacker, H. et al. (2012).</strong> <em>Generative Design: Visualize, Program, and Create with Processing.</em></li>
+ <li><span class="text-purple-500">[04]</span> <strong>Boden, M. A., & Edmonds, E. A. (2009).</strong> <em>What is Generative Art?</em> Digital Creativity, 20(1-2).</li>
+ <li><span class="text-purple-500">[05]</span> <strong>Levin, G., & Brain, T. (2021).</strong> <em>Code as Creative Medium: A Handbook for Computational Art and Design.</em></li>
+ </ul>
+ </div>
+
+ <!-- RELATED PROTOCOLS / LINKS -->
+ <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+ <span class="kicker">Continue Reading</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+ 
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+ <a href="what-is-generative-art.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-purpleBrand hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-purpleBrand font-bold uppercase tracking-wider block mb-2">Aesthetics Lab</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-purpleBrand transition-colors">What Is Generative Art?</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">A clear guide beyond the AI hype, exploring system-based creativity.</p>
+ </a>
+ <a href="ai-agents-creative-work.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-blue-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider block mb-2">Agentic Lab</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">AI Agents in Creative Work</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">How autonomous workflows are shifting the roles of designers and writers.</p>
+ </a>
+ </div>
+ </section>
+ </article>
+
+ <!-- SIDEBAR (Right) -->
+ <aside class="lg:col-span-4 space-y-8">
+ 
+ <div class="sticky-sidebar space-y-8">
+ <!-- TOC Card -->
+ <div class="glass-card p-6">
+ <span class="kicker">On this page</span>
+ <ul class="space-y-3 font-mono text-sm mt-4">
+ <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. What It Means</a></li>
+ <li><a href="#evolution" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. The Evolution of Art</a></li>
+ <li><a href="#languages" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Languages & Frameworks</a></li>
+ <li><a href="#demo" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Live Execution Demo</a></li>
+ <li><a href="#applications" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Installations & AI</a></li>
+ <li><a href="#use-cases" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Expansive Domains</a></li>
+ <li><a href="#faq" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">7. FAQ</a></li>
+ </ul>
+ </div>
+
+ <!-- Sidebar Sticky Ad Slot -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+ </div>
+
+ </aside>
+
+ </div>
+    <div class="my-16 pb-8 border-b border-gray-100 dark:border-darkBorder">
+        <h3 id="references" class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Bibliographic References & Further Reading</h3>
+        <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-xl mb-10 border border-gray-100 dark:border-darkBorder">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/krKN_8w9jys" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <ul class="font-mono text-sm text-gray-600 dark:text-gray-400 space-y-4 list-none m-0 p-0">
+            <li>> [1] p5.js Foundation and processing semantics.
+        <li>> [2] Generative art as a modern dialect.
+        <li>> [3] Algorithmic aesthetic and procedural generation.</li>
+        </ul>
+    </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ // 1. Intersection Observer for Scroll Reveals & Data Animations
+ const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('is-visible');
+ 
+ // Animate Numbers (Counters)
+ if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ const targetVal = parseInt(entry.target.dataset.count, 10);
+ let currentVal = 0;
+ const duration = 1500; // ms
+ const stepTime = Math.abs(Math.floor(duration / targetVal));
+ const timer = setInterval(() => {
+ currentVal += 1;
+ entry.target.innerText = currentVal + (entry.target.dataset.suffix || '');
+ if (currentVal >= targetVal) clearInterval(timer);
+ }, stepTime);
+ }
+
+ // Animate Bar Charts
+ if (entry.target.classList.contains('data-section') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ document.querySelectorAll('.bar-fill').forEach(bar => {
+ bar.style.width = bar.dataset.width;
+ });
+
+ // Animate Radial Chart
+ const ring = document.getElementById('progressRing');
+ const ringVal = document.getElementById('ringValue');
+ if (ring && ringVal) {
+ const fullDash = 628.32; // 2 * PI * 100
+ const targetPct = 95;
+ let currentPct = 0;
+ const ringTimer = setInterval(() => {
+ currentPct += 1;
+ ring.style.strokeDashoffset = fullDash - (fullDash * (currentPct / 100));
+ ringVal.innerText = currentPct + '%';
+ if (currentPct >= targetPct) clearInterval(ringTimer);
+ }, 15);
+ }
+ }
+ obs.unobserve(entry.target); 
+ }
+ });
+ }, observerOptions);
+
+ // Observing explicitly
+ document.querySelectorAll('.reveal-element, .num-counter, .data-section').forEach(el => observer.observe(el));
+
+ // 2. 3D Tilt Interaction
+ document.querySelectorAll('.tilt-fx').forEach(card => {
+ card.addEventListener('mousemove', (e) => {
+ const rect = card.getBoundingClientRect();
+ const x = e.clientX - rect.left;
+ const y = e.clientY - rect.top;
+ const centerX = rect.width / 2;
+ const centerY = rect.height / 2;
+ const rotateX = ((y - centerY) / centerY) * -8;
+ const rotateY = ((x - centerX) / centerX) * 8;
+ card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+ });
+ card.addEventListener('mouseleave', () => {
+ card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+ card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+ });
+ card.addEventListener('mouseenter', () => {
+ card.style.transition = 'none'; 
+ });
+ });
+
+ // 3. Hero Particle Canvas Animation (Pink/Purple Theme)
+ const canvas = document.getElementById('hero-canvas');
+ if(canvas) {
+ const ctx = canvas.getContext('2d');
+ let width, height, particles;
+
+ function initCanvas() {
+ width = canvas.width = window.innerWidth;
+ height = canvas.height = canvas.parentElement.offsetHeight;
+ particles = [];
+ const count = Math.min(Math.floor(width / 30), 80); 
+
+ for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    isPink: Math.random() > 0.5
+ });
+ }
+ }
+
+ function drawCanvas() {
+ ctx.clearRect(0, 0, width, height);
+ const isDark = document.documentElement.classList.contains('dark');
+ const dotColor = isDark ? 'rgba(244, 114, 182, 0.5)' : 'rgba(236, 72, 153, 0.5)'; 
+ const lineColorBase = isDark ? '192, 132, 252' : '168, 85, 247';
+
+ particles.forEach((p, index) => {
+ p.x += p.vx; p.y += p.vy;
+ if(p.x < 0 || p.x > width) p.vx *= -1;
+ if(p.y < 0 || p.y > height) p.vy *= -1;
+ 
+ ctx.fillStyle = p.isPink 
+ ? (isDark ? 'rgba(244, 114, 182, 0.5)' : 'rgba(236, 72, 153, 0.5)')
+ : (isDark ? 'rgba(192, 132, 252, 0.5)' : 'rgba(168, 85, 247, 0.5)');
+ 
+ ctx.beginPath();
+ ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+ ctx.fill();
+
+ for(let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 120) {
+                        const lineColor = p.isPink 
+                            ? `rgba(236, 72, 153, ${(1 - dist/120) * 0.3})`
+                            : `rgba(168, 85, 247, ${(1 - dist/120) * 0.3})`;
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawCanvas();
+    }
+
+    // 4. Generative Art Canvas Demo (In-article loop)
+    const genCanvas = document.getElementById('gen-art-demo');
+    if(genCanvas) {
+        const gctx = genCanvas.getContext('2d');
+        let time = 0;
+        
+        function drawGenerativeArt() {
+            gctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(10, 10, 10, 0.1)' : 'rgba(250, 250, 250, 0.1)';
+            gctx.fillRect(0, 0, genCanvas.width, genCanvas.height);
+            
+            const cx = genCanvas.width / 2;
+            const cy = genCanvas.height / 2;
+            
+            for(let i = 0; i < 3; i++) {
+                gctx.beginPath();
+                const radius = 50 + Math.sin(time + i) * 30;
+                const x = cx + Math.cos(time * (1 + i*0.1)) * (100 + i * 20);
+                const y = cy + Math.sin(time * (1 + i*0.1)) * (100 + i * 20);
+                
+                gctx.arc(x, y, radius, 0, Math.PI * 2);
+                gctx.strokeStyle = `hsla(${(time * 40 + i * 40) % 360}, 80%, 60%, 0.5)`;
+                gctx.lineWidth = 2;
+                gctx.stroke();
+            }
+            time += 0.02;
+            requestAnimationFrame(drawGenerativeArt);
+        }
+        drawGenerativeArt();
+    }
+
+    // 5. Creative Code Simulator
+    const btnSimP5 = document.getElementById('btn-sim-p5');
+    const btnSimPy = document.getElementById('btn-sim-py');
+    const termSim = document.getElementById('sim-terminal');
+    let isSimRunning = false;
+
+    if (btnSimP5 && btnSimPy && termSim) {
+        const typeOut = (text, colorClass, callback) => {
+ const div = document.createElement('div');
+ div.className = colorClass + ' mt-4 border-t border-gray-800 pt-4';
+ termSim.appendChild(div);
+ let i = 0;
+ const type = setInterval(() => {
+ div.innerHTML = text.substring(0, i) + (i < text.length ? "<span class='animate-blink'>█</span>" : "");
+ i++;
+ if (i > text.length) {
+ clearInterval(type);
+ if(callback) callback();
+ }
+ }, 10);
+ };
+
+ const resetButtons = () => {
+ btnSimP5.style.opacity = '1';
+ btnSimPy.style.opacity = '1';
+ isSimRunning = false;
+ };
+
+ btnSimP5.addEventListener('click', () => {
+ if (isSimRunning) return;
+ isSimRunning = true;
+ btnSimP5.style.opacity = '0.5'; btnSimPy.style.opacity = '0.5';
+ termSim.innerHTML = "<div class='text-gray-500'>> INGRESS: Compiling p5.js script...</div>";
+ 
+ setTimeout(() => {
+ typeOut("> function draw() { <br>&nbsp;&nbsp;background(0, 10); <br>&nbsp;&nbsp;ellipse(mouseX, mouseY, 50, 50); <br>}<br>> <span class='text-pink-400'>ACTION: Canvas rendering loop initiated at 60 FPS.</span><br><span class='text-green-500 font-bold'>[STATUS] Interactive geometry successfully painted to DOM.</span>", 'text-gray-300', resetButtons);
+ }, 500);
+ });
+
+ btnSimPy.addEventListener('click', () => {
+ if (isSimRunning) return;
+ isSimRunning = true;
+ btnSimP5.style.opacity = '0.5'; btnSimPy.style.opacity = '0.5';
+ termSim.innerHTML = "<div class='text-gray-500'>> INGRESS: Executing Python PyTorch Tensor transformation...</div>";
+ 
+ setTimeout(() => {
+ typeOut("> import torch<br>> model = StyleGAN(pretrained=True)<br>> output = model.generate(noise_vector)<br>> <span class='text-purple-400'>ACTION: Synthesizing latent space coordinates into RGB arrays.</span><br><span class='text-green-500 font-bold'>[STATUS] DeepDream fractal output successfully saved.</span>", 'text-gray-300', resetButtons);
+ }, 500);
+ });
+ }
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenLab // Ideas that shape the digital world</title>
+    <meta name="description" content="Experimental lab focused on code, generative art, and immersive UI/UX.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="GenLab // Ideas that shape the digital world">
+    <meta property="og:description" content="Experimental lab focused on code, generative art, and immersive UI/UX.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="GenLab // Ideas that shape the digital world">
+    <meta property="twitter:description" content="Experimental lab focused on code, generative art, and immersive UI/UX.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<style>
+/* =========================================
+           GLOBAL & MICRO-ANIMATIONS
+           ========================================= */
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; }
+        
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+
+        /* Scroll Progress Indicator */
+        #scroll-indicator {
+            position: fixed;
+            top: 0; left: 0; height: 3px;
+            background: linear-gradient(to right, #a78bfa, #fca5a5);
+            width: 0%; z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Fade-Up Reveal (Scroll) */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           HERO SECTION ANIMATIONS
+           ========================================= */
+        @keyframes fade-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes title-blur-reveal {
+            0% { opacity: 0; filter: blur(20px); transform: scale(1.05) translateY(15px); }
+            100% { opacity: 1; filter: blur(0px); transform: scale(1) translateY(0); }
+        }
+
+        .animate-fade-up { opacity: 0; animation: fade-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+        .animate-title-blur { opacity: 0; animation: title-blur-reveal 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-600 { animation-delay: 600ms; }
+
+        /* Background Blobs */
+        @keyframes blob {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .animate-blob { animation: blob 10s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+
+        /* Floating Code Fragments Animation */
+        @keyframes drift {
+            0% { transform: translateY(100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
+        }
+        .code-fragment {
+            position: absolute;
+            animation: drift linear infinite;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Blinking Cursor for Logo */
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+
+        /* Liquid Mouse */
+        #liquid-cursor {
+            position: absolute; width: 384px; height: 384px;
+            background: rgba(255, 255, 255, 0.6); border-radius: 50%;
+            filter: blur(60px); pointer-events: none; opacity: 0; z-index: 0;
+            transition: transform 0.15s linear, opacity 0.4s ease, background-color 0.5s ease;
+        }
+        .dark #liquid-cursor { background: rgba(167, 139, 250, 0.15); }
+
+        /* =========================================
+           ANIMATED GRADIENT TEXT
+           ========================================= */
+        @keyframes text-gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .gradient-text-animated {
+            background: linear-gradient(to right, #a78bfa, #fca5a5, #a78bfa);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: text-gradient 6s ease infinite;
+            padding-bottom: 0.2em; margin-bottom: -0.2em; display: inline-block;
+        }
+        .dark .gradient-text-animated {
+            background: linear-gradient(to right, #d8b4fe, #fca5a5, #d8b4fe);
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+        }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div id="scroll-indicator"></div>
+
+    <!-- GLOBAL FIXED BACKGROUND -->
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20 transition-colors duration-500"></div>
+    <div class="fixed top-0 left-10 w-96 h-96 bg-[#d8b4fe]/30 dark:bg-[#7c3aed]/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-70 animate-blob -z-10 pointer-events-none transition-colors duration-500"></div>
+    <div class="fixed top-20 right-20 w-96 h-96 bg-[#fca5a5]/20 dark:bg-[#e11d48]/15 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-70 animate-blob animation-delay-2000 -z-10 pointer-events-none transition-colors duration-500"></div>
+
+    <!-- HEADER & NAV -->
+    <div id="liquid-header" class="relative overflow-hidden rounded-b-[3rem] border-b border-white/40 dark:border-darkBorder shadow-sm pb-16 md:pb-24 pt-4 transition-all duration-500">
+        
+        <div id="liquid-cursor"></div>
+
+        <!-- Floating Code Fragments (Lovable Style) -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="code-fragment text-purpleBrand/40 dark:text-purpleBrand/20 font-mono text-3xl" style="left: 10%; top: 30%; animation-duration: 25s; animation-delay: 0s;">{ }</div>
+            <div class="code-fragment text-pink-400/40 dark:text-pink-400/20 font-mono text-2xl" style="left: 85%; top: 60%; animation-duration: 20s; animation-delay: -5s;">;</div>
+            <div class="code-fragment text-blue-400/40 dark:text-blue-400/20 font-mono text-4xl" style="left: 70%; top: 20%; animation-duration: 28s; animation-delay: -12s;">+</div>
+            <div class="code-fragment text-purpleBrand/30 dark:text-purpleBrand/15 font-mono text-2xl" style="left: 25%; top: 80%; animation-duration: 22s; animation-delay: -3s;">[ ]</div>
+            <div class="code-fragment text-pink-400/30 dark:text-pink-400/15 font-mono text-3xl" style="left: 50%; top: 90%; animation-duration: 30s; animation-delay: -18s;">&lt;/&gt;</div>
+        </div>
+
+        
+
+        <section class="py-12 md:py-24 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto relative z-10 flex flex-col text-left">
+            <div class="animate-fade-up delay-100 inline-block px-4 py-2 rounded-md bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/80 dark:border-darkBorder text-xs font-mono font-bold tracking-widest text-gray-700 dark:text-gray-300 uppercase mb-8 shadow-sm w-fit">
+                > CREATIVE CODER > DIGITAL ARTIST > BUILDER
+            </div>
+            
+            <h1 class="animate-title-blur delay-300 text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-gray-900 dark:text-white mb-6 leading-[1.05] tracking-tight max-w-4xl">
+                Ideas that shape <br class="hidden md:block" />
+                <span class="gradient-text-animated">the digital world</span>
+            </h1>
+            
+            <p class="animate-fade-up delay-600 text-lg md:text-xl text-gray-600 dark:text-darkMuted max-w-2xl leading-relaxed font-medium mb-10">
+                Experimental lab focused on code, generative art, and immersive UI/UX. Exploring the intersection of human philosophy and machine logic.
+            </p>
+
+            <!-- Terminal Snippet Widget (Lovable Style) -->
+            <div class="animate-fade-up delay-600 bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/50 dark:border-gray-800 rounded-xl p-6 shadow-2xl max-w-md relative overflow-hidden group">
+                <div class="flex gap-2 mb-5">
+                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <div class="font-mono text-sm leading-loose">
+                    <span class="text-purple-600 dark:text-purpleBrand">const</span> <span class="text-blue-500 dark:text-blue-400">passion</span> <span class="text-gray-800 dark:text-gray-200">=</span> <span class="text-gray-800 dark:text-gray-200">[</span><br>
+                    &nbsp;&nbsp;<span class="text-green-600 dark:text-emerald-400">'generative art'</span><span class="text-gray-800 dark:text-gray-200">,</span><br>
+                    &nbsp;&nbsp;<span class="text-green-600 dark:text-emerald-400">'web experiments'</span><span class="text-gray-800 dark:text-gray-200">,</span><br>
+                    &nbsp;&nbsp;<span class="text-green-600 dark:text-emerald-400">'creative tools'</span><br>
+                    <span class="text-gray-800 dark:text-gray-200">];</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MAIN DYNAMIC CONTAINER -->
+    <main class="container mx-auto px-6 md:px-12 lg:px-20 pb-20 relative z-10 mt-12 max-w-7xl">
+        <!-- Area de Filtros e Pesquisa -->
+        <div class="text-center mb-10">
+            <span class="font-mono text-xs font-bold tracking-[0.2em] text-gray-400 dark:text-gray-500 uppercase">LATEST EXPERIMENTS & WRITING</span>
+        </div>
+        <div id="filter-bar-container"></div>
+        
+        <!-- Grelha de Artigos -->
+        <div id="app-view" class="mt-8">
+            <div class="text-center py-20"><p class="text-gray-500 dark:text-darkMuted font-mono animate-pulse">Loading interface...</p></div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script src="/artigos.js?v=20260314"></script>
+<script>
+(() => {
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            scrollIndicator.style.width = scrolled + '%';
+        });
+    }
+
+    const header = document.getElementById('liquid-header');
+    const cursor = document.getElementById('liquid-cursor');
+    if (header && cursor) {
+        header.addEventListener('mousemove', (e) => {
+            const rect = header.getBoundingClientRect();
+            window.requestAnimationFrame(() => {
+                cursor.style.transform = `translate(${e.clientX - rect.left - 192}px, ${e.clientY - rect.top - 192}px) scale(1.2)`;
+                cursor.style.opacity = '1';
+            });
+        });
+        header.addEventListener('mouseleave', () => {
+            cursor.style.opacity = '0';
+        });
+    }
+
+    const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    function initObservers() {
+        document.querySelectorAll('.reveal-element').forEach((el) => observer.observe(el));
+    }
+
+    let currentCategory = 'All';
+    let searchQuery = '';
+
+    function getFilterBarHTML(categories) {
+        const pills = categories.map((c) => `
+            <button onclick="setCategory('${c}')" class="px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 hover:-translate-y-1 ${currentCategory === c ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md shadow-gray-200 dark:shadow-none' : 'bg-white dark:bg-darkSurface border border-gray-200 dark:border-darkBorder text-gray-600 dark:text-darkMuted hover:bg-gray-50 dark:hover:bg-darkBorder'}">${c}</button>
+        `).join('');
+
+        return `
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 reveal-element">
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                    ${pills}
+                </div>
+                <div class="relative w-full md:w-80 group">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-purpleBrand transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search articles..." value="${searchQuery}" oninput="setSearch(this.value)" class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 dark:border-darkBorder font-mono text-sm focus:outline-none focus:ring-4 focus:ring-purple-100 dark:focus:ring-purpleBrand/20 focus:border-purpleBrand transition-all bg-white dark:bg-darkSurface dark:text-white shadow-sm">
+                </div>
+            </div>
+        `;
+    }
+
+    function getCardHTML(post, isFeatured, indexDelay = 0) {
+        const hClass = isFeatured ? 'h-72 md:h-[26rem]' : 'h-56';
+        const titleClass = isFeatured ? 'text-3xl md:text-4xl' : 'text-2xl';
+        const imgUrl = post.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop';
+        const link = `${post.id}.php`;
+
+        return `
+            <a href="${link}" style="transition-delay: ${indexDelay}ms;" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden border border-gray-100 dark:border-darkBorder shadow-sm hover:shadow-2xl dark:hover:shadow-purpleBrand/10 transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-2 reveal-element">
+                <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] ${hClass}">
+                    <div class="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse -z-10"></div>
+                    <img src="${imgUrl}" alt="${post.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="text-white font-mono font-bold tracking-widest uppercase text-xs translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Read the full story</span>
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow relative bg-white dark:bg-darkSurface transition-colors duration-500">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">${post.category || ''}</span>
+                        <span class="text-gray-400 dark:text-darkMuted font-mono text-xs font-bold uppercase tracking-wide">${post.meta ? post.meta.split('//')[0].replace('TIMESTAMP:', '').trim() : ''}</span>
+                    </div>
+                    <h3 class="font-serif font-bold text-gray-900 dark:text-white mb-4 leading-[1.2] group-hover:text-purpleBrand transition-colors duration-300 ${titleClass}">${post.title || ''}</h3>
+                    <p class="text-gray-600 dark:text-darkMuted text-base leading-relaxed flex-grow font-medium">${post.summary || ''}</p>
+                    <div class="mt-8 flex items-center justify-end">
+                        <div class="w-8 h-8 rounded-full bg-gray-50 dark:bg-darkBorder flex items-center justify-center group-hover:bg-purple-50 dark:group-hover:bg-purpleBrand/20 transition-colors duration-300">
+                            <svg class="w-4 h-4 text-gray-400 dark:text-darkMuted group-hover:text-purpleBrand transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `;
+    }
+
+    function getAdHTML(variant) {
+        const hClass = variant === 'horizontal' ? 'h-40 w-full' : 'h-full min-h-[300px] w-full';
+        return `
+            <div class="bg-white dark:bg-darkSurface rounded-[2rem] border border-gray-100 dark:border-darkBorder flex items-center justify-center font-mono text-xs tracking-[0.2em] text-gray-300 dark:text-gray-600 font-bold p-8 shadow-sm reveal-element transition-colors duration-500 ${hClass}">
+                ADVERTISEMENT
+            </div>
+        `;
+    }
+
+    window.setCategory = (cat) => { currentCategory = cat; renderHome(); };
+    window.setSearch = (query) => { searchQuery = query; renderHome(); };
+    window.clearFilters = () => { currentCategory = 'All'; searchQuery = ''; renderHome(); };
+
+    function renderHome() {
+        const appView = document.getElementById('app-view');
+        const filterBar = document.getElementById('filter-bar-container');
+
+        if (!Array.isArray(window.articles)) {
+            appView.innerHTML = '<p class="text-red-500 text-center py-20 font-mono font-bold">[ERROR] artigos.js not loaded. Check file path and cache.</p>';
+            return;
+        }
+
+        const allCategories = ['All', ...new Set(window.articles.map((p) => p.category).filter(Boolean))];
+        const filtered = window.articles.filter((post) => {
+            const matchCat = currentCategory === 'All' || post.category === currentCategory;
+            const matchSearch = !searchQuery || (post.title || '').toLowerCase().includes(searchQuery.toLowerCase()) || (post.summary || '').toLowerCase().includes(searchQuery.toLowerCase());
+            return matchCat && matchSearch;
+        });
+
+        filterBar.innerHTML = getFilterBarHTML(allCategories);
+
+        let html = '';
+        const isFiltering = currentCategory !== 'All' || searchQuery.length > 0;
+
+        if (isFiltering) {
+            if (filtered.length === 0) {
+                html = `
+                    <div class="text-center py-32 bg-white/60 dark:bg-darkSurface/60 backdrop-blur-sm rounded-[2rem] border border-white/80 dark:border-darkBorder reveal-element">
+                        <p class="text-gray-500 dark:text-darkMuted font-mono text-sm font-medium">> No articles found matching your criteria.</p>
+                        <button onclick="clearFilters()" class="mt-4 font-mono text-sm font-bold text-purpleBrand hover:underline">Clear filters</button>
+                    </div>
+                `;
+            } else {
+                html += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+                filtered.forEach((p, i) => { html += getCardHTML(p, false, i * 50); });
+                html += '</div>';
+            }
+        } else {
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+            if (filtered[0]) html += `<div class="md:col-span-2">${getCardHTML(filtered[0], true)}</div>`;
+            if (filtered[1]) html += `<div class="flex flex-col gap-6"><div class="flex-1">${getCardHTML(filtered[1], false, 100)}</div>${getAdHTML('square')}</div>`;
+            if (filtered[2]) html += getCardHTML(filtered[2], false, 0);
+            if (filtered[3]) html += getCardHTML(filtered[3], false, 100);
+            html += `<div class="hidden lg:flex items-center">${getAdHTML('square')}</div>`;
+            html += `<div class="md:col-span-2 lg:col-span-3">${getAdHTML('horizontal')}</div>`;
+            if (filtered[4]) html += getCardHTML(filtered[4], false, 0);
+            if (filtered[5]) html += getCardHTML(filtered[5], false, 100);
+            html += `<div class="hidden lg:block">${getAdHTML('square')}</div>`;
+            if (filtered.length > 6) {
+                for (let i = 6; i < filtered.length; i += 1) {
+                    html += getCardHTML(filtered[i], false, (i % 3) * 100);
+                }
+            }
+            html += '</div>';
+        }
+
+        appView.innerHTML = html;
+        setTimeout(initObservers, 50);
+    }
+
+    window.addEventListener('load', () => {
+        renderHome();
+        document.querySelectorAll('.reveal-element').forEach((el) => el.classList.add('is-visible'));
+    });
+})();
+</script>
+
+</body>
+</html>

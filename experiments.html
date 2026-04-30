@@ -1,0 +1,1421 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiments // GenLab</title>
+    <meta name="description" content="Interactive creative coding experiments and generative art sketches built with p5.js and WebGL.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Experiments // GenLab">
+    <meta property="og:description" content="Interactive creative coding experiments and generative art sketches built with p5.js and WebGL.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Experiments // GenLab">
+    <meta property="twitter:description" content="Interactive creative coding experiments and generative art sketches built with p5.js and WebGL.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; overflow-x: hidden; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+
+        .reveal-element {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* ============================================================ */
+        /* MAIN STAGE */
+        /* ============================================================ */
+        #stage {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            max-height: 70vh;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            background: #08090e;
+            cursor: crosshair;
+        }
+        #stage canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+            outline: none;
+        }
+
+
+        /* Stage overlay bar */
+        #stage-bar {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 1rem 1.25rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .stage-btn {
+            pointer-events: all;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: all 0.2s;
+        }
+        .stage-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+        /* ============================================================ */
+        /* PARAMETERS PANEL */
+        /* ============================================================ */
+        #params-panel {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+        }
+        .dark #params-panel {
+            background: rgba(12, 12, 18, 0.92);
+            border-color: rgba(255,255,255,0.06);
+        }
+        .param-group { margin-bottom: 1.25rem; }
+        .param-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #6366f1;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .dark .param-label { color: #a5b4fc; }
+        .param-val {
+            background: rgba(99,102,241,0.1);
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.7rem;
+            color: #6366f1;
+        }
+        .dark .param-val { color: #a5b4fc; background: rgba(165,180,252,0.1); }
+        .slider {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            outline: none;
+        }
+        .dark .slider { background: rgba(255,255,255,0.1); }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            cursor: grab;
+            box-shadow: 0 0 8px rgba(99,102,241,0.5);
+            transition: transform 0.1s;
+        }
+        .slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.3); }
+        .toggle-btn {
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(99,102,241,0.3);
+            background: transparent;
+            color: #6366f1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
+        }
+        .dark .toggle-btn { color: #a5b4fc; border-color: rgba(165,180,252,0.3); }
+        .toggle-btn:hover, .toggle-btn.on {
+            background: rgba(99,102,241,0.15);
+        }
+        .dark .toggle-btn:hover, .dark .toggle-btn.on {
+            background: rgba(165,180,252,0.1);
+        }
+
+        /* ============================================================ */
+        /* EXPERIMENT CARDS */
+        /* ============================================================ */
+        .exp-card {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.07);
+        }
+        .dark .exp-card { background: #0f1117; border-color: rgba(255,255,255,0.06); }
+        .exp-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.12); }
+        .dark .exp-card:hover { box-shadow: 0 24px 48px rgba(99,102,241,0.12); }
+        .exp-card.active { border-color: #6366f1; box-shadow: 0 0 0 2px rgba(99,102,241,0.3); }
+        .dark .exp-card.active { border-color: #818cf8; box-shadow: 0 0 0 2px rgba(129,140,248,0.2); }
+        
+        /* Thumbnail mini canvas area */
+        .thumb-wrap {
+            position: relative;
+            height: 160px;
+            background: #08090e;
+            overflow: hidden;
+        }
+        .thumb-wrap canvas { display: block; }
+        .thumb-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            padding: 0.75rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .exp-card:hover .thumb-label { opacity: 1; }
+        .card-body { padding: 1rem; }
+        .card-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #9ca3af;
+            margin-bottom: 0.35rem;
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 0.25rem;
+            transition: color 0.2s;
+        }
+        .dark .card-title { color: #f1f5f9; }
+        .exp-card:hover .card-title { color: #6366f1; }
+        .dark .exp-card:hover .card-title { color: #a5b4fc; }
+        .card-desc { font-size: 0.8rem; line-height: 1.5; color: #64748b; }
+        .dark .card-desc { color: #94a3b8; }
+
+        /* FPS meter */
+        #fps-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            background: rgba(16,185,129,0.15);
+            color: #10b981;
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 4px;
+            padding: 2px 7px;
+        }
+    </style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="text-[#d8b4fe] dark:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<main class="relative z-10 w-full pt-12 pb-24 flex-grow">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+
+        <!-- PAGE HEADER -->
+        <div class="mb-10 reveal-element">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="font-mono text-xs font-bold tracking-widest text-indigo-500 dark:text-indigo-400 uppercase">> LAB.INIT</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-indigo-500/30 to-transparent"></div>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">Experiments</h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400 font-sans max-w-2xl">A sandbox for creative coding and algorithmic aesthetics. Select a sketch and tune parameters in real time.</p>
+        </div>
+
+        <!-- STAGE + PARAMS LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16 reveal-element">
+            
+            <!-- MAIN CANVAS STAGE -->
+            <div class="lg:col-span-9">
+                <!-- Stage header bar -->
+                <div class="flex items-center gap-4 mb-3 px-1">
+                    <div id="accent-dot" class="w-2.5 h-2.5 rounded-full bg-indigo-500 flex-shrink-0 animate-pulse"></div>
+                    <span id="exp-title" class="font-bold text-gray-900 dark:text-white font-serif text-lg">Neural Constellations</span>
+                    <span id="exp-tech" class="font-mono text-xs text-gray-400 uppercase tracking-wider">P5.JS · GRAPH</span>
+                </div>
+
+                <div id="stage" class="shadow-2xl dark:shadow-black/60">
+                    <!-- p5 canvas injects here -->
+                    <div id="stage-bar">
+                        <div class="flex gap-2">
+                            <button class="stage-btn" onclick="window.randomizeParams(window.__currentExp||'neural')">Random</button>
+                        </div>
+                        <div class="text-white/40 font-mono text-xs hidden md:block">MOVE CURSOR TO INTERACT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARAMS PANEL -->
+            <div class="lg:col-span-3">
+                <div id="params-panel" class="h-full">
+                    <!-- Built dynamically by JS -->
+                    <div class="font-mono text-xs text-gray-400 animate-pulse">Loading parameters...</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- EXPERIMENTS GRID -->
+        <div class="reveal-element mb-8">
+            <div class="flex items-center gap-4">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Sketch Archive</h2>
+                <div class="h-px flex-1 bg-gray-200 dark:bg-gray-800"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal-element">
+
+            <!-- Card 1 -->
+            <div class="exp-card active" data-exp="neural" onclick="loadExperiment('neural')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · GRAPH THEORY</div>
+                    <div class="card-title">Neural Constellations</div>
+                    <div class="card-desc">Particle graph that reacts to cursor proximity. Tune count, link radius and drift speed.</div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="exp-card" data-exp="liquid" onclick="loadExperiment('liquid')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · PERLIN NOISE</div>
+                    <div class="card-title">Liquid Geometry</div>
+                    <div class="card-desc">Organic morphing blob driven by 2D Perlin noise. Control speed, scale and ring layers.</div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="exp-card" data-exp="attractor" onclick="loadExperiment('attractor')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · PARAMETRIC MATH</div>
+                    <div class="card-title">Strange Attractors</div>
+                    <div class="card-desc">Lissajous-style attractor with tunable frequency ratios. Click canvas to clear and restart.</div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="exp-card" data-exp="cellular" onclick="loadExperiment('cellular')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">CELLULAR AUTOMATA</div>
+                    <div class="card-title">Cellular Symphony</div>
+                    <div class="card-desc">Conway's Game of Life with adjustable cell size and birth population. Draw cells live with your mouse.</div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="exp-card" data-exp="synesthesia" onclick="loadExperiment('synesthesia')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · SINE WAVES</div>
+                    <div class="card-title">Synesthesia Engine</div>
+                    <div class="card-desc">Layered cyclic waveforms. Control ring count, amplitude, speed and wave frequency.</div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="exp-card" data-exp="sdf" onclick="loadExperiment('sdf')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · WEBGL 3D</div>
+                    <div class="card-title">SDF Dreamscapes</div>
+                    <div class="card-desc">Real-time 3D torus with orbiting planets. Move cursor to shift the light source. Toggle wireframe.</div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="exp-card" data-exp="gravity" onclick="loadExperiment('gravity')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">P5.JS · PHYSICS</div>
+                    <div class="card-title">Gravity Wells</div>
+                    <div class="card-desc">Particles orbiting gravitational attractors. Click anywhere on the canvas to place a new well.</div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="exp-card" data-exp="theremin" onclick="loadExperiment('theremin')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">WEB AUDIO · PAINT</div>
+                    <div class="card-title">Theremin Painter</div>
+                    <div class="card-desc">Click and drag to play sound and paint with frequency. X controls pitch, Y controls volume.</div>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="exp-card" data-exp="harmonic" onclick="loadExperiment('harmonic')">
+                <div class="thumb-wrap"><canvas class="thumb-canvas w-full" height="160"></canvas>
+                    <div class="thumb-label"><span class="text-white font-mono text-xs font-bold">▶ LOAD SKETCH</span></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tech">WEB AUDIO · FFT</div>
+                    <div class="card-title">Harmonic Resonance</div>
+                    <div class="card-desc">Layered sine harmonics visualized with an oscilloscope and frequency spectrum. Click to start audio.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // Reveal
+    const obs = new IntersectionObserver((entries, o) => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); o.unobserve(e.target); } });
+    }, { rootMargin:'0px 0px -40px 0px', threshold:0.05 });
+    document.querySelectorAll('.reveal-element').forEach(el => obs.observe(el));
+
+    // ============================================================
+    // GLOBAL STATE
+    // ============================================================
+    let p5Instance = null;
+    let params = {};
+    let theaterMode = false;
+    let frameCount = 0, lastFpsTime = performance.now(), fps = 0;
+
+    const experiments = {
+        neural: {
+            label:'Neural Constellations', tech:'P5.JS · GRAPH', accent:'#a855f7',
+            params: {
+                count:   { label:'Particle Count', min:30, max:250, step:1, value:100 },
+                radius:  { label:'Link Radius',    min:40, max:200, step:5, value:100 },
+                speed:   { label:'Drift Speed',    min:0.1, max:3, step:0.05, value:0.6 },
+                mouse:   { label:'Mouse Pull',     min:0, max:300, step:10, value:150 },
+            },
+            extras: { trails: false },
+            thumbnail: drawNeuralThumb,
+            sketch: neuralSketch,
+        },
+        liquid: {
+            label:'Liquid Geometry', tech:'P5.JS · PERLIN', accent:'#06b6d4',
+            params: {
+                speed:    { label:'Flow Speed',    min:0.001, max:0.05, step:0.001, value:0.015 },
+                scale:    { label:'Noise Scale',   min:0.5, max:3, step:0.05, value:1.5 },
+                opacity:  { label:'Fill Opacity',  min:20, max:255, step:5, value:150 },
+                rings:    { label:'Ring Layers',   min:1, max:6, step:1, value:1 },
+            },
+            extras: { fill: true },
+            thumbnail: drawLiquidThumb,
+            sketch: liquidSketch,
+        },
+        attractor: {
+            label:'Strange Attractors', tech:'P5.JS · MATH', accent:'#f43f5e',
+            params: {
+                freqA:  { label:'Frequency A',   min:1, max:8, step:0.5, value:3 },
+                freqB:  { label:'Frequency B',   min:1, max:8, step:0.5, value:2 },
+                speed:  { label:'Draw Speed',    min:0.01, max:0.2, step:0.01, value:0.05 },
+                hue:    { label:'Hue Shift',     min:0, max:360, step:1, value:330 },
+            },
+            extras: { fade: false },
+            thumbnail: drawAttractorThumb,
+            sketch: attractorSketch,
+        },
+        cellular: {
+            label:'Cellular Symphony', tech:'AUTOMATA · LIFE', accent:'#10b981',
+            params: {
+                cellSize:  { label:'Cell Size',    min:4, max:30, step:1, value:12 },
+                frameRate: { label:'Frame Rate',   min:3, max:30, step:1, value:12 },
+                birthPop:  { label:'Birth Pop',    min:0.1, max:0.6, step:0.02, value:0.3 },
+            },
+            extras: { color: false },
+            thumbnail: drawCellularThumb,
+            sketch: cellularSketch,
+        },
+        synesthesia: {
+            label:'Synesthesia Engine', tech:'P5.JS · WAVES', accent:'#8b5cf6',
+            params: {
+                rings:    { label:'Ring Count',    min:3, max:20, step:1, value:8 },
+                amplitude:{ label:'Wave Depth',    min:10, max:80, step:2, value:30 },
+                speed:    { label:'Wave Speed',    min:0.01, max:0.12, step:0.005, value:0.03 },
+                freq:     { label:'Wave Freq',     min:2, max:10, step:1, value:4 },
+            },
+            extras: {},
+            thumbnail: drawSynesthesiaThumb,
+            sketch: synesthesiaSketch,
+        },
+        sdf: {
+            label:'SDF Dreamscapes', tech:'P5.JS · WEBGL', accent:'#f59e0b',
+            params: {
+                rotSpeed:  { label:'Rotation Speed', min:0.001, max:0.04, step:0.001, value:0.01 },
+                shine:     { label:'Shininess',      min:5, max:200, step:5, value:50 },
+                orbitR:    { label:'Orbit Radius',   min:0.1, max:0.5, step:0.01, value:0.3 },
+            },
+            extras: { wire: false },
+            thumbnail: drawSdfThumb,
+            sketch: sdfSketch,
+        },
+        gravity: {
+            label:'Gravity Wells', tech:'P5.JS · PHYSICS', accent:'#eab308',
+            params: {
+                count:    { label:'Particle Count', min:50, max:400, step:10, value:150 },
+                gravity:  { label:'Gravity Force',  min:50, max:500, step:10, value:200 },
+                friction: { label:'Friction',       min:0.90, max:0.999, step:0.001, value:0.99 },
+            },
+            extras: {},
+            thumbnail: drawGravityThumb,
+            sketch: gravitySketch,
+        },
+        theremin: {
+            label:'Theremin Painter', tech:'WEB AUDIO · PAINT', accent:'#f97316',
+            params: {
+                freqMin: { label:'Min Freq (Hz)', min:50,  max:500,  step:10,  value:100 },
+                freqMax: { label:'Max Freq (Hz)', min:500, max:4000, step:50,  value:2000 },
+            },
+            extras: { mute: false },
+            thumbnail: drawThereminThumb,
+            sketch: thereminSketch,
+        },
+        harmonic: {
+            label:'Harmonic Resonance', tech:'WEB AUDIO · FFT', accent:'#a78bfa',
+            params: {
+                harmonics: { label:'Harmonic Count', min:1, max:12, step:1, value:4 },
+                baseNote:  { label:'Base Note (Hz)', min:55, max:440, step:5, value:110 },
+            },
+            extras: {},
+            thumbnail: drawHarmonicThumb,
+            sketch: harmonicSketch,
+        },
+    };
+
+    // ============================================================
+    // THUMBNAIL MINI-RENDERERS (vanilla Canvas2D)
+    // ============================================================
+    const thumbAnims = {};
+
+    function startThumb(id, canvas, drawFn) {
+        const ctx = canvas.getContext('2d');
+        let t = 0;
+        function loop() {
+            drawFn(ctx, canvas.width, canvas.height, t);
+            t += 0.025;
+            thumbAnims[id] = requestAnimationFrame(loop);
+        }
+        thumbAnims[id] = requestAnimationFrame(loop);
+    }
+    function stopThumb(id) {
+        if(thumbAnims[id]) { cancelAnimationFrame(thumbAnims[id]); delete thumbAnims[id]; }
+    }
+
+    function drawNeuralThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.35)'; ctx.fillRect(0,0,w,h);
+        const nodes = 18;
+        ctx.strokeStyle='rgba(168,85,247,0.5)'; ctx.fillStyle='rgba(216,180,254,0.9)';
+        for(let i=0; i<nodes; i++) {
+            const x = (Math.sin(i*137.5 + t*0.4)*.5+.5)*w, y = (Math.cos(i*97.3 + t*0.3)*.5+.5)*h;
+            ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
+            for(let j=i+1; j<nodes; j++) {
+                const x2=(Math.sin(j*137.5+t*0.4)*.5+.5)*w, y2=(Math.cos(j*97.3+t*0.3)*.5+.5)*h;
+                if(Math.hypot(x-x2,y-y2)<50) { ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x2,y2); ctx.stroke(); }
+            }
+        }
+    }
+
+    function drawLiquidThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.2)'; ctx.fillRect(0,0,w,h);
+        ctx.fillStyle='rgba(6,182,212,0.35)'; ctx.strokeStyle='rgba(6,182,212,0.7)'; ctx.lineWidth=1;
+        for(let layer=0; layer<3; layer++) {
+            ctx.beginPath();
+            for(let a=0; a<Math.PI*2; a+=0.15) {
+                const n = Math.sin(a*3+t+layer)*Math.cos(a*2-t*0.7)*0.3;
+                const r = (w*.25) + n*w*.15 + layer*8;
+                const x=w/2+Math.cos(a)*r, y=h/2+Math.sin(a)*r;
+                a===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+            }
+            ctx.closePath(); ctx.fill(); ctx.stroke();
+        }
+    }
+
+    function drawAttractorThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.08)'; ctx.fillRect(0,0,w,h);
+        ctx.strokeStyle=`hsla(${330+Math.sin(t)*30},80%,65%,0.6)`; ctx.lineWidth=1;
+        ctx.beginPath();
+        const a=3, b=2;
+        for(let i=0; i<200; i++) {
+            const step=t+i*0.05;
+            const x=w/2+Math.sin(a*step)*(w*.38);
+            const y=h/2+Math.sin(b*step)*(h*.38);
+            i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+    }
+
+    function drawCellularThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,1)'; ctx.fillRect(0,0,w,h);
+        const sz=10, cols=Math.floor(w/sz), rows=Math.floor(h/sz);
+        ctx.fillStyle='rgba(16,185,129,0.85)';
+        for(let i=0; i<cols; i++) for(let j=0; j<rows; j++) {
+            const alive = Math.sin(i*0.6+t)*Math.cos(j*0.5-t*0.8)>0.5;
+            if(alive) ctx.fillRect(i*sz+1, j*sz+1, sz-2, sz-2);
+        }
+    }
+
+    function drawSynesthesiaThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.25)'; ctx.fillRect(0,0,w,h);
+        for(let i=0; i<6; i++) {
+            const hue=(t*60+i*40)%360;
+            ctx.strokeStyle=`hsla(${hue},70%,60%,0.6)`; ctx.lineWidth=1.5;
+            ctx.beginPath();
+            for(let a=0; a<Math.PI*2; a+=0.1) {
+                const r=w*.1+i*12+Math.sin(a*4+t+i)*18;
+                const x=w/2+Math.cos(a)*r, y=h/2+Math.sin(a)*r;
+                a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+            }
+            ctx.closePath(); ctx.stroke();
+        }
+    }
+
+    function drawSdfThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.3)'; ctx.fillRect(0,0,w,h);
+        const cx=w/2, cy=h/2;
+        for(let i=0; i<40; i++) {
+            const a=i/40*Math.PI*2+t;
+            const rx=w*.28, ry=h*.12;
+            const bx=cx+Math.cos(a)*rx, by=cy+Math.sin(a)*ry;
+            const r=8+Math.sin(a*2+t*2)*3;
+            const hue=(t*30+i*6)%360;
+            ctx.fillStyle=`hsla(${hue},80%,65%,0.7)`;
+            ctx.beginPath(); ctx.arc(bx,by,r,0,Math.PI*2); ctx.fill();
+        }
+    }
+
+    function drawGravityThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.2)'; ctx.fillRect(0,0,w,h);
+        const wells=[{x:w*.35,y:h*.5},{x:w*.65,y:h*.5}];
+        for(let i=0;i<50;i++) {
+            const well=wells[i%2];
+            const r=25+(i%12)*4;
+            const a=i/50*Math.PI*2*3+t*(1+(i%3)*0.3);
+            const x=well.x+Math.cos(a)*r*(0.6+Math.sin(i+t)*0.4);
+            const y=well.y+Math.sin(a)*r*0.5;
+            const hue=(i*7+t*20)%360;
+            ctx.fillStyle=`hsla(${hue},80%,65%,0.8)`;
+            ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
+        }
+        wells.forEach(w2=>{
+            ctx.fillStyle='rgba(234,179,8,0.9)';
+            ctx.beginPath(); ctx.arc(w2.x,w2.y,5,0,Math.PI*2); ctx.fill();
+            ctx.strokeStyle='rgba(234,179,8,0.2)'; ctx.lineWidth=1;
+            for(let r=12;r<50;r+=14){ctx.beginPath();ctx.arc(w2.x,w2.y,r,0,Math.PI*2);ctx.stroke();}
+        });
+    }
+
+    function drawThereminThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.18)'; ctx.fillRect(0,0,w,h);
+        for(let i=0;i<60;i++) {
+            const x=(Math.sin(i*0.22+t)*0.4+0.5)*w;
+            const y=(Math.cos(i*0.17+t*0.6)*0.3+0.5)*h;
+            const hue=(i*5.5)%360;
+            const sz=3+Math.sin(i*0.4)*4;
+            ctx.fillStyle=`hsla(${hue},85%,65%,0.75)`;
+            ctx.beginPath(); ctx.arc(x,y,sz,0,Math.PI*2); ctx.fill();
+        }
+        const barW=((Math.sin(t)+1)*0.5)*w;
+        const hue=(t*50)%360;
+        ctx.fillStyle=`hsla(${hue},80%,65%,0.7)`;
+        ctx.fillRect(0,h-4,barW,4);
+    }
+
+    function drawHarmonicThumb(ctx, w, h, t) {
+        ctx.fillStyle='rgba(8,9,14,0.25)'; ctx.fillRect(0,0,w,h);
+        const numBars=24;
+        for(let i=0;i<numBars;i++) {
+            const barH=(Math.sin(i*0.4+t*2.5)*0.4+0.6)*h*0.38;
+            const hue=180+i*5;
+            ctx.fillStyle=`hsla(${hue},70%,65%,0.88)`;
+            const bw=w/numBars-1;
+            ctx.beginPath();
+            ctx.roundRect(i*(w/numBars),h/2-barH,bw,barH,2);
+            ctx.roundRect(i*(w/numBars),h/2,bw,barH,2);
+            ctx.fill();
+        }
+        ctx.strokeStyle='rgba(167,139,250,0.7)'; ctx.lineWidth=1.5;
+        ctx.beginPath();
+        for(let x=0;x<w;x+=3) {
+            const y=h*0.18+Math.sin(x*0.09+t*3)*14+Math.sin(x*0.18+t*2)*7;
+            x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+    }
+
+    // ============================================================
+    // MAIN SKETCHES (p5 instance mode)
+    // ============================================================
+    function neuralSketch(p) {
+        let pts = [];
+        function rebuild() {
+            pts=[];
+            const n=Math.round(params.count||100);
+            for(let i=0;i<n;i++) pts.push({x:p.random(p.width),y:p.random(p.height),vx:p.random(-1,1),vy:p.random(-1,1),hue:p.random(260,320)});
+        }
+        p.setup = () => {
+            const c=document.getElementById('stage');
+            p.createCanvas(c.clientWidth, c.clientHeight);
+            rebuild();
+        };
+        p.draw = () => {
+            const dark=document.documentElement.classList.contains('dark');
+            const speed=params.speed||0.6;
+            const radius=params.radius||100;
+            const pull=params.mouse||150;
+            const trails=params.trails;
+            p.background(dark?p.color(8,9,14,trails?30:255):p.color(250,248,255,trails?30:255));
+            pts.forEach(pt => {
+                pt.x+=pt.vx*speed; pt.y+=pt.vy*speed;
+                if(pt.x<0||pt.x>p.width)pt.vx*=-1;
+                if(pt.y<0||pt.y>p.height)pt.vy*=-1;
+                p.fill(dark?p.color(216,180,254,200):p.color(139,92,246,200));
+                p.noStroke(); p.circle(pt.x,pt.y,4);
+            });
+            for(let i=0;i<pts.length;i++) {
+                for(let j=i+1;j<pts.length;j++) {
+                    const d=p.dist(pts[i].x,pts[i].y,pts[j].x,pts[j].y);
+                    if(d<radius) {
+                        const alpha=p.map(d,0,radius,dark?80:60,0);
+                        p.stroke(dark?p.color(216,180,254,alpha):p.color(139,92,246,alpha));
+                        p.strokeWeight(p.map(d,0,radius,1.5,0));
+                        p.line(pts[i].x,pts[i].y,pts[j].x,pts[j].y);
+                    }
+                }
+                const md=p.dist(p.mouseX,p.mouseY,pts[i].x,pts[i].y);
+                if(md<pull && p.mouseX>0) {
+                    p.stroke(p.color(236,72,153,p.map(md,0,pull,180,0)));
+                    p.strokeWeight(1); p.line(p.mouseX,p.mouseY,pts[i].x,pts[i].y);
+                    pts[i].vx+=(p.mouseX-pts[i].x)*0.00005;
+                    pts[i].vy+=(p.mouseY-pts[i].y)*0.00005;
+                }
+            }
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+        p.customRebuild=rebuild;
+    }
+
+    function liquidSketch(p) {
+        let zoff=0;
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight);};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            const speed=params.speed||0.015;
+            const scale=params.scale||1.5;
+            const op=params.opacity||150;
+            const rings=Math.round(params.rings||1);
+            const doFill=params.fill!==false;
+            p.background(dark?p.color(8,9,14,50):p.color(250,248,255,50));
+            p.translate(p.width/2,p.height/2);
+            for(let ring=0;ring<rings;ring++) {
+                const offset=ring*0.5;
+                if(doFill) p.fill(dark?p.color(6,182,212,op/(rings)):p.color(6,182,212,op/(rings)));
+                else p.noFill();
+                p.stroke(dark?p.color(6,182,212,100):p.color(6,182,212,120));p.strokeWeight(1.5);
+                p.beginShape();
+                for(let a=0;a<p.TWO_PI;a+=0.08) {
+                    const xoff=scale*p.map(Math.cos(a),-1,1,0,1.5)+offset;
+                    const yoff=scale*p.map(Math.sin(a),-1,1,0,1.5)+offset;
+                    const r=p.map(p.noise(xoff,yoff,zoff+ring*0.3),0,1,30,p.min(p.width,p.height)*0.4);
+                    p.vertex(r*Math.cos(a),r*Math.sin(a));
+                }
+                p.endShape(p.CLOSE);
+            }
+            zoff+=speed;
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+    }
+
+    function attractorSketch(p) {
+        let angle=0;
+        p.setup=()=>{
+            const c=document.getElementById('stage');
+            p.createCanvas(c.clientWidth,c.clientHeight);
+            p.background(8,9,14);
+        };
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            const doFade=params.fade;
+            const fa=params.freqA||3, fb=params.freqB||2;
+            const speed=params.speed||0.05;
+            const hue=params.hue||330;
+            if(doFade){p.background(dark?p.color(8,9,14,15):p.color(250,248,255,15));}
+            p.translate(p.width/2,p.height/2);
+            const col=p.color(...hslToRgb((hue/360),0.8,0.6));
+            p.fill(p.red(col),p.green(col),p.blue(col),60);
+            p.noStroke();
+            for(let i=0;i<5;i++){
+                const x=Math.sin(fa*(angle+i*0.01))*(p.min(p.width,p.height)*.38);
+                const y=Math.sin(fb*(angle+i*0.01))*(p.min(p.width,p.height)*.38);
+                p.circle(x,y,3);
+            }
+            angle+=speed;
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c){p.resizeCanvas(c.clientWidth,c.clientHeight);p.background(8,9,14);}};
+        p.mouseClicked=()=>{p.background(8,9,14);angle=0;};
+    }
+
+    function cellularSketch(p) {
+        let cols,rows,grid=[],sz;
+        function init(){
+            sz=Math.round(params.cellSize||12);
+            cols=p.floor(p.width/sz); rows=p.floor(p.height/sz);
+            const birth=params.birthPop||0.3;
+            grid=[];
+            for(let i=0;i<cols;i++){grid[i]=[];for(let j=0;j<rows;j++)grid[i][j]=Math.random()<birth?1:0;}
+            p.frameRate(Math.round(params.frameRate||12));
+        }
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight);init();};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            const useColor=params.color;
+            p.background(dark?8:250);
+            for(let i=0;i<cols;i++) for(let j=0;j<rows;j++) {
+                if(grid[i][j]===1){
+                    if(useColor) {
+                        const h=(i+j)*5%360;
+                        p.fill(...hslToRgb(h/360,0.8,0.55),220);
+                    } else p.fill(dark?p.color(16,185,129,210):p.color(5,150,105,210));
+                    p.noStroke();p.rect(i*sz,j*sz,sz-1,sz-1,2);
+                }
+            }
+            const next=[];
+            for(let i=0;i<cols;i++){next[i]=[];for(let j=0;j<rows;j++){
+                const s=grid[i][j],n=neighbors(i,j);
+                next[i][j]=(s===0&&n===3)?1:(s===1&&(n<2||n>3))?0:s;
+            }}
+            grid=next;
+            if(p.mouseIsPressed){const mx=p.floor(p.mouseX/sz),my=p.floor(p.mouseY/sz);if(mx>=0&&mx<cols&&my>=0&&my<rows)grid[mx][my]=1;}
+            countFps();
+        };
+        function neighbors(x,y){let s=0;for(let i=-1;i<2;i++)for(let j=-1;j<2;j++){const c=(x+i+cols)%cols,r=(y+j+rows)%rows;s+=grid[c][r];}return s-grid[x][y];}
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c){p.resizeCanvas(c.clientWidth,c.clientHeight);init();}};
+        p.customRebuild=init;
+    }
+
+    function synesthesiaSketch(p) {
+        let time=0;
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight);};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            const rings=Math.round(params.rings||8);
+            const amp=params.amplitude||30;
+            const speed=params.speed||0.03;
+            const freq=Math.round(params.freq||4);
+            p.background(dark?p.color(8,9,14,30):p.color(250,248,255,30));
+            p.translate(p.width/2,p.height/2);p.noFill();
+            for(let i=0;i<rings;i++){
+                const cR=p.map(p.sin(time+i),-1,1,80,255);
+                const cB=p.map(p.cos(time*1.3+i),-1,1,80,255);
+                p.stroke(dark?p.color(cR,60,cB,160):p.color(cR,40,cB,180));p.strokeWeight(1.5+i*0.1);
+                p.beginShape();
+                for(let a=0;a<p.TWO_PI;a+=0.06){
+                    const r=p.min(p.width,p.height)*0.06+i*18+p.sin(a*freq+time+i*0.5)*amp;
+                    p.vertex(r*p.cos(a),r*p.sin(a));
+                }
+                p.endShape(p.CLOSE);
+            }
+            time+=speed;
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+    }
+
+    function sdfSketch(p) {
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight,p.WEBGL);};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            const rotS=params.rotSpeed||0.01;
+            const shine=params.shine||50;
+            const orbitR=params.orbitR||0.3;
+            const wire=params.wire;
+            p.background(dark?8:250);
+            p.ambientLight(80);
+            p.directionalLight(200,200,255,0.5,0.5,-1);
+            p.pointLight(216,180,254,p.mouseX-p.width/2,p.mouseY-p.height/2,300);
+            p.rotateX(p.frameCount*rotS*0.7);
+            p.rotateY(p.frameCount*rotS);
+            if(wire) p.stroke(200,150,255,100); else p.noStroke();
+            p.specularMaterial(230,180,255);p.shininess(shine);
+            p.torus(p.min(p.width,p.height)*0.22,p.min(p.width,p.height)*0.07,64,64);
+            p.push();
+            p.rotateZ(p.frameCount*rotS*1.5);
+            p.translate(p.min(p.width,p.height)*orbitR,0,0);
+            p.fill(255,200,100);
+            p.sphere(p.min(p.width,p.height)*0.045,32,32);
+            p.pop();
+            p.push();
+            p.rotateZ(-p.frameCount*rotS*0.8);
+            p.translate(0,p.min(p.width,p.height)*orbitR*0.7,0);
+            p.fill(100,220,255);
+            p.sphere(p.min(p.width,p.height)*0.03,24,24);
+            p.pop();
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+    }
+
+    function gravitySketch(p) {
+        let pts=[], wells=[];
+        function rebuild(){
+            pts=[];
+            const n=Math.round(params.count||150);
+            for(let i=0;i<n;i++) pts.push({x:p.random(p.width),y:p.random(p.height),vx:p.random(-2,2),vy:p.random(-2,2),hue:p.random(360)});
+        }
+        p.setup=()=>{
+            const c=document.getElementById('stage');
+            p.createCanvas(c.clientWidth,c.clientHeight);
+            p.colorMode(p.HSB,360,100,100,100);
+            wells=[{x:p.width*.35,y:p.height*.5},{x:p.width*.65,y:p.height*.5}];
+            rebuild();
+        };
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            p.background(dark?p.color(0,0,4,20):p.color(0,0,97,20));
+            const G=params.gravity||200;
+            const fr=params.friction||0.99;
+            wells.forEach(w=>{
+                p.noFill(); p.stroke(55,80,90,35);
+                for(let r=14;r<80;r+=20){p.strokeWeight(0.5);p.circle(w.x,w.y,r*2);}
+                p.fill(55,90,100,90); p.noStroke(); p.circle(w.x,w.y,10);
+            });
+            pts.forEach(pt=>{
+                wells.forEach(w=>{
+                    const dx=w.x-pt.x, dy=w.y-pt.y;
+                    const d=Math.sqrt(dx*dx+dy*dy);
+                    if(d>5&&d<300){const f=G/(d*d); pt.vx+=(dx/d)*f*0.12; pt.vy+=(dy/d)*f*0.12;}
+                });
+                pt.vx*=fr; pt.vy*=fr;
+                pt.x+=pt.vx; pt.y+=pt.vy;
+                if(pt.x<0)pt.x=p.width; if(pt.x>p.width)pt.x=0;
+                if(pt.y<0)pt.y=p.height; if(pt.y>p.height)pt.y=0;
+                const spd=Math.sqrt(pt.vx*pt.vx+pt.vy*pt.vy);
+                pt.hue=(pt.hue+spd*0.8)%360;
+                p.fill(pt.hue,80,95,90); p.noStroke(); p.circle(pt.x,pt.y,3);
+            });
+            countFps();
+        };
+        p.mouseClicked=()=>{
+            if(p.mouseX>0&&p.mouseX<p.width&&p.mouseY>0&&p.mouseY<p.height){
+                if(wells.length>=5)wells.shift();
+                wells.push({x:p.mouseX,y:p.mouseY});
+            }
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+        p.customRebuild=rebuild;
+    }
+
+    function thereminSketch(p) {
+        let audioCtx,oscillator,gainNode,isInit=false,trail=[];
+        function initAudio(){
+            if(isInit)return;
+            audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+            oscillator=audioCtx.createOscillator();
+            gainNode=audioCtx.createGain();
+            gainNode.gain.setValueAtTime(0,audioCtx.currentTime);
+            oscillator.connect(gainNode); gainNode.connect(audioCtx.destination);
+            oscillator.start(); isInit=true;
+            window.__audioCleanup=()=>{try{gainNode.gain.setValueAtTime(0,audioCtx.currentTime);setTimeout(()=>{oscillator.stop();audioCtx.close();},200);}catch(e){}};
+        }
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight);p.colorMode(p.HSB,360,100,100,100);trail=[];};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            p.background(dark?p.color(0,0,3,25):p.color(0,0,97,25));
+            const fMin=params.freqMin||100, fMax=params.freqMax||2000;
+            if(p.mouseIsPressed&&p.mouseX>0&&p.mouseX<p.width){
+                if(!isInit)initAudio();
+                const freq=p.map(p.mouseX,0,p.width,fMin,fMax);
+                const vol=p.map(p.mouseY,p.height,0,0,0.35);
+                const hue=p.map(p.mouseX,0,p.width,0,300);
+                if(isInit){oscillator.frequency.setTargetAtTime(freq,audioCtx.currentTime,0.04);gainNode.gain.setTargetAtTime(params.mute?0:vol,audioCtx.currentTime,0.04);}
+                trail.push({x:p.mouseX,y:p.mouseY,hue,sz:p.map(vol,0,0.35,4,22)});
+                if(trail.length>2500)trail.shift();
+            } else {
+                if(isInit)gainNode.gain.setTargetAtTime(0,audioCtx.currentTime,0.08);
+            }
+            p.noStroke();
+            trail.forEach((pt,i)=>{
+                const alpha=p.map(i,0,trail.length,0,85);
+                p.fill(pt.hue,80,95,alpha); p.circle(pt.x,pt.y,pt.sz);
+            });
+            if(trail.length===0){
+                p.colorMode(p.RGB,255);
+                p.fill(dark?180:80); p.textAlign(p.CENTER); p.textFont('JetBrains Mono,monospace'); p.textSize(13);
+                p.text('CLICK AND DRAG TO PLAY',p.width/2,p.height/2);
+                p.textSize(11); p.text('X = frequency   Y = volume',p.width/2,p.height/2+22);
+                p.colorMode(p.HSB,360,100,100,100);
+            }
+            if(p.mouseIsPressed&&isInit){
+                const hue=p.map(p.mouseX,0,p.width,0,300);
+                p.fill(hue,70,90,90); p.noStroke(); p.rect(0,p.height-5,p.mouseX,5);
+            }
+            countFps();
+        };
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c){p.resizeCanvas(c.clientWidth,c.clientHeight);trail=[];}};
+    }
+
+    function harmonicSketch(p) {
+        let audioCtx,analyser,masterGain,oscs=[],isInit=false,dataArray,waveArray,bufLen;
+        function initAudio(){
+            if(isInit)return;
+            audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+            analyser=audioCtx.createAnalyser();
+            analyser.fftSize=2048; analyser.smoothingTimeConstant=0.88;
+            bufLen=analyser.frequencyBinCount;
+            dataArray=new Uint8Array(bufLen); waveArray=new Uint8Array(analyser.fftSize);
+            masterGain=audioCtx.createGain(); masterGain.gain.setValueAtTime(0.15,audioCtx.currentTime);
+            masterGain.connect(analyser); analyser.connect(audioCtx.destination);
+            rebuildOscs(); isInit=true;
+            window.__audioCleanup=()=>{try{oscs.forEach(o=>o.stop());audioCtx.close();}catch(e){}};
+        }
+        function rebuildOscs(){
+            oscs.forEach(o=>{try{o.stop();}catch(e){}});
+            oscs=[];
+            const h=Math.round(params.harmonics||4);
+            const base=params.baseNote||110;
+            for(let i=1;i<=h;i++){
+                const osc=audioCtx.createOscillator();
+                const g=audioCtx.createGain();
+                osc.type='sine'; osc.frequency.setValueAtTime(base*i,audioCtx.currentTime);
+                g.gain.setValueAtTime(0.5/i,audioCtx.currentTime);
+                osc.connect(g); g.connect(masterGain); osc.start(); oscs.push(osc);
+            }
+        }
+        p.setup=()=>{const c=document.getElementById('stage');p.createCanvas(c.clientWidth,c.clientHeight);p.colorMode(p.HSB,360,100,100,100);};
+        p.draw=()=>{
+            const dark=document.documentElement.classList.contains('dark');
+            p.background(dark?p.color(0,0,4,80):p.color(0,0,97,80));
+            if(!isInit){
+                p.colorMode(p.RGB,255); p.fill(dark?180:70); p.textAlign(p.CENTER);
+                p.textFont('JetBrains Mono,monospace'); p.textSize(13);
+                p.text('CLICK TO START AUDIO',p.width/2,p.height/2);
+                p.colorMode(p.HSB,360,100,100,100); countFps(); return;
+            }
+            analyser.getByteFrequencyData(dataArray);
+            analyser.getByteTimeDomainData(waveArray);
+            const base=params.baseNote||110;
+            oscs.forEach((o,i)=>o.frequency.setTargetAtTime(base*(i+1),audioCtx.currentTime,0.4));
+            const numBars=Math.floor(bufLen*0.18);
+            const bw=(p.width*0.7)/numBars;
+            const sx=p.width*0.15;
+            for(let i=0;i<numBars;i++){
+                const bh=p.map(dataArray[i],0,255,0,p.height*0.42);
+                const hue=190+i*4;
+                p.fill(hue,65,88,88); p.noStroke();
+                p.rect(sx+i*bw,p.height/2-bh,bw-1,bh,2,2,0,0);
+                p.rect(sx+i*bw,p.height/2,bw-1,bh,0,0,2,2);
+            }
+            p.noFill(); p.strokeWeight(1.8);
+            p.beginShape();
+            for(let i=0;i<waveArray.length;i++){
+                const x=p.map(i,0,waveArray.length,0,p.width);
+                const y=p.map(waveArray[i],0,255,p.height*0.1,p.height*0.35);
+                p.stroke(270,55,90,55); p.vertex(x,y);
+            }
+            p.endShape();
+            countFps();
+        };
+        p.mouseClicked=()=>{if(!isInit)initAudio();};
+        p.windowResized=()=>{const c=document.getElementById('stage');if(c)p.resizeCanvas(c.clientWidth,c.clientHeight);};
+        p.customRebuild=()=>{if(isInit)rebuildOscs();};
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function hslToRgb(h,s,l){let r,g,b;if(s===0){r=g=b=l;}else{const q=l<0.5?l*(1+s):l+s-l*s,p=2*l-q;r=hue2rgb(p,q,h+1/3);g=hue2rgb(p,q,h);b=hue2rgb(p,q,h-1/3);}return[Math.round(r*255),Math.round(g*255),Math.round(b*255)];}
+    function hue2rgb(p,q,t){if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p;}
+
+    function countFps(){
+        frameCount++;
+        const now=performance.now();
+        if(now-lastFpsTime>=500){
+            fps=Math.round(frameCount*1000/(now-lastFpsTime));
+            frameCount=0;lastFpsTime=now;
+            const badge=document.getElementById('fps-badge');
+            if(badge) badge.textContent=fps+' FPS';
+        }
+    }
+
+    // ============================================================
+    // PARAMS PANEL BUILDER
+    // ============================================================
+    function buildParamsPanel(expKey) {
+        const exp = experiments[expKey];
+        const panel = document.getElementById('params-panel');
+        if(!panel) return;
+
+        // Update accent color (no border override)
+
+        let html = `<div class="mb-4 flex items-center justify-between">
+            <span class="font-mono text-xs font-bold uppercase tracking-widest" style="color:${exp.accent}">${exp.label}</span>
+            <span id="fps-badge" class="font-mono text-xs" style="background:${exp.accent}22;color:${exp.accent};border:1px solid ${exp.accent}44;border-radius:4px;padding:2px 7px;">-- FPS</span>
+        </div>`;
+
+        for(const [key, cfg] of Object.entries(exp.params)) {
+            html += `<div class="param-group">
+                <div class="param-label" style="color:${exp.accent}">
+                    ${cfg.label}
+                    <span class="param-val" id="val-${key}" style="color:${exp.accent};background:${exp.accent}18">${cfg.value}</span>
+                </div>
+                <input type="range" class="slider" id="slider-${key}"
+                    min="${cfg.min}" max="${cfg.max}" step="${cfg.step}" value="${cfg.value}"
+                    style="--accent:${exp.accent}"
+                    oninput="updateParam('${key}', this.value)">
+            </div>`;
+        }
+
+        // Extras (toggles)
+        for(const [key, val] of Object.entries(exp.extras)) {
+            const label = key.charAt(0).toUpperCase() + key.slice(1);
+            html += `<div class="param-group">
+                <button class="toggle-btn ${val?'on':''}" id="toggle-${key}"
+                    onclick="toggleExtra('${key}')"
+                    style="border-color:${exp.accent}55;color:${exp.accent}">
+                    ${label}: ${val?'ON':'OFF'}
+                </button>
+            </div>`;
+        }
+
+        // Reset / Randomize buttons
+        html += `<div class="flex gap-2 mt-4">
+            <button onclick="resetParams('${expKey}')" class="toggle-btn flex-1" style="color:${exp.accent};border-color:${exp.accent}44">Reset</button>
+            <button onclick="randomizeParams('${expKey}')" class="toggle-btn flex-1" style="color:${exp.accent};border-color:${exp.accent}44">Random</button>
+        </div>`;
+
+        panel.innerHTML = html;
+    }
+
+    // ============================================================
+    // PARAM CONTROLS
+    // ============================================================
+    window.updateParam = (key, val) => {
+        const num = parseFloat(val);
+        params[key] = num;
+        const label = document.getElementById('val-'+key);
+        if(label) label.textContent = Math.round(num*100)/100;
+    };
+
+    window.toggleExtra = (key) => {
+        params[key] = !params[key];
+        const btn = document.getElementById('toggle-'+key);
+        if(btn) {
+            btn.classList.toggle('on', params[key]);
+            btn.textContent = btn.textContent.replace(/ON|OFF/, params[key]?'ON':'OFF');
+        }
+        if(p5Instance && p5Instance.customRebuild) p5Instance.customRebuild();
+    };
+
+    window.resetParams = (expKey) => loadExperiment(expKey);
+
+    window.randomizeParams = (expKey) => {
+        const exp = experiments[expKey];
+        for(const [key, cfg] of Object.entries(exp.params)) {
+            const val = cfg.min + Math.random()*(cfg.max-cfg.min);
+            const rounded = Math.round(val/cfg.step)*cfg.step;
+            params[key] = rounded;
+            const el = document.getElementById('slider-'+key);
+            if(el) { el.value = rounded; }
+            const lbl = document.getElementById('val-'+key);
+            if(lbl) lbl.textContent = Math.round(rounded*100)/100;
+        }
+        if(p5Instance && p5Instance.customRebuild) p5Instance.customRebuild();
+    };
+
+    // ============================================================
+    // LOAD EXPERIMENT
+    // ============================================================
+    let currentExpKey = null;
+
+    window.loadExperiment = (expKey) => {
+        const exp = experiments[expKey];
+        if(!exp) return;
+        currentExpKey = expKey;
+
+        // Stop old p5 and any running audio
+        if(p5Instance) { p5Instance.remove(); p5Instance=null; }
+        if(window.__audioCleanup) { window.__audioCleanup(); window.__audioCleanup=null; }
+
+        // Init params from defaults
+        params = {};
+        for(const [k,v] of Object.entries(exp.params)) params[k]=v.value;
+        for(const [k,v] of Object.entries(exp.extras)) params[k]=v;
+
+        // Update stage header
+        const titleEl = document.getElementById('exp-title');
+        const techEl  = document.getElementById('exp-tech');
+        if(titleEl) titleEl.textContent = exp.label;
+        if(techEl)  techEl.textContent  = exp.tech;
+        const dot = document.getElementById('accent-dot');
+        if(dot) dot.style.background = exp.accent;
+
+        // Mark active card
+        document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('active'));
+        const activeCard = document.querySelector(`[data-exp="${expKey}"]`);
+        if(activeCard) activeCard.classList.add('active');
+
+        // Build params panel
+        buildParamsPanel(expKey);
+
+        // Launch p5
+        p5Instance = new p5(exp.sketch, 'stage');
+
+        // Scroll to stage
+        document.getElementById('stage')?.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+
+    // ============================================================
+    // THEATER MODE
+    // ============================================================
+    document.getElementById('btn-theater')?.addEventListener('click', () => {
+        const stage = document.getElementById('stage');
+        theaterMode = !theaterMode;
+        stage.classList.toggle('theater', theaterMode);
+        document.getElementById('btn-theater').textContent = theaterMode ? '✕ Exit Theater' : '⛶ Theater';
+        if(p5Instance) { p5Instance.windowResized(); }
+        if(theaterMode) document.addEventListener('keydown', escListener);
+        else document.removeEventListener('keydown', escListener);
+    });
+
+    function escListener(e) {
+        if(e.key==='Escape') document.getElementById('btn-theater')?.click();
+    }
+
+    // ============================================================
+    // INIT THUMBNAILS & DEFAULT SKETCH
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        // Start thumbnail animations
+        document.querySelectorAll('.exp-card').forEach(card => {
+            const expKey = card.getAttribute('data-exp');
+            const canvas = card.querySelector('.thumb-canvas');
+            if(canvas && experiments[expKey]) {
+                canvas.width = canvas.offsetWidth || 300;
+                canvas.height = 160;
+                startThumb(expKey, canvas, experiments[expKey].thumbnail);
+            }
+        });
+
+        // Default: neural
+        setTimeout(() => loadExperiment('neural'), 150);
+    });
+
+})();
+</script>
+
+</body>
+</html>

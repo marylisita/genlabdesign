@@ -1,0 +1,932 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js vs Three.js: When to Use Each for Generative Art // GenLab</title>
+    <meta name="description" content="A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="p5.js vs Three.js: When to Use Each for Generative Art // GenLab">
+    <meta property="og:description" content="A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="p5.js vs Three.js: When to Use Each for Generative Art // GenLab">
+    <meta property="twitter:description" content="A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/p5js-vs-threejs-generative-art.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/p5js-vs-threejs-generative-art.php">
+<meta property="og:title" content="p5.js vs Three.js: When to Use Each for Generative Art">
+<meta property="og:description" content="Canvas 2D vs WebGL. CPU vs GPU. Sketchbook vs scene graph. A technical breakdown of two creative coding libraries and exactly when to reach for each.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="p5.js vs Three.js: When to Use Each for Generative Art">
+<meta name="twitter:description" content="Canvas 2D vs WebGL. CPU vs GPU. Sketchbook vs scene graph. A technical breakdown of two creative coding libraries and exactly when to reach for each.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200">
+
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"p5.js vs Three.js: When to Use Each for Generative Art",
+ "description":"A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.",
+ "author":{"@type":"Person","name":"Kuronami"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-03-30",
+ "image":"https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
+}
+</script>
+
+<style>
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+
+ .premium-hero {
+ position: relative;
+ min-height: 90vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+ #hero-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0;
+ opacity: 0.6;
+ pointer-events: none;
+ }
+
+ .glass-card {
+ background: rgba(255, 255, 255, 0.7);
+ border: 1px solid rgba(0, 0, 0, 0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19, 27, 50, 0.6);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover { border-color: rgba(168, 85, 247, 0.3); }
+
+ .tilt-fx {
+ transform-style: preserve-3d;
+ transform: perspective(1000px);
+ }
+
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #a855f7;
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ .text-gradient {
+ background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 5s ease infinite;
+ }
+ @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+ .sticky-sidebar { position: sticky; top: 100px; }
+
+ /* Code blocks */
+ .code-block {
+ background: #0d0d0d;
+ border: 1px solid #222;
+ border-radius: 12px;
+ padding: 24px;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.85rem;
+ overflow-x: auto;
+ position: relative;
+ }
+ .code-block .lang-tag {
+ position: absolute;
+ top: 12px; right: 16px;
+ font-size: 0.65rem;
+ letter-spacing: 0.15em;
+ text-transform: uppercase;
+ color: #555;
+ font-weight: 700;
+ }
+ .code-block .kw { color: #c084fc; }
+ .code-block .fn { color: #67e8f9; }
+ .code-block .str { color: #86efac; }
+ .code-block .cm { color: #4b5563; font-style: italic; }
+ .code-block .num { color: #fbbf24; }
+
+ /* Comparison table */
+ .comp-table { width: 100%; border-collapse: collapse; }
+ .comp-table th, .comp-table td {
+ padding: 14px 18px;
+ text-align: left;
+ border-bottom: 1px solid rgba(0,0,0,0.07);
+ font-size: 0.9rem;
+ }
+ .dark .comp-table th, .dark .comp-table td { border-bottom-color: rgba(255,255,255,0.07); }
+ .comp-table th {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.7rem;
+ letter-spacing: 0.15em;
+ text-transform: uppercase;
+ color: #a855f7;
+ background: rgba(168,85,247,0.05);
+ }
+ .comp-table tr:last-child td { border-bottom: none; }
+
+ /* Decision tool */
+ .decision-btn {
+ display: block;
+ width: 100%;
+ text-align: left;
+ padding: 16px 20px;
+ border: 1px solid #2d2d2d;
+ border-radius: 10px;
+ background: transparent;
+ color: #aaa;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.8rem;
+ cursor: pointer;
+ transition: all 0.2s;
+ margin-bottom: 10px;
+ }
+ .decision-btn:hover { border-color: #a855f7; color: #c084fc; background: rgba(168,85,247,0.05); }
+ .decision-btn.selected { border-color: #a855f7; color: #c084fc; background: rgba(168,85,247,0.1); }
+
+ @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+ .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- 1. HERO SECTION -->
+<header class="premium-hero z-10">
+ <canvas id="hero-canvas"></canvas>
+
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+ <div class="lg:col-span-7">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Creative Lab // Tools</span>
+ </div>
+
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ <span class="text-gradient">p5.js</span> vs <span class="text-gradient">Three.js</span>
+ </h1>
+
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ When to Use Each for Generative Art
+ </p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="2013" data-suffix="">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">p5.js Released</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="2010" data-suffix="">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Three.js Released</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="2" data-suffix="D vs 3D">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Core Difference</div>
+ </div>
+ </div>
+ </div>
+
+ <div class="lg:col-span-5 reveal-element">
+ <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+ <img src="./images/p5.js_vs_three.js_article_banner.png" alt="Generative Art Code Visualization" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+ <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+ <div class="absolute bottom-6 left-6 right-6">
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">The Creative Coder's Dilemma</h4>
+ <p class="text-xs text-gray-300 font-mono">Both are powerful. The question is: which one fits <em>your</em> vision?</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</header>
+
+<!-- 2. MAIN CONTENT -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+
+ <!-- Ad Slot -->
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width:728px; min-height:90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+ <!-- ARTICLE -->
+ <article class="lg:col-span-8 space-y-12">
+
+ <!-- Intro -->
+ <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Introduction</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The Question Every Creative Coder Faces</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p class="ed-dropcap">You sit down to start a new generative art project. The blank file stares back. Before writing a single line, one question always surfaces: p5.js or Three.js? Both live in the JavaScript ecosystem. Both render graphics in the browser. Both have thriving creative coding communities. And yet they are built for different mental models of what a visual program should be.</p>
+ <p>Choosing wrong doesn't mean your project fails, it means you spend hours fighting the tool instead of building the vision. p5.js will frustrate you when you need depth and perspective. Three.js will slow you down when all you want is a 2D noise field. The gap between them is not a matter of quality, it's a matter of dimensional thinking.</p>
+ <p>This article breaks down both libraries with precision: their philosophies, their rendering pipelines, their ideal use cases, and the real performance implications of each. By the end, you'll know not just <em>what</em> each tool does, but <em>when</em> you should reach for it.</p>
+ </div>
+ </section>
+
+ <!-- p5.js -->
+ <section id="p5" class="reveal-element">
+ <span class="kicker">Library 01</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">p5.js, The Digital Sketchbook</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 mb-8">
+ <p>p5.js was created by Lauren Lee McCarthy in 2013 as a JavaScript reinterpretation of Processing, the Java-based creative coding environment developed by Casey Reas and Ben Fry at MIT in 2001. The philosophy is radical simplicity: make the computer accessible to artists, designers, and educators without stripping out its expressive power.</p>
+ <p>At its core, p5.js is a wrapper around the HTML5 Canvas 2D API. You write two functions, <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded">setup()</code> and <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-2 py-0.5 rounded">draw()</code>, and p5.js handles the animation loop, event listeners, and canvas management for you. The cognitive overhead is minimal. The creative surface is immediate.</p>
+ </div>
+
+ <div class="code-block mb-8">
+ <span class="lang-tag">JavaScript / p5.js</span>
+ <pre style="margin:0;color:#e5e7eb;line-height:1.7;"><span class="cm">// A simple noise-field sketch in p5.js</span>
+<span class="kw">function</span> <span class="fn">setup</span>() {
+ <span class="fn">createCanvas</span>(<span class="num">800</span>, <span class="num">600</span>);
+ <span class="fn">background</span>(<span class="num">0</span>);
+}
+
+<span class="kw">function</span> <span class="fn">draw</span>() {
+ <span class="kw">let</span> x = <span class="fn">random</span>(<span class="fn">width</span>);
+ <span class="kw">let</span> y = <span class="fn">random</span>(<span class="fn">height</span>);
+ <span class="kw">let</span> n = <span class="fn">noise</span>(x * <span class="num">0.003</span>, y * <span class="num">0.003</span>);
+ <span class="fn">stroke</span>(<span class="fn">map</span>(n, <span class="num">0</span>, <span class="num">1</span>, <span class="num">120</span>, <span class="num">280</span>), <span class="num">80</span>, <span class="num">80</span>);
+ <span class="fn">point</span>(x, y);
+}</pre>
+ </div>
+
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-sm text-purple-500 uppercase tracking-widest mb-4">p5.js Strengths</h3>
+ <ul class="space-y-3 text-gray-700 dark:text-gray-300 text-base">
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Lowest barrier to entry</strong> of any creative coding tool. Running a sketch in minutes is genuinely possible.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Built-in math utilities</strong>: <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">noise()</code>, <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">map()</code>, <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">lerp()</code>, <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">random()</code> are first-class citizens.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Massive education community</strong>. The Coding Train (Daniel Shiffman) alone has built an enormous library of p5.js tutorials.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Excellent for printmaking</strong>. High-res canvas export and SVG mode make it a natural fit for generative poster and print work.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>WEBGL mode available</strong>. p5.js has a built-in WEBGL renderer that unlocks basic 3D, useful for simpler 3D sketches without Three.js overhead.</span></li>
+ </ul>
+ </div>
+ </section>
+
+ <!-- Three.js -->
+ <section id="threejs" class="reveal-element">
+ <span class="kicker">Library 02</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Three.js, The 3D Scene Architect</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 mb-8">
+ <p>Three.js was created by Ricardo Cabello (mr.doob) in 2010 as a high-level abstraction layer over WebGL, the browser's native API for GPU-accelerated 3D graphics. Where WebGL requires hundreds of lines of shader code and matrix math to render a single triangle, Three.js lets you create a scene, add lights and meshes, and render it in under 20 lines.</p>
+ <p>The mental model is fundamentally cinematic. You don't draw onto a canvas, you build a world. There is a <strong>scene</strong> (the stage), a <strong>camera</strong> (the viewpoint), a <strong>renderer</strong> (the film projector), and <strong>objects</strong> (the actors). This scene graph architecture is the same model used in Unity, Blender, and Unreal Engine. If you ever want to migrate to a game engine, your Three.js experience transfers directly.</p>
+ </div>
+
+ <div class="code-block mb-8">
+ <span class="lang-tag">JavaScript / Three.js</span>
+ <pre style="margin:0;color:#e5e7eb;line-height:1.7;"><span class="cm">// Minimal Three.js setup with a rotating cube</span>
+<span class="kw">const</span> scene = <span class="kw">new</span> <span class="fn">THREE.Scene</span>();
+<span class="kw">const</span> camera = <span class="kw">new</span> <span class="fn">THREE.PerspectiveCamera</span>(<span class="num">75</span>, w / h, <span class="num">0.1</span>, <span class="num">1000</span>);
+<span class="kw">const</span> renderer = <span class="kw">new</span> <span class="fn">THREE.WebGLRenderer</span>({ antialias: <span class="kw">true</span> });
+
+<span class="kw">const</span> geometry = <span class="kw">new</span> <span class="fn">THREE.BoxGeometry</span>();
+<span class="kw">const</span> material = <span class="kw">new</span> <span class="fn">THREE.MeshStandardMaterial</span>({ color: <span class="num">0xa855f7</span> });
+<span class="kw">const</span> cube = <span class="kw">new</span> <span class="fn">THREE.Mesh</span>(geometry, material);
+scene.<span class="fn">add</span>(cube);
+
+<span class="kw">function</span> <span class="fn">animate</span>() {
+ <span class="fn">requestAnimationFrame</span>(animate);
+ cube.rotation.y += <span class="num">0.01</span>;
+ renderer.<span class="fn">render</span>(scene, camera);
+}
+<span class="fn">animate</span>();</pre>
+ </div>
+
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-sm text-purple-500 uppercase tracking-widest mb-4">Three.js Strengths</h3>
+ <ul class="space-y-3 text-gray-700 dark:text-gray-300 text-base">
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Full 3D scene graph</strong>: cameras, lights, shadows, materials, fog, the complete cinema toolkit.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>GPU-accelerated by design</strong>. Every render call goes through WebGL, meaning it can handle millions of vertices without breaking a sweat.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Custom shader support</strong>. ShaderMaterial and RawShaderMaterial expose GLSL directly, giving you total control over pixel rendering.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>GLTF model import</strong>. Load Blender exports directly and animate them, bridging the gap between 3D modeling tools and the web.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono mt-0.5">→</span> <span><strong>Post-processing effects</strong> via EffectComposer: bloom, depth-of-field, chromatic aberration, cinematic quality in-browser.</span></li>
+ </ul>
+ </div>
+ </section>
+
+ <!-- Core Difference -->
+ <section id="difference" class="reveal-element">
+ <span class="kicker">The Real Difference</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Canvas 2D vs WebGL: It's About the GPU</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 mb-8">
+ <p>The most important technical distinction is their rendering engine. p5.js defaults to the HTML5 Canvas 2D API, a CPU-based raster drawing system. Every <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">ellipse()</code>, <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">line()</code>, and <code class="font-mono text-sm bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 px-1 rounded">rect()</code> is computed by your CPU and painted to a pixel buffer. This is extremely intuitive but hits a performance ceiling quickly, thousands of moving particles will start to lag.</p>
+ <p>Three.js communicates directly with the GPU through WebGL. Objects are uploaded as buffer data, shaders run in parallel on thousands of GPU cores, and the renderer doesn't touch the CPU for most draw calls. The ceiling is orders of magnitude higher. One million particles animated in real-time is entirely feasible with Three.js and a decent GPU, something p5.js Canvas 2D cannot touch.</p>
+ <p>This means the choice isn't really about aesthetics, it's about <strong>what your system needs to compute</strong>. Heavy computation with many elements? Three.js. Expressive, sketch-like 2D that needs to move fast? p5.js.</p>
+ </div>
+
+ <!-- Comparison Table -->
+ <div class="glass-card overflow-hidden reveal-element">
+ <div class="p-6 border-b border-gray-100 dark:border-gray-800">
+ <h3 class="font-mono text-sm text-purple-500 uppercase tracking-widest">Side-by-Side Comparison</h3>
+ </div>
+ <div class="overflow-x-auto">
+ <table class="comp-table">
+ <thead>
+ <tr>
+ <th>Dimension</th>
+ <th>p5.js</th>
+ <th>Three.js</th>
+ </tr>
+ </thead>
+ <tbody class="text-gray-700 dark:text-gray-300">
+ <tr><td class="font-mono text-xs text-gray-400">Renderer</td><td>Canvas 2D (CPU)</td><td>WebGL (GPU)</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Default Space</td><td>2D</td><td>3D</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Learning Curve</td><td>Gentle, hours to first sketch</td><td>Steep, days to first scene</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Particle Limit</td><td>~10k before lag</td><td>1M+ comfortable</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Shaders (GLSL)</td><td>Via WEBGL mode</td><td>First-class support</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">3D Models</td><td>Limited</td><td>Full GLTF/OBJ support</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Built-in Math</td><td>Rich (noise, lerp, map...)</td><td>Minimal (you bring your own)</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Community Size</td><td>Very large, education-focused</td><td>Large, professional/game dev</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Best For</td><td>Prints, patterns, 2D sketches</td><td>Immersive scenes, shaders, XR</td></tr>
+ <tr><td class="font-mono text-xs text-gray-400">Generative Art Use</td><td>p5.js is the standard</td><td>Growing, shader art, 3D gen</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </section>
+
+ <!-- When to use -->
+ <section id="usecases" class="reveal-element space-y-8">
+ <span class="kicker">Decision Framework</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">When to Use Which</h2>
+
+ <div class="glass-card p-8 reveal-element">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Reach for p5.js when...</h3>
+ <ul class="space-y-4 text-gray-700 dark:text-gray-300 text-base">
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono font-bold mt-0.5">01</span><span>You're building <strong>generative posters, prints, or 2D pattern systems</strong>. p5.js exports to pixel-perfect resolution and integrates with SVG libraries like p5.svg.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono font-bold mt-0.5">02</span><span>Your sketch is fundamentally about <strong>2D algorithms</strong>: Perlin noise fields, cellular automata, L-systems, reaction-diffusion, turtle graphics.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono font-bold mt-0.5">03</span><span>You're <strong>teaching or learning</strong> creative coding. The feedback loop is immediate. You see results before you understand every line.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono font-bold mt-0.5">04</span><span>You need to <strong>ship something fast</strong>. p5.js has zero configuration. Drop a CDN link in an HTML file and start sketching.</span></li>
+ <li class="flex items-start gap-3"><span class="text-purple-500 font-mono font-bold mt-0.5">05</span><span>You're building <strong>interactive data visualizations</strong> where DOM integration matters, p5.js plays much nicer with HTML elements than Three.js.</span></li>
+ </ul>
+ </div>
+
+ <div class="glass-card p-8 reveal-element">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Reach for Three.js when...</h3>
+ <ul class="space-y-4 text-gray-700 dark:text-gray-300 text-base">
+ <li class="flex items-start gap-3"><span class="text-cyan-400 font-mono font-bold mt-0.5">01</span><span>Your project exists in <strong>3D space</strong>: point clouds, 3D geometry, particle systems with depth, procedural terrain, volumetric effects.</span></li>
+ <li class="flex items-start gap-3"><span class="text-cyan-400 font-mono font-bold mt-0.5">02</span><span>You want to write <strong>GLSL shaders</strong> for fragment-level visual control, the kind of mathematical beauty you see on Shadertoy.</span></li>
+ <li class="flex items-start gap-3"><span class="text-cyan-400 font-mono font-bold mt-0.5">03</span><span>Your project needs to run at <strong>60fps with massive particle counts</strong> or complex geometry. GPU rendering is non-negotiable.</span></li>
+ <li class="flex items-start gap-3"><span class="text-cyan-400 font-mono font-bold mt-0.5">04</span><span>You're building an <strong>immersive web experience, WebXR project, or portfolio hero section</strong> that demands cinematic visual quality.</span></li>
+ <li class="flex items-start gap-3"><span class="text-cyan-400 font-mono font-bold mt-0.5">05</span><span>You want to <strong>import and animate 3D models</strong> from Blender or other DCC tools. Three.js's GLTF loader is battle-tested.</span></li>
+ </ul>
+ </div>
+ </section>
+
+ <!-- Can you use both? -->
+ <section id="both" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Advanced Approach</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Can You Use Both?</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p>Yes, and more often than you'd expect, the best generative art projects do exactly that. A common pattern is using p5.js for algorithmic ideation and rapid prototyping, then porting the core logic to Three.js when you need GPU power or 3D depth.</p>
+ <p>Another approach is using p5.js to generate texture data, noise maps, color gradients, algorithm outputs, and feeding that data as textures into a Three.js scene. The 2D computation layer and the 3D rendering layer complement each other perfectly.</p>
+ <p>Artists like <strong>Zach Lieberman</strong> and studios like <strong>Refik Anadol Studio</strong> routinely mix tools: processing for concept, custom WebGL for production. The constraint of "one tool" is a beginner's limitation. The discipline is knowing what each tool does well.</p>
+ </div>
+ </section>
+
+ <!-- Interactive Tool -->
+ <section id="tool" class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] reveal-element">
+ <h4 class="text-purple-500 font-mono mt-0 mb-2 uppercase tracking-widest text-sm">[ LIBRARY_DECISION_ENGINE ]</h4>
+ <p class="text-gray-500 font-mono text-xs mb-8">Answer 4 questions. Get a recommendation.</p>
+ <div id="decision-tool"></div>
+ </section>
+
+ <!-- Conclusion -->
+ <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Conclusion</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Tool Serves the Vision</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p>p5.js and Three.js are not competitors, they are instruments for different kinds of thinking. p5.js is the sketchbook: immediate, forgiving, built for the artist who wants to think through code without thinking <em>about</em> code. Three.js is the film set: architectural, powerful, built for the artist who wants to construct a world and place a camera inside it.</p>
+ <p>The creative coder who knows both is not twice as capable, they are exponentially more capable. Each library opens a different dimension of the medium. And in generative art, dimensions are everything.</p>
+ <p>Start with p5.js if you're beginning. Move into Three.js when your ideas demand it. And never stop asking: <em>what does my system need?</em></p>
+ </div>
+ </section>
+
+ </article>
+
+ <!-- SIDEBAR -->
+ <aside class="lg:col-span-4">
+ <div class="sticky-sidebar space-y-6">
+
+ <!-- Table of Contents -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
+ <nav class="space-y-2">
+ 
+ <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+ <span class="text-purple-400 font-mono text-xs">→</span>
+ <?= htmlspecialchars($label) ?>
+ </a>
+ 
+ </nav>
+ </div>
+
+ <!-- Quick Stats -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">At a Glance</h3>
+ <div class="space-y-4">
+ <div class="flex justify-between items-center text-sm border-b border-gray-100 dark:border-gray-800 pb-3">
+ <span class="font-mono text-gray-500">p5.js GitHub Stars</span>
+ <span class="font-bold text-gray-900 dark:text-white">21k+</span>
+ </div>
+ <div class="flex justify-between items-center text-sm border-b border-gray-100 dark:border-gray-800 pb-3">
+ <span class="font-mono text-gray-500">Three.js GitHub Stars</span>
+ <span class="font-bold text-gray-900 dark:text-white">102k+</span>
+ </div>
+ <div class="flex justify-between items-center text-sm border-b border-gray-100 dark:border-gray-800 pb-3">
+ <span class="font-mono text-gray-500">p5.js Renderer</span>
+ <span class="font-bold text-gray-900 dark:text-white">Canvas 2D / CPU</span>
+ </div>
+ <div class="flex justify-between items-center text-sm border-b border-gray-100 dark:border-gray-800 pb-3">
+ <span class="font-mono text-gray-500">Three.js Renderer</span>
+ <span class="font-bold text-gray-900 dark:text-white">WebGL / GPU</span>
+ </div>
+ <div class="flex justify-between items-center text-sm">
+ <span class="font-mono text-gray-500">Learning Curve</span>
+ <span class="font-bold text-gray-900 dark:text-white">p5 &lt; Three.js</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- Ad Sidebar -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block;width:300px;height:250px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- Related Posts -->
+ <div class="glass-card p-6 reveal-element">
+ <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Related Posts</h3>
+ <div class="space-y-4">
+ <a href="what-is-generative-art.html" class="block group">
+ <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug">What Is Generative Art? A Clear Guide Beyond the AI Hype</p>
+ <p class="font-mono text-xs text-gray-400 mt-1">AESTHETICS_LAB</p>
+ </a>
+ <a href="math-of-the-sublime-shaders.html" class="block group border-t border-gray-100 dark:border-gray-800 pt-4">
+ <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug">The Math of the Sublime: Shaders, GLSL, and the Rendering of the Infinite</p>
+ <p class="font-mono text-xs text-gray-400 mt-1">AESTHETICS_LAB</p>
+ </a>
+ <a href="creative-coding-art-technology.html" class="block group border-t border-gray-100 dark:border-gray-800 pt-4">
+ <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug">Creative Coding in Art Technology: 15 Powerful Ways Code is Revolutionizing Modern Art</p>
+ <p class="font-mono text-xs text-gray-400 mt-1">CREATIVE_LAB</p>
+ </a>
+ </div>
+ </div>
+
+ </div>
+ </aside>
+ </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ // 1. Intersection Observer
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('is-visible');
+ if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ const target = parseInt(entry.target.dataset.count, 10);
+ let current = 0;
+ const step = Math.abs(Math.floor(1500 / target));
+ const timer = setInterval(() => {
+ current++;
+ entry.target.innerText = current + (entry.target.dataset.suffix || '');
+ if (current >= target) clearInterval(timer);
+ }, step);
+ }
+ obs.unobserve(entry.target);
+ }
+ });
+ }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+ document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+ // 2. 3D Tilt
+ document.querySelectorAll('.tilt-fx').forEach(card => {
+ card.addEventListener('mousemove', (e) => {
+ const rect = card.getBoundingClientRect();
+ const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -7;
+ const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 7;
+ card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`;
+ });
+ card.addEventListener('mouseleave', () => {
+ card.style.transition = 'transform 0.5s cubic-bezier(0.25,1,0.5,1)';
+ card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+ });
+ card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+ });
+
+ // 3. Hero Particle Canvas
+ const canvas = document.getElementById('hero-canvas');
+ if (canvas) {
+ const ctx = canvas.getContext('2d');
+ let width, height, particles;
+
+ function initCanvas() {
+ width = canvas.width = window.innerWidth;
+ height = canvas.height = canvas.parentElement.offsetHeight;
+ particles = [];
+ const count = Math.min(Math.floor(width / 30), 80);
+ for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1, isPurple: Math.random() > 0.5
+ });
+ }
+ }
+
+ function drawCanvas() {
+ ctx.clearRect(0, 0, width, height);
+ const isDark = document.documentElement.classList.contains('dark');
+ particles.forEach((p, i) => {
+ p.x += p.vx; p.y += p.vy;
+ if (p.x < 0 || p.x > width) p.vx *= -1;
+ if (p.y < 0 || p.y > height) p.vy *= -1;
+ ctx.fillStyle = p.isPurple
+ ? (isDark ? 'rgba(192,132,252,0.5)' : 'rgba(168,85,247,0.5)')
+ : (isDark ? 'rgba(244,114,182,0.5)' : 'rgba(236,72,153,0.5)');
+ ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+ for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.strokeStyle = `rgba(168,85,247,${(1 - dist / 120) * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawCanvas();
+    }
+
+    // 4. Decision Tool Logic
+    const questions = [
+        {
+            q: "What dimension is your project?",
+            opts: [
+                { label: "2D, flat canvas, sketches, patterns", points: { p5: 2, three: 0 } },
+                { label: "3D, scenes, meshes, 3D objects", points: { p5: 0, three: 2 } },
+                { label: "Not sure yet", points: { p5: 1, three: 1 } }
+            ]
+        },
+        {
+            q: "What's your coding experience?",
+            opts: [
+                { label: "Beginner, just starting out", points: { p5: 2, three: 0 } },
+                { label: "Intermediate, comfortable with JS", points: { p5: 1, three: 1 } },
+                { label: "Advanced, I know WebGL, shaders", points: { p5: 0, three: 2 } }
+            ]
+        },
+        {
+            q: "What's the main output?",
+            opts: [
+                { label: "Sketches, prints, or 2D animation", points: { p5: 2, three: 0 } },
+                { label: "Immersive 3D scene or game", points: { p5: 0, three: 2 } },
+                { label: "Data visualization or generative poster", points: { p5: 1, three: 0 } }
+            ]
+        },
+        {
+            q: "How important is performance?",
+            opts: [
+                { label: "Low, it's an art sketch, not a game", points: { p5: 1, three: 0 } },
+                { label: "High, needs to run smooth at 60fps", points: { p5: 0, three: 2 } },
+                { label: "Medium, somewhere in between", points: { p5: 1, three: 1 } }
+            ]
+        }
+    ];
+
+    let scores = { p5: 0, three: 0 };
+    let currentQ = 0;
+    const container = document.getElementById('decision-tool');
+    if (!container) return;
+
+    function renderQuestion() {
+        if (currentQ >= questions.length) {
+ renderResult();
+ return;
+ }
+ const q = questions[currentQ];
+ container.innerHTML = `
+ <p class="text-gray-500 font-mono text-xs mb-2 uppercase tracking-widest">> Question ${currentQ + 1} of ${questions.length}</p>
+ <p class="text-white font-serif text-xl mb-6">${q.q}</p>
+ ${q.opts.map((opt, i) => `
+ <button class="decision-btn" onclick="pickOption(${i})">
+ [ ${String.fromCharCode(65 + i)} ] ${opt.label}
+ </button>
+ `).join('')}
+ <div class="mt-6 flex gap-2">
+ ${Array.from({length: questions.length}, (_, i) =>
+ `<div class="h-1 flex-1 rounded-full ${i < currentQ ? 'bg-purple-500' : i === currentQ ? 'bg-purple-400' : 'bg-gray-700'}"></div>`
+ ).join('')}
+ </div>
+ `;
+ }
+
+ window.pickOption = function(i) {
+ const pts = questions[currentQ].opts[i].points;
+ scores.p5 += pts.p5;
+ scores.three += pts.three;
+ currentQ++;
+ renderQuestion();
+ };
+
+ function renderResult() {
+ const winner = scores.p5 >= scores.three ? 'p5.js' : 'Three.js';
+ const color = winner === 'p5.js' ? '#a855f7' : '#67e8f9';
+ const desc = winner === 'p5.js'
+ ? 'Your project is a great match for p5.js. Start with setup(), draw(), and let the canvas be your sketchbook. Focus on the algorithm, not the boilerplate.'
+ : 'Your project calls for Three.js. Embrace the scene graph, learn about cameras and lights, and unlock the full power of WebGL for your vision.';
+ const snippet = winner === 'p5.js'
+ ? `<span class="kw">function</span> <span class="fn">setup</span>() {\n <span class="fn">createCanvas</span>(<span class="num">800</span>, <span class="num">600</span>);\n}\n<span class="kw">function</span> <span class="fn">draw</span>() {\n <span class="fn">background</span>(<span class="num">0</span>);\n <span class="fn">ellipse</span>(<span class="fn">mouseX</span>, <span class="fn">mouseY</span>, <span class="num">50</span>);\n}`
+ : `<span class="kw">const</span> scene = <span class="kw">new</span> <span class="fn">THREE.Scene</span>();\n<span class="kw">const</span> camera = <span class="kw">new</span> <span class="fn">THREE.PerspectiveCamera</span>(<span class="num">75</span>, w/h, <span class="num">0.1</span>, <span class="num">1000</span>);\n<span class="kw">const</span> renderer = <span class="kw">new</span> <span class="fn">THREE.WebGLRenderer</span>();\n<span class="fn">renderer.render</span>(scene, camera);`;
+
+ container.innerHTML = `
+ <p class="font-mono text-xs text-gray-500 uppercase tracking-widest mb-3">> RESULT</p>
+ <p class="font-serif text-3xl font-bold mb-2" style="color:${color}">${winner}</p>
+ <p class="text-gray-400 font-mono text-sm mb-6">${desc}</p>
+ <div class="code-block text-sm mb-6">
+ <span class="lang-tag">${winner === 'p5.js' ? 'JavaScript / p5.js' : 'JavaScript / Three.js'}</span>
+ <pre style="margin:0;color:#e5e7eb;">${snippet}</pre>
+ </div>
+ <button onclick="resetTool()" class="font-mono text-xs text-purple-400 border border-purple-800 px-4 py-2 rounded-full hover:bg-purple-900/20 transition-colors">[ RUN_AGAIN ]</button>
+ `;
+ }
+
+ window.resetTool = function() {
+ scores = { p5: 0, three: 0 };
+ currentQ = 0;
+ renderQuestion();
+ };
+
+ renderQuestion();
+})();
+</script>
+
+</body>
+</html>

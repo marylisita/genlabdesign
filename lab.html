@@ -1,0 +1,1664 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lab // GenLab — Immersive Generative Experiences</title>
+    <meta name="description" content="Enter the Lab. Four immersive generative experiences: DRIFT (flow field navigation), VOID (gravity particles), NEURAL GARDEN (organic growth), and MANDALA ENGINE (sacred geometry). No plugins, pure code.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="The Lab // GenLab — Immersive Generative Experiences">
+    <meta property="og:description" content="Enter the Lab. Four immersive generative experiences: DRIFT (flow field navigation), VOID (gravity particles), NEURAL GARDEN (organic growth), and MANDALA ENGINE (sacred geometry). No plugins, pure code.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="The Lab // GenLab — Immersive Generative Experiences">
+    <meta property="twitter:description" content="Enter the Lab. Four immersive generative experiences: DRIFT (flow field navigation), VOID (gravity particles), NEURAL GARDEN (organic growth), and MANDALA ENGINE (sacred geometry). No plugins, pure code.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<link rel="canonical" href="https://www.genlabdesign.com/lab.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/lab.php">
+<meta property="og:title" content="The Lab // GenLab — Immersive Generative Experiences">
+<meta property="og:description" content="Four immersive generative experiences: DRIFT, VOID, NEURAL GARDEN, and MANDALA ENGINE. Pure code, no plugins.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Lab // GenLab">
+<meta name="twitter:description" content="Four immersive generative experiences built with pure Canvas2D. Enter the Lab.">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+
+/* ── FULLSCREEN OVERLAY ─────────────────────────── */
+#lab-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #020304;
+    flex-direction: column;
+}
+#lab-overlay.active { display: flex; }
+
+#lab-canvas {
+    display: block;
+    width: 100%;
+    flex: 1;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+/* HUD */
+#lab-hud {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+}
+#lab-hud.hidden { opacity: 0; }
+
+.hud-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent, #10b981);
+    text-shadow: 0 0 20px var(--accent, #10b981);
+}
+.hud-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.1em;
+}
+.hud-close {
+    pointer-events: all;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    backdrop-filter: blur(8px);
+}
+.hud-close:hover { background: rgba(255,255,255,0.25); }
+
+/* CONTROLS TOOLTIP */
+#lab-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.5s ease;
+}
+#lab-controls.hidden { opacity: 0; }
+
+.ctrl-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+}
+
+/* SCORE BADGE */
+#score-badge {
+    position: absolute;
+    top: 64px;
+    right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent, #10b981);
+    text-shadow: 0 0 30px var(--accent, #10b981);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ── HUB PAGE ───────────────────────────────────── */
+.lab-hero {
+    min-height: 50vh;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding-bottom: 60px;
+}
+#bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+}
+.lab-hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* LAB CARDS GRID */
+.lab-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+@media (max-width: 640px) { .lab-grid { grid-template-columns: 1fr; } }
+
+.lab-card {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: #0a0c0f;
+    transition: transform 0.4s cubic-bezier(0.25,1,0.5,1), box-shadow 0.4s ease, border-color 0.4s;
+    group: true;
+}
+.lab-card:hover {
+    transform: translateY(-6px) scale(1.01);
+}
+.lab-card .card-canvas-wrap {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+.lab-card canvas { display: block; width: 100%; height: 100%; }
+.lab-card .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.lab-card:hover .card-overlay { opacity: 1; }
+.launch-btn {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--c);
+    color: var(--c);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.launch-btn:hover { background: rgba(255,255,255,0.1); }
+
+.lab-card .card-info { padding: 1.25rem; }
+.lab-card .card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+.lab-card .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.35rem;
+}
+.lab-card .card-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+}
+
+.reveal-element {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1), transform 0.8s cubic-bezier(0.165,0.84,0.44,1);
+}
+.reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Announce toast */
+#announce {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent, #10b981);
+    text-align: center;
+    pointer-events: none;
+    z-index: 20;
+    opacity: 0;
+    text-shadow: 0 0 40px currentColor;
+    transition: opacity 0.5s;
+}
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="text-[#d8b4fe] dark:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- ═══════════════════════════════════════════════════
+     FULLSCREEN OVERLAY
+════════════════════════════════════════════════════ -->
+<div id="lab-overlay" role="dialog" aria-label="Immersive Lab Experience">
+    <!-- HUD Top -->
+    <div id="lab-hud">
+        <span id="hud-name" class="hud-name">LAB</span>
+        <div class="hud-score">ESC to exit</div>
+        <button id="lab-close" class="hud-close" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Main Canvas -->
+    <canvas id="lab-canvas"></canvas>
+
+    <!-- Score -->
+    <div id="score-badge">SCORE: 0</div>
+
+    <!-- Announce -->
+    <div id="announce"></div>
+
+    <!-- Controls -->
+    <div id="lab-controls"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HUB HERO
+════════════════════════════════════════════════════ -->
+<div class="lab-hero" style="background:#020308;">
+    <canvas id="bg-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;"></canvas>
+    <div class="lab-hero-content container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10">
+        <div class="reveal-element">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-6">
+                <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                <span class="font-mono text-xs text-white/50 uppercase tracking-widest">Interactive Experiments</span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-8xl font-bold text-white leading-[1.0] tracking-tight mb-6">
+                The <span style="background:linear-gradient(90deg,#10b981,#6366f1,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent;">Lab</span>
+            </h1>
+            <p class="text-lg md:text-xl text-white/50 max-w-2xl mb-4 font-sans leading-relaxed">
+                Four immersive generative experiences. No plugins. No dependencies. Pure mathematics running in your browser.
+            </p>
+            <p class="font-mono text-xs text-white/30 uppercase tracking-widest">Click any experiment to enter full-screen mode.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     EXPERIMENTS GRID
+════════════════════════════════════════════════════ -->
+<section class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    <div class="lab-grid reveal-element">
+
+        <!-- DRIFT -->
+        <div class="lab-card" data-exp="drift" style="--c:#10b981;">
+            <div class="card-canvas-wrap">
+                <canvas style="width:100%;height:200px;"></canvas>
+                <div class="card-overlay">
+                    <button class="launch-btn" style="--c:#10b981;">[ ENTER DRIFT ]</button>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="card-tag" style="color:#10b981;">Flow Fields · Navigation · Game</div>
+                <div class="card-title">DRIFT</div>
+                <div class="card-desc">Navigate a particle through a living Perlin noise field. Collect signal nodes. The field never repeats.</div>
+            </div>
+        </div>
+
+        <!-- VOID -->
+        <div class="lab-card" data-exp="void" style="--c:#6366f1;">
+            <div class="card-canvas-wrap">
+                <canvas style="width:100%;height:200px;"></canvas>
+                <div class="card-overlay">
+                    <button class="launch-btn" style="--c:#6366f1;">[ ENTER VOID ]</button>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="card-tag" style="color:#6366f1;">Gravity · Physics · 1200 Particles</div>
+                <div class="card-title">VOID</div>
+                <div class="card-desc">Your cursor is a gravity well. Click to spawn black holes. Watch a thousand particles find orbit.</div>
+            </div>
+        </div>
+
+        <!-- NEURAL GARDEN -->
+        <div class="lab-card" data-exp="neural" style="--c:#8b5cf6;">
+            <div class="card-canvas-wrap">
+                <canvas style="width:100%;height:200px;"></canvas>
+                <div class="card-overlay">
+                    <button class="launch-btn" style="--c:#8b5cf6;">[ ENTER GARDEN ]</button>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="card-tag" style="color:#8b5cf6;">Reaction-Diffusion · Organic Life</div>
+                <div class="card-title">NEURAL GARDEN</div>
+                <div class="card-desc">Paint chemical seeds and watch Turing patterns grow — corals, zebra stripes, leopard spots. Biology simulated.</div>
+            </div>
+        </div>
+
+        <!-- MANDALA -->
+        <div class="lab-card" data-exp="mandala" style="--c:#f472b6;">
+            <div class="card-canvas-wrap">
+                <canvas style="width:100%;height:200px;"></canvas>
+                <div class="card-overlay">
+                    <button class="launch-btn" style="--c:#f472b6;">[ ENTER MANDALA ]</button>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="card-tag" style="color:#f472b6;">Sacred Geometry · Drawing · Export</div>
+                <div class="card-title">MANDALA ENGINE</div>
+                <div class="card-desc">Move your cursor to generate infinite rotational symmetry. Press S to save your mandala as PNG.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tech note -->
+    <div class="mt-16 p-8 rounded-2xl border border-white/5 bg-white/2 reveal-element" style="background:rgba(255,255,255,0.02);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="font-mono text-2xl font-bold text-emerald-400 mb-1">4</div>
+                <div class="font-mono text-xs text-white/30 uppercase tracking-widest">Experiments</div>
+            </div>
+            <div>
+                <div class="font-mono text-2xl font-bold text-indigo-400 mb-1">0</div>
+                <div class="font-mono text-xs text-white/30 uppercase tracking-widest">Dependencies</div>
+            </div>
+            <div>
+                <div class="font-mono text-2xl font-bold text-purple-400 mb-1">∞</div>
+                <div class="font-mono text-xs text-white/30 uppercase tracking-widest">Unique Sessions</div>
+            </div>
+            <div>
+                <div class="font-mono text-2xl font-bold text-pink-400 mb-1">Canvas2D</div>
+                <div class="font-mono text-xs text-white/30 uppercase tracking-widest">Pure Engine</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related -->
+    <div class="mt-12 reveal-element">
+        <p class="font-mono text-xs text-white/30 uppercase tracking-widest mb-6">Dig Deeper</p>
+        <div class="flex flex-wrap gap-4">
+            <a href="perlin-noise-generative-art-javascript.html" class="px-5 py-3 rounded-full border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest hover:bg-emerald-900/20 transition-colors">
+                Perlin Noise Article →
+            </a>
+            <a href="reaction-diffusion-systems.html" class="px-5 py-3 rounded-full border border-purple-500/30 text-purple-400 font-mono text-xs font-bold uppercase tracking-widest hover:bg-purple-900/20 transition-colors">
+                Reaction-Diffusion Article →
+            </a>
+            <a href="experiments.html" class="px-5 py-3 rounded-full border border-white/10 text-white/40 font-mono text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors">
+                p5.js Experiments →
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(function() {
+'use strict';
+
+// ═══════════════════════════════════════════════════════
+// PERLIN NOISE ENGINE (shared)
+// ═══════════════════════════════════════════════════════
+class Perlin {
+    constructor(seed) {
+        const p = Array.from({length:256},(_,i)=>i);
+        let s = (seed|0) || 12345;
+        for (let i=255; i>0; i--) {
+            s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+            const j = s % (i+1);
+            [p[i],p[j]] = [p[j],p[i]];
+        }
+        this.perm = new Uint8Array(512);
+        for (let i=0; i<512; i++) this.perm[i] = p[i&255];
+    }
+    fade(t) { return t*t*t*(t*(t*6-15)+10); }
+    lerp(a,b,t) { return a+t*(b-a); }
+    grad(h,x,y) {
+        switch(h&3){ case 0:return x+y; case 1:return -x+y; case 2:return x-y; default:return -x-y; }
+    }
+    noise(x,y) {
+        const X=Math.floor(x)&255, Y=Math.floor(y)&255;
+        x-=Math.floor(x); y-=Math.floor(y);
+        const u=this.fade(x), v=this.fade(y);
+        const aa=this.perm[this.perm[X]+Y], ab=this.perm[this.perm[X]+Y+1];
+        const ba=this.perm[this.perm[X+1]+Y], bb=this.perm[this.perm[X+1]+Y+1];
+        return this.lerp(
+            this.lerp(this.grad(this.perm[aa],x,y), this.grad(this.perm[ba],x-1,y), u),
+            this.lerp(this.grad(this.perm[ab],x,y-1), this.grad(this.perm[bb],x-1,y-1), u), v
+        );
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPERIMENT DEFINITIONS
+// ═══════════════════════════════════════════════════════
+const EXPERIMENTS = {
+    drift: {
+        name: 'DRIFT',
+        tag: 'Flow Fields · Game',
+        desc: 'Navigate a particle through a living Perlin noise field. Collect signal nodes. The field never repeats.',
+        accent: '#10b981',
+        controls: ['Mouse → Steer', 'Nodes → +10pts', 'R → Reset Field'],
+        thumb: drawDriftThumb,
+        init: initDrift,
+        update: null,
+        destroy: null,
+    },
+    void: {
+        name: 'VOID',
+        tag: 'Gravity · Physics',
+        desc: 'Your cursor is a gravity well. Click to add black holes. Watch emergence unfold from a thousand particles.',
+        accent: '#6366f1',
+        controls: ['Mouse → Attract', 'Click → Black Hole', 'N → Nova Burst'],
+        thumb: drawVoidThumb,
+        init: initVoid,
+        update: null,
+        destroy: null,
+    },
+    neural: {
+        name: 'NEURAL GARDEN',
+        tag: 'Reaction-Diffusion · Organic',
+        desc: 'Draw seeds and watch biological patterns grow: corals, zebras, leopard spots — one chemistry, infinite life.',
+        accent: '#8b5cf6',
+        controls: ['Click/Drag → Plant Seed', '1-4 → Chemical Mode', 'C → Clear'],
+        thumb: drawNeuralThumb,
+        init: initNeural,
+        update: null,
+        destroy: null,
+    },
+    mandala: {
+        name: 'MANDALA ENGINE',
+        tag: 'Sacred Geometry · Drawing',
+        desc: 'Move your cursor to generate infinite rotational symmetry. Every session is a unique mandala.',
+        accent: '#f472b6',
+        controls: ['Mouse → Draw', '↑↓ → Symmetry', 'C → Clear', 'S → Save PNG'],
+        thumb: drawMandalaThumb,
+        init: initMandala,
+        update: null,
+        destroy: null,
+    }
+};
+
+// ═══════════════════════════════════════════════════════
+// THUMBNAIL RENDERERS
+// ═══════════════════════════════════════════════════════
+const noise = new Perlin(9999);
+
+function drawDriftThumb(ctx, w, h, t) {
+    ctx.fillStyle = 'rgba(2,3,4,0.25)';
+    ctx.fillRect(0,0,w,h);
+    const STEP = 18;
+    ctx.strokeStyle = 'rgba(16,185,129,0.4)';
+    ctx.lineWidth = 1;
+    for (let x=0; x<w; x+=STEP) {
+        for (let y=0; y<h; y+=STEP) {
+            const a = noise.noise(x/90+t*0.2, y/90) * Math.PI * 4;
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(a);
+            ctx.beginPath();
+            ctx.moveTo(-6, 0);
+            ctx.lineTo(6, 0);
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+    // Fake player
+    const px = w/2 + Math.sin(t*0.8)*w*0.25;
+    const py = h/2 + Math.cos(t*0.6)*h*0.25;
+    ctx.fillStyle = '#10b981';
+    ctx.shadowColor = '#10b981';
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+}
+
+function drawVoidThumb(ctx, w, h, t) {
+    ctx.fillStyle = 'rgba(2,3,4,0.3)';
+    ctx.fillRect(0,0,w,h);
+    const cx=w/2, cy=h/2;
+    for(let i=0; i<60; i++) {
+        const a = i/60*Math.PI*2 + t*0.3;
+        const r = 20 + (i%8)*8 + Math.sin(t+i*0.4)*10;
+        const px = cx + Math.cos(a)*r;
+        const py = cy + Math.sin(a)*r*0.5;
+        ctx.fillStyle = `hsla(${240+i*3},80%,65%,0.8)`;
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI*2);
+        ctx.fill();
+    }
+    ctx.fillStyle = '#6366f1';
+    ctx.shadowColor = '#6366f1';
+    ctx.shadowBlur = 20;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 7, 0, Math.PI*2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+}
+
+function drawNeuralThumb(ctx, w, h, t) {
+    ctx.fillStyle = 'rgba(2,3,4,0.4)';
+    ctx.fillRect(0,0,w,h);
+    for(let x=0; x<w; x+=4) {
+        for(let y=0; y<h; y+=4) {
+            const n = (noise.noise(x/40+t*0.1, y/40) + 1) / 2;
+            const val = n > 0.52 ? 1 : 0;
+            if (val) {
+                ctx.fillStyle = `rgba(139,92,246,${0.5+n*0.4})`;
+                ctx.fillRect(x,y,3,3);
+            }
+        }
+    }
+}
+
+function drawMandalaThumb(ctx, w, h, t) {
+    ctx.fillStyle = 'rgba(2,3,4,0.15)';
+    ctx.fillRect(0,0,w,h);
+    ctx.save();
+    ctx.translate(w/2, h/2);
+    const sym = 8;
+    const r = w * 0.3;
+    for(let s=0; s<sym; s++) {
+        ctx.save();
+        ctx.rotate(s/sym*Math.PI*2);
+        const hue = (t*40 + s*45) % 360;
+        ctx.strokeStyle = `hsla(${hue},80%,70%,0.6)`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        for(let a=0; a<Math.PI; a+=0.05) {
+            const nr = r * (0.3 + noise.noise(a*2+t, s*0.5)*0.7);
+            const x = Math.cos(a)*nr, y = Math.sin(a)*nr;
+            a===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+    ctx.restore();
+}
+
+// ═══════════════════════════════════════════════════════
+// THUMBNAIL ANIMATION MANAGER
+// ═══════════════════════════════════════════════════════
+const thumbRAFs = {};
+
+function startThumb(id, canvas, fn) {
+    if (!canvas) return;
+    canvas.width  = canvas.offsetWidth  || 400;
+    canvas.height = canvas.offsetHeight || 200;
+    const ctx = canvas.getContext('2d');
+    let t = 0;
+    function loop() {
+        fn(ctx, canvas.width, canvas.height, t);
+        t += 0.016;
+        thumbRAFs[id] = requestAnimationFrame(loop);
+    }
+    thumbRAFs[id] = requestAnimationFrame(loop);
+}
+
+function stopAllThumbs() {
+    Object.values(thumbRAFs).forEach(cancelAnimationFrame);
+    for (const k in thumbRAFs) delete thumbRAFs[k];
+}
+
+// ═══════════════════════════════════════════════════════
+// FULLSCREEN LAB ENGINE
+// ═══════════════════════════════════════════════════════
+const overlay   = document.getElementById('lab-overlay');
+const labCanvas = document.getElementById('lab-canvas');
+const labCtx    = labCanvas.getContext('2d');
+const hudName   = document.getElementById('hud-name');
+const hud       = document.getElementById('lab-hud');
+const ctrlBar   = document.getElementById('lab-controls');
+const scoreBadge= document.getElementById('score-badge');
+const announce  = document.getElementById('announce');
+
+let currentExp  = null;
+let labRAF      = null;
+let hudTimer    = null;
+let labState    = {};
+
+function showAnnounce(msg, duration = 1500) {
+    announce.textContent = msg;
+    announce.style.opacity = '1';
+    setTimeout(() => announce.style.opacity = '0', duration);
+}
+
+function openLab(id) {
+    const exp = EXPERIMENTS[id];
+    if (!exp) return;
+    stopAllThumbs();
+
+    overlay.style.setProperty('--accent', exp.accent);
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    hudName.textContent = exp.name;
+    hudName.style.color = exp.accent;
+    hudName.style.textShadow = `0 0 20px ${exp.accent}`;
+
+    // Build controls
+    ctrlBar.innerHTML = exp.controls.map(c =>
+        `<span class="ctrl-pill">${c}</span>`
+    ).join('');
+
+    // Resize canvas
+    resizeLab();
+
+    // Init experiment
+    currentExp = id;
+    labState = {};
+    if (labRAF) cancelAnimationFrame(labRAF);
+    exp.init(labCanvas, labCtx, labState);
+
+    // HUD auto-hide
+    clearTimeout(hudTimer);
+    hud.classList.remove('hidden');
+    ctrlBar.classList.remove('hidden');
+    hudTimer = setTimeout(() => {
+        hud.classList.add('hidden');
+        ctrlBar.classList.add('hidden');
+    }, 5000);
+
+    labCanvas.addEventListener('mousemove', showHudOnMove);
+    labCanvas.addEventListener('touchmove', showHudOnMove);
+    showAnnounce('[ ' + exp.name + ' ]');
+}
+
+function showHudOnMove() {
+    clearTimeout(hudTimer);
+    hud.classList.remove('hidden');
+    ctrlBar.classList.remove('hidden');
+    hudTimer = setTimeout(() => {
+        hud.classList.add('hidden');
+        ctrlBar.classList.add('hidden');
+    }, 3000);
+}
+
+function closeLab() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (labRAF) { cancelAnimationFrame(labRAF); labRAF = null; }
+    currentExp = null;
+    labState = {};
+    labCanvas.removeEventListener('mousemove', showHudOnMove);
+    // Restart thumbnails
+    document.querySelectorAll('.lab-card').forEach(card => {
+        const id = card.dataset.exp;
+        const canvas = card.querySelector('canvas');
+        if (canvas && EXPERIMENTS[id]) startThumb(id, canvas, EXPERIMENTS[id].thumb);
+    });
+}
+
+function resizeLab() {
+    labCanvas.width  = window.innerWidth;
+    labCanvas.height = window.innerHeight;
+    if (currentExp && labState.onResize) labState.onResize();
+}
+
+window.addEventListener('resize', resizeLab);
+document.getElementById('lab-close').addEventListener('click', closeLab);
+window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLab();
+    if (currentExp && labState.onKey) labState.onKey(e);
+});
+
+// ═══════════════════════════════════════════════════════
+// EXPERIMENT: DRIFT (keyboard-controlled flow navigation)
+// ═══════════════════════════════════════════════════════
+function initDrift(canvas, ctx, s) {
+    const P = new Perlin(Date.now() | 0);
+    let t = 0;
+    const SCALE = 220;
+    const FLOW_RES = 22;
+    const THRUST = 0.28;
+    const DAMPING = 0.94;
+    const FLOW_FORCE = 0.18; // how hard the current pushes
+
+    s.px = canvas.width / 2;
+    s.py = canvas.height / 2;
+    s.vx = 0; s.vy = 0;
+    s.trail = [];
+    s.trailHue = 140;
+    s.score = 0;
+    s.keys = {};
+
+    function spawnNode() {
+        const margin = 60;
+        return {
+            x: margin + Math.random() * (canvas.width - margin*2),
+            y: margin + Math.random() * (canvas.height - margin*2),
+            r: 12 + Math.random() * 6,
+            hue: 30 + Math.random() * 140,
+            pulse: Math.random() * Math.PI * 2,
+            collected: false
+        };
+    }
+    s.nodes = Array.from({length: 6}, spawnNode);
+
+    const onKeyDown = e => { s.keys[e.key] = true; };
+    const onKeyUp = e => { s.keys[e.key] = false; };
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keyup', onKeyUp);
+
+    s.onKey = e => {
+        if (e.key === 'r' || e.key === 'R') {
+            t = Math.random() * 1000;
+            s.px = canvas.width/2; s.py = canvas.height/2;
+            s.vx = 0; s.vy = 0; s.trail = [];
+            s.score = 0;
+            s.nodes = Array.from({length: 6}, spawnNode);
+            showAnnounce('NEW FIELD');
+        }
+    };
+
+    // cleanup on destroy
+    s._cleanup = () => {
+        window.removeEventListener('keydown', onKeyDown);
+        window.removeEventListener('keyup', onKeyUp);
+    };
+
+    scoreBadge.style.opacity = '1';
+    scoreBadge.style.setProperty('--accent','#10b981');
+
+    function loop() {
+        const W = canvas.width, H = canvas.height;
+
+        // Fade trail
+        ctx.fillStyle = 'rgba(2,8,6,0.22)';
+        ctx.fillRect(0,0,W,H);
+
+        t += 0.0025;
+
+        // --- Flow field ---
+        for (let x = FLOW_RES/2; x < W; x += FLOW_RES) {
+            for (let y = FLOW_RES/2; y < H; y += FLOW_RES) {
+                const angle = P.noise(x/SCALE, y/SCALE + t) * Math.PI * 4;
+                const len = 9;
+                const alpha = 0.09 + 0.07 * Math.sin(t + x/200);
+                ctx.strokeStyle = `rgba(16,185,129,${alpha})`;
+                ctx.lineWidth = 1;
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                ctx.beginPath(); ctx.moveTo(-len,0); ctx.lineTo(len,0); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(len,0); ctx.lineTo(len-4,-2); ctx.moveTo(len,0); ctx.lineTo(len-4,2); ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // --- Physics ---
+        // Flow pushes player
+        const flowAngle = P.noise(s.px/SCALE, s.py/SCALE + t) * Math.PI * 4;
+        s.vx += Math.cos(flowAngle) * FLOW_FORCE;
+        s.vy += Math.sin(flowAngle) * FLOW_FORCE;
+
+        // Keyboard thrust (fights the current)
+        const k = s.keys;
+        if (k['ArrowUp']    || k['w'] || k['W']) s.vy -= THRUST;
+        if (k['ArrowDown']  || k['s'] || k['S']) s.vy += THRUST;
+        if (k['ArrowLeft']  || k['a'] || k['A']) s.vx -= THRUST;
+        if (k['ArrowRight'] || k['d'] || k['D']) s.vx += THRUST;
+
+        s.vx *= DAMPING;
+        s.vy *= DAMPING;
+
+        // Clamp max speed
+        const spd = Math.sqrt(s.vx*s.vx + s.vy*s.vy);
+        if (spd > 7) { s.vx = s.vx/spd*7; s.vy = s.vy/spd*7; }
+
+        s.px += s.vx; s.py += s.vy;
+        // Wrap around edges
+        if (s.px < 0) s.px = W; if (s.px > W) s.px = 0;
+        if (s.py < 0) s.py = H; if (s.py > H) s.py = 0;
+
+        // Speed-based trail hue
+        s.trailHue = (s.trailHue + spd * 0.5) % 360;
+        s.trail.push({x: s.px, y: s.py, hue: s.trailHue, spd});
+        if (s.trail.length > 120) s.trail.shift();
+
+        // Draw trail
+        for (let i = 1; i < s.trail.length; i++) {
+            const a = i / s.trail.length;
+            const pt = s.trail[i];
+            ctx.strokeStyle = `hsla(${pt.hue},85%,65%,${a * 0.55})`;
+            ctx.lineWidth = a * 3.5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(s.trail[i-1].x, s.trail[i-1].y);
+            ctx.lineTo(pt.x, pt.y);
+            ctx.stroke();
+        }
+
+        // Player
+        ctx.shadowColor = '#10b981'; ctx.shadowBlur = 24;
+        ctx.fillStyle = '#10b981';
+        ctx.beginPath(); ctx.arc(s.px, s.py, 7, 0, Math.PI*2); ctx.fill();
+        // Direction indicator
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s.px, s.py);
+        ctx.lineTo(s.px + s.vx*3, s.py + s.vy*3);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Nodes
+        s.nodes.forEach((n, idx) => {
+            if (n.collected) return;
+            n.pulse += 0.05;
+            const pr = n.r + Math.sin(n.pulse) * 3;
+            // Outer glow rings
+            for (let ri=3; ri>0; ri--) {
+                ctx.strokeStyle = `hsla(${n.hue},80%,65%,${0.08*ri})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(n.x,n.y, pr+ri*10, 0, Math.PI*2); ctx.stroke();
+            }
+            ctx.fillStyle = `hsla(${n.hue},85%,70%,0.95)`;
+            ctx.shadowColor = `hsl(${n.hue},80%,65%)`; ctx.shadowBlur = 18;
+            ctx.beginPath(); ctx.arc(n.x, n.y, pr, 0, Math.PI*2); ctx.fill();
+            // Cross marker
+            ctx.strokeStyle = `rgba(255,255,255,0.5)`; ctx.lineWidth = 1.5; ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.moveTo(n.x-5,n.y); ctx.lineTo(n.x+5,n.y);
+            ctx.moveTo(n.x,n.y-5); ctx.lineTo(n.x,n.y+5);
+            ctx.stroke();
+
+            const d = Math.hypot(s.px-n.x, s.py-n.y);
+            if (d < pr + 10) {
+                n.collected = true;
+                s.score += 10;
+                showAnnounce('+10 SIGNAL');
+                setTimeout(() => { s.nodes[idx] = spawnNode(); }, 600);
+            }
+        });
+
+        scoreBadge.textContent = 'SCORE: ' + s.score;
+        labRAF = requestAnimationFrame(loop);
+    }
+    labRAF = requestAnimationFrame(loop);
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPERIMENT: VOID
+// ═══════════════════════════════════════════════════════
+function initVoid(canvas, ctx, s) {
+    const N = 1200;
+    s.particles = [];
+    s.wells = []; // black holes
+    s.mx = canvas.width / 2;
+    s.my = canvas.height / 2;
+    s.mouseActive = false;
+
+    for (let i = 0; i < N; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const r = 20 + Math.random() * Math.max(canvas.width, canvas.height) * 0.5;
+        s.particles.push({
+            x: canvas.width/2 + Math.cos(a)*r,
+            y: canvas.height/2 + Math.sin(a)*r,
+            vx: (Math.random()-0.5)*0.5,
+            vy: (Math.random()-0.5)*0.5,
+            hue: 220 + Math.random() * 80,
+            size: 0.8 + Math.random() * 1.2
+        });
+    }
+
+    const onMove = e => {
+        const r = canvas.getBoundingClientRect();
+        s.mx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+        s.my = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+        s.mouseActive = true;
+    };
+    const onClick = e => {
+        const r = canvas.getBoundingClientRect();
+        s.wells.push({
+            x: e.clientX - r.left,
+            y: e.clientY - r.top,
+            strength: 150 + Math.random() * 200
+        });
+        if (s.wells.length > 6) s.wells.shift();
+        showAnnounce('BLACK HOLE SPAWNED');
+    };
+    const onLeave = () => s.mouseActive = false;
+    canvas.addEventListener('mousemove', onMove);
+    canvas.addEventListener('touchmove', onMove, {passive:true});
+    canvas.addEventListener('click', onClick);
+    canvas.addEventListener('mouseleave', onLeave);
+
+    s.onKey = e => {
+        if (e.key === 'n' || e.key === 'N') {
+            // Nova burst
+            s.particles.forEach(p => {
+                const a = Math.random() * Math.PI * 2;
+                p.vx += Math.cos(a) * 8;
+                p.vy += Math.sin(a) * 8;
+            });
+            s.wells = [];
+            showAnnounce('NOVA BURST!');
+        }
+    };
+
+    scoreBadge.style.opacity = '0';
+
+    function loop() {
+        const W = canvas.width, H = canvas.height;
+        ctx.fillStyle = 'rgba(1,1,8,0.2)';
+        ctx.fillRect(0,0,W,H);
+
+        // Draw wells
+        s.wells.forEach(w => {
+            const grad = ctx.createRadialGradient(w.x, w.y, 0, w.x, w.y, 40);
+            grad.addColorStop(0, 'rgba(99,102,241,0.9)');
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(w.x, w.y, 40, 0, Math.PI*2);
+            ctx.fill();
+            // Event horizon
+            ctx.strokeStyle = 'rgba(99,102,241,0.4)';
+            ctx.lineWidth = 1;
+            for (let ri=1; ri<=3; ri++) {
+                ctx.beginPath();
+                ctx.arc(w.x, w.y, ri*20, 0, Math.PI*2);
+                ctx.stroke();
+            }
+        });
+
+        // Mouse gravity indicator
+        if (s.mouseActive) {
+            const mgrad = ctx.createRadialGradient(s.mx, s.my, 0, s.mx, s.my, 60);
+            mgrad.addColorStop(0, 'rgba(99,102,241,0.15)');
+            mgrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = mgrad;
+            ctx.beginPath();
+            ctx.arc(s.mx, s.my, 60, 0, Math.PI*2);
+            ctx.fill();
+        }
+
+        // Update & draw particles
+        s.particles.forEach(p => {
+            // Mouse gravity
+            if (s.mouseActive) {
+                const dx = s.mx - p.x, dy = s.my - p.y;
+                const d2 = dx*dx + dy*dy + 100;
+                const f = 300 / d2;
+                p.vx += dx * f;
+                p.vy += dy * f;
+            }
+            // Well gravity
+            s.wells.forEach(w => {
+                const dx = w.x - p.x, dy = w.y - p.y;
+                const d2 = dx*dx + dy*dy + 100;
+                const f = w.strength / d2;
+                p.vx += dx * f;
+                p.vy += dy * f;
+            });
+            p.vx *= 0.975;
+            p.vy *= 0.975;
+            p.x += p.vx;
+            p.y += p.vy;
+            // Wrap
+            if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+            if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+            const speed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+            p.hue = (p.hue + speed * 0.5) % 360;
+            const br = Math.min(95, 50 + speed * 6);
+            ctx.fillStyle = `hsla(${p.hue},75%,${br}%,0.75)`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size + Math.min(speed * 0.3, 2), 0, Math.PI*2);
+            ctx.fill();
+        });
+
+        labRAF = requestAnimationFrame(loop);
+    }
+    labRAF = requestAnimationFrame(loop);
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPERIMENT: NEURAL GARDEN (proper Gray-Scott RD)
+// ═══════════════════════════════════════════════════════
+function initNeural(canvas, ctx, s) {
+    const RES = 3;
+    let W = Math.floor(canvas.width / RES);
+    let H = Math.floor(canvas.height / RES);
+    let imgData = ctx.createImageData(canvas.width, canvas.height);
+    let gridA, gridB, nextA, nextB;
+
+    // Classic Gray-Scott presets (well-tuned)
+    const PRESETS = [
+        { name:'CORAL',   f:0.0545, k:0.062  },
+        { name:'MITOSIS', f:0.0367, k:0.0649 },
+        { name:'STRIPES', f:0.022,  k:0.059  },
+        { name:'WORMS',   f:0.078,  k:0.061  },
+    ];
+    s.preset = 0;
+    const DA = 1.0, DB = 0.5;
+
+    function allocate() {
+        W = Math.floor(canvas.width / RES);
+        H = Math.floor(canvas.height / RES);
+        gridA = new Float32Array(W * H).fill(1);
+        gridB = new Float32Array(W * H).fill(0);
+        nextA = new Float32Array(W * H);
+        nextB = new Float32Array(W * H);
+    }
+
+    function seed(cx, cy, radius) {
+        const gx0 = Math.floor(cx / RES);
+        const gy0 = Math.floor(cy / RES);
+        for (let dx = -radius; dx <= radius; dx++) {
+            for (let dy = -radius; dy <= radius; dy++) {
+                if (dx*dx + dy*dy > radius*radius) continue;
+                const gx = gx0 + dx, gy = gy0 + dy;
+                if (gx<1||gx>=W-1||gy<1||gy>=H-1) continue;
+                const i = gy*W+gx;
+                gridA[i] = 0.5 + (Math.random()-0.5)*0.15;
+                gridB[i] = 0.25 + (Math.random()-0.5)*0.15;
+            }
+        }
+    }
+
+    function autoSeed(count) {
+        for (let k=0; k<count; k++) {
+            seed(
+                (0.1 + Math.random()*0.8) * canvas.width,
+                (0.1 + Math.random()*0.8) * canvas.height,
+                6 + Math.floor(Math.random()*6)
+            );
+        }
+    }
+
+    allocate();
+    autoSeed(12);
+
+    let painting = false;
+    const bRect = () => canvas.getBoundingClientRect();
+    const getXY = e => {
+        const r = bRect();
+        return {
+            x: (e.touches?e.touches[0].clientX:e.clientX) - r.left,
+            y: (e.touches?e.touches[0].clientY:e.clientY) - r.top
+        };
+    };
+    const onDown = e => { painting=true; const p=getXY(e); seed(p.x,p.y,10); };
+    const onMove = e => { if(!painting)return; const p=getXY(e); seed(p.x,p.y,6); };
+    const onUp = () => painting=false;
+    canvas.addEventListener('mousedown',onDown);
+    canvas.addEventListener('mousemove',onMove);
+    canvas.addEventListener('mouseup',onUp);
+    canvas.addEventListener('touchstart',onDown,{passive:true});
+    canvas.addEventListener('touchmove',onMove,{passive:true});
+    canvas.addEventListener('touchend',onUp);
+
+    s.onKey = e => {
+        const k = parseInt(e.key);
+        if (k>=1&&k<=4) { s.preset=k-1; showAnnounce(PRESETS[s.preset].name); }
+        if (e.key==='c'||e.key==='C') {
+            gridA.fill(1); gridB.fill(0);
+            autoSeed(12);
+            showAnnounce('CLEARED');
+        }
+    };
+    scoreBadge.style.opacity = '0';
+
+    function step() {
+        const {f,k} = PRESETS[s.preset];
+        for (let y=1; y<H-1; y++) {
+            for (let x=1; x<W-1; x++) {
+                const i = y*W+x;
+                const a = gridA[i], b = gridB[i];
+                const lapA = gridA[i-1]+gridA[i+1]+gridA[(y-1)*W+x]+gridA[(y+1)*W+x] - 4*a;
+                const lapB = gridB[i-1]+gridB[i+1]+gridB[(y-1)*W+x]+gridB[(y+1)*W+x] - 4*b;
+                const abb = a*b*b;
+                nextA[i] = Math.min(1, Math.max(0, a + DA*lapA - abb + f*(1-a)));
+                nextB[i] = Math.min(1, Math.max(0, b + DB*lapB + abb - (k+f)*b));
+            }
+        }
+        const tA=gridA; gridA=nextA; nextA=tA;
+        const tB=gridB; gridB=nextB; nextB=tB;
+    }
+
+    // Cyan-on-black colormap (classic Turing look)
+    function getColor(a, b) {
+        const v = Math.min(1, Math.max(0, a - b));
+        // Dark teal → bright cyan → white
+        if (v < 0.4) {
+            const t = v/0.4;
+            return [Math.floor(t*0), Math.floor(t*180), Math.floor(t*160)];
+        } else if (v < 0.75) {
+            const t = (v-0.4)/0.35;
+            return [Math.floor(t*20), Math.floor(180+t*75), Math.floor(160+t*80)];
+        } else {
+            const t = (v-0.75)/0.25;
+            return [Math.floor(20+t*235), Math.floor(255), Math.floor(240+t*15)];
+        }
+    }
+
+    function render() {
+        const data = imgData.data;
+        for (let y=0; y<H; y++) {
+            for (let x=0; x<W; x++) {
+                const i = y*W+x;
+                const [r,g,b] = getColor(gridA[i], gridB[i]);
+                for (let py=0; py<RES; py++) {
+                    const row = (y*RES+py)*canvas.width;
+                    for (let px=0; px<RES; px++) {
+                        const pi = (row + x*RES + px)*4;
+                        data[pi]=r; data[pi+1]=g; data[pi+2]=b; data[pi+3]=255;
+                    }
+                }
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    s.onResize = () => {
+        allocate(); autoSeed(12);
+        imgData = ctx.createImageData(canvas.width, canvas.height);
+    };
+
+    const STEPS = 10;
+    function loop() {
+        for (let i=0; i<STEPS; i++) step();
+        render();
+        labRAF = requestAnimationFrame(loop);
+    }
+    labRAF = requestAnimationFrame(loop);
+}
+
+// ═══════════════════════════════════════════════════════
+// EXPERIMENT: MANDALA ENGINE (velocity-pressure drawing)
+// ═══════════════════════════════════════════════════════
+function initMandala(canvas, ctx, s) {
+    s.symmetry = 8;
+    s.drawing = false;
+    s.px = 0; s.py = 0;
+    s.hue = 0;
+    s.saturation = 85;
+    // Velocity tracking
+    s.lastX = 0; s.lastY = 0;
+    s.velocity = 0;
+    s.velSmooth = 0;
+
+    s.buf = document.createElement('canvas');
+    s.buf.width = canvas.width;
+    s.buf.height = canvas.height;
+    s.bufCtx = s.buf.getContext('2d');
+    s.bufCtx.fillStyle = '#020304';
+    s.bufCtx.fillRect(0,0,canvas.width,canvas.height);
+
+    function getPos(e) {
+        const r = canvas.getBoundingClientRect();
+        return {
+            x: (e.touches?e.touches[0].clientX:e.clientX) - r.left,
+            y: (e.touches?e.touches[0].clientY:e.clientY) - r.top
+        };
+    }
+
+    const onDown = e => {
+        s.drawing = true;
+        const pos = getPos(e);
+        s.px = pos.x; s.py = pos.y;
+        s.lastX = pos.x; s.lastY = pos.y;
+        s.velocity = 0; s.velSmooth = 0;
+    };
+
+    const onMove = e => {
+        if (!s.drawing) return;
+        const pos = getPos(e);
+        const nx = pos.x, ny = pos.y;
+
+        // Compute velocity (pixels/frame proxy)
+        const dx = nx - s.px, dy = ny - s.py;
+        const rawVel = Math.sqrt(dx*dx + dy*dy);
+        // Smooth velocity with exponential moving average
+        s.velSmooth = s.velSmooth * 0.75 + rawVel * 0.25;
+        const vel = s.velSmooth;
+
+        // Pressure model:
+        // Slow (vel ~0)  → thick (12px), opaque (0.9)
+        // Fast (vel ~25) → thin (0.4px), semi-transparent (0.25)
+        const maxVel = 22;
+        const t = Math.min(1, vel / maxVel);
+        const lineW = 12 * (1 - t) + 0.4 * t;
+        const opacity = 0.9 * (1 - t) + 0.25 * t;
+        // Hue shifts faster when moving fast
+        s.hue = (s.hue + 0.3 + vel * 0.1) % 360;
+        const brightness = 60 + t * 20; // fast = brighter
+
+        const cx = canvas.width/2, cy = canvas.height/2;
+        const bCtx = s.bufCtx;
+
+        // Distance from center affects saturation
+        const distFromCenter = Math.sqrt((nx-cx)**2+(ny-cy)**2);
+        const maxDist = Math.sqrt(cx*cx+cy*cy);
+        s.saturation = 65 + (distFromCenter/maxDist)*35;
+
+        for (let k=0; k<s.symmetry; k++) {
+            const angle = (k/s.symmetry)*Math.PI*2;
+            bCtx.save();
+            bCtx.translate(cx, cy);
+            bCtx.rotate(angle);
+            bCtx.lineCap = 'round';
+            bCtx.lineJoin = 'round';
+            bCtx.lineWidth = lineW;
+            bCtx.strokeStyle = `hsla(${s.hue},${s.saturation}%,${brightness}%,${opacity})`;
+
+            // Normal
+            bCtx.beginPath();
+            bCtx.moveTo(s.px-cx, s.py-cy);
+            bCtx.lineTo(nx-cx, ny-cy);
+            bCtx.stroke();
+
+            // Mirror
+            bCtx.scale(1,-1);
+            bCtx.beginPath();
+            bCtx.moveTo(s.px-cx, -(s.py-cy));
+            bCtx.lineTo(nx-cx, -(ny-cy));
+            bCtx.stroke();
+
+            bCtx.restore();
+        }
+        s.px = nx; s.py = ny;
+        s.lastX = nx; s.lastY = ny;
+    };
+
+    const onUp = () => { s.drawing = false; s.velSmooth = 0; };
+    canvas.addEventListener('mousedown', onDown);
+    canvas.addEventListener('mousemove', onMove);
+    canvas.addEventListener('mouseup', onUp);
+    canvas.addEventListener('touchstart', onDown, {passive:true});
+    canvas.addEventListener('touchmove', onMove, {passive:true});
+    canvas.addEventListener('touchend', onUp);
+
+    s.onKey = e => {
+        if (e.key === 'ArrowUp')   { s.symmetry = Math.min(24, s.symmetry+1); showAnnounce('SYM · '+s.symmetry); }
+        if (e.key === 'ArrowDown') { s.symmetry = Math.max(2, s.symmetry-1); showAnnounce('SYM · '+s.symmetry); }
+        if (e.key === 'c' || e.key === 'C') {
+            s.bufCtx.fillStyle = '#020304';
+            s.bufCtx.fillRect(0,0,canvas.width,canvas.height);
+            showAnnounce('CLEARED');
+        }
+        if (e.key === 's' || e.key === 'S') {
+            const link = document.createElement('a');
+            link.download = 'mandala-genlab.png';
+            link.href = s.buf.toDataURL();
+            link.click();
+            showAnnounce('SAVED ✓');
+        }
+    };
+
+    s.onResize = () => {
+        const nb = document.createElement('canvas');
+        nb.width = canvas.width; nb.height = canvas.height;
+        const nc = nb.getContext('2d');
+        nc.fillStyle = '#020304'; nc.fillRect(0,0,nb.width,nb.height);
+        nc.drawImage(s.buf,0,0); s.buf=nb; s.bufCtx=nc;
+    };
+
+    scoreBadge.style.opacity = '0';
+
+    // Symmetry guide pulse
+    let guideAlpha = 0;
+    function loop() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(s.buf, 0, 0);
+
+        // Pulsing guide lines (fade in when not drawing)
+        if (!s.drawing) guideAlpha = Math.min(0.08, guideAlpha + 0.003);
+        else guideAlpha = Math.max(0, guideAlpha - 0.01);
+
+        if (guideAlpha > 0.001) {
+            ctx.save();
+            ctx.translate(canvas.width/2, canvas.height/2);
+            const R = Math.max(canvas.width, canvas.height);
+            for (let k=0; k<s.symmetry; k++) {
+                const a = (k/s.symmetry)*Math.PI*2;
+                ctx.strokeStyle = `rgba(244,114,182,${guideAlpha})`;
+                ctx.lineWidth = 1;
+                ctx.setLineDash([4,8]);
+                ctx.beginPath();
+                ctx.moveTo(0,0);
+                ctx.lineTo(Math.cos(a)*R, Math.sin(a)*R);
+                ctx.stroke();
+            }
+            ctx.setLineDash([]);
+            // Center circle guide
+            ctx.strokeStyle = `rgba(244,114,182,${guideAlpha*0.5})`;
+            ctx.beginPath();
+            ctx.arc(0,0, Math.min(canvas.width,canvas.height)*0.35, 0, Math.PI*2);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Velocity indicator (small bar, bottom center)
+        if (s.drawing && s.velSmooth > 0.5) {
+            const barW = Math.min(s.velSmooth/22, 1) * 120;
+            ctx.fillStyle = `hsla(${s.hue},85%,65%,0.5)`;
+            ctx.beginPath();
+            ctx.roundRect(canvas.width/2 - 60, canvas.height - 30, barW, 4, 2);
+            ctx.fill();
+        }
+
+        labRAF = requestAnimationFrame(loop);
+    }
+    labRAF = requestAnimationFrame(loop);
+}
+
+// ═══════════════════════════════════════════════════════
+// BG CANVAS (hero ambient)
+// ═══════════════════════════════════════════════════════
+const bgCanvas = document.getElementById('bg-canvas');
+if (bgCanvas) {
+    const bgCtx = bgCanvas.getContext('2d');
+    const bgP = new Perlin(31337);
+    let bgT = 0;
+    function drawBg() {
+        bgCanvas.width  = bgCanvas.offsetWidth  || window.innerWidth;
+        bgCanvas.height = bgCanvas.offsetHeight || 500;
+    }
+    function bgLoop() {
+        const W = bgCanvas.width, H = bgCanvas.height;
+        bgCtx.fillStyle = 'rgba(2,3,8,0.25)';
+        bgCtx.fillRect(0,0,W,H);
+        const STEP = 22;
+        bgCtx.lineWidth = 1;
+        for (let x=0; x<W; x+=STEP) {
+            for (let y=0; y<H; y+=STEP) {
+                const a = bgP.noise(x/180, y/180+bgT) * Math.PI * 4;
+                const hue = ((x+y)/8 + bgT*30) % 360;
+                bgCtx.strokeStyle = `hsla(${hue},70%,55%,0.18)`;
+                bgCtx.save();
+                bgCtx.translate(x,y);
+                bgCtx.rotate(a);
+                bgCtx.beginPath();
+                bgCtx.moveTo(-8,0);
+                bgCtx.lineTo(8,0);
+                bgCtx.stroke();
+                bgCtx.restore();
+            }
+        }
+        bgT += 0.004;
+        requestAnimationFrame(bgLoop);
+    }
+    window.addEventListener('resize', drawBg);
+    drawBg();
+    bgLoop();
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT: Thumbnails + Reveal
+// ═══════════════════════════════════════════════════════
+const revObs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); o.unobserve(e.target); } });
+}, {rootMargin:'0px 0px -40px 0px', threshold:0.1});
+document.querySelectorAll('.reveal-element').forEach(el => revObs.observe(el));
+
+document.querySelectorAll('.lab-card').forEach(card => {
+    const id = card.dataset.exp;
+    const canvas = card.querySelector('canvas');
+    if (canvas && EXPERIMENTS[id]) {
+        card.addEventListener('mouseenter', () => startThumb(id, canvas, EXPERIMENTS[id].thumb));
+        card.addEventListener('mouseleave', () => {
+            if (thumbRAFs[id]) { cancelAnimationFrame(thumbRAFs[id]); delete thumbRAFs[id]; }
+        });
+    }
+    card.querySelector('.launch-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        openLab(id);
+    });
+    card.addEventListener('click', () => openLab(id));
+});
+
+// Auto-start first thumbnail on load
+document.querySelectorAll('.lab-card').forEach(card => {
+    const id = card.dataset.exp;
+    const canvas = card.querySelector('canvas');
+    if (canvas && EXPERIMENTS[id]) {
+        startThumb(id, canvas, EXPERIMENTS[id].thumb);
+    }
+});
+
+})();
+</script>
+
+</body>
+</html>

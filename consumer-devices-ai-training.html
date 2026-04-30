@@ -1,0 +1,912 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Invisible Harvest: How Consumer Devices Train AI Without You Knowing // GenLab</title>
+    <meta name="description" content="Pokemon Go maps your city. Meta glasses scan your face. Your headphones transcribe your environment. How consumer hardware became the largest AI training operation in history.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="The Invisible Harvest: How Consumer Devices Train AI Without You Knowing // GenLab">
+    <meta property="og:description" content="Pokemon Go maps your city. Meta glasses scan your face. Your headphones transcribe your environment. How consumer hardware became the largest AI training operation in history.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="The Invisible Harvest: How Consumer Devices Train AI Without You Knowing // GenLab">
+    <meta property="twitter:description" content="Pokemon Go maps your city. Meta glasses scan your face. Your headphones transcribe your environment. How consumer hardware became the largest AI training operation in history.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<link rel="canonical" href="https://www.genlabdesign.com/consumer-devices-ai-training.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:title" content="The Invisible Harvest: How Consumer Devices Train AI Without You Knowing">
+<meta property="og:description" content="Pokemon Go maps your city. Meta glasses scan your face. Your headphones transcribe your environment. A breakdown of ambient data extraction.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"The Invisible Harvest: How Consumer Devices Train AI Without You Knowing",
+ "description":"Pokemon Go maps your city. Meta glasses scan your face. Your headphones transcribe your environment.",
+ "author":{"@type":"Person","name":"GenLab"},
+ "publisher":{"@type":"Organization","name":"GenLab Design"},
+ "datePublished":"2026-04-01"
+}
+</script>
+
+<style>
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { transition: background-color 0.5s ease; }
+
+  .premium-hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+  }
+  #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0.55; pointer-events: none;
+  }
+  .glass-card {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.06);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .dark .glass-card {
+      background: rgba(14,18,36,0.65);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+  }
+  .kicker {
+      display: inline-block;
+      color: #ef4444; font-weight: 800;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 10px;
+  }
+  .text-gradient {
+      background: linear-gradient(90deg, #ef4444, #f97316, #ef4444);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      animation: gshift 5s ease infinite;
+  }
+  .dark .text-gradient {
+      background: linear-gradient(90deg, #f87171, #fb923c, #f87171);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+  }
+  @keyframes gshift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+  .reveal-element {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(.165,.84,.44,1), transform 0.8s cubic-bezier(.165,.84,.44,1);
+  }
+  .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+  .ed-dropcap::first-letter {
+      float: left;
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem; line-height: 0.78;
+      padding-top: 0.45rem; padding-right: 1rem;
+      color: #ef4444; font-weight: 800;
+  }
+
+  .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      line-height: 1.6;
+      color: #1f2937;
+      font-style: italic;
+      padding: 1.5rem 0;
+  }
+  .dark .pull-quote { color: #e5e7eb; }
+
+  .data-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .chip-red   { background: rgba(239,68,68,0.12); color: #ef4444; }
+  .chip-amber { background: rgba(245,158,11,0.12); color: #d97706; }
+  .chip-blue  { background: rgba(59,130,246,0.12); color: #3b82f6; }
+  .chip-gray  { background: rgba(100,116,139,0.12); color: #64748b; }
+  .dark .chip-red   { color: #f87171; }
+  .dark .chip-amber { color: #fbbf24; }
+  .dark .chip-blue  { color: #93c5fd; }
+
+  /* Device Surface Calculator */
+  #calculator {
+      background: #09090f;
+      border-radius: 16px;
+      padding: 2rem;
+      color: #e2e8f0;
+  }
+  .device-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+  }
+  .device-item:hover { background: rgba(255,255,255,0.05); }
+  .device-item.selected { background: rgba(239,68,68,0.1); }
+  .device-checkbox {
+      width: 20px; height: 20px;
+      border-radius: 5px;
+      border: 1.5px solid #374151;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+  }
+  .device-item.selected .device-checkbox {
+      background: #ef4444; border-color: #ef4444;
+  }
+  .device-label { font-size: 0.9rem; font-weight: 600; }
+  .device-sub { font-size: 0.72rem; color: #64748b; font-family: 'JetBrains Mono', monospace; }
+  .score-bar-outer {
+      height: 8px; border-radius: 4px; background: rgba(255,255,255,0.06);
+      overflow: hidden; margin: 6px 0;
+  }
+  .score-bar-inner {
+      height: 100%; border-radius: 4px;
+      transition: width 0.6s cubic-bezier(.25,1,.5,1), background 0.4s;
+  }
+  .exposure-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      padding: 2px 8px; border-radius: 4px;
+  }
+
+  .sticky-sidebar { position: sticky; top: 100px; }
+
+  /* Timeline */
+  .timeline-entry {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 1.5rem; margin-bottom: 1.5rem;
+      align-items: start;
+  }
+  .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 800;
+      color: #ef4444; text-align: right;
+      padding-top: 0.2rem;
+  }
+  .timeline-body { font-size: 0.92rem; line-height: 1.65; color: #374151; }
+  .dark .timeline-body { color: #cbd5e1; }
+  .timeline-body strong { color: #111; }
+  .dark .timeline-body strong { color: #f1f5f9; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<header class="premium-hero transition-colors duration-500">
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-24 pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-8">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Critical Analysis</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    The <span class="text-gradient">Invisible</span> Harvest
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element max-w-2xl">
+                    How Pokemon Go, Meta glasses, and your headphones became the largest AI training operation ever built.
+                </p>
+                <div class="flex flex-wrap gap-3 reveal-element">
+                    <span class="data-chip chip-red">Surveillance</span>
+                    <span class="data-chip chip-amber">Spatial Mapping</span>
+                    <span class="data-chip chip-blue">Biometric Data</span>
+                    <span class="data-chip chip-gray">Consumer Rights</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+<article class="lg:col-span-8 space-y-14">
+
+    <!-- INTRO -->
+    <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+        <span class="kicker">The Problem</span>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">You signed up to catch Pikachu.</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+            <p class="ed-dropcap">Nobody sits down and decides to donate their home's floor plan to a technology company. Nobody consciously agrees to let a corporation build a photorealistic 3D model of their neighborhood using their phone's camera. Nobody opts in to having their voice patterns analyzed for emotional valence by a machine learning system they have never heard of. And yet, each of these things is happening, at massive scale, every day, through applications that present themselves as entertainment, fitness trackers, and audio accessories.</p>
+            <p>This is not a conspiracy. The data collection is disclosed, technically, in terms-of-service agreements that run to tens of thousands of words and change without notice. The practices are legal in most jurisdictions. What they are not is transparent in any meaningful sense. The gap between what users understand they are agreeing to and what is actually happening to their data is the defining consumer technology story of the 2020s.</p>
+            <p>Three categories of consumer device have become especially significant in this context: augmented reality games built on crowd-sourced spatial data (Niantic's ecosystem, centered on Pokemon Go), wearable cameras disguised as eyewear (Meta's Ray-Ban smart glasses), and always-listening audio devices (earbuds, smart speakers, and everything in between). Together, they construct what the industry euphemistically calls "ambient computing" and what users might more accurately call a distributed sensor network pointed at their lives.</p>
+        </div>
+    </section>
+
+    <!-- NIANTIC -->
+    <section id="niantic" class="reveal-element">
+        <span class="kicker pl-4">Case Study 01</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Niantic's World Model</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+            <p>Pokemon Go launched in July 2016. Within three weeks it had been downloaded over 100 million times. Players walked the streets pointing their phones at the physical world to capture fictional creatures overlaid on camera feeds. What the players were doing, simultaneously and invisibly, was generating one of the most comprehensive crowd-sourced maps of human-scale physical space ever constructed.</p>
+            <p>Niantic's product was never purely a game. The company was built on Google's internal startup incubator, specifically around Google Maps data and location infrastructure. Its first title, Ingress, asked players to physically visit real-world locations and "capture" them, generating a dense semantic map of points of interest. Pokemon Go inherited this architecture and scaled it to a global audience.</p>
+            <p>In 2021, Niantic formalized what it had been building with the public launch of <strong>Lightship VPS</strong> (Visual Positioning System). VPS allows compatible devices to localize themselves in three-dimensional space by matching camera frames against a database of pre-scanned 3D point clouds, contributed passively by players using Niantic applications. The more people scan a location, the more accurate the model becomes. Players contribute spatial data; Niantic retains a persistent, commercial 3D map of the world.</p>
+
+            <div class="bg-gray-50 dark:bg-white/5 rounded-2xl p-6 my-8 space-y-4">
+                <h3 class="font-bold text-gray-900 dark:text-white text-lg">What Niantic collects through its apps:</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 bg-red-50 dark:bg-red-500/10 rounded-xl">
+                        <div class="font-mono text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-wider mb-2">Spatial Data</div>
+                        <p class="text-gray-700 dark:text-gray-300">3D point clouds of real-world locations contributed via AR scanning. Used to build Lightship VPS, a commercial real-world mapping layer sold as a developer platform.</p>
+                    </div>
+                    <div class="p-4 bg-orange-50 dark:bg-orange-500/10 rounded-xl">
+                        <div class="font-mono text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider mb-2">Movement Trajectories</div>
+                        <p class="text-gray-700 dark:text-gray-300">Precise GPS traces including speed, direction, and duration. Aggregated movement creates behavioral models: when people walk, which routes they prefer, where they linger.</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 dark:bg-yellow-500/10 rounded-xl">
+                        <div class="font-mono text-xs font-bold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider mb-2">Visual Environment</div>
+                        <p class="text-gray-700 dark:text-gray-300">AR camera frames used for creature overlay also capture environmental visual context. Scaniverse (Niantic's standalone 3D scanning app) requests explicit room and building scans.</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 dark:bg-blue-500/10 rounded-xl">
+                        <div class="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">Social Graphs</div>
+                        <p class="text-gray-700 dark:text-gray-300">In-game social connections correlate real-world proximity events. Which players appear at the same location at the same time is itself meaningful behavioral data.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>In 2022, Niantic partnered with planet-scale satellite mapping company Planet Labs at a strategic level. The same year, it acquired 8th Wall, a company specializing in web-based AR that does not require a dedicated app, dramatically lowering the friction for browser-based spatial data collection. By 2024, Niantic had spun out its games division as a separate entity, clarifying that its core business is the Lightship platform: a commercial real-world AI infrastructure product, sold to developers, funded entirely by data generated by game players.</p>
+
+            <div class="pull-quote">
+                The game was the distribution mechanism. The map was always the product.
+            </div>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg mt-6">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/qmRi23I21DY?rel=0" title="Pokémon Go built a secret 3D map | What Niantic actually built" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">Pokémon Go built a secret 3D map: an analysis of what Niantic actually built with player-contributed spatial data.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- META GLASSES -->
+    <section id="meta-glasses" class="glass-card p-8 md:p-12 reveal-element bg-gradient-to-br from-gray-50/50 to-slate-50/50 dark:from-[#0b0c14] dark:to-[#080a10]">
+        <span class="kicker">Case Study 02</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Glasses That Remember</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+            <p>In October 2024, two Harvard students, AnhPhu Nguyen and Caine Kollar, published a demonstration that made clear what the Ray-Ban Meta smart glasses were capable of when connected to AI systems. They walked around Boston wearing the glasses, which streamed footage in real time to a laptop running a pipeline: frame extraction, facial recognition via PimEyes, a people-search engine, and an LLM wrapper that collated the results. Within seconds of seeing someone's face on the street, the system returned their name, employer, address, and phone number.</p>
+            <p>The students released no code and the footage showed no targets. The intention was not to enable harm but to demonstrate feasibility. The demonstration required no hacking because the glasses were functioning exactly as designed; the pipeline simply combined available tools. Facial recognition is not new. LLMs capable of structured data retrieval are not new. The novelty was the form factor: inconspicuous glasses with a recording indicator light that many people around the wearer did not notice, combined with continuous video capture.</p>
+            <p>The Ray-Ban Meta glasses record at 1080p video and 12MP still images. They have a LED indicator that illuminates during recording, but the indicator is small and positioned on the frame, visible only to those who know to look for it. Multiple surveys conducted following the Harvard demonstration found that well under half of respondents in photographs with the glasses correctly identified when recording was taking place.</p>
+            <p>What happens to that footage in terms of AI training is governed by Meta's privacy policy, which reserves the right to use content processed by Meta AI for model improvement. Interactions with the glasses' integrated Meta AI assistant, which include descriptions of scenes the AI is "seeing," are processed on Meta's servers. Meta has stated that it does not currently use footage to train its models without user consent, but the architecture exists. Opt-in data collection for model improvement is requested through the app, and the default settings have changed in multiple software updates.</p>
+            <div class="bg-red-50 dark:bg-red-950/40 rounded-xl p-6 mt-6">
+                <div class="font-mono text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mb-3">The structural problem</div>
+                <p class="text-base text-gray-700 dark:text-gray-300">Consent in the glasses context is one-directional. The wearer can choose whether to use the device. Every person who appears in the camera's field of view has no choice and receives no notice. Standard consent frameworks were designed for interactions between parties who both know an interaction is occurring. Ambient always-on camera systems break this model entirely.</p>
+            </div>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg mt-6">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/zKVXNVnPCrQ?rel=0" title="Harvard students turn Meta Ray-Ban Smart Glasses into a surveillance tool (France 24)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">France 24: Harvard students demonstrate real-time facial recognition pipeline using Ray-Ban Meta glasses and off-the-shelf AI tools. (October 2024)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HEADPHONES -->
+    <section id="audio" class="reveal-element">
+        <span class="kicker pl-4">Case Study 03</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">What Your Earbuds Notice</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+            <p>The privacy conversation around smart speakers and earbuds has centered almost exclusively on the "always-listening" wake-word detection problem: devices that continuously process microphone input to detect trigger phrases. This is real and consequential, but it is the most visible part of a much broader audio data infrastructure.</p>
+            <p>Amazon's Alexa team acknowledged in 2019 that a team of thousands of contractors listened to and annotated customer audio recordings to improve speech recognition. Apple's Siri grading program was exposed by a contractor the same year, revealing that Apple employees and contractors listened to "a small portion" of Siri activations to evaluate quality, including accidental activations during private conversations. Both companies modified their programs following the reporting, but both retained the underlying architecture that makes such collection possible.</p>
+            <p>The more structurally significant development is the expansion of audio processing into hearable devices. AirPods Pro with Personalized Spatial Audio perform ear canal acoustic profiling; the device actively measures how your ears distort sound. This biometric data, your precise ear geometry, is stored in iCloud and linked to your Apple ID. Apple's privacy documentation treats it as part of device personalization, not as a biometric, but audiologists would identify it as exactly that.</p>
+
+            <div class="bg-gray-50 dark:bg-white/5 rounded-2xl p-6 my-8">
+                <h3 class="font-bold text-gray-900 dark:text-white mb-6">A timeline of audio data incidents:</h3>
+                <div class="space-y-0 divide-y divide-gray-100 dark:divide-white/5">
+                    <div class="timeline-entry py-4">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-body">Samsung SmartTV privacy policy warns users: "If your spoken words include personal or other sensitive information, that information will be among the data captured and transmitted to a third party." The third party was Nuance Communications, an AI speech company.</div>
+                    </div>
+                    <div class="timeline-entry py-4">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-body"><strong>Apple, Amazon, Google, Facebook</strong> all confirmed within the same eight-week period that humans listen to recordings from their respective voice assistant products. All four disclosed this practice in privacy documentation but not in consumer-facing product descriptions.</div>
+                    </div>
+                    <div class="timeline-entry py-4">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-body"><strong>Amazon Sidewalk</strong> launches, turning Echo devices and Ring cameras into a shared ambient mesh network that covers neighborhoods, enabling low-bandwidth connectivity sharing between nearby devices and piggybacking location sensing on audio infrastructure.</div>
+                    </div>
+                    <div class="timeline-entry py-4">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-body">OpenAI's <strong>Whisper model</strong> demonstrates a step-change in speech recognition accuracy, trained on 680,000 hours of audio from the internet. The model dramatically reduces the cost of transcribing any audio, making mass collection of voice data significantly more valuable upstream.</div>
+                    </div>
+                    <div class="timeline-entry py-4">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-body">Meta announces that Ray-Ban glasses wearers' <strong>environmental audio</strong> processed by Meta AI can be used to improve Meta AI services. The EULA update requires users to opt out rather than opt in.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg my-6">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/AInIjGbrbjg?rel=0" title="Amazon employees listen in on Echo conversations" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">CBS News: Amazon employees listening to Echo conversations. The 2019 Bloomberg investigation that exposed widespread human review of Alexa audio recordings.</p>
+            </div>
+
+            <p>The specific risk with audio is context reconstruction. A recorded environment contains more information than a transcript. Acoustic properties reveal room size and surface materials. Background sounds identify location type: whether the speaker is in a kitchen, a car, a hospital, an office, a bar. Emotional prosody, the rhythm and texture of speech, is a direct signal of psychological state. Individual voice patterns are a biometric identifier more reliable than a fingerprint in many conditions. Audio data is cheap to store, cheap to process, and extraordinarily rich in inference potential.</p>
+        </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="calculator-section" class="glass-card p-8 md:p-12 reveal-element">
+        <span class="kicker">Interactive</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-3">Your Data Surface</h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">Select the devices and applications you use regularly. The calculator estimates your passive contribution profile to AI training pipelines.</p>
+
+        <div id="calculator">
+            <div id="device-list" class="space-y-1 mb-8"></div>
+
+            <div class="border-t border-white/10 pt-6 space-y-5">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Location & Movement</span>
+                        <span class="text-xs font-mono text-red-400" id="val-location">0%</span>
+                    </div>
+                    <div class="score-bar-outer"><div class="score-bar-inner" id="bar-location" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Visual / Spatial</span>
+                        <span class="text-xs font-mono text-red-400" id="val-visual">0%</span>
+                    </div>
+                    <div class="score-bar-outer"><div class="score-bar-inner" id="bar-visual" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Audio & Voice</span>
+                        <span class="text-xs font-mono text-red-400" id="val-audio">0%</span>
+                    </div>
+                    <div class="score-bar-outer"><div class="score-bar-inner" id="bar-audio" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-xs font-mono text-gray-400 uppercase tracking-wider">Biometric Signals</span>
+                        <span class="text-xs font-mono text-red-400" id="val-biometric">0%</span>
+                    </div>
+                    <div class="score-bar-outer"><div class="score-bar-inner" id="bar-biometric" style="width:0%"></div></div>
+                </div>
+
+                <div class="mt-6 rounded-xl bg-white/5 p-4">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="exposure-tag" id="overall-tag" style="background:rgba(100,116,139,0.12);color:#64748b">NO SELECTION</span>
+                    </div>
+                    <p class="text-sm text-gray-400" id="overall-msg">Select the devices and apps you use daily.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONSEQUENCES -->
+    <section id="consequences" class="reveal-element">
+        <span class="kicker pl-4">Consequences</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">The Infrastructure You Are Building</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+            <p>The individual data points discussed above become qualitatively different when they are combined and when they persist over time. A single GPS trace is a privacy concern. Twelve months of GPS traces, correlated with audio environment data, visual scans of frequented spaces, and social graph proximity events, constitutes a behavioral profile with predictive power that exceeds what most people generate intentionally in any documentation they have ever produced about themselves.</p>
+            <p>The specific danger is not that any single company is malicious. Most data collection practices described here are implemented by engineers who genuinely believe they are building useful products. The danger is structural. Data that is collected does not stay where it was deposited. Companies merge, are acquired, and go bankrupt. Data brokers purchase anonymized datasets and de-anonymize them against other datasets. Law enforcement requests expand in scope through each court precedent. Data retained for product personalization becomes training data, then becomes the basis for automated decisions about insurance, employment, and credit.</p>
+            <p>Illinois's Biometric Information Privacy Act (BIPA), passed in 2008, is the most consequential privacy law in this domain in the United States. It requires explicit opt-in consent before collecting biometric identifiers, including face geometry, voice prints, and iris scans. Texas and Washington have similar laws. The EU's GDPR treats biometric data as a special category requiring explicit consent and significant documentary burden for processors. Despite this legal scaffolding, enforcement has been sporadic, penalties have rarely deterred companies with market capitalizations in the hundreds of billions, and most users in most jurisdictions have no legal recourse at all.</p>
+
+            <div class="pull-quote">
+                Spatial privacy, the right to move through physical space without generating persistent, commercially available records of that movement, does not currently exist as a legal concept in most countries.
+            </div>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg my-6">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/hIXhnWUmMvw?rel=0" title="Shoshana Zuboff on Surveillance Capitalism | VPRO Documentary" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">VPRO Documentary: Shoshana Zuboff on surveillance capitalism and the structural transformation of personal data into AI training fuel. Essential viewing for the theoretical framework behind this article.</p>
+            </div>
+
+            <p>The longer-term consequence is the normalization of ambient data extraction as the business model for physical-world computing. Every successive generation of wearable device, from earbuds to glasses to watches to clothing, arrives with more sensor capability, more persistent connectivity, and more sophisticated on-device AI that preprocesses data before it reaches company servers, making regulation harder. Each device, in isolation, appears to offer genuine value. Each also extends the sensor network another degree. The cumulative effect is an infrastructure in which physical movement through the world generates a permanent digital record by default, with opt-out as the exception.</p>
+        </div>
+    </section>
+
+    <!-- WHAT TO DO -->
+    <section id="action" class="glass-card p-8 md:p-12 reveal-element">
+        <span class="kicker">Practical</span>
+        <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">What Individuals Can Actually Do</h2>
+        <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+            <p>Individual mitigation is meaningful at the margin, though it does not address the structural issues. The most impactful steps are the most boring ones. Reviewing and disabling location access for applications that have no functional need for it reduces the resolution of behavioral profiling significantly. Disabling camera permissions for AR games eliminates spatial scanning contributions. Reviewing smart speaker settings, specifically the options governing whether recordings can be used for model improvement, is often a single toggle that most users never see because it defaults to participation.</p>
+            <p>For glasses specifically: the only current mitigation is not wearing devices with always-on cameras. There is no technical mechanism for bystanders to prevent their faces from appearing in footage. Legislative movement toward requiring more visible recording indicators, or toward explicit bystander consent frameworks, is active in the EU under the AI Act's provisions on biometric categorization systems, but implementation timelines run to years.</p>
+            <p>The more durable intervention is political. BIPA exists because an Illinois state legislature decided that biometric data required a different consent standard than browsing cookies. That decision came largely from advocacy by a coalition of privacy researchers, civil liberties organizations, and unions whose members were being subjected to workplace biometric monitoring. The regulatory framework for ambient device data collection is not predetermined. It will be shaped by the extent to which people treat it as a political issue rather than an individual consumer choice.</p>
+        </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="references" class="reveal-element">
+        <div class="bg-gray-50/80 dark:bg-[#0a0b12]/80 rounded-2xl p-8 md:p-10 border border-gray-100 dark:border-white/5">
+            <span class="kicker">References</span>
+            <h2 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-8 mt-1">Sources &amp; Further Reading</h2>
+            <ol class="space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 font-sans list-none">
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[1]</span>
+                    <span>Niantic, Inc. (2021). <em>Niantic Lightship AR Developer Kit — Documentation.</em> Niantic Developer Portal. <a href="https://lightship.dev" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">https://lightship.dev</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[2]</span>
+                    <span>Koebler, J. (2022). <em>Niantic Is Building a 3D Map of the World Using Pokémon Go Players.</em> Motherboard / Vice. Accessed March 2026. <a href="https://www.vice.com/en/article/niantic-3d-map-world-pokemon-go" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">vice.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[3]</span>
+                    <span>Hanke, J. (2024). <em>Niantic Announces Spin-Off of Games Business as Separate Company.</em> Niantic Blog. March 2024. <a href="https://nianticlabs.com/news/niantic-games-spinoff" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">nianticlabs.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[4]</span>
+                    <span>Nguyen, A. & Kollar, C. (2024). <em>I-XRAY: Real-Time Facial Recognition Using Meta Ray-Ban Glasses.</em> Harvard University student research demonstration. Published October 2024. Documentation available via MIT Technology Review coverage.</span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[5]</span>
+                    <span>Burgess, M. (2024). <em>Meta's Smart Glasses Can Be Used to Dox Anyone You Meet.</em> Wired. October 2024. <a href="https://www.wired.com/story/ispy-meta-glasses-facial-recognition/" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">wired.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[6]</span>
+                    <span>Day, M., Turner, G., & Drozdiak, N. (2019). <em>Amazon Workers Are Listening to What You Tell Alexa.</em> Bloomberg Businessweek. April 10, 2019. <a href="https://www.bloomberg.com/news/articles/2019-04-10/is-anyone-listening-to-you-on-alexa-a-global-team-reviews-audio" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">bloomberg.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[7]</span>
+                    <span>Thomas, Z. & Sherwood, B. (2019). <em>Apple Contractors "Regularly Hear Confidential Details" on Siri Recordings.</em> The Guardian. July 26, 2019. <a href="https://www.theguardian.com/technology/2019/jul/26/apple-contractors-regularly-hear-confidential-details-on-siri-recordings" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">theguardian.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[8]</span>
+                    <span>Rivera, J. (2015). <em>Samsung's Smart TV Privacy Policy Warns Customers Not to Discuss Personal Information in Front of Television.</em> The Independent. February 9, 2015.</span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[9]</span>
+                    <span>Amazon, Inc. (2021). <em>Amazon Sidewalk Privacy and Security Whitepaper.</em> AWS Official Documentation. <a href="https://developer.amazon.com/en-US/docs/alexa/sidewalk/what-is-sidewalk.html" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">developer.amazon.com</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[10]</span>
+                    <span>Radford, A., Kim, J.W., Xu, T., Brockman, G., McLeavey, C., & Sutskever, I. (2022). <em>Robust Speech Recognition via Large-Scale Weak Supervision.</em> arXiv:2212.04356. OpenAI Technical Report. <a href="https://arxiv.org/abs/2212.04356" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">arxiv.org/abs/2212.04356</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[11]</span>
+                    <span>Illinois General Assembly. (2008). <em>Biometric Information Privacy Act (BIPA), 740 ILCS 14.</em> State of Illinois Official Publications. <a href="https://www.ilga.gov/legislation/ilcs/ilcs3.asp?ActID=3004" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">ilga.gov</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[12]</span>
+                    <span>European Parliament. (2024). <em>Regulation (EU) 2024/1689 on Artificial Intelligence (AI Act).</em> Official Journal of the European Union. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener" class="text-red-500 hover:underline break-all">eur-lex.europa.eu</a></span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[13]</span>
+                    <span>Shoshana Zuboff. (2019). <em>The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power.</em> PublicAffairs. ISBN 978-1-61039-569-4.</span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[14]</span>
+                    <span>Hill, K. (2020). <em>The Secretive Company That Might End Privacy as We Know It.</em> The New York Times. January 18, 2020. (On Clearview AI and the commercial facial recognition ecosystem.)</span>
+                </li>
+
+                <li class="flex gap-4">
+                    <span class="font-mono text-xs font-bold text-red-500 w-7 flex-shrink-0 pt-0.5">[15]</span>
+                    <span>Nissenbaum, H. (2010). <em>Privacy in Context: Technology, Policy, and the Integrity of Social Life.</em> Stanford University Press. (Reference framework for contextual integrity applied to ambient data collection.)</span>
+                </li>
+
+            </ol>
+        </div>
+    </section>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="lg:col-span-4 space-y-8">
+    <div class="sticky-sidebar space-y-8">
+        <div class="glass-card p-6 reveal-element">
+            <span class="kicker">Contents</span>
+            <ul class="space-y-2 font-mono text-sm mt-4">
+                <li><a href="#intro"          class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">The Problem</a></li>
+                <li><a href="#niantic"        class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">01. Niantic's World Model</a></li>
+                <li><a href="#meta-glasses"   class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">02. The Glasses That Remember</a></li>
+                <li><a href="#audio"          class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">03. What Your Earbuds Notice</a></li>
+                <li><a href="#calculator-section" class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Your Data Surface</a></li>
+                <li><a href="#consequences"   class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Consequences</a></li>
+                <li><a href="#action"         class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">What You Can Do</a></li>
+                <li><a href="#references"     class="text-gray-600 dark:text-gray-400 hover:text-red-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">References</a></li>
+            </ul>
+        </div>
+
+        <div class="glass-card p-6 reveal-element space-y-4">
+            <span class="kicker">Key facts</span>
+            <div class="space-y-3 mt-4">
+                <div class="flex items-start gap-3">
+                    <span class="data-chip chip-red text-xs mt-1">100M+</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Pokemon Go peak monthly active users contributing spatial data to Niantic's Lightship platform.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="data-chip chip-amber text-xs mt-1">680K hrs</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Audio used to train OpenAI's Whisper speech recognition, scraped from public internet sources.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="data-chip chip-blue text-xs mt-1">~3 sec</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Time the Harvard students' pipeline took to return name and personal data from a face seen for the first time.</p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="data-chip chip-gray text-xs mt-1">3 states</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">US states with meaningful biometric privacy laws (BIPA, Texas, Washington). 47 states have no equivalent.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[400px] reveal-element">
+            <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+            <ins class="adsbygoogle" style="display:inline-block; width:300px; height:250px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+</aside>
+
+</div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // Scroll Reveal
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { rootMargin:'0px 0px -8% 0px', threshold:0.08 });
+    document.querySelectorAll('.reveal-element').forEach(el => io.observe(el));
+
+    // Hero canvas: scanning grid
+    const canvas = document.getElementById('hero-canvas');
+    if(canvas){
+        const ctx = canvas.getContext('2d');
+        let W, H;
+        function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = canvas.parentElement.offsetHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        const nodes = [];
+        for(let i=0; i<80; i++) nodes.push({ x: Math.random()*100, y: Math.random()*100, r: 0.5+Math.random()*2.5, p: Math.random()*Math.PI*2 });
+
+        let scanY = 0;
+        function draw(){
+            ctx.clearRect(0,0,W,H);
+            ctx.fillStyle='rgba(8,8,12,0.06)'; ctx.fillRect(0,0,W,H);
+
+            // Grid lines
+            ctx.strokeStyle='rgba(239,68,68,0.07)'; ctx.lineWidth=0.5;
+            for(let x=0; x<W; x+=60){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+            for(let y=0; y<H; y+=60){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+            // Scan line
+            const sy = (scanY % H);
+            const grad = ctx.createLinearGradient(0, sy-60, 0, sy+4);
+            grad.addColorStop(0, 'rgba(239,68,68,0)');
+            grad.addColorStop(1, 'rgba(239,68,68,0.3)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, Math.max(0, sy-60), W, 64);
+            scanY += 1.2;
+
+            // Nodes
+            nodes.forEach(n => {
+                const px = n.x/100*W, py = n.y/100*H;
+                const active = Math.abs(py - sy) < 40;
+                ctx.beginPath();
+                ctx.arc(px, py, n.r + (active ? 2 : 0), 0, Math.PI*2);
+                ctx.fillStyle = active ? 'rgba(239,68,68,0.9)' : 'rgba(239,68,68,0.2)';
+                ctx.fill();
+                if(active){
+                    ctx.strokeStyle = 'rgba(239,68,68,0.3)';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath(); ctx.arc(px, py, n.r+8, 0, Math.PI*2); ctx.stroke();
+                }
+            });
+
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+
+    // ============================================================
+    // DATA SURFACE CALCULATOR
+    // ============================================================
+    const devices = [
+        { id:'pogo',      label:'Pokemon Go / Niantic Games',   sub:'GPS, AR camera, LiDAR, spatial audio',  score:{ location:90, visual:85, audio:20, biometric:30 }},
+        { id:'meta',      label:'Meta Ray-Ban Smart Glasses',   sub:'Always-on camera, mic, location, face recognition', score:{ location:85, visual:95, audio:80, biometric:90 }},
+        { id:'airpods',   label:'AirPods / Earbuds (Siri)',     sub:'Environmental audio, voice patterns, Apple Spatial Audio', score:{ location:40, visual:0, audio:85, biometric:45 }},
+        { id:'alexa',     label:'Amazon Echo / Alexa',          sub:'24/7 ambient audio, home routines, Sidewalk mesh data', score:{ location:50, visual:0, audio:95, biometric:30 }},
+        { id:'quest',     label:'Meta Quest / VR Headset',      sub:'Room scanning, hand tracking, eye tracking, voice', score:{ location:75, visual:95, audio:70, biometric:80 }},
+        { id:'android',   label:'Android with Google Photos',   sub:'Continuous location, faces, places via ML Kit', score:{ location:90, visual:90, audio:30, biometric:65 }},
+        { id:'ring',      label:'Ring / Smart Doorbell',        sub:'Neighborhood video, facial patterns, License plates', score:{ location:60, visual:88, audio:40, biometric:70 }},
+        { id:'strava',    label:'Strava / Running App',         sub:'GPS routes, heart rate, daily patterns, heatmaps', score:{ location:96, visual:0, audio:0, biometric:50 }},
+    ];
+
+    const selected = new Set();
+
+    function render(){
+        const list = document.getElementById('device-list');
+        list.innerHTML = '';
+        devices.forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'device-item' + (selected.has(d.id) ? ' selected' : '');
+            div.innerHTML = `<div class="device-checkbox">${selected.has(d.id)?'<svg width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" stroke="white" stroke-width="2" fill="none"/></svg>':''}</div><div><div class="device-label">${d.label}</div><div class="device-sub">${d.sub}</div></div>`;
+            div.onclick = () => {
+                selected.has(d.id) ? selected.delete(d.id) : selected.add(d.id);
+                render(); updateScore();
+            };
+            list.appendChild(div);
+        });
+    }
+
+    function updateScore(){
+        const totals = { location:0, visual:0, audio:0, biometric:0 };
+        selected.forEach(id => {
+            const d = devices.find(x => x.id === id);
+            if(!d) return;
+            for(const k in totals) totals[k] = Math.min(100, totals[k] + d.score[k]);
+        });
+
+        ['location','visual','audio','biometric'].forEach(k => {
+            const bar = document.getElementById('bar-'+k);
+            const val = document.getElementById('val-'+k);
+            if(bar){ bar.style.width = totals[k]+'%'; bar.style.background = totals[k]>70?'#ef4444':totals[k]>40?'#f97316':'#22c55e'; }
+            if(val) val.textContent = totals[k]+'%';
+        });
+
+        const avg = Object.values(totals).reduce((a,b)=>a+b,0)/4;
+        const tag = document.getElementById('overall-tag');
+        const msg = document.getElementById('overall-msg');
+        if(tag){
+            tag.textContent = avg>70?'HIGH EXPOSURE':avg>35?'MODERATE EXPOSURE':'LOW EXPOSURE';
+            tag.style.background = avg>70?'rgba(239,68,68,0.15)':avg>35?'rgba(245,158,11,0.15)':'rgba(34,197,94,0.15)';
+            tag.style.color = avg>70?'#ef4444':avg>35?'#f97316':'#22c55e';
+        }
+        if(msg){
+            if(selected.size===0) msg.textContent='Select the devices and apps you use daily.';
+            else if(avg>70) msg.textContent='Your current device profile generates significant ambient data for AI training pipelines, including spatial mapping, biometric samples, and continuous audio. You likely have no opt-out.';
+            else if(avg>35) msg.textContent='Your profile contributes meaningful data across several vectors. Location and visual data are the highest-impact categories in this range.';
+            else msg.textContent='Low surface area for passive AI training. Your data footprint is significantly smaller than the average smartphone user.';
+        }
+    }
+
+    render(); updateScore();
+})();
+</script>
+
+</body>
+</html>

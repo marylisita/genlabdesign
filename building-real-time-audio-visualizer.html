@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Real-Time Audio Visualizer with Web Audio API // GenLab</title>
+    <meta name="description" content="A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Building a Real-Time Audio Visualizer with Web Audio API // GenLab">
+    <meta property="og:description" content="A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Building a Real-Time Audio Visualizer with Web Audio API // GenLab">
+    <meta property="twitter:description" content="A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Building a Real-Time Audio Visualizer with Web Audio API",
+  "description":"A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.",
+  "author":{"@type":"Person","name":"Kuronami"},
+  "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+  "datePublished":"2026-07-14"
+}
+</script>
+
+<style>
+    /* =========================================
+       PREMIUM EDITORIAL & VOGUE STYLES
+       ========================================= */
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+    
+    .premium-hero {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: none;
+    }
+
+    #hero-canvas {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    /* Glassmorphic Base Cards - ZERO BORDERS */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: none;
+        box-shadow: 0 15px 40px -10px rgba(0,0,0,0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19, 27, 50, 0.85);
+        border: none;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.15); }
+
+    /* Custom Design Match Cards (Nodes & CSS Chart) - ZERO BORDERS */
+    .node-card {
+        background: #ffffff;
+        border: none;
+        border-radius: 1.25rem; /* 20px */
+        position: relative;
+        overflow: hidden;
+        padding: 1.8rem 1.5rem 1.5rem 1.5rem;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dark .node-card {
+        background: rgba(30, 30, 35, 0.6);
+        border: none;
+        box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+    }
+    .node-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.1);
+    }
+    .dark .node-card:hover {
+        box-shadow: 0 15px 40px -8px rgba(0,0,0,0.5);
+    }
+    
+    .node-top-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+    }
+
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    .ed-dropcap::first-letter {
+        float: left;
+        font-family: 'Playfair Display', serif;
+        font-size: 6.5rem;
+        line-height: 0.75;
+        padding-top: 0.4rem;
+        padding-right: 1rem;
+        color: #111;
+        font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+    
+    .kicker {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #8b5cf6; /* Violet */
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #8b5cf6, #ec4899, #8b5cf6); /* Violet to Pink */
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradient-shift 5s ease infinite;
+    }
+    .dark .text-gradient {
+        background: linear-gradient(90deg, #a78bfa, #f472b6, #a78bfa);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+    }
+    @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    /* Animated Data Bars */
+    .bar-track { height: 12px; border-radius: 999px; background: rgba(0,0,0,0.05); overflow: hidden; }
+    .dark .bar-track { background: rgba(255,255,255,0.08); }
+    
+    .bar-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        border-radius: 999px;
+        transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .dark .bar-fill { background: linear-gradient(90deg, #a78bfa, #f472b6); box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+    .sticky-sidebar { position: sticky; top: 100px; }
+    
+    /* Code Console Styles */
+    .code-console { background: #050505; border: none; border-radius: 16px; overflow: hidden; font-family: 'JetBrains Mono', monospace; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+    .console-header { background: #111827; padding: 12px 20px; display: flex; align-items: center; border-bottom: 1px solid #1f2937; }
+    .console-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .console-body { padding: 24px; color: #d1d5db; font-size: 0.85rem; line-height: 1.7; overflow-x: auto; }
+
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .animate-blink { animation: blink 1s infinite; }
+
+    /* Tooltips */
+    .tooltip-container { position: relative; display: inline-block; cursor: help; border-bottom: 1px dashed #8b5cf6; }
+    .tooltip-text { visibility: hidden; opacity: 0; width: 220px; background-color: #111827; color: #fff; text-align: center; border-radius: 8px; padding: 10px; position: absolute; z-index: 50; bottom: 125%; left: 50%; transform: translateX(-50%) translateY(10px); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: normal; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: none; }
+    .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #111827 transparent transparent transparent; }
+    .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* FIXED Pure CSS Audio Chart */
+    .css-audio-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 140px; gap: 6px; padding: 20px; background: rgba(0,0,0,0.02); border-radius: 12px; border: none; }
+    .dark .css-audio-chart { background: rgba(255,255,255,0.02); }
+    .css-bar { flex: 1; background: linear-gradient(to top, #8b5cf6, #ec4899); border-radius: 4px 4px 0 0; animation: bounce-bar infinite alternate ease-in-out; }
+    
+    /* Using explicit heights for foolproof animation cross-browser */
+    @keyframes bounce-bar { 0% { height: 10%; } 100% { height: 100%; } }
+    .css-bar:nth-child(1) { animation-duration: 0.4s; height: 30%; }
+    .css-bar:nth-child(2) { animation-duration: 0.5s; animation-delay: 0.3s; height: 60%; }
+    .css-bar:nth-child(3) { animation-duration: 0.3s; animation-delay: 0.0s; height: 90%; }
+    .css-bar:nth-child(4) { animation-duration: 0.6s; animation-delay: 0.2s; height: 40%; }
+    .css-bar:nth-child(5) { animation-duration: 0.45s; animation-delay: 0.4s; height: 70%; }
+    .css-bar:nth-child(6) { animation-duration: 0.35s; animation-delay: 0.1s; height: 50%; }
+    .css-bar:nth-child(7) { animation-duration: 0.55s; animation-delay: 0.5s; height: 80%; }
+    .css-bar:nth-child(8) { animation-duration: 0.4s; animation-delay: 0.2s; height: 30%; }
+    .css-bar:nth-child(9) { animation-duration: 0.5s; animation-delay: 0.1s; height: 60%; }
+    .css-bar:nth-child(10) { animation-duration: 0.3s; animation-delay: 0.6s; height: 90%; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Hero Text -->
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Kinetic Lab // Audio Architecture</span>
+                </div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    Building a <br><span class="text-gradient">Real-Time</span> Audio Visualizer
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    A dense tutorial on the Web Audio API, Fast Fourier Transforms, and synthetic geometry.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="44100" data-suffix="Hz">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Sample Rate</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="2048" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">FFT Size</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="60" data-suffix="fps">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Render Target</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Visual Card -->
+            <div class="lg:col-span-5 reveal-element">
+                <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1614064641913-6b0598122bb4?q=80&w=1200&auto=format&fit=crop" alt="Abstract Audio Waveforms" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                    
+                    <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">Synthesizing the Invisible</h4>
+                            <p class="text-xs text-gray-300 font-mono">Translating acoustic pressure into algorithmic cartography.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    
+    <!-- Top Leaderboard Ad Slot -->
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center reveal-element">
+        <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        
+        <!-- ARTICLE CONTENT -->
+        <article class="lg:col-span-8 space-y-12">
+            
+            <div class="bg-purple-500/5 p-4 mb-8 rounded-lg reveal-element">
+                <p class="m-0 text-purple-500 font-mono font-bold tracking-wide">> KINETIC_LAB // AUDIO_VISUALIZER_INIT</p>
+                <p class="mt-1 mb-0 text-gray-500 dark:text-gray-400 text-sm font-mono">Process: Deconstructing the ontological structure of sound via JavaScript arrays.</p>
+            </div>
+
+            <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">Introduction</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The Ontology of Sound</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">Sound, in its purest physical definition, is nothing more than longitudinal waves of acoustic pressure propagating through a compressible medium. It is an invisible architecture that momentarily alters the density of the air around us. Since the era of Pythagoras, who mathematically linked string tension to musical harmony, humanity has attempted to give physical shape to these ephemeral vibrations.</p>
+                    <p>In the digital realm, this translation is facilitated by the <span class="tooltip-container font-bold text-purple-600 dark:text-purple-400">Web Audio API<span class="tooltip-text">A high-level JavaScript API for processing and synthesizing audio in web applications.</span></span>. Unlike legacy <code>&lt;audio&gt;</code> tags which merely playback encoded files, the Web Audio API allows us to intercept the raw mathematical data of sound in real-time before it reaches the speakers.</p>
+                    <p>By extracting this data and piping it into the HTML5 Canvas, we engage in an act of synesthesia. We are no longer just listening; we are carving visual geometry out of sonic entropy. This tutorial serves as a comprehensive masterclass on orchestrating this exact transformation.</p>
+                </div>
+            </section>
+
+            <section id="fft" class="reveal-element mt-16">
+                <span class="kicker pl-4">Mathematical Transformation</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">The Fast Fourier Transform (FFT)</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">To visualize audio effectively, we cannot rely solely on the raw waveform (the time domain). An audio signal is incredibly complex, consisting of thousands of overlapping frequencies playing simultaneously. Drawing this directly results in a chaotic, jagged line that tells us very little about the musical texture.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Enter the mathematical genius of Jean-Baptiste Joseph Fourier. The Fast Fourier Transform (FFT) is an algorithm that decomposes a complex signal into its constituent sine waves. It transitions our data from the Time Domain (amplitude over time) to the Frequency Domain (amplitude per specific pitch). This allows us to isolate the heavy bass kicks from the shimmering hi-hats, enabling precise, frequency-reactive visual design.</p>
+                
+                <!-- Pure CSS Visualizer Chart (Matched exactly to prompt) -->
+                <div class="node-card ml-4 mb-8">
+                    <div class="node-top-line bg-gradient-to-r from-pink-400 to-rose-500"></div>
+                    <div class="mb-6 mt-2">
+                        <h4 class="font-mono text-sm font-bold text-gray-900 dark:text-white uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            CSS Frequency Domain Simulation
+                        </h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 font-mono m-0 pl-7">Pure CSS keyframes simulating FFT frequency bins.</p>
+                    </div>
+                    
+                    <!-- Inner Box for Chart -->
+                    <div class="bg-gray-50 dark:bg-black/20 rounded-xl overflow-hidden p-2">
+                        <div class="css-audio-chart w-full bg-transparent p-4 h-[140px]">
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                            <div class="css-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="nodes" class="reveal-element mt-16">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8 pl-4">Demystifying the Audio Routing Graph</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">The Web Audio API operates on a modular routing node system. You create sources, connect them through processing nodes, and finally link them to the destination (your speakers). Below are 13 critical nodes used to construct advanced audio architectures.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-4">
+                    <!-- Node 1 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            GainNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">The foundational volume control mechanism. Allows precise manipulation of amplitude levels before routing signals to the master output.</p>
+                    </div>
+
+                    <!-- Node 2 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                            AnalyserNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">The heart of visualization. Provides real-time frequency and time-domain analysis data utilizing the Fast Fourier Transform algorithm.</p>
+                    </div>
+
+                    <!-- Node 3 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-pink-400 to-red-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                            BiquadFilterNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Applies lowpass, highpass, or bandpass filters. Crucial for isolating specific frequency bands (e.g., isolating bass kicks for heavy visual hits).</p>
+                    </div>
+
+                    <!-- Node 4 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            DelayNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Introduces temporal latency into the signal chain, enabling complex echoing and feedback loops that can drive recursive visual patterns.</p>
+                    </div>
+
+                    <!-- Node 5 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            ConvolverNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Processes audio through an impulse response buffer, mathematically simulating complex acoustic environments like cathedrals or metallic halls.</p>
+                    </div>
+
+                    <!-- Node 6 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                            DynamicsCompressor
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Squashes the dynamic range of the audio signal, preventing clipping while boosting quieter sounds, ensuring consistent visual reactivity.</p>
+                    </div>
+
+                    <!-- Node 7 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-rose-400 to-red-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                            WaveShaperNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Introduces non-linear distortion curves. Essential for adding grit and harmonics to synthetic oscillator waves, vastly enriching the FFT output array.</p>
+                    </div>
+
+                    <!-- Node 8 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-fuchsia-400 to-purple-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-fuchsia-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            StereoPannerNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Positions the audio source dynamically within a spatialized stereo field, allowing visual algorithms to track left/right channel disparities.</p>
+                    </div>
+
+                    <!-- Node 9 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-yellow-400 to-amber-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            OscillatorNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Generates pure tones (sine, square, sawtooth, triangle). Used as a synthetic audio source when physical media files or microphones are unavailable.</p>
+                    </div>
+
+                    <!-- Node 10 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-green-400 to-emerald-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            BufferSourceNode
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Plays back audio data stored in memory. Highly efficient for triggering precise, short-duration sound effects and granular synthesis.</p>
+                    </div>
+
+                    <!-- Node 11 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-teal-400 to-cyan-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            ChannelSplitter
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Separates a multi-channel signal (like stereo) into individual mono signals. Excellent for independent visualization of Left and Right audio channels.</p>
+                    </div>
+
+                    <!-- Node 12 -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-indigo-400 to-blue-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            ChannelMerger
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">The inverse of the splitter. Combines multiple mono signals into a single multi-channel output, essential for custom down-mixing operations.</p>
+                    </div>
+
+                    <!-- Node 13 -->
+                    <div class="node-card md:col-span-2">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-fuchsia-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-3 flex items-center gap-3 mt-2">
+                            <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            PannerNode (3D Spatial)
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed m-0 pl-9">Advanced spatial positioning in a 3D cartesian coordinate system. It simulates distance models, doppler effects, and directional cones, allowing audio to physically "move" around the listener in WebXR environments.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CODE IMPLEMENTATION -->
+            <section id="code" class="reveal-element mt-16">
+                <span class="kicker pl-4">Architecture</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Initializing the Engine</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">To construct our visualizer, we must instantiate the <code>AudioContext</code>, pipe our source (a microphone or an oscillator) through an <code>AnalyserNode</code>, and extract a <code>Uint8Array</code> of byte frequency data inside our <code>requestAnimationFrame</code> loop.</p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">This array becomes our primary texture source. By updating the canvas properties based on these live numeric arrays, the graphic output becomes inextricably linked to the audio source.</p>
+
+                <div class="code-console tilt-fx mt-8 ml-4">
+                    <div class="console-header">
+                        <div class="flex gap-2">
+                            <span class="console-dot bg-red-500"></span>
+                            <span class="console-dot bg-yellow-500"></span>
+                            <span class="console-dot bg-emerald-500"></span>
+                        </div>
+                        <span class="text-gray-400 font-mono text-xs uppercase tracking-widest">audio_engine.js</span>
+                    </div>
+                    <div class="console-body bg-[#0a0a0a]">
+<pre style="margin:0;"><span class="text-indigo-400">const</span> audioCtx = <span class="text-indigo-400">new</span> (window.AudioContext || window.webkitAudioContext)();
+<span class="text-indigo-400">const</span> analyser = audioCtx.<span class="text-yellow-400">createAnalyser</span>();
+
+<span class="text-gray-500 italic">// Determines resolution. Higher = more detailed bars.</span>
+analyser.fftSize = <span class="text-emerald-400">256</span>; 
+
+<span class="text-indigo-400">const</span> bufferLength = analyser.frequencyBinCount;
+<span class="text-indigo-400">const</span> dataArray = <span class="text-indigo-400">new</span> Uint8Array(bufferLength);
+
+<span class="text-blue-400">function</span> <span class="text-yellow-400">renderLoop</span>() {
+  requestAnimationFrame(renderLoop);
+  
+  <span class="text-gray-500 italic">// Mutates 'dataArray' with current real-time frequencies</span>
+  analyser.<span class="text-yellow-400">getByteFrequencyData</span>(dataArray);
+  
+  <span class="text-gray-500 italic">// Now map dataArray[0]...[127] to canvas heights/colors</span>
+  <span class="text-yellow-400">drawVisualizer</span>(dataArray);
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERACTIVE SIMULATOR -->
+            <section id="simulator" class="p-6 md:p-8 bg-[#050505] rounded-2xl mt-16 reveal-element ml-4">
+                <h4 class="text-purple-500 font-mono mb-4 text-xs uppercase tracking-widest">[ REAL-TIME_SYNTHESIS_SIMULATOR ]</h4>
+                <p class="text-gray-400 text-sm mb-6">Booting the Web Audio API context. This simulator generates a low-frequency sawtooth drone modulated by an LFO, piping the exact FFT data array to the polar coordinate canvas.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-[#0a0a0a]">
+                        <canvas id="visualizer-canvas" class="absolute inset-0 w-full h-full"></canvas>
+                        <span class="absolute top-2 left-2 text-[9px] text-gray-500 tracking-widest uppercase font-mono bg-black/50 px-2 py-1 rounded">Live Canvas Array</span>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
+                        <button id="btn-start-audio" class="border-2 border-purple-500 text-purple-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-purple-500/10 transition-all active:scale-[0.98] shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+                            [ INITIALIZE_AUDIO_CONTEXT ]
+                        </button>
+                        <div id="audio-terminal" class="mt-4 p-4 bg-white/5 border border-white/10 rounded-lg font-mono text-xs text-gray-300 leading-relaxed min-h-[140px] flex flex-col justify-center">
+                            <div class="text-gray-600">> Awaiting user gesture to unlock audio context...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mid Article Ad Slot -->
+            <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <section id="mapping" class="reveal-element mt-12">
+                <span class="kicker pl-4">Aesthetic Synthesis</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Advanced Visual Mapping Techniques</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Raw data arrays are uninspiring until they are semantically mapped to visual parameters. Creative coding is the art of assigning numerical significance to geometric properties. Here are 13 strategies to elevate a basic bar chart into an immersive algorithmic entity.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pl-4">
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">1. Amplitude to Radius</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Mapping overall volume (RMS) to the radius of a central sphere, allowing the geometry to physically 'breathe' with the track's macro-dynamics.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-pink-400 to-rose-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">2. Frequency to Hue</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Utilizing the HSL color space. Map the array index (frequency band) to the Hue value ($0-360$), generating a perfect chromatic spectrum across the audio bandwidth.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-blue-400 to-cyan-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">3. Time-Domain to Vertices</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Instead of FFT, use <code>getByteTimeDomainData</code> to extract the raw waveform and apply it as Y-axis displacement on a 3D mesh surface.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-cyan-400 to-emerald-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">4. History to Alpha Trails</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Rather than clearing the canvas every frame, fill it with a 10% opacity black rectangle. This creates persistent, ghostly motion trails of previous frequency peaks.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">5. High-Mids to Particle Speed</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Isolate the bin array corresponding to 2kHz-5kHz. When a snare or hi-hat hits, multiply the velocity vectors of a particle system to create explosive kinetic energy.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">6. Bass to Camera Shake</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Extract the 40Hz-80Hz range. If amplitude exceeds a defined threshold, apply a rapid, decaying procedural noise translation to the global WebGL camera position.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-red-400 to-rose-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">7. Spectral Centroid to Rotation</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Calculate the "center of mass" of the frequency spectrum. Map this value to the continuous rotational speed of a central geometric construct.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-fuchsia-400 to-purple-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">8. Phase to Border Thickness</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Utilize stereo disparity or dual oscillators to control stroke weight, dynamically fattening lines during moments of harmonic dissonance or phaser modulation.</p>
+                    </div>
+                    <!-- NEW EXPANDED NODES -->
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-gray-400 to-gray-600"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">9. Timbre to Texture Roughness</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Use high-frequency energy content to modulate the normal maps of 3D materials, making surfaces visually rougher during distorted sound segments.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-indigo-400 to-blue-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">10. Stereo Spread to Horizontal Bias</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Map the disparity between the Left and Right channels to physically stretch or compress geometry across the X-axis of the screen.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-yellow-300 to-yellow-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">11. Transients to Camera Flashes</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Detect sudden volume spikes (transients) to trigger immediate, rapidly decaying cinematic bloom, mimicking camera flashes in a dark room.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-lime-400 to-green-500"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">12. Pitch Class to Shape Morphing</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Map fundamental musical notes (C, D, E) to specific geometric primitives, causing a central object to morph from a square to a circle depending on the chord.</p>
+                    </div>
+                    <div class="node-card md:col-span-2">
+                        <div class="node-top-line bg-gradient-to-r from-purple-500 to-indigo-600"></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mt-2 mb-2">13. Envelope Follower to Glow Intensity</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Implement an ADSR (Attack, Decay, Sustain, Release) envelope extractor to make visual elements glow perfectly in sync with the lingering decay of a synthesizer pad.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LONG FORM CONCLUSION -->
+            <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-[#110a18] dark:to-[#1a1125]">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: The Shape of Sound</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Building a real-time audio visualizer is a profound exercise in systemic architecture. It bridges the rigid, mathematical world of the Fast Fourier Transform with the subjective, emotive realm of visual design. 
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                    The Web Audio API empowers the browser to act as a fully-fledged synthesizer and analytical engine. By extracting unseen pressure data and feeding it into coordinate geometry, the creative coder does not merely draw a picture; they engineer a living, reactive organism that breathes perfectly in sync with the rhythm of the machine.
+                </p>
+            </section>
+
+            <!-- REFERENCES -->
+            <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+                <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+                <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-3">
+                    <li><span class="text-purple-500">[01]</span> <strong>MDN Web Docs.</strong> <em>Web Audio API & AnalyserNode Documentation.</em> Mozilla.</li>
+                    <li><span class="text-purple-500">[02]</span> <strong>Smus, B. (2013).</strong> <em>Web Audio API: Advanced Sound for Games and Interactive Apps.</em> O'Reilly Media.</li>
+                    <li><span class="text-purple-500">[03]</span> <strong>Kandinsky, W. (1911).</strong> <em>Concerning the Spiritual in Art.</em> (Theoretical basis for synesthetic visual mapping).</li>
+                </ul>
+            </div>
+
+            <!-- RELATED PROTOCOLS / LINKS -->
+            <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+                <span class="kicker">Continue Reading</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <a href="seeing-sounds-synesthesia-touchdesigner.html" class="block p-6 rounded-2xl bg-white dark:bg-darkSurface hover:shadow-xl transition-all group">
+                        <span class="text-xs font-mono text-purple-500 font-bold uppercase tracking-wider block mb-2">GenLab Diary</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">Seeing Sounds: Synesthesia</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Exploring generative drone music and TouchDesigner nodes.</p>
+                    </a>
+                    <a href="math-of-the-sublime-shaders.html" class="block p-6 rounded-2xl bg-white dark:bg-darkSurface hover:shadow-xl transition-all group">
+                        <span class="text-xs font-mono text-cyan-500 font-bold uppercase tracking-wider block mb-2">Aesthetics Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">The Math of the Sublime: Shaders</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Rendering the infinite at 60fps via GPU architecture and GLSL.</p>
+                    </a>
+                </div>
+            </section>
+        </article>
+
+        <!-- SIDEBAR (Right) -->
+        <aside class="lg:col-span-4 space-y-8">
+            <div class="sticky-sidebar space-y-8">
+                <!-- TOC Card -->
+                <div class="glass-card p-6">
+                    <span class="kicker">Article Map</span>
+                    <ul class="space-y-3 font-mono text-sm mt-4">
+                        <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. The Ontology of Sound</a></li>
+                        <li><a href="#fft" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Fast Fourier Transform</a></li>
+                        <li><a href="#nodes" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. The Audio Routing Graph</a></li>
+                        <li><a href="#code" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Initializing the Engine</a></li>
+                        <li><a href="#simulator" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Web Audio Simulator</a></li>
+                        <li><a href="#mapping" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Advanced Mapping</a></li>
+                        <li><a href="#conclusion" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">7. Conclusion</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Sticky Ad Slot -->
+                <div class="p-6 bg-gray-50 dark:bg-white/5 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // 1. Intersection Observer for Scroll Reveals
+    const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                
+                if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const targetVal = parseFloat(entry.target.dataset.count);
+                    const isFloat = targetVal % 1 !== 0;
+                    let currentVal = 0;
+                    const duration = 1500;
+                    const stepTime = Math.abs(Math.floor(duration / (targetVal * 10)));
+                    const timer = setInterval(() => {
+                        currentVal += (targetVal / 50);
+                        if (currentVal >= targetVal) {
+                            currentVal = targetVal;
+                            clearInterval(timer);
+                        }
+                        entry.target.innerText = (isFloat ? currentVal.toFixed(1) : Math.floor(currentVal)) + (entry.target.dataset.suffix || '');
+                    }, 30);
+                }
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+    // 2. 3D Tilt Interaction
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        });
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+
+    // 3. Hero Particle Canvas
+    const canvas = document.getElementById('hero-canvas');
+    if(canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+            particles = [];
+            const count = Math.min(Math.floor(width / 25), 120); 
+
+            for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height,
+                    baseX: Math.random() * width, baseY: Math.random() * height,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.5 + 0.1,
+                    size: Math.random() * 1.5 + 0.5
+                });
+            }
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.classList.contains('dark');
+            const dotColor = isDark ? 'rgba(236, 72, 153, 0.6)' : 'rgba(139, 92, 246, 0.6)'; 
+            const lineColorBase = isDark ? '167, 139, 250' : '139, 92, 246';
+            
+            const time = Date.now() * 0.0005;
+
+            particles.forEach((p, index) => {
+                p.x = p.baseX + Math.sin(time * p.speed + p.angle) * 30;
+                p.y = p.baseY + Math.cos(time * p.speed + p.angle) * 30;
+                
+                ctx.fillStyle = dotColor;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+
+                for(let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 100) {
+                        ctx.strokeStyle = `rgba(${lineColorBase}, ${(1 - dist/100) * 0.25})`;
+                        ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+        window.addEventListener('resize', initCanvas);
+        initCanvas(); drawCanvas();
+    }
+
+    // 4. REAL-TIME AUDIO VISUALIZER SIMULATOR
+    const visualizerCanvas = document.getElementById('visualizer-canvas');
+    const btnStartAudio = document.getElementById('btn-start-audio');
+    const termAudio = document.getElementById('audio-terminal');
+    
+    let audioCtx, analyser, dataArray, sourceOsc, lfo, gainNode;
+    let isAudioPlaying = false;
+    let animFrameId;
+
+    if (visualizerCanvas && btnStartAudio) {
+        const vCtx = visualizerCanvas.getContext('2d');
+        
+        function resizeVisualizer() {
+            visualizerCanvas.width = visualizerCanvas.clientWidth;
+            visualizerCanvas.height = visualizerCanvas.clientHeight;
+        }
+        window.addEventListener('resize', resizeVisualizer);
+        resizeVisualizer();
+
+        function initAudioEngine() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 256;
+            
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+
+            sourceOsc = audioCtx.createOscillator();
+            sourceOsc.type = 'sawtooth';
+            sourceOsc.frequency.value = 55;
+
+            lfo = audioCtx.createOscillator();
+            lfo.type = 'sine';
+            lfo.frequency.value = 0.5;
+
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.value = 20;
+            lfo.connect(lfoGain);
+            lfoGain.connect(sourceOsc.frequency);
+
+            gainNode = audioCtx.createGain();
+            gainNode.gain.value = 0.1;
+
+            sourceOsc.connect(analyser);
+            analyser.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            lfo.start();
+            sourceOsc.start();
+        }
+
+        function drawVisualizer() {
+            if (!isAudioPlaying) return;
+            animFrameId = requestAnimationFrame(drawVisualizer);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            const w = visualizerCanvas.width;
+            const h = visualizerCanvas.height;
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            vCtx.fillStyle = isDark ? 'rgba(10, 10, 10, 0.2)' : 'rgba(250, 250, 250, 0.2)';
+            vCtx.fillRect(0, 0, w, h);
+
+            const cx = w / 2;
+            const cy = h / 2;
+
+            vCtx.beginPath();
+            for (let i = 0; i < dataArray.length; i++) {
+                const value = dataArray[i];
+                const percent = value / 255;
+                const angle = (i / dataArray.length) * Math.PI * 2;
+                
+                const baseRadius = 50;
+                const r = baseRadius + (percent * 100);
+                
+                const x = cx + Math.cos(angle) * r;
+                const y = cy + Math.sin(angle) * r;
+
+                if (i === 0) vCtx.moveTo(x, y);
+                else vCtx.lineTo(x, y);
+            }
+            vCtx.closePath();
+            vCtx.lineWidth = 3;
+            vCtx.strokeStyle = isDark ? '#a855f7' : '#8b5cf6';
+            vCtx.stroke();
+            
+            const barWidth = (w / dataArray.length) * 2.5;
+            for (let i = 0; i < dataArray.length; i++) {
+                const barHeight = dataArray[i] * 0.5;
+                vCtx.fillStyle = `hsla(${300 + (i * 2)}, 80%, 60%, 0.8)`;
+                vCtx.fillRect((i * barWidth), h - barHeight, barWidth - 1, barHeight);
+            }
+        }
+
+        btnStartAudio.addEventListener('click', () => {
+            if (!isAudioPlaying) {
+                initAudioEngine();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                isAudioPlaying = true;
+                btnStartAudio.innerText = '[ SUSPEND_AUDIO_ENGINE ]';
+                btnStartAudio.classList.add('border-red-500', 'text-red-500');
+                btnStartAudio.classList.remove('border-purple-500', 'text-purple-500');
+                
+                termAudio.innerHTML = `
+                    <div class="text-emerald-500">> [AudioContext] Successfully initialized at 44100Hz.</div>
+                    <div class="text-gray-400">> Attached AnalyserNode (FFT Size: 256).</div>
+                    <div class="text-fuchsia-400">> Synthesizing primary Sawtooth wave + LFO modulation...</div>
+                    <div class="text-blue-400 animate-blink">> Rendering Frequency Data Array to Canvas...</div>
+                `;
+                drawVisualizer();
+            } else {
+                sourceOsc.stop();
+                lfo.stop();
+                audioCtx.close();
+                isAudioPlaying = false;
+                cancelAnimationFrame(animFrameId);
+                btnStartAudio.innerText = '[ INITIALIZE_AUDIO_CONTEXT ]';
+                btnStartAudio.classList.remove('border-red-500', 'text-red-500');
+                btnStartAudio.classList.add('border-purple-500', 'text-purple-500');
+                termAudio.innerHTML = "<div class='text-gray-600'>> Audio engine suspended. Memory cleared.</div>";
+                vCtx.clearRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+            }
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

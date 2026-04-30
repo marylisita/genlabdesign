@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Real-Time Audio Visualizer with Web Audio API // GenLab</title>
+    <meta name="description" content="Complete tutorial on Web Audio API + FFT to transform sound into immersive visuals.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Building a Real-Time Audio Visualizer with Web Audio API // GenLab">
+    <meta property="og:description" content="Complete tutorial on Web Audio API + FFT to transform sound into immersive visuals.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Building a Real-Time Audio Visualizer with Web Audio API // GenLab">
+    <meta property="twitter:description" content="Complete tutorial on Web Audio API + FFT to transform sound into immersive visuals.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Building a Real-Time Audio Visualizer with Web Audio API","description":"Complete tutorial on Web Audio API + FFT to transform sound into immersive visuals.","author":{"@type":"Person","name":"Kuronami"},"publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},"mainEntityOfPage":"https://genlabdesign.com/real-time-audio-visualizer-web-audio-api.php","datePublished":"2026-03-30","dateModified":"2026-03-30"}</script>
+<style>
+.premium-hero{position:relative;min-height:70vh;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid rgba(0,0,0,.06)}
+.dark .premium-hero{border-bottom-color:rgba(255,255,255,.08)}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+.glass{background:rgba(255,255,255,.86);border:1px solid rgba(0,0,0,.1);border-radius:20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.dark .glass{background:rgba(19,27,50,.74);border-color:rgba(255,255,255,.12)}
+.kicker{display:inline-block;color:#8b5cf6;font:800 .72rem 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.text-gradient{background:linear-gradient(90deg,#8b5cf6,#ec4899,#8b5cf6);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:g 5s ease infinite}
+@keyframes g{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.reveal.v{opacity:1;transform:none}
+.console{background:#050505;border:1px solid #1f2937;border-radius:14px;overflow:hidden}.console-h{background:#111827;border-bottom:1px solid #1f2937;padding:10px 14px}.console-b{padding:16px;color:#d1d5db;font:.82rem/1.7 'JetBrains Mono',monospace;overflow:auto}
+.toc-link.active{color:#8b5cf6!important;background:rgba(139,92,246,.08)}
+.range{width:100%;accent-color:#8b5cf6}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<header class="premium-hero z-10"><canvas id="hero-canvas" aria-hidden="true"></canvas><div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 py-16"><div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"><div class="lg:col-span-7"><span class="kicker reveal">Kinetic Lab // Audio Architecture</span><h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] mb-5 reveal">Building a <span class="text-gradient">Real-Time</span><br>Audio Visualizer</h1><p class="text-xl text-gray-600 dark:text-gray-400 reveal">From waveform to frequency bins: a practical guide to build expressive audio-reactive visuals in the browser.</p></div><div class="lg:col-span-5 reveal"><div class="glass overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1614064641913-6b0598122bb4?q=80&w=1200&auto=format&fit=crop" alt="Audio waveform art" class="w-full h-full object-cover"></div></div></div></div></header>
+
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-14 relative z-10"><div class="grid grid-cols-1 lg:grid-cols-12 gap-12"><article class="lg:col-span-8 space-y-10">
+<section id="intro" class="glass p-8 reveal"><span class="kicker">Introduction</span><h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">What we are actually visualizing</h2><p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">The Web Audio API exposes sound as numeric arrays. With an <code>AnalyserNode</code>, we can inspect frequency energy per frame and map it to geometry, color and motion.</p></section>
+<section id="fft" class="glass p-8 reveal"><span class="kicker">FFT</span><h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">Why FFT changes everything</h2><p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">FFT converts time-domain waveforms into frequency bins. That means bass, mids and highs become independently controllable signals for visual systems.</p></section>
+<section id="code" class="reveal"><span class="kicker pl-3">Engine</span><h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4 pl-3">Initialization Pattern</h2><div class="console ml-3"><div class="console-h"><span class="text-gray-400 font-mono text-xs uppercase tracking-widest">audio_engine.js</span></div><div class="console-b"><pre style="margin:0;">const ctx = new AudioContext();
+const analyser = ctx.createAnalyser();
+analyser.fftSize = 512;
+const data = new Uint8Array(analyser.frequencyBinCount);
+function tick(){
+  requestAnimationFrame(tick);
+  analyser.getByteFrequencyData(data);
+  draw(data);
+}</pre></div></div></section>
+<section id="simulator" class="border border-gray-300 dark:border-gray-700 p-6 bg-[#050505] rounded-2xl reveal ml-3"><h3 class="text-purple-500 font-mono mb-4 text-xs uppercase tracking-widest">[ REAL-TIME_SIMULATOR ]</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-6"><div class="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-800 bg-[#0a0a0a]"><canvas id="visualizer-canvas" class="absolute inset-0 w-full h-full" aria-label="Audio visualizer canvas"></canvas></div><div class="space-y-4"><button id="btn-audio" class="w-full border-2 border-purple-500 text-purple-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-purple-500/10">[ INITIALIZE_AUDIO_CONTEXT ]</button><div><label class="mono-label" for="osc-wave">Oscillator wave</label><select id="osc-wave" class="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-gray-200 font-mono"><option value="sine">sine</option><option value="triangle">triangle</option><option value="sawtooth" selected>sawtooth</option><option value="square">square</option></select></div><div><label class="mono-label" for="osc-gain">Volume</label><input id="osc-gain" class="range" type="range" min="0" max="0.25" step="0.01" value="0.1"></div><div id="audio-log" class="p-4 bg-white/5 border border-white/10 rounded-lg font-mono text-xs text-gray-300 min-h-[90px]">> Awaiting user gesture...</div></div></div></section>
+<section id="conclusion" class="glass p-8 reveal"><span class="kicker">Conclusion</span><h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">From signal to meaning</h2><p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">A real-time visualizer is both engineering and composition. With this base, you can move to shaders, particles, 3D fields and full immersive installations.</p></section>
+</article>
+<aside class="lg:col-span-4"><div class="sticky-sidebar space-y-6"><div class="glass p-6 reveal"><span class="kicker">Article Map</span><ul class="space-y-3 font-mono text-sm mt-3"><li><a href="#intro" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">1. Introduction</a></li><li><a href="#fft" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">2. FFT</a></li><li><a href="#code" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">3. Engine</a></li><li><a href="#simulator" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">4. Simulator</a></li><li><a href="#conclusion" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">5. Conclusion</a></li></ul></div><div class="glass p-6 reveal"><span class="kicker">Related</span><div class="space-y-4 mt-2"><a href="creative-coding-art-technology.html" class="block p-4 rounded-xl border border-black/10 dark:border-white/10 hover:border-purple-500"><h3 class="font-semibold text-gray-900 dark:text-white">Creative Coding in Art Technology</h3></a><a href="robotics-interactive-systems.html" class="block p-4 rounded-xl border border-black/10 dark:border-white/10 hover:border-cyan-500"><h3 class="font-semibold text-gray-900 dark:text-white">Robotics and Interactive Systems</h3></a></div></div></div></aside>
+</div></main>
+
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(()=>{const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const io=new IntersectionObserver((e,o)=>e.forEach(x=>{if(!x.isIntersecting)return;x.target.classList.add('v');o.unobserve(x.target)}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));const tIO=new IntersectionObserver((e)=>e.forEach(x=>{if(!x.isIntersecting)return;document.querySelectorAll('.toc-link').forEach(a=>a.classList.remove('active'));const a=document.querySelector(`.toc-link[href="#${x.target.id}"]`);if(a)a.classList.add('active')}),{rootMargin:'-25% 0px -55% 0px',threshold:.2});document.querySelectorAll('article section[id]').forEach(s=>tIO.observe(s));
+const hc=document.getElementById('hero-canvas');if(hc&&!reduced){const c=hc.getContext('2d');let w,h,t=0;const rs=()=>{w=hc.width=innerWidth;h=hc.height=hc.parentElement.offsetHeight};addEventListener('resize',rs);rs();(function d(){c.clearRect(0,0,w,h);c.beginPath();for(let x=0;x<w;x+=5){const y=h/2+Math.sin(x*.01+t)*40+Math.sin(x*.02-t*1.2)*20;x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=document.documentElement.classList.contains('dark')?'rgba(167,139,250,.18)':'rgba(139,92,246,.16)';c.lineWidth=2.5;c.stroke();t+=.02;requestAnimationFrame(d)})();}
+const cv=document.getElementById('visualizer-canvas'),btn=document.getElementById('btn-audio'),log=document.getElementById('audio-log'),wave=document.getElementById('osc-wave'),gain=document.getElementById('osc-gain');if(!(cv&&btn&&log&&wave&&gain))return;const x=cv.getContext('2d');let ac,an,osc,g,arr,raf,p=false;const rs=()=>{cv.width=cv.clientWidth;cv.height=cv.clientHeight};addEventListener('resize',rs);rs();const print=s=>log.innerHTML=s.map(v=>`<div>${v}</div>`).join('');const draw=()=>{if(!p||!an)return;raf=requestAnimationFrame(draw);an.getByteFrequencyData(arr);const w=cv.width,h=cv.height,cx=w/2,cy=h/2;x.fillStyle='rgba(0,0,0,.18)';x.fillRect(0,0,w,h);x.beginPath();for(let i=0;i<arr.length;i++){const a=(i/arr.length)*Math.PI*2,r=36+(arr[i]/255)*96,px=cx+Math.cos(a)*r,py=cy+Math.sin(a)*r;i?x.lineTo(px,py):x.moveTo(px,py)}x.closePath();x.strokeStyle='#8b5cf6';x.lineWidth=2.2;x.stroke();};
+btn.onclick=async()=>{btn.disabled=true;try{if(!p){ac=new (window.AudioContext || window.webkitAudioContext)();an=ac.createAnalyser();an.fftSize=512;arr=new Uint8Array(an.frequencyBinCount);osc=ac.createOscillator();osc.type=wave.value;osc.frequency.value=64;g=ac.createGain();g.gain.value=Number(gain.value);osc.connect(an);an.connect(g);g.connect(ac.destination);osc.start();if(ac.state==='suspended')await ac.resume();p=true;btn.textContent='[ SUSPEND_AUDIO_ENGINE ]';btn.classList.remove('border-purple-500','text-purple-500');btn.classList.add('border-red-500','text-red-500');print(['<span class="text-emerald-500">> AudioContext initialized.</span>','<span class="text-gray-400">> FFT Size: 512.</span>','<span class="text-blue-400">> Streaming live data to canvas.</span>']);draw()}else{p=false;if(raf)cancelAnimationFrame(raf);osc.stop();await ac.close();x.clearRect(0,0,cv.width,cv.height);btn.textContent='[ INITIALIZE_AUDIO_CONTEXT ]';btn.classList.remove('border-red-500','text-red-500');btn.classList.add('border-purple-500','text-purple-500');print(['<span class="text-gray-500">> Audio engine suspended.</span>'])}}catch(e){console.error(e);print(['<span class="text-red-400">> Failed to initialize audio context.</span>'])}btn.disabled=false};wave.onchange=()=>{if(osc)osc.type=wave.value};gain.oninput=()=>{if(g)g.gain.value=Number(gain.value)};
+})();
+</script>
+
+</body>
+</html>

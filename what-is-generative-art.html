@@ -1,0 +1,862 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is Generative Art? A Clear Guide Beyond the AI Hype // GenLab</title>
+    <meta name="description" content="Discover what generative art truly is beyond the AI hype. Explore system-based creativity, pioneering artists, and the intersection of code and art.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="What Is Generative Art? A Clear Guide Beyond the AI Hype // GenLab">
+    <meta property="og:description" content="Discover what generative art truly is beyond the AI hype. Explore system-based creativity, pioneering artists, and the intersection of code and art.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="What Is Generative Art? A Clear Guide Beyond the AI Hype // GenLab">
+    <meta property="twitter:description" content="Discover what generative art truly is beyond the AI hype. Explore system-based creativity, pioneering artists, and the intersection of code and art.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/what-is-generative-art.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/what-is-generative-art.php">
+<meta property="og:title" content="What Is Generative Art? A Clear Guide Beyond the AI Hype">
+<meta property="og:description" content="Generative art predates Stable Diffusion by 60 years. A technical guide to system-based creativity, from Sol LeWitt's instruction pieces to GLSL shaders.">
+<meta property="og:image" content="https://cdn.sanity.io/images/6e7gp05s/production/f2a2a08d971ed7ef9a93c3b2e91e1f0f2eb2466c-3001x1688.jpg?w=1600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What Is Generative Art? A Clear Guide Beyond the AI Hype">
+<meta name="twitter:description" content="Generative art predates Stable Diffusion by 60 years. A technical guide to system-based creativity, from Sol LeWitt's instruction pieces to GLSL shaders.">
+<meta name="twitter:image" content="https://cdn.sanity.io/images/6e7gp05s/production/f2a2a08d971ed7ef9a93c3b2e91e1f0f2eb2466c-3001x1688.jpg?w=1600">
+
+<!-- ARTICLE SCHEMA MARKUP (RICH SNIPPETS) -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"What Is Generative Art? A Technical Guide to System-Based Creativity",
+ "description":"An analysis of generative art beyond machine learning. Exploring procedural logic, pioneering artists, and the intersection of code and aesthetic systems.",
+ "author":{"@type":"Person","name":"Kuronami"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-03-14"
+}
+</script>
+
+<style>
+ /* =========================================
+ PREMIUM EDITORIAL & VOGUE STYLES
+ ========================================= */
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+ 
+ .premium-hero {
+ position: relative;
+ min-height: 90vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+ /* Particle Canvas Background */
+ #hero-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0;
+ opacity: 0.6;
+ pointer-events: none;
+ }
+
+ /* Glassmorphic Cards */
+ .glass-card {
+ background: rgba(255, 255, 255, 0.7);
+ border: 1px solid rgba(0, 0, 0, 0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19, 27, 50, 0.6);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover {
+ border-color: rgba(168, 85, 247, 0.3); /* Purple border on hover */
+ }
+
+ /* 3D Tilt Effect */
+ .tilt-fx {
+ transform-style: preserve-3d;
+ transform: perspective(1000px);
+ }
+
+ /* Typography */
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+ 
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #a855f7; /* Purple */
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ /* Gradient Text */
+ .text-gradient {
+ background: linear-gradient(90deg, #a855f7, #ec4899, #a855f7); /* Purple to Pink */
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 5s ease infinite;
+ }
+ .dark .text-gradient {
+ background: linear-gradient(90deg, #c084fc, #f472b6, #c084fc);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ }
+ @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+ /* Scroll Reveal */
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible {
+ opacity: 1;
+ transform: translateY(0);
+ }
+
+ /* Sticky Sidebar */
+ .sticky-sidebar {
+ position: sticky;
+ top: 100px;
+ }
+
+ .faq-box { border: 1px solid rgba(0,0,0,0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px; background: rgba(255,255,255,0.5); }
+ .dark .faq-box { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); }
+ .faq-box strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; color: #111; }
+ .dark .faq-box strong { color: #fff; }
+
+ @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+ .animate-blink { animation: blink 1s infinite; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+ <canvas id="hero-canvas"></canvas>
+ 
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+ 
+ <!-- Hero Text -->
+ <div class="lg:col-span-7">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Aesthetics Lab</span>
+ </div>
+ 
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ What Is <span class="text-gradient">Generative</span> Art?
+ </h1>
+ 
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ A Technical Guide to System-Based Creativity
+ </p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="60" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">System Autonomy</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="100" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Algorithmic</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1960" data-suffix="s">0</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Early Origins</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Hero Visual Card -->
+ <div class="lg:col-span-5 reveal-element">
+ <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+ <img src="https://images.unsplash.com/photo-1638562692477-274868157630?q=80&w=764&auto=format&fit=crop" alt="Abstract Code and Systemic Art" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+ <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+ 
+ <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">System-Based Creativity</h4>
+ <p class="text-xs text-gray-300 font-mono">The artist designs the rules; the machine executes the iterations.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+ 
+ <!-- Top Leaderboard Ad Slot -->
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+ 
+ <!-- ARTICLE CONTENT (Left) -->
+ <article class="lg:col-span-8 space-y-12">
+ 
+ <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Introduction</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Beyond the AI Extraction</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p class="ed-dropcap">Generative art has gained massive visibility due to The spread of AI image generators and digital asset networks. However, conflating generative art exclusively with machine learning obscures the structural reality of the medium.</p>
+ <p>Institutional definitions, such as those from the V&A and Tate, classify generative art as any practice where the artist constructs a predetermined system—often incorporating elements of chance or procedural rules—to execute the artwork.</p>
+ <p>In generative architecture, the artist does not compose the final image directly. Instead, the creator engineers a system, logic, process, or set of instructions. This mechanism can use code, robotics, data inputs, or analog rule-sets to yield the final artifact.</p>
+ </div>
+ </section>
+
+ <section id="definition" class="reveal-element mt-12">
+ <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Defining Generative Systems</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Generative art operates on procedural logic. The creator does not manually draft the final artifact; they engineer the operational constraints. That process may produce a single result, or infinite iterations. The system parameters can be rigid or volatile, relying on geometry, noise functions, simulation, or computational rendering.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Computers excel at instruction execution and iterative variation, cementing generative practices within digital culture. However, procedural art predates modern software. MIT’s analysis of Sol LeWitt highlights how instruction-based analog art generates new iterations upon each execution, confirming that generative logic is independent of hardware.</p>
+ </section>
+
+ <!-- INTERACTIVE COMPONENT: Authorship Spectrum Simulator -->
+ <section id="spectrum" class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] mt-12 reveal-element">
+ <h4 class="text-purple-500 font-mono mt-0 mb-4 uppercase tracking-widest text-sm">[ AUTHORSHIP_SPECTRUM_SIMULATOR ]</h4>
+ <p class="text-gray-500 font-mono text-xs mb-8">Evaluate human control versus algorithmic autonomy across creative paradigms.</p>
+ 
+ <div class="flex flex-col md:flex-row gap-4 mb-10">
+ <button id="btn-trad" class="flex-1 border-2 border-gray-600 text-gray-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
+ [ TRADITIONAL_ART ]
+ </button>
+ <button id="btn-gen" class="flex-1 border-2 border-purple-500 text-purple-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-purple-500/10 transition-colors shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+ [ GENERATIVE_ART ]
+ </button>
+ <button id="btn-ai" class="flex-1 border-2 border-pink-600 text-pink-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-pink-900/30 transition-colors">
+ [ PROMPT_AI_ART ]
+ </button>
+ </div>
+
+ <div class="font-mono text-sm space-y-8">
+ <div>
+ <div class="flex justify-between mb-3">
+ <span class="text-gray-300 font-bold tracking-wide">HUMAN EXECUTION (Manual Control)</span>
+ <span id="val-human" class="font-bold text-purple-500 transition-colors duration-500">40%</span>
+ </div>
+ <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+ <div id="bar-human" class="h-full bg-purple-500 transition-all duration-700 shadow-[0_0_8px_currentColor]" style="width: 40%;"></div>
+ </div>
+ </div>
+ <div>
+ <div class="flex justify-between mb-3">
+ <span class="text-gray-300 font-bold tracking-wide">SYSTEM AUTONOMY (Rules/Algorithms)</span>
+ <span id="val-sys" class="font-bold text-purple-500 transition-colors duration-500">60%</span>
+ </div>
+ <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+ <div id="bar-sys" class="h-full bg-purple-500 transition-all duration-700 shadow-[0_0_8px_currentColor]" style="width: 60%;"></div>
+ </div>
+ </div>
+ <div class="mt-8 border-t border-gray-800 pt-6">
+ <p id="desc-spectrum" class="text-gray-400 font-mono text-xs transition-opacity duration-300">
+ > SYSTEM_LOG: "Artist architects the procedural rules; the computational system iterates the variables."
+ </p>
+ </div>
+ </div>
+ </section>
+
+ <section class="reveal-element mt-16">
+ <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Distinction Between Generative AI and Algorithmic Art</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">AI art represents a specific subset of generative art. Generative art covers any system-based procedure (including mathematical routing or cellular automata), whereas AI art relies strictly on neural networks and latent diffusion models.</p>
+ 
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">Executing a recursive p5.js script to render shifting geometries constitutes generative art. Training a diffusion model to output data-driven visual environments is also generative art, but classified strictly as AI-driven generation.</p>
+ </section>
+
+ <section class="reveal-element mt-12">
+ <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Shift to System Architecture</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Computational art changes the creator's operational mode. The artist transitions from executing a fixed image to engineering a dynamic logic layer. Casey Reas identifies this as a mechanism for reconceptualizing image generation and signification.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">This architectural shift introduces emergence and variable iteration. The artist defines the constraints and the randomization parameters; the machine manages the output volume. The result is a living procedure rather than a frozen artifact.</p>
+ </section>
+
+ <!-- Mid Article Ad Slot -->
+ <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- EXAMPLES (ARTISTS) -->
+ <section id="artists" class="reveal-element mt-16">
+ <span class="kicker pl-4">The Pioneers</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">Procedural Lineage</h2>
+
+ <!-- ARTIST 1 -->
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+ <div class="order-2 md:order-1 glass-card overflow-hidden h-[300px] md:h-80">
+ <img src="./images/vera.png" alt="Vera Molnar" class="w-full h-full object-cover">
+ </div>
+ <div class="order-1 md:order-2">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Vera Molnár</h3>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">A pioneer of algorithmic art, Molnár used the phrase <em>machine imaginaire</em> to describe her rule-based visual languages, initiating computational aesthetics in the 1960s.</p>
+ <p class="text-gray-600 dark:text-gray-300">Her integration of mainframe processing to produce formal geometric permutations confirms that generative practices predate modern neural networks by several decades.</p>
+ </div>
+ </div>
+
+ <!-- ARTIST 2 -->
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+ <div class="order-1">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Sol LeWitt</h3>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">LeWitt constructed instruction-based frameworks. His wall drawings function as algorithms meant for human execution, proving that generative logic relies on systemic constraints, not exclusively on processors.</p>
+ </div>
+ <div class="order-2 glass-card overflow-hidden h-[300px] md:h-80">
+ <img src="./images/sol-lewitt.jpg" alt="Abstract architectural lines representing Sol LeWitt instructions" class="w-full h-full object-cover">
+ </div>
+ </div>
+
+ <!-- ARTIST 3 -->
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+ <div class="order-2 md:order-1 glass-card overflow-hidden h-[300px] md:h-80">
+ <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Code driven generative organic forms" class="w-full h-full object-cover">
+ </div>
+ <div class="order-1 md:order-2">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Casey Reas</h3>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">Co-creator of Processing, Reas positioned software compilation as a direct artistic medium. His frameworks allow source code to render evolving visual ecosystems.</p>
+ </div>
+ </div>
+
+ <!-- ARTIST 4 -->
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+ <div class="order-1">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">Refik Anadol</h3>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">Anadol integrates data scraping with architectural projection. He deploys generative AI to map raw datasets into immersive, fluid-dynamic physical environments.</p>
+ </div>
+ <div class="order-2 glass-card overflow-hidden h-[300px] md:h-80">
+ <img src="./images/refik-anadol.jpg" alt="Fluid data architecture and immersive LED mapping" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop'">
+ </div>
+ </div>
+ </section>
+
+ <!-- EDITORIAL GALLERY -->
+ <section id="gallery" class="reveal-element mt-20 mb-20 border-t border-b border-gray-200 dark:border-gray-800 py-12">
+ <h3 class="text-center font-serif text-3xl font-bold text-gray-900 dark:text-white mb-10">Generative Explorations <span class="text-gray-400 font-mono text-sm block mt-2 tracking-widest">[ CURATED GALLERY ]</span></h3>
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+ <div class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 aspect-square">
+ <img src="./images/refikanadolart.jpg" alt="Refik Anadol Art" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=600&auto=format&fit=crop'">
+ </div>
+ <div class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 aspect-square">
+ <img src="./images/ManoloGamboa.webp" alt="Manolo Gamboa Art" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1558470598-a5dda9640f68?q=80&w=600&auto=format&fit=crop'">
+ </div>
+ <div class="group relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 aspect-square">
+ <img src="./images/MichaelHansmeyer.webp" alt="Michael Hansmeyer Art" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=600&auto=format&fit=crop'">
+ </div>
+ </div>
+ </section>
+
+ <section id="misconceptions" class="reveal-element mt-12">
+ <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Execution Environments</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Generative systems compile across varying hardware. Implementations use code environments (Processing, p5.js, WebGL), data-fed installations, mechanical plotter integrations, or neural networks. The unifying factor remains the procedural logic, not the execution medium.</p>
+
+ <h3 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Addressing Fallacies</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">A frequent misinterpretation is that algorithmic processing eradicates authorship. Generative execution redistributes authorship from manual rendering to rule design; the artist dictates boundary logic and variance parameters.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">Another assumption frames generative outputs strictly as abstract geometry. While procedurally efficient, algorithms can render organic, figurative, or strictly data-bound structures.</p>
+ </section>
+
+ <!-- LONG FORM CONCLUSION -->
+ <section class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-[#1a1125] dark:to-[#221018]">
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: The Procedural Future</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+ Generative art is an established methodology centered on systems, instructions, and computational variables. The operational environment can process abstract geometry, algorithmic painting, or immersive network data.
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4 font-bold">
+ This structural approach expands artistic creation by shifting focus from the final, immutable artifact to the underlying computational architecture producing it.
+ </p>
+ </section>
+
+ <!-- REFERENCES -->
+ <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+ <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+ <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-4">
+ <li class="flex items-start gap-3">
+ <span class="text-purple-500 mt-1 font-bold">[01]</span> 
+ <div>
+ <strong class="text-gray-900 dark:text-white block mb-1">Shiffman, D. (2012).</strong>
+ <em>The Nature of Code: Simulating Natural Systems with Processing.</em>
+ </div>
+ </li>
+ <li class="flex items-start gap-3">
+ <span class="text-purple-500 mt-1 font-bold">[02]</span> 
+ <div>
+ <strong class="text-gray-900 dark:text-white block mb-1">Reas, C., & McWilliams, C. (2010).</strong>
+ <em>Form+Code in Design, Art, and Architecture.</em>
+ </div>
+ </li>
+ <li class="flex items-start gap-3">
+ <span class="text-purple-500 mt-1 font-bold">[03]</span> 
+ <div>
+ <strong class="text-gray-900 dark:text-white block mb-1">Boden, M. A., & Edmonds, E. A. (2009).</strong>
+ <em>What is Generative Art? Digital Creativity, 20(1-2).</em>
+ </div>
+ </li>
+ </ul>
+ </div>
+
+ <!-- RELATED PROTOCOLS / LINKS -->
+ <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+ <span class="kicker">Continue Reading</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+ 
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+ <a href="creative-coding-art-technology.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-pink-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-pink-500 font-bold uppercase tracking-wider block mb-2">Tech & Design</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-pink-500 transition-colors">Creative Coding in Art Tech</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">15 powerful ways code is revolutionizing modern art and expression.</p>
+ </a>
+ <a href="ai-agents-creative-work.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-blue-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider block mb-2">Agentic Lab</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">AI Agents in Creative Work</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">How autonomous workflows are shifting the roles of designers and writers.</p>
+ </a>
+ </div>
+ </section>
+ </article>
+
+ <!-- SIDEBAR (Right) -->
+ <aside class="lg:col-span-4 space-y-8">
+ 
+ <div class="sticky-sidebar space-y-8">
+ <!-- TOC Card -->
+ <div class="glass-card p-6">
+ <span class="kicker">On this page</span>
+ <ul class="space-y-3 font-mono text-sm mt-4">
+ <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. Beyond AI Extraction</a></li>
+ <li><a href="#definition" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Defining Systems</a></li>
+ <li><a href="#spectrum" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Authorship Simulator</a></li>
+ <li><a href="#artists" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Procedural Lineage</a></li>
+ <li><a href="#gallery" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Curated Gallery</a></li>
+ <li><a href="#misconceptions" class="text-gray-600 dark:text-gray-400 hover:text-purple-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Addressing Fallacies</a></li>
+ </ul>
+ </div>
+
+ <!-- Sidebar Sticky Ad Slot -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+ </div>
+
+ </aside>
+
+ </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ // 1. Intersection Observer
+ const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('is-visible');
+ 
+ // Counters
+ if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ const targetVal = parseInt(entry.target.dataset.count, 10);
+ let currentVal = 0;
+ const duration = 1500;
+ const stepTime = Math.abs(Math.floor(duration / targetVal));
+ const timer = setInterval(() => {
+ currentVal += 1;
+ entry.target.innerText = currentVal + (entry.target.dataset.suffix || '');
+ if (currentVal >= targetVal) clearInterval(timer);
+ }, stepTime);
+ }
+ obs.unobserve(entry.target); 
+ }
+ });
+ }, observerOptions);
+
+ document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+ // 2. 3D Tilt
+ document.querySelectorAll('.tilt-fx').forEach(card => {
+ card.addEventListener('mousemove', (e) => {
+ const rect = card.getBoundingClientRect();
+ const x = e.clientX - rect.left;
+ const y = e.clientY - rect.top;
+ const centerX = rect.width / 2;
+ const centerY = rect.height / 2;
+ const rotateX = ((y - centerY) / centerY) * -8;
+ const rotateY = ((x - centerX) / centerX) * 8;
+ card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+ });
+ card.addEventListener('mouseleave', () => {
+ card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+ card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+ });
+ card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+ });
+
+ // 3. Hero Particle Canvas (Purple/Pink Theme)
+ const canvas = document.getElementById('hero-canvas');
+ if(canvas) {
+ const ctx = canvas.getContext('2d');
+ let width, height, particles;
+
+ function initCanvas() {
+ width = canvas.width = window.innerWidth;
+ height = canvas.height = canvas.parentElement.offsetHeight;
+ particles = [];
+ const count = Math.min(Math.floor(width / 30), 80); 
+
+ for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    isPurple: Math.random() > 0.5
+ });
+ }
+ }
+
+ function drawCanvas() {
+ ctx.clearRect(0, 0, width, height);
+ const isDark = document.documentElement.classList.contains('dark');
+ const dotColor = isDark ? 'rgba(192, 132, 252, 0.5)' : 'rgba(168, 85, 247, 0.5)'; 
+ const lineColorBase = isDark ? '244, 114, 182' : '236, 72, 153';
+
+ particles.forEach((p, index) => {
+ p.x += p.vx; p.y += p.vy;
+ if(p.x < 0 || p.x > width) p.vx *= -1;
+ if(p.y < 0 || p.y > height) p.vy *= -1;
+ 
+ ctx.fillStyle = p.isPurple 
+ ? (isDark ? 'rgba(192, 132, 252, 0.5)' : 'rgba(168, 85, 247, 0.5)')
+ : (isDark ? 'rgba(244, 114, 182, 0.5)' : 'rgba(236, 72, 153, 0.5)');
+ 
+ ctx.beginPath();
+ ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+ ctx.fill();
+
+ for(let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 120) {
+                        const lineColor = p.isPurple 
+                            ? `rgba(168, 85, 247, ${(1 - dist/120) * 0.3})`
+                            : `rgba(236, 72, 153, ${(1 - dist/120) * 0.3})`;
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawCanvas();
+    }
+
+    // 4. Authorship Spectrum Simulator Logic
+    const btnTrad = document.getElementById('btn-trad');
+    const btnGen = document.getElementById('btn-gen');
+    const btnAi = document.getElementById('btn-ai');
+    
+    const barHuman = document.getElementById('bar-human');
+    const valHuman = document.getElementById('val-human');
+    const barSys = document.getElementById('bar-sys');
+    const valSys = document.getElementById('val-sys');
+    const desc = document.getElementById('desc-spectrum');
+
+    if (btnTrad && btnGen && btnAi) {
+        function resetButtons() {
+            [btnTrad, btnGen, btnAi].forEach(b => {
+ b.className = 'flex-1 border-2 border-gray-600 text-gray-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-gray-800 transition-all';
+ });
+ }
+
+ btnTrad.addEventListener('click', () => {
+ resetButtons();
+ btnTrad.className = 'flex-1 border-2 border-gray-400 text-gray-300 py-3 rounded-lg font-mono font-bold uppercase tracking-widest transition-all shadow-[0_0_10px_rgba(156,163,175,0.2)]';
+ 
+ barHuman.style.width = '95%'; barHuman.style.backgroundColor = '#9ca3af';
+ valHuman.innerText = '95%'; valHuman.style.color = '#9ca3af';
+ 
+ barSys.style.width = '5%'; barSys.style.backgroundColor = '#4b5563';
+ valSys.innerText = '5%'; valSys.style.color = '#4b5563';
+ 
+ desc.innerText = '> SYSTEM_LOG: "Artist maintains total manual execution. Tool autonomy is negligible."';
+ });
+
+ btnGen.addEventListener('click', () => {
+ resetButtons();
+ btnGen.className = 'flex-1 border-2 border-purple-500 text-purple-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest transition-all shadow-[0_0_10px_rgba(168,85,247,0.2)]';
+ 
+ barHuman.style.width = '40%'; barHuman.style.backgroundColor = '#a855f7';
+ valHuman.innerText = '40%'; valHuman.style.color = '#a855f7';
+ 
+ barSys.style.width = '60%'; barSys.style.backgroundColor = '#a855f7';
+ valSys.innerText = '60%'; valSys.style.color = '#a855f7';
+ 
+ desc.innerText = '> SYSTEM_LOG: "Artist architects the procedural rules; the computational system iterates the variables."';
+ });
+
+ btnAi.addEventListener('click', () => {
+ resetButtons();
+ btnAi.className = 'flex-1 border-2 border-pink-500 text-pink-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest transition-all shadow-[0_0_10px_rgba(236,72,153,0.2)]';
+ 
+ barHuman.style.width = '10%'; barHuman.style.backgroundColor = '#ec4899';
+ valHuman.innerText = '10%'; valHuman.style.color = '#ec4899';
+ 
+ barSys.style.width = '90%'; barSys.style.backgroundColor = '#ec4899';
+ valSys.innerText = '90%'; valSys.style.color = '#ec4899';
+ 
+ desc.innerText = '> SYSTEM_LOG: "Artist supplies semantic intent; neural network dictates aesthetic rendering."';
+ });
+ }
+})();
+</script>
+
+</body>
+</html>

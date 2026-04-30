@@ -1,0 +1,1079 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perlin Noise: The Algorithm Behind Every Natural-Looking Texture // GenLab</title>
+    <meta name="description" content="A deep dive into Perlin Noise: the Oscar-winning algorithm that makes generative art feel alive. Learn the math, implement it in JavaScript, and build an interactive terrain generator.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Perlin Noise: The Algorithm Behind Every Natural-Looking Texture // GenLab">
+    <meta property="og:description" content="A deep dive into Perlin Noise: the Oscar-winning algorithm that makes generative art feel alive. Learn the math, implement it in JavaScript, and build an interactive terrain generator.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Perlin Noise: The Algorithm Behind Every Natural-Looking Texture // GenLab">
+    <meta property="twitter:description" content="A deep dive into Perlin Noise: the Oscar-winning algorithm that makes generative art feel alive. Learn the math, implement it in JavaScript, and build an interactive terrain generator.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/perlin-noise-generative-art-javascript.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/perlin-noise-generative-art-javascript.php">
+<meta property="og:title" content="Perlin Noise: The Algorithm Behind Every Natural-Looking Texture">
+<meta property="og:description" content="A deep dive into Perlin Noise: the Oscar-winning algorithm that makes generative art feel alive. Learn the math, implement it in JavaScript, and build an interactive terrain generator.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Perlin Noise: The Algorithm Behind Every Natural-Looking Texture">
+<meta name="twitter:description" content="The Oscar-winning algorithm that makes generative art feel alive. Learn the math, implement it in JavaScript, and build an interactive terrain generator.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200">
+
+<!-- ARTICLE SCHEMA MARKUP -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Perlin Noise: The Algorithm Behind Every Natural-Looking Texture",
+  "description":"A deep dive into Perlin Noise: the Oscar-winning algorithm that makes generative art feel alive.",
+  "author":{"@type":"Person","name":"Kuronami"},
+  "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+  "datePublished":"2026-04-13",
+  "image":"https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200"
+}
+</script>
+
+<style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { transition: background-color 0.5s ease, color 0.5s ease; }
+
+    .premium-hero {
+        position: relative; min-height: 90vh;
+        display: flex; align-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+    #hero-canvas {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0; opacity: 0.9;
+        pointer-events: none;
+    }
+
+    .glass-card {
+        background: rgba(255,255,255,0.85);
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 24px;
+        transition: transform 0.4s cubic-bezier(0.165,0.84,0.44,1), box-shadow 0.4s ease;
+    }
+    .dark .glass-card {
+        background: rgba(19,27,50,0.75);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px rgba(16,185,129,0.12); }
+
+    .node-card {
+        background: #ffffff; border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 1.25rem; position: relative;
+        overflow: hidden; padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dark .node-card {
+        background: rgba(255,255,255,0.03);
+        border-color: rgba(255,255,255,0.08);
+    }
+    .node-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    .node-top-line { position: absolute; top: 0; left: 5%; width: 90%; height: 4px; border-radius: 0 0 4px 4px; }
+
+    .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+    /* Typography */
+    .ed-dropcap::first-letter {
+        float: left; font-family: 'Playfair Display', serif;
+        font-size: 6.5rem; line-height: 0.75;
+        padding-top: 0.4rem; padding-right: 1rem;
+        color: #111; font-weight: 800;
+    }
+    .dark .ed-dropcap::first-letter { color: #fff; }
+
+    .kicker {
+        display: inline-block; margin-bottom: 12px;
+        color: #10b981; font-weight: 800;
+        font-size: 0.75rem; letter-spacing: 0.2em;
+        text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #10b981, #06b6d4, #10b981);
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: gradient-shift 5s ease infinite;
+    }
+    @keyframes gradient-shift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .reveal-element {
+        opacity: 0; transform: translateY(40px);
+        transition: opacity 0.8s cubic-bezier(0.165,0.84,0.44,1), transform 0.8s cubic-bezier(0.165,0.84,0.44,1);
+        will-change: opacity, transform;
+    }
+    .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+    .sticky-sidebar { position: sticky; top: 100px; }
+
+    .code-console { background: #050505; border: 1px solid #1f2937; border-radius: 16px; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+    .console-header { background: #111827; padding: 12px 20px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #1f2937; }
+    .console-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .console-body { padding: 24px; color: #d1d5db; font-size: 0.82rem; line-height: 1.8; overflow-x: auto; }
+
+    input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: #10b981; cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px rgba(16,185,129,0.5); }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: rgba(16,185,129,0.3); border-radius: 2px; }
+
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+    .animate-blink { animation: blink 1s infinite; }
+
+    /* Noise canvas colormaps */
+    .colormap-btn { padding: 6px 14px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; border: 1px solid; cursor: pointer; transition: all 0.2s ease; }
+    .colormap-btn.active { background: #10b981; border-color: #10b981; color: #fff; }
+    .colormap-btn:not(.active) { border-color: rgba(16,185,129,0.4); color: #10b981; background: transparent; }
+    .colormap-btn:hover:not(.active) { background: rgba(16,185,129,0.1); }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════════════════════ -->
+<header class="premium-hero z-10">
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Aesthetics Lab // Code Tutorial</span>
+                </div>
+
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    Perlin <span class="text-gradient">Noise</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    The Oscar-winning algorithm that makes everything feel alive.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1983" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Year Invented</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="1" data-suffix="">0</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Academy Award</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="∞" data-suffix=""></div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Applications</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 reveal-element">
+                <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200&auto=format&fit=crop"
+                         alt="Organic generative texture created with Perlin Noise"
+                         class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">Coherent Randomness</h4>
+                            <p class="text-xs text-gray-300 font-mono">Random, yet smooth. Chaotic, yet natural.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════════════════════ -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+
+    <!-- Top Ad -->
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+        <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+        <ins class="adsbygoogle" style="display:block; text-align:center; min-width:728px; min-height:90px;"
+             data-ad-layout="in-article" data-ad-format="fluid"
+             data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+        <!-- ── ARTICLE BODY ────────────────────────────────────────── -->
+        <article class="lg:col-span-8 space-y-12">
+
+            <!-- Terminal badge -->
+            <div class="border border-dashed border-emerald-500 p-4 bg-emerald-500/5 rounded-lg reveal-element">
+                <p class="m-0 text-emerald-500 font-mono font-bold tracking-wide">> AESTHETICS_LAB // PERLIN_NOISE_INIT</p>
+                <p class="mt-1 mb-0 text-gray-500 dark:text-gray-400 text-sm font-mono">Tutorial: Understanding coherent noise functions and their role in generative systems.</p>
+            </div>
+
+            <!-- ── SECTION 1: ORIGIN ───────────────────────────────── -->
+            <section id="origin" class="reveal-element">
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The Algorithm That Won an Oscar</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">In 1982, Ken Perlin was working on the visual effects for <em>Tron</em> at NYU. The CGI textures of the era had one catastrophic weakness: they looked exactly like what they were — mathematical outputs. Perfect, sterile, and profoundly inhuman. Perlin set out to fix this, and what he invented changed computer graphics forever.</p>
+                    <p>The algorithm Ken Perlin published in 1983 was deceptively elegant. It generated random values that were not truly random — they were <strong>coherent</strong>. Nearby points in space would produce similar values, with smooth transitions between them. The result looked organic, like the surface of water, or the grain of wood, or the undulation of terrain seen from an aircraft.</p>
+                    <p>In 1997, the Academy of Motion Picture Arts and Sciences awarded Perlin a <strong>Technical Achievement Oscar</strong> for this algorithm. It remains one of the few purely mathematical contributions to ever receive such recognition. Today, Perlin Noise is embedded in nearly every game engine, 3D modeling tool, visual effects pipeline, and generative art library on the planet.</p>
+                </div>
+            </section>
+
+            <!-- ── SECTION 2: THE PROBLEM ─────────────────────────── -->
+            <section id="problem" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Core Idea</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Why "Pure" Random Fails</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>When artists first tried to use <code class="text-sm bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded font-mono">Math.random()</code> to generate organic textures, they discovered the problem immediately. Pure random noise — also called <strong>white noise</strong> — assigns a completely independent value to every pixel with no relationship to its neighbors. The result looks like television static: the visual equivalent of screaming.</p>
+                    <p>Nature does not work this way. The altitude of a mountain does not jump instantly from sea level to 4,000 meters. Sand dunes have a spatial logic. Cloud formations follow gradients. All natural phenomena arrive at their local state through a continuous transition from neighboring states.</p>
+                    <p>What was needed was a noise function that was <em>random, yet smooth</em> — where nearby points were related but not identical. This is the definition of <strong>coherent noise</strong>, and it is what Perlin Noise generates.</p>
+                </div>
+
+                <!-- Visual comparison -->
+                <div class="grid grid-cols-2 gap-6 mt-8 pl-4">
+                    <div class="node-card text-center">
+                        <div class="node-top-line bg-gradient-to-r from-red-400 to-red-600"></div>
+                        <div class="mt-2 font-mono text-xs text-red-400 font-bold uppercase tracking-wider mb-3">White Noise</div>
+                        <canvas id="white-noise-demo" class="w-full rounded-lg" style="height:120px; image-rendering:pixelated;"></canvas>
+                        <p class="text-xs text-gray-500 mt-3 font-mono">Static. No coherence between pixels.</p>
+                    </div>
+                    <div class="node-card text-center">
+                        <div class="node-top-line bg-gradient-to-r from-emerald-400 to-cyan-500"></div>
+                        <div class="mt-2 font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider mb-3">Perlin Noise</div>
+                        <canvas id="perlin-demo-small" class="w-full rounded-lg" style="height:120px; image-rendering:pixelated;"></canvas>
+                        <p class="text-xs text-gray-500 mt-3 font-mono">Smooth, organic, spatially coherent.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION 3: THE MATH ────────────────────────────── -->
+            <section id="math" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Algorithm</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">How Perlin Noise Works</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>The algorithm works in three steps. First, it divides space into a grid of integer coordinates. At each grid corner, it assigns a <strong>pseudo-random gradient vector</strong> using a permutation table. Then, for any point you want to sample, it calculates the dot product between each corner's gradient and the distance vector from that corner to your point. Finally, those dot products are interpolated using a smooth curve — the <strong>fade function</strong> — to produce the final value.</p>
+                </div>
+
+                <!-- The fade function equation block -->
+                <div class="glass-card p-8 ml-4 mt-8 bg-gray-50 dark:bg-[#0a0a0a]">
+                    <p class="font-mono text-xs text-emerald-500 font-bold uppercase tracking-widest mb-4">The Fade Function — The Secret of Smoothness</p>
+                    <div class="font-serif text-2xl text-center text-emerald-600 dark:text-emerald-400 mb-6">
+                        f(t) = 6t⁵ − 15t⁴ + 10t³
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
+                        This quintic polynomial — introduced by Perlin in 2002 as an improvement over the original cubic — is what makes the output smooth. It maps any value of <code class="font-mono text-xs">t</code> (0 to 1) to a curve where both the first and second derivatives are zero at 0 and 1. This means there are no sharp edges where grid cells meet — ever.
+                    </p>
+                </div>
+
+                <!-- Code: Core Implementation -->
+                <div class="code-console tilt-fx mt-8 ml-4">
+                    <div class="console-header">
+                        <span class="console-dot bg-red-500"></span>
+                        <span class="console-dot bg-yellow-500"></span>
+                        <span class="console-dot bg-emerald-500"></span>
+                        <span class="text-gray-400 font-mono text-xs ml-2 uppercase tracking-widest">perlin.js — Core Implementation</span>
+                    </div>
+                    <div class="console-body">
+<pre style="margin:0;"><span class="text-blue-400">class</span> <span class="text-yellow-400">Perlin</span> {
+  <span class="text-yellow-400">constructor</span>() {
+    <span class="text-gray-500">// Build a shuffled permutation table of 0–255</span>
+    <span class="text-indigo-400">const</span> p = Array.<span class="text-yellow-400">from</span>({length: <span class="text-cyan-400">256</span>}, (_, i) => i);
+    <span class="text-indigo-400">for</span> (<span class="text-indigo-400">let</span> i = <span class="text-cyan-400">255</span>; i > <span class="text-cyan-400">0</span>; i--) {
+      <span class="text-indigo-400">const</span> j = Math.<span class="text-yellow-400">floor</span>(Math.<span class="text-yellow-400">random</span>() * (i + <span class="text-cyan-400">1</span>));
+      [p[i], p[j]] = [p[j], p[i]]; <span class="text-gray-500">// Fisher-Yates shuffle</span>
+    }
+    <span class="text-gray-500">// Double the table to avoid index wrapping</span>
+    <span class="text-indigo-400">this</span>.perm = [...p, ...p];
+  }
+
+  <span class="text-gray-500">// The quintic fade curve</span>
+  <span class="text-yellow-400">fade</span>(t) { <span class="text-indigo-400">return</span> t*t*t*(t*(t*<span class="text-cyan-400">6</span>-<span class="text-cyan-400">15</span>)+<span class="text-cyan-400">10</span>); }
+
+  <span class="text-gray-500">// Linear interpolation</span>
+  <span class="text-yellow-400">lerp</span>(a, b, t) { <span class="text-indigo-400">return</span> a + t*(b-a); }
+
+  <span class="text-gray-500">// Gradient selection from hash</span>
+  <span class="text-yellow-400">grad</span>(h, x, y) {
+    <span class="text-indigo-400">switch</span>(h & <span class="text-cyan-400">3</span>) {
+      <span class="text-indigo-400">case</span> <span class="text-cyan-400">0</span>: <span class="text-indigo-400">return</span>  x+y; <span class="text-indigo-400">case</span> <span class="text-cyan-400">1</span>: <span class="text-indigo-400">return</span> -x+y;
+      <span class="text-indigo-400">case</span> <span class="text-cyan-400">2</span>: <span class="text-indigo-400">return</span>  x-y; <span class="text-indigo-400">case</span> <span class="text-cyan-400">3</span>: <span class="text-indigo-400">return</span> -x-y;
+    }
+  }
+
+  <span class="text-yellow-400">noise</span>(x, y) {
+    <span class="text-indigo-400">const</span> X = Math.<span class="text-yellow-400">floor</span>(x) & <span class="text-cyan-400">255</span>;
+    <span class="text-indigo-400">const</span> Y = Math.<span class="text-yellow-400">floor</span>(y) & <span class="text-cyan-400">255</span>;
+    x -= Math.<span class="text-yellow-400">floor</span>(x);  <span class="text-gray-500">// fractional part</span>
+    y -= Math.<span class="text-yellow-400">floor</span>(y);
+    <span class="text-indigo-400">const</span> u = <span class="text-indigo-400">this</span>.<span class="text-yellow-400">fade</span>(x), v = <span class="text-indigo-400">this</span>.<span class="text-yellow-400">fade</span>(y);
+    <span class="text-indigo-400">const</span> aa = <span class="text-indigo-400">this</span>.perm[<span class="text-indigo-400">this</span>.perm[X]+Y];
+    <span class="text-indigo-400">const</span> ab = <span class="text-indigo-400">this</span>.perm[<span class="text-indigo-400">this</span>.perm[X]+Y+<span class="text-cyan-400">1</span>];
+    <span class="text-indigo-400">const</span> ba = <span class="text-indigo-400">this</span>.perm[<span class="text-indigo-400">this</span>.perm[X+<span class="text-cyan-400">1</span>]+Y];
+    <span class="text-indigo-400">const</span> bb = <span class="text-indigo-400">this</span>.perm[<span class="text-indigo-400">this</span>.perm[X+<span class="text-cyan-400">1</span>]+Y+<span class="text-cyan-400">1</span>];
+    <span class="text-indigo-400">return</span> <span class="text-indigo-400">this</span>.<span class="text-yellow-400">lerp</span>(
+      <span class="text-indigo-400">this</span>.<span class="text-yellow-400">lerp</span>(<span class="text-indigo-400">this</span>.<span class="text-yellow-400">grad</span>(aa,x,y),   <span class="text-indigo-400">this</span>.<span class="text-yellow-400">grad</span>(ba,x-<span class="text-cyan-400">1</span>,y),   u),
+      <span class="text-indigo-400">this</span>.<span class="text-yellow-400">lerp</span>(<span class="text-indigo-400">this</span>.<span class="text-yellow-400">grad</span>(ab,x,y-<span class="text-cyan-400">1</span>), <span class="text-indigo-400">this</span>.<span class="text-yellow-400">grad</span>(bb,x-<span class="text-cyan-400">1</span>,y-<span class="text-cyan-400">1</span>), u),
+      v
+    );
+  }
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── SECTION 4: FBM ──────────────────────────────────── -->
+            <section id="fbm" class="reveal-element mt-16">
+                <span class="kicker pl-4">Advanced Technique</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Fractal Brownian Motion (fBm)</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>A single layer of Perlin Noise is smooth but somewhat featureless — like gentle rolling hills with no small-scale detail. Real terrain has hills <em>and</em> rocks <em>and</em> pebbles. To simulate this multi-scale complexity, we stack multiple layers of noise on top of each other, each with higher frequency and lower amplitude. This technique is called <strong>Fractal Brownian Motion (fBm)</strong>.</p>
+                    <p>Each additional layer is called an <strong>octave</strong>. The <strong>persistence</strong> controls how much each octave contributes to the total (how dramatic the small details are), and <strong>lacunarity</strong> controls how much the frequency multiplies between octaves (how fine the detail becomes).</p>
+                </div>
+
+                <div class="code-console mt-8 ml-4">
+                    <div class="console-header">
+                        <span class="console-dot bg-red-500"></span>
+                        <span class="console-dot bg-yellow-500"></span>
+                        <span class="console-dot bg-emerald-500"></span>
+                        <span class="text-gray-400 font-mono text-xs ml-2 uppercase tracking-widest">fbm.js</span>
+                    </div>
+                    <div class="console-body">
+<pre style="margin:0;"><span class="text-yellow-400">fbm</span>(x, y, octaves = <span class="text-cyan-400">4</span>, persistence = <span class="text-cyan-400">0.5</span>, lacunarity = <span class="text-cyan-400">2.0</span>) {
+  <span class="text-indigo-400">let</span> value = <span class="text-cyan-400">0</span>;
+  <span class="text-indigo-400">let</span> amplitude = <span class="text-cyan-400">1</span>;
+  <span class="text-indigo-400">let</span> frequency = <span class="text-cyan-400">1</span>;
+  <span class="text-indigo-400">let</span> maxValue = <span class="text-cyan-400">0</span>; <span class="text-gray-500">// for normalization</span>
+
+  <span class="text-indigo-400">for</span> (<span class="text-indigo-400">let</span> i = <span class="text-cyan-400">0</span>; i < octaves; i++) {
+    value    += <span class="text-indigo-400">this</span>.<span class="text-yellow-400">noise</span>(x * frequency, y * frequency) * amplitude;
+    maxValue += amplitude;
+    amplitude *= persistence;  <span class="text-gray-500">// each octave is quieter</span>
+    frequency *= lacunarity;   <span class="text-gray-500">// each octave is finer</span>
+  }
+  <span class="text-indigo-400">return</span> value / maxValue; <span class="text-gray-500">// normalize to -1..1</span>
+}</pre>
+                    </div>
+                </div>
+
+                <!-- FBM explanation cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 ml-4">
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                        <div class="mt-2 font-mono text-xs text-emerald-500 font-bold uppercase tracking-wider mb-2">Octaves</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Number of noise layers. More octaves = more detail, more CPU cost. 4–8 is typical for terrain.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-cyan-400 to-blue-500"></div>
+                        <div class="mt-2 font-mono text-xs text-cyan-500 font-bold uppercase tracking-wider mb-2">Persistence</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Amplitude multiplier per octave. 0.5 = each layer is half as loud. Higher values make terrain rougher.</p>
+                    </div>
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <div class="mt-2 font-mono text-xs text-purple-500 font-bold uppercase tracking-wider mb-2">Lacunarity</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Frequency multiplier per octave. 2.0 = each layer is twice as detailed. Controls fine-grain texture density.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── INTERACTIVE SIMULATOR ──────────────────────────── -->
+            <section id="simulator" class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] mt-16 reveal-element ml-4">
+                <h4 class="text-emerald-500 font-mono mb-2 text-xs uppercase tracking-widest">[ PERLIN_NOISE_SIMULATOR ]</h4>
+                <p class="text-gray-400 text-sm mb-6">Adjust the parameters and watch the noise field update in real time. Switch colormaps to see the same data interpreted as terrain, heat, or raw grayscale.</p>
+
+                <!-- Colormap selector -->
+                <div class="flex gap-2 mb-6 flex-wrap">
+                    <button class="colormap-btn active" data-mode="grayscale">Grayscale</button>
+                    <button class="colormap-btn" data-mode="terrain">Terrain</button>
+                    <button class="colormap-btn" data-mode="heat">Heat Map</button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Controls -->
+                    <div class="flex flex-col gap-5 font-mono text-sm order-2 lg:order-1">
+                        <div>
+                            <div class="flex justify-between text-gray-400 mb-2">
+                                <span>Scale</span>
+                                <span id="val-scale" class="text-emerald-400 font-bold">4</span>
+                            </div>
+                            <input type="range" id="ctrl-scale" min="1" max="16" step="0.5" value="4">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-gray-400 mb-2">
+                                <span>Octaves</span>
+                                <span id="val-octaves" class="text-cyan-400 font-bold">4</span>
+                            </div>
+                            <input type="range" id="ctrl-octaves" min="1" max="8" step="1" value="4">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-gray-400 mb-2">
+                                <span>Persistence</span>
+                                <span id="val-persist" class="text-purple-400 font-bold">0.50</span>
+                            </div>
+                            <input type="range" id="ctrl-persist" min="0.1" max="0.9" step="0.05" value="0.5">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-gray-400 mb-2">
+                                <span>Animation Speed</span>
+                            </div>
+                            <input type="range" id="ctrl-speed" min="0" max="0.015" step="0.001" value="0.003">
+                        </div>
+                        <button id="btn-reseed" class="w-full border-2 border-emerald-500 text-emerald-500 py-3 rounded-lg font-mono font-bold uppercase tracking-widest hover:bg-emerald-900/30 transition-colors mt-2">
+                            [ New Random Seed ]
+                        </button>
+                    </div>
+
+                    <!-- Canvas viewport -->
+                    <div class="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-800 bg-[#0a0a0a] order-1 lg:order-2">
+                        <canvas id="noise-canvas" class="absolute inset-0 w-full h-full" style="image-rendering:pixelated;"></canvas>
+                        <span class="absolute top-2 left-2 text-[9px] text-gray-600 tracking-widest uppercase font-mono">Noise Field</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mid-article ad -->
+            <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                <ins class="adsbygoogle" style="display:block; text-align:center; min-width:300px; min-height:250px;"
+                     data-ad-layout="in-article" data-ad-format="fluid"
+                     data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+            <!-- ── SECTION 5: APPLICATIONS ─────────────────────────── -->
+            <section id="applications" class="reveal-element mt-4">
+                <span class="kicker pl-4">Where It Lives</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8 pl-4">Applications in Generative Art & Code</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-4">
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-green-400 to-emerald-600"></div>
+                        <div class="flex items-center gap-4 mb-3 mt-2">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/30 text-green-500 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+                            </div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg m-0">Procedural Terrain</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Height maps for 3D landscapes. Minecraft, No Man's Sky, and virtually every open-world game uses fBm noise to generate infinite terrain that is varied yet believable.</p>
+                    </div>
+
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-blue-400 to-cyan-500"></div>
+                        <div class="flex items-center gap-4 mb-3 mt-2">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+                            </div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg m-0">Flow Fields</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Sample a Perlin noise field as an angle, and you get a vector field. Particles following those vectors produce the iconic flow-field art of Tyler Hobbs and the entire generative art NFT era.</p>
+                    </div>
+
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <div class="flex items-center gap-4 mb-3 mt-2">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-purple-50 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg m-0">Animation & Motion</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Sample noise along the time axis (a third dimension) to animate shapes, colors, and positions with smooth, non-repeating organic movement — perfect for ambient motion graphics.</p>
+                    </div>
+
+                    <div class="node-card">
+                        <div class="node-top-line bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                        <div class="flex items-center gap-4 mb-3 mt-2">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            </div>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-lg m-0">Texture Generation</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 m-0">Wood grain, marble, clouds, water, fire — nearly every procedural texture in games and VFX is a Perlin or fBm noise function passed through a color ramp or distortion function.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── CONCLUSION ─────────────────────────────────────── -->
+            <section id="conclusion" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-emerald-50 to-cyan-50 dark:from-[#0d1f18] dark:to-[#0a1a20]">
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: The Paradox of Controlled Chaos</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Perlin Noise is a paradox. It is a deterministic function — give it the same input and it will always return the same output. Yet it produces results that look genuinely random to human perception. It is a function that lies to our eyes in the most beautiful way possible.
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                    For generative artists, Perlin Noise is not just one tool among many — it is a <em>philosophy</em>. It embodies the central thesis of computational creativity: that the most interesting art emerges not from perfect mathematical precision, nor from pure entropy, but from the controlled tension between order and chaos that lives in the space between them.
+                </p>
+                <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                    Every cloud you render, every terrain you generate, every flowing particle you animate is, at its core, a statement about this tension. That is why Ken Perlin deserved his Oscar — and why, forty years later, we are still building with his mathematics.
+                </p>
+            </section>
+
+            <!-- ── REFERENCES ─────────────────────────────────────── -->
+            <div class="pt-10 mt-16 border-t border-gray-200 dark:border-gray-800 reveal-element">
+                <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+                <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 space-y-3 list-none p-0">
+                    <li><span class="text-emerald-500">[01]</span> <strong>Perlin, K. (1985).</strong> <em>An Image Synthesizer.</em> ACM SIGGRAPH Computer Graphics, 19(3), 287–296.</li>
+                    <li><span class="text-emerald-500">[02]</span> <strong>Perlin, K. (2002).</strong> <em>Improving Noise.</em> Proceedings of SIGGRAPH 2002. ACM Press.</li>
+                    <li><span class="text-emerald-500">[03]</span> <strong>Shiffman, D. (2012).</strong> <em>The Nature of Code.</em> (Chapter 6: Autonomous Agents / Perlin Noise).</li>
+                    <li><span class="text-emerald-500">[04]</span> <strong>Gustavson, S. (2005).</strong> <em>Simplex noise demystified.</em> Linköping University.</li>
+                </ul>
+            </div>
+
+            <!-- ── RELATED ARTICLES ───────────────────────────────── -->
+            <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+                <span class="kicker">Continue Reading</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <a href="the-architecture-of-chance-procedural-logic.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-emerald-500 hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-emerald-500 font-bold uppercase tracking-wider block mb-2">Aesthetics Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-emerald-500 transition-colors">The Architecture of Chance</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Noise, seeds, and algorithmic surprise in procedural generation.</p>
+                    </a>
+                    <a href="reaction-diffusion-systems.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-cyan-500 hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-cyan-500 font-bold uppercase tracking-wider block mb-2">Kinetic Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">Reaction-Diffusion Systems</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Simulating life with code: Turing patterns and the Gray-Scott model.</p>
+                    </a>
+                    <a href="drawing-with-math-lissajous-curves.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-purple-500 hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-purple-500 font-bold uppercase tracking-wider block mb-2">Code Tutorial</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">Drawing with Math: Lissajous Curves</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Parametric equations and oscilloscope physics in JavaScript.</p>
+                    </a>
+                    <a href="l-system-plants-generative-art.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-amber-500 hover:shadow-lg transition-all group">
+                        <span class="text-xs font-mono text-amber-500 font-bold uppercase tracking-wider block mb-2">Kinetic Lab</span>
+                        <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-amber-500 transition-colors">L-Systems: How Plants Generate Themselves</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Grammar-based fractal botany and turtle geometry in code.</p>
+                    </a>
+                </div>
+            </section>
+
+        </article>
+
+        <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+        <aside class="lg:col-span-4">
+            <div class="sticky-sidebar space-y-8">
+
+                <!-- TOC -->
+                <div class="glass-card p-6 reveal-element">
+                    <span class="kicker">Article Map</span>
+                    <ul class="space-y-1 font-mono text-sm mt-4">
+                        <li><a href="#origin" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. The Oscar Story</a></li>
+                        <li><a href="#problem" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Why Pure Random Fails</a></li>
+                        <li><a href="#math" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. The Algorithm</a></li>
+                        <li><a href="#fbm" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Fractal Brownian Motion</a></li>
+                        <li><a href="#simulator" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Interactive Simulator</a></li>
+                        <li><a href="#applications" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Applications</a></li>
+                        <li><a href="#conclusion" class="text-gray-600 dark:text-gray-400 hover:text-emerald-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">7. Conclusion</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Ad -->
+                <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;"
+                         data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+<!-- Inline mini canvases demo script -->
+<script>
+(function() {
+    // White noise demo
+    const wc = document.getElementById('white-noise-demo');
+    if (wc) {
+        wc.width = wc.offsetWidth || 200;
+        wc.height = 120;
+        const wCtx = wc.getContext('2d');
+        const id = wCtx.createImageData(wc.width, wc.height);
+        for (let i = 0; i < id.data.length; i += 4) {
+            const v = Math.floor(Math.random() * 255);
+            id.data[i] = id.data[i+1] = id.data[i+2] = v; id.data[i+3] = 255;
+        }
+        wCtx.putImageData(id, 0, 0);
+    }
+
+    // Small Perlin demo
+    const pc = document.getElementById('perlin-demo-small');
+    if (pc) {
+        pc.width = pc.offsetWidth || 200;
+        pc.height = 120;
+        const pCtx = pc.getContext('2d');
+        const id2 = pCtx.createImageData(pc.width, pc.height);
+        // Simple value noise for quick demo
+        const grid = 8;
+        const rand = (x, y) => { let n = x * 374761393 + y * 668265263; n = (n ^ (n >> 13)) * 1274126177; return ((n ^ (n >> 16)) & 0x7fffffff) / 0x7fffffff; };
+        const smoothstep = t => t * t * (3 - 2 * t);
+        for (let y = 0; y < pc.height; y++) {
+            for (let x = 0; x < pc.width; x++) {
+                const gx = Math.floor(x / grid), gy = Math.floor(y / grid);
+                const fx = (x % grid) / grid, fy = (y % grid) / grid;
+                const sx = smoothstep(fx), sy = smoothstep(fy);
+                const n = rand(gx,gy)*(1-sx)*(1-sy)+rand(gx+1,gy)*sx*(1-sy)+rand(gx,gy+1)*(1-sx)*sy+rand(gx+1,gy+1)*sx*sy;
+                const v = Math.floor(n * 255);
+                const i = (y * pc.width + x) * 4;
+                id2.data[i] = id2.data[i+1] = id2.data[i+2] = v; id2.data[i+3] = 255;
+            }
+        }
+        pCtx.putImageData(id2, 0, 0);
+    }
+})();
+</script>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // ─── 1. SCROLL REVEAL ───────────────────────────────────────────
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    const target = parseFloat(entry.target.dataset.count);
+                    const isFloat = target % 1 !== 0;
+                    let cur = 0;
+                    const timer = setInterval(() => {
+                        cur += target / 50;
+                        if (cur >= target) { cur = target; clearInterval(timer); }
+                        entry.target.innerText = (isFloat ? cur.toFixed(1) : Math.floor(cur)) + (entry.target.dataset.suffix || '');
+                    }, 30);
+                }
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal-element, .num-counter').forEach(el => observer.observe(el));
+
+    // ─── 2. 3D TILT ─────────────────────────────────────────────────
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const rx = ((e.clientY - r.top) / r.height - 0.5) * -10;
+            const ry = ((e.clientX - r.left) / r.width - 0.5) * 10;
+            card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25,1,0.5,1)';
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+        });
+        card.addEventListener('mouseenter', () => card.style.transition = 'none');
+    });
+
+    // ─── 3. PERLIN NOISE ENGINE ─────────────────────────────────────
+    class Perlin {
+        constructor(seed) {
+            this.perm = new Uint8Array(512);
+            const p = Array.from({length: 256}, (_, i) => i);
+            // Seeded shuffle
+            let s = (seed || Math.random() * 65536) | 0;
+            for (let i = 255; i > 0; i--) {
+                s = (s * 1664525 + 1013904223) & 0xffffffff;
+                const j = (s >>> 0) % (i + 1);
+                [p[i], p[j]] = [p[j], p[i]];
+            }
+            for (let i = 0; i < 512; i++) this.perm[i] = p[i & 255];
+        }
+        fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+        lerp(a, b, t) { return a + t * (b - a); }
+        grad(h, x, y) {
+            switch (h & 3) {
+                case 0: return  x + y;
+                case 1: return -x + y;
+                case 2: return  x - y;
+                case 3: return -x - y;
+            }
+        }
+        noise(x, y) {
+            const X = Math.floor(x) & 255, Y = Math.floor(y) & 255;
+            x -= Math.floor(x); y -= Math.floor(y);
+            const u = this.fade(x), v = this.fade(y);
+            const a  = this.perm[X]   + Y, aa = this.perm[a], ab = this.perm[a + 1];
+            const b  = this.perm[X+1] + Y, ba = this.perm[b], bb = this.perm[b + 1];
+            return this.lerp(
+                this.lerp(this.grad(this.perm[aa], x, y),   this.grad(this.perm[ba], x-1, y),   u),
+                this.lerp(this.grad(this.perm[ab], x, y-1), this.grad(this.perm[bb], x-1, y-1), u),
+                v
+            );
+        }
+        fbm(x, y, oct, persist, lacun) {
+            let val = 0, amp = 1, freq = 1, max = 0;
+            for (let i = 0; i < oct; i++) {
+                val  += this.noise(x * freq, y * freq) * amp;
+                max  += amp;
+                amp  *= persist;
+                freq *= lacun;
+            }
+            return val / max;
+        }
+    }
+
+    // ─── 4. HERO CANVAS ─────────────────────────────────────────────
+    const heroCanvas = document.getElementById('hero-canvas');
+    if (heroCanvas) {
+        const ctx = heroCanvas.getContext('2d');
+        let w, h, t = 0;
+        const perlin = new Perlin(42);
+        const CELL = 6;
+
+        function initHero() {
+            w = heroCanvas.width  = window.innerWidth;
+            h = heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+        }
+
+        function drawHero() {
+            const isDark = document.documentElement.classList.contains('dark');
+            for (let x = 0; x < w; x += CELL) {
+                for (let y = 0; y < h; y += CELL) {
+                    const n = (perlin.fbm(x / 300 + t, y / 300, 4, 0.5, 2.0) + 1) / 2;
+                    if (isDark) {
+                        const g = Math.floor(n * 30);
+                        ctx.fillStyle = `rgb(${g + 5},${g + 18},${g + 10})`;
+                    } else {
+                        const g = Math.floor(200 + n * 55);
+                        ctx.fillStyle = `rgb(${g - 30},${g},${g - 20})`;
+                    }
+                    ctx.fillRect(x, y, CELL, CELL);
+                }
+            }
+            t += 0.002;
+            requestAnimationFrame(drawHero);
+        }
+        window.addEventListener('resize', initHero);
+        initHero();
+        drawHero();
+    }
+
+    // ─── 5. INTERACTIVE SIMULATOR ───────────────────────────────────
+    const simCanvas = document.getElementById('noise-canvas');
+    if (simCanvas) {
+        const sCtx   = simCanvas.getContext('2d');
+        let simPerlin = new Perlin(Date.now());
+        let imageData, data;
+        let simT  = 0;
+        let animFrame;
+        let colorMode = 'grayscale'; // grayscale | terrain | heat
+
+        const ctrlScale   = document.getElementById('ctrl-scale');
+        const ctrlOctaves = document.getElementById('ctrl-octaves');
+        const ctrlPersist = document.getElementById('ctrl-persist');
+        const ctrlSpeed   = document.getElementById('ctrl-speed');
+        const valScale    = document.getElementById('val-scale');
+        const valOctaves  = document.getElementById('val-octaves');
+        const valPersist  = document.getElementById('val-persist');
+
+        function initSim() {
+            simCanvas.width  = simCanvas.parentElement.clientWidth  || 400;
+            simCanvas.height = simCanvas.parentElement.clientHeight || 400;
+            imageData = sCtx.createImageData(simCanvas.width, simCanvas.height);
+            data = imageData.data;
+        }
+
+        function terrainColor(n, d) {
+            // n: 0..1 normalized value
+            if (n < 0.35) { d[0]=40; d[1]=80; d[2]=180; }       // deep water
+            else if (n < 0.45) { d[0]=70; d[1]=120; d[2]=200; }  // shallow water
+            else if (n < 0.50) { d[0]=220; d[1]=200; d[2]=140; } // sand
+            else if (n < 0.70) { d[0]=80; d[1]=160; d[2]=80; }   // grass
+            else if (n < 0.85) { d[0]=100; d[1]=100; d[2]=90; }  // rock
+            else { d[0]=240; d[1]=240; d[2]=255; }                // snow
+            d[3] = 255;
+        }
+
+        function heatColor(n, d) {
+            const r = Math.min(255, Math.floor(n * 510));
+            const g = Math.floor(n < 0.5 ? n * 2 * 200 : (1 - n) * 2 * 200);
+            const b = Math.max(0, Math.floor((0.5 - n) * 2 * 255));
+            d[0]=r; d[1]=g; d[2]=b; d[3]=255;
+        }
+
+        function drawSim() {
+            const scale   = parseFloat(ctrlScale.value);
+            const octaves = parseInt(ctrlOctaves.value);
+            const persist = parseFloat(ctrlPersist.value);
+            const speed   = parseFloat(ctrlSpeed.value);
+            const W = simCanvas.width, H = simCanvas.height;
+
+            valScale.innerText   = scale.toFixed(0);
+            valOctaves.innerText = octaves;
+            valPersist.innerText = persist.toFixed(2);
+
+            for (let y = 0; y < H; y++) {
+                for (let x = 0; x < W; x++) {
+                    const nx = x / W * scale;
+                    const ny = y / H * scale;
+                    let n = (simPerlin.fbm(nx, ny + simT, octaves, persist, 2.0) + 1) / 2;
+                    n = Math.max(0, Math.min(1, n));
+
+                    const i = (y * W + x) * 4;
+                    if (colorMode === 'terrain') {
+                        terrainColor(n, data.subarray(i, i + 4));
+                    } else if (colorMode === 'heat') {
+                        heatColor(n, data.subarray(i, i + 4));
+                    } else {
+                        const v = Math.floor(n * 255);
+                        data[i]=v; data[i+1]=v; data[i+2]=v; data[i+3]=255;
+                    }
+                }
+            }
+            sCtx.putImageData(imageData, 0, 0);
+            simT += speed;
+            animFrame = requestAnimationFrame(drawSim);
+        }
+
+        // Colormap buttons
+        document.querySelectorAll('.colormap-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                colorMode = btn.dataset.mode;
+                document.querySelectorAll('.colormap-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Reseed button
+        const btnReseed = document.getElementById('btn-reseed');
+        if (btnReseed) {
+            btnReseed.addEventListener('click', () => {
+                cancelAnimationFrame(animFrame);
+                simPerlin = new Perlin(Date.now());
+                simT = 0;
+                drawSim();
+            });
+        }
+
+        window.addEventListener('resize', () => { initSim(); });
+        initSim();
+        drawSim();
+    }
+})();
+</script>
+
+</body>
+</html>

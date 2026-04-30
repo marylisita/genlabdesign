@@ -1,0 +1,896 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Metaverse: How Spatial Computing Became a Real Business Tool // GenLab</title>
+    <meta name="description" content="Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping real-world workflows.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="Beyond the Metaverse: How Spatial Computing Became a Real Business Tool // GenLab">
+    <meta property="og:description" content="Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping real-world workflows.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="Beyond the Metaverse: How Spatial Computing Became a Real Business Tool // GenLab">
+    <meta property="twitter:description" content="Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping real-world workflows.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<!-- SEO: Canonical + Open Graph -->
+<link rel="canonical" href="https://www.genlabdesign.com/spatial-computing-enterprise.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:url" content="https://www.genlabdesign.com/spatial-computing-enterprise.php">
+<meta property="og:title" content="Beyond the Metaverse: How Spatial Computing Became a Real Business Tool">
+<meta property="og:description" content="Apple Vision Pro for training, AR for guided assembly, VR for 3D collaboration. Spatial computing shed the hype and found its place in enterprise workflows.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beyond the Metaverse: How Spatial Computing Became a Real Business Tool">
+<meta name="twitter:description" content="Apple Vision Pro for training, AR for guided assembly, VR for 3D collaboration. Spatial computing shed the hype and found its place in enterprise workflows.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=1200">
+
+<!-- ARTICLE SCHEMA MARKUP (RICH SNIPPETS) -->
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"Beyond the Metaverse: How Spatial Computing Became a Real Business Tool",
+ "description":"Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping training, design, collaboration, and real-world workflows.",
+ "author":{"@type":"Person","name":"Kuronami"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-04-05"
+}
+</script>
+
+<style>
+ /* =========================================
+ PREMIUM EDITORIAL & VOGUE STYLES
+ ========================================= */
+ html { scroll-behavior: smooth; overflow-x: hidden; }
+ body { transition: background-color 0.5s ease, color 0.5s ease; }
+ 
+ .premium-hero {
+ position: relative;
+ min-height: 90vh;
+ display: flex;
+ align-items: center;
+ overflow: hidden;
+ border-bottom: 1px solid rgba(0,0,0,0.05);
+ }
+ .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+ /* Particle Canvas Background */
+ #hero-canvas {
+ position: absolute;
+ top: 0; left: 0; width: 100%; height: 100%;
+ z-index: 0;
+ opacity: 0.6;
+ pointer-events: none;
+ }
+
+ /* Glassmorphic Cards */
+ .glass-card {
+ background: rgba(255, 255, 255, 0.7);
+ border: 1px solid rgba(0, 0, 0, 0.05);
+ box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ border-radius: 24px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+ }
+ .dark .glass-card {
+ background: rgba(19, 27, 50, 0.6);
+ border: 1px solid rgba(255, 255, 255, 0.08);
+ box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+ }
+ .glass-card:hover {
+ border-color: rgba(217, 70, 239, 0.3); /* Fuchsia border on hover */
+ }
+
+ /* 3D Tilt Effect */
+ .tilt-fx {
+ transform-style: preserve-3d;
+ transform: perspective(1000px);
+ }
+
+ /* Typography */
+ .ed-dropcap::first-letter {
+ float: left;
+ font-family: 'Playfair Display', serif;
+ font-size: 6.5rem;
+ line-height: 0.75;
+ padding-top: 0.4rem;
+ padding-right: 1rem;
+ color: #111;
+ font-weight: 800;
+ }
+ .dark .ed-dropcap::first-letter { color: #fff; }
+ 
+ .kicker {
+ display: inline-block;
+ margin-bottom: 12px;
+ color: #d946ef; /* Fuchsia */
+ font-weight: 800;
+ font-size: 0.75rem;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ font-family: 'JetBrains Mono', monospace;
+ }
+
+ /* Gradient Text */
+ .text-gradient {
+ background: linear-gradient(90deg, #4f46e5, #d946ef, #4f46e5); /* Indigo to Fuchsia */
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
+ animation: gradient-shift 5s ease infinite;
+ }
+ .dark .text-gradient {
+ background: linear-gradient(90deg, #818cf8, #e879f9, #818cf8);
+ background-size: 200% auto;
+ -webkit-background-clip: text;
+ }
+ @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+ /* Animated Data Bars */
+ .bar-track {
+ height: 12px;
+ border-radius: 999px;
+ background: rgba(0,0,0,0.05);
+ overflow: hidden;
+ }
+ .dark .bar-track { background: rgba(255,255,255,0.08); }
+ 
+ .bar-fill {
+ height: 100%;
+ width: 0%;
+ background: linear-gradient(90deg, #4f46e5, #d946ef);
+ border-radius: 999px;
+ transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+ }
+ .dark .bar-fill { background: linear-gradient(90deg, #818cf8, #e879f9); box-shadow: 0 0 15px rgba(217, 70, 239, 0.4); }
+
+ /* Scroll Reveal */
+ .reveal-element {
+ opacity: 0;
+ transform: translateY(40px);
+ transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+ will-change: opacity, transform;
+ }
+ .reveal-element.is-visible {
+ opacity: 1;
+ transform: translateY(0);
+ }
+
+ /* Sticky Sidebar */
+ .sticky-sidebar {
+ position: sticky;
+ top: 100px;
+ }
+
+ .faq-box { border: 1px solid rgba(0,0,0,0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px; background: rgba(255,255,255,0.5); }
+ .dark .faq-box { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); }
+ .faq-box strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; color: #111; }
+ .dark .faq-box strong { color: #fff; }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>﻿
+
+<!-- 1. IMMERSIVE HERO SECTION -->
+<header class="premium-hero z-10">
+ <canvas id="hero-canvas"></canvas>
+ 
+ <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+ 
+ <!-- Hero Text -->
+ <div class="lg:col-span-7">
+ <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+ <div class="w-2 h-2 rounded-full bg-fuchsia-500 animate-pulse"></div>
+ <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Spatial Computing</span>
+ </div>
+ 
+ <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+ <span class="text-gradient">Beyond</span><br>the Metaverse
+ </h1>
+ 
+ <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+ How Spatial Computing Became a Real Business Tool
+ </p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+ <div class="glass-card p-5 tilt-fx border-t-4 border-t-fuchsia-500">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="94" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Enterprise Adoption</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx border-t-4 border-t-indigo-400">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="3" data-suffix="D">0D</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Workspace Context</div>
+ </div>
+ <div class="glass-card p-5 tilt-fx border-t-4 border-t-fuchsia-600">
+ <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1 num-counter" data-count="100" data-suffix="%">0%</div>
+ <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Operational Focus</div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Hero Visual Card -->
+ <div class="lg:col-span-5 reveal-element">
+ <div class="glass-card overflow-hidden h-[500px] relative tilt-fx group">
+ <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=1200&auto=format&fit=crop" alt="Abstract AR/VR Spatial Experience" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
+ <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+ 
+ <div class="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">Physical & Digital Merge</h4>
+ <p class="text-xs text-gray-300 font-mono">Digital content existing in relation to space and objects.</p>
+ </div>
+ <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+ <h4 class="font-bold font-serif text-lg mb-1">Real-World Workflows</h4>
+ <p class="text-xs text-gray-300 font-mono">Immersive training, 3D collaboration, and guided work.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</header>
+
+<!-- 2. MAIN CONTENT GRID (Content Left, Sidebar Right) -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+ 
+ <!-- Top Leaderboard Ad Slot -->
+ <div class="mb-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 728px; min-height: 90px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+ 
+ <!-- ARTICLE CONTENT (Left) -->
+ <article class="lg:col-span-8 space-y-12">
+ 
+ <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+ <span class="kicker">Introduction</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The End of Metaverse Hype</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+ <p class="ed-dropcap">For a while, spatial computing was trapped inside the afterglow of metaverse hype. The technology sounded ambitious, but the practical value often felt vague. That has changed. The strongest story in 2026 is not that companies are building fantasy worlds.</p>
+ <p>It is that spatial computing has matured into a set of real tools for training, 3D collaboration, guided work, analytics, and contextual assistance inside actual business environments. Apple now positions Vision Pro for enterprise uses like immersive training, design, guided work, customer experiences, and productivity, while Deloitte frames spatial computing as a way to merge physical and digital systems for better efficiency and decision-making.</p>
+ <p>That shift matters because it changes the whole meaning of AR and VR in the market. Instead of asking whether people will “live in the metaverse,” businesses are asking a simpler question: where does spatial computing solve a real problem better than a laptop, a phone, or a flat dashboard? In that framing, the category looks much stronger. It becomes less about spectacle and more about use cases where 3D context, physical positioning, and more natural interaction genuinely improve work.</p>
+ </div>
+ </section>
+
+ <section id="definition" class="reveal-element mt-12">
+ <span class="kicker pl-4">Core Meaning</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">What Spatial Computing Means Now</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">Spatial computing is the broader idea that digital content should exist in relation to space, objects, bodies, and environments rather than only inside flat screens. Deloitte describes it as the convergence of technologies such as AR, VR, IoT, and AI-driven analytics to blend physical and digital worlds in ways that improve business processes and innovation.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">That definition is useful because it shows why the category has become more practical: it is not just about headsets. It is about how data, interfaces, and guidance can appear in context.</p>
+ 
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-10">
+ <div class="glass-card overflow-hidden h-80">
+ <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?q=80&w=800&auto=format&fit=crop" alt="Immersive Interface" class="w-full h-full object-cover">
+ </div>
+ <div>
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">A Stronger Business Term</h3>
+ <p class="text-gray-600 dark:text-gray-300 mb-4">This is also why “spatial computing” has largely become a stronger business term than “metaverse.” The older hype cycle centered on persistent virtual worlds. The newer phase is centered on work.</p>
+ <p class="text-gray-600 dark:text-gray-300">Companies want immersive training, remote expert support, 3D product review, digital twins, visual analytics, and lightweight wearable assistance. The vocabulary changed because the priorities changed. That is an inference from how Apple, Deloitte, Porsche, and Meta publicly describe their current products and use cases.</p>
+ </div>
+ </div>
+ </section>
+
+ <section id="enterprise" class="reveal-element mt-16">
+ <span class="kicker pl-4">Market Traction</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Why Enterprise Is Where the Technology Is Maturing Fastest</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">Consumer adoption of headsets remains uneven, but enterprise settings are more forgiving because the value proposition is clearer. If a device reduces training time, lowers errors, improves remote collaboration, or makes complex design review easier, a company does not need mass cultural adoption to justify it. It only needs measurable operational value.</p>
+ 
+ <!-- Image for Training -->
+ <div class="w-full h-[400px] rounded-3xl overflow-hidden mb-8 shadow-lg">
+ <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" alt="Enterprise Training AR" class="w-full h-full object-cover">
+ </div>
+
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">Apple’s business positioning reflects exactly that logic, emphasizing industry applications from manufacturing to healthcare. This makes training one of the most convincing examples. Porsche’s newsroom described virtual shopfloor training on Apple Vision Pro through MHP, using immersive learning for production-related workflows.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6 pl-4">Apple also highlighted Porsche engineers using Vision Pro to collaborate remotely with real-time vehicle and track data. These are not abstract future demos. They are examples of spatial computing being attached to concrete professional tasks.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed pl-4">A second strong area is design and engineering review. When people are working with 3D systems, physical layouts, or complex mechanical relationships, a spatial interface can do more than a slideshow or video call. Apple explicitly highlights 3D design collaboration in its business messaging, and Porsche’s remote engineering collaboration example reinforces that point.</p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed pl-4 mt-4">A third area is guided work. Apple uses that term directly, and it is important because it points to something less glamorous but more commercially durable than flashy demos: workers using spatial systems to complete tasks more accurately, with context-aware visual guidance. That kind of use case often has a stronger long-term business case than entertainment-style immersion.</p>
+ </section>
+
+ <!-- Mid Article Ad Slot -->
+ <div class="my-12 p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:block; text-align:center; min-width: 300px; min-height: 250px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+
+ <!-- COMPARISON SECTION (Apple vs Meta) -->
+ <section id="branches" class="glass-card p-8 md:p-12 reveal-element data-section">
+ <span class="kicker">The Two Approaches</span>
+ <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">Immersive vs Ambient Branches</h2>
+ 
+ <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">Apple represents the immersive branch of spatial computing, while Meta represents the ambient branch. Both are pushing the sector forward in profoundly different ways.</p>
+
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+ <!-- Apple -->
+ <div class="border border-gray-200 dark:border-gray-800 p-6 rounded-2xl bg-white/50 dark:bg-black/20">
+ <strong class="text-fuchsia-600 dark:text-fuchsia-400 text-xl block mb-4">Apple Vision Pro (Immersive)</strong>
+ <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Apple’s strategy is the clearest example of spatial computing framed as a serious enterprise interface. Apple is not positioning Vision Pro as “just a headset.” It is positioning it as a new class of workspace.</p>
+ <p class="text-sm text-gray-600 dark:text-gray-400">On its enterprise page, Apple says teams can collaborate in spatial workspaces, streamline workflows, train efficiently, and create customer experiences. Apple’s 2025 visionOS 26 update also suggests ongoing refinement of the spatial experience, blending digital content with physical space.</p>
+ </div>
+
+ <!-- Meta -->
+ <div class="border border-gray-200 dark:border-gray-800 p-6 rounded-2xl bg-white/50 dark:bg-black/20">
+ <strong class="text-indigo-600 dark:text-indigo-400 text-xl block mb-4">Meta AI Glasses (Ambient)</strong>
+ <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Meta’s smart glasses strategy is built around the idea that not every spatial experience needs a heavy headset. Sometimes the better interface is a wearable assistant that stays present in everyday life.</p>
+ <p class="text-sm text-gray-600 dark:text-gray-400">Meta’s official AI glasses materials describe real-time translation, contextual help, and lightweight interaction. Reuters and The Verge reported feature rollouts like live translation and expanded AI capabilities, reinforcing that Meta sees glasses as an everyday AI interface, not just a camera.</p>
+ </div>
+ </div>
+
+ <div class="w-full h-[300px] rounded-2xl overflow-hidden mt-8 shadow-sm">
+ <img src="https://images.unsplash.com/photo-1573867639040-6dd25fa5f597?q=80&w=800&auto=format&fit=crop" alt="Smart Glasses Ambient Tech" class="w-full h-full object-cover">
+ </div>
+ <p class="text-xs text-gray-500 mt-3 text-center font-mono">This difference is strategically important. Apple is building a spatial workspace. Meta is building a contextual layer.</p>
+ </section>
+
+ <!-- INTERACTIVE SIMULATOR -->
+ <section id="simulator" class="border border-gray-300 dark:border-gray-700 p-6 md:p-8 bg-[#050505] rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] mt-16 reveal-element">
+ <h4 class="text-white font-mono mb-2 text-sm uppercase tracking-widest">[ SPATIAL_INTERFACE_SIMULATOR ]</h4>
+ <p class="text-gray-500 font-mono text-xs mb-6">Compare the operational response of Immersive vs Ambient spatial platforms.</p>
+ 
+ <div class="flex flex-col md:flex-row gap-3 mb-6">
+ <button id="btn-sim-vision" class="flex-1 border border-fuchsia-600 text-fuchsia-500 py-2 rounded font-mono text-xs hover:bg-fuchsia-900/30 transition-colors">
+ APPLE_VISION_OS
+ </button>
+ <button id="btn-sim-meta" class="flex-1 border border-indigo-600 text-indigo-500 py-2 rounded font-mono text-xs hover:bg-indigo-900/30 transition-colors">
+ META_AMBIENT_AI
+ </button>
+ </div>
+ 
+ <div id="sim-terminal" class="font-mono text-sm border-t border-gray-800 pt-6 min-h-[160px] text-gray-300 leading-relaxed">
+ <div class="text-gray-600">> Awaiting device activation...</div>
+ </div>
+ </section>
+
+ <section id="ai-context" class="reveal-element mt-16">
+ <span class="kicker pl-4">The Brain Behind the Lens</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Why AI Is Making Spatial Interfaces More Useful</h2>
+ <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+ <p>One reason spatial computing feels more mature now is that it is no longer just about 3D rendering. It is increasingly about 3D plus AI. A spatial device becomes much more valuable when it can understand what the user is looking at, adapt the interface to context, retrieve relevant information, or guide a task in real time.</p>
+ <p>Deloitte’s framing explicitly includes AI-driven analytics as part of spatial computing, which makes the category less about display technology alone and more about intelligent interaction.</p>
+ <p>Meta’s glasses make this connection especially visible. Translation is a clear example: the device is not just showing or recording reality, it is interpreting it. Contextual AI and voice interaction push the product closer to an assistive interface rather than a passive gadget.</p>
+ <p>Apple’s AI story is less overtly marketed through Vision Pro branding, but spatial intelligence still runs through the platform. Features like spatial widgets, lifelike scenes, Personas, volumetric APIs, and environment-aware interaction all point toward interfaces that are becoming more context-sensitive and adaptive. The combination of SwiftUI, RealityKit, and ARKit supports that direction technically.</p>
+ <p class="font-bold pl-4 py-2 mt-6">The deeper takeaway is that spatial computing becomes much more useful when the system can understand intention and context, not just place floating windows in front of someone’s face. That is the point where the category starts to feel less like a demo and more like an interface paradigm.</p>
+ </div>
+ </section>
+
+ <!-- USE CASES -->
+ <section id="use-cases" class="reveal-element mt-16">
+ <span class="kicker pl-4">Applications</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">The Most Convincing Enterprise Use Cases</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 pl-4">The strongest view on this topic should not try to claim that spatial computing is already everywhere. It is better to focus on the use cases that look both credible and durable.</p>
+
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+ <div class="glass-card p-6 tilt-fx border-t-4 border-t-fuchsia-500">
+ <h4 class="font-bold text-gray-900 dark:text-white">Immersive Training</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">Training is one of the clearest winners because spatial systems can simulate procedures and environments. Apple promotes this directly, and Porsche’s shopfloor training gives a concrete industrial case.</p>
+ </div>
+ <div class="glass-card p-6 tilt-fx border-t-4 border-t-fuchsia-500">
+ <h4 class="font-bold text-gray-900 dark:text-white">3D Design & Collaboration</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">When teams need to inspect a product or complex mechanical relationships, mixed reality makes collaboration intuitive. Porsche uses real-time engineering data layered inside the experience.</p>
+ </div>
+ <div class="glass-card p-6 tilt-fx border-t-4 border-t-indigo-500">
+ <h4 class="font-bold text-gray-900 dark:text-white">Guided Work & Assistance</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">Placing instructions, checkpoints, and contextual prompts closer to the task itself. Apple prioritizes guided work and remote fieldwork.</p>
+ </div>
+ <div class="glass-card p-6 tilt-fx border-t-4 border-t-indigo-500">
+ <h4 class="font-bold text-gray-900 dark:text-white">Contextual AI (Glasses)</h4>
+ <p class="font-medium text-sm text-gray-600 dark:text-gray-400 mt-2">Immediate, lightweight assistance for travel, service, and logistics where pulling out a phone interrupts the task. Meta leads this via real-time translation and hands-free queries.</p>
+ </div>
+ </div>
+ </section>
+
+ <section id="limitations" class="reveal-element mt-16">
+ <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4">What Is Still Holding the Sector Back</h3>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">A realistic article should also be clear about the limits.</p>
+ <ul class="list-disc pl-8 space-y-2 text-lg text-gray-700 dark:text-gray-300">
+ <li><strong>Adoption Friction:</strong> Headsets are still expensive, and require behavior change. Deployment will often stay targeted.</li>
+ <li><strong>Form Factor:</strong> Vision Pro and Meta glasses solve different problems. There is no single winning device model yet.</li>
+ <li><strong>Privacy & Social Comfort:</strong> Smart glasses raise visible questions about recording, consent, and ambient surveillance.</li>
+ <li><strong>Workflow Fit:</strong> Spatial computing is strongest where space actually matters. It is weaker as a replacement for every ordinary digital task.</li>
+ </ul>
+ </section>
+
+ <section class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-fuchsia-50 to-indigo-50 dark:from-[#2a1125] dark:to-[#11112a]">
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6">Conclusion: Why It Feels Stronger in 2026</h2>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+ The simplest explanation is that spatial computing stopped trying to be everything at once. It no longer needs a single grand narrative. Instead, it now has two credible paths: immersive spatial work (Apple Vision Pro) and ambient, AI-assisted wearables (Meta).
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+ Both paths are different responses to the same underlying idea: computing should understand and inhabit the user’s environment. Spatial computing is no longer most interesting as a futuristic promise. It is most interesting as a growing set of interfaces that help people train, collaborate, visualize, interpret, and act in the real world with richer context.
+ </p>
+ <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mt-4 font-bold">
+ Instead of asking whether the metaverse won, we can ask something more useful: where does spatial computing create real value? That is a much stronger question, and right now, it has better answers than it did a few years ago.
+ </p>
+ </section>
+
+ <!-- FAQs -->
+ <section id="faq" class="reveal-element mt-16">
+ <span class="kicker pl-4">FAQ</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Frequently Asked Questions</h2>
+ 
+ <div class="faq-box">
+ <strong>What is spatial computing?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">Spatial computing refers to digital systems that understand and interact with physical space, often combining AR, VR, sensors, and AI to place information and interfaces in context rather than only on flat screens.</p>
+ </div>
+ <div class="faq-box">
+ <strong>How is spatial computing different from the metaverse?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">The metaverse was often discussed as a broad vision of persistent virtual worlds. Spatial computing is a more practical category focused on real interfaces, workflows, and context-aware digital experiences in physical environments.</p>
+ </div>
+ <div class="faq-box">
+ <strong>Is Apple Vision Pro mainly for consumers or businesses?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">Apple markets Vision Pro in both ways, but its enterprise material strongly emphasizes business use cases such as immersive training, 3D design collaboration, guided work, and customer experiences.</p>
+ </div>
+ <div class="faq-box">
+ <strong>What is Meta’s angle on spatial computing?</strong>
+ <p class="text-gray-700 dark:text-gray-300 text-base m-0">Meta is pushing a lighter, AI-assisted wearable model through smart glasses, including features like real-time translation and contextual assistance. That suggests a more ambient version of spatial computing.</p>
+ </div>
+ </section>
+
+ <!-- REFERENCES -->
+ <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-16 reveal-element">
+ <h4 class="font-mono text-base text-gray-900 dark:text-white mb-5 uppercase tracking-wider">>> Bibliographic_References.log</h4>
+ <ul class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed list-none p-0 space-y-3">
+ <li><span class="text-fuchsia-500">[01]</span> <strong>Apple.</strong> <em>Apple Vision Pro for Business.</em></li>
+ <li><span class="text-fuchsia-500">[02]</span> <strong>Apple Newsroom.</strong> <em>Apple Vision Pro brings a new era of spatial computing to business.</em></li>
+ <li><span class="text-fuchsia-500">[03]</span> <strong>Deloitte.</strong> <em>Spatial Computing: The Future of Business Innovation.</em></li>
+ <li><span class="text-fuchsia-500">[04]</span> <strong>Meta.</strong> <em>Meta AI Glasses and Meta Ray-Ban Display.</em></li>
+ <li><span class="text-fuchsia-500">[05]</span> <strong>Porsche Newsroom.</strong> <em>MHP develops virtual training courses on Apple Vision Pro.</em></li>
+ <li><span class="text-fuchsia-500">[06]</span> <strong>IEEE.</strong> <em>Evaluating an Immersive Analytics Application at an Enterprise.</em></li>
+ </ul>
+ </div>
+
+ <!-- RELATED PROTOCOLS / LINKS -->
+ <section class="reveal-element mt-16 border-t border-gray-200 dark:border-gray-800 pt-12">
+ <span class="kicker">Continue Reading</span>
+ <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-8">Related Protocols</h2>
+ 
+ <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+ <a href="physical-ai-and-robotics.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-amber-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-amber-500 font-bold uppercase tracking-wider block mb-2">Industrial Automation</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-amber-500 transition-colors">Physical AI and Robotics</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">How humanoid robots and autonomous systems are reshaping business.</p>
+ </a>
+ <a href="death-of-the-interface.html" class="block p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-darkSurface hover:border-blue-500 hover:shadow-lg transition-all group">
+ <span class="text-xs font-mono text-blue-500 font-bold uppercase tracking-wider block mb-2">Tech & Design</span>
+ <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-2 group-hover:text-blue-500 transition-colors">The Death of the Interface</h4>
+ <p class="text-sm text-gray-600 dark:text-gray-400">As Generative AI kills classic Web Design, we explore the rise of Zero UI.</p>
+ </a>
+ </div>
+ </section>
+ </article>
+
+ <!-- SIDEBAR (Right) -->
+ <aside class="lg:col-span-4 space-y-8">
+ 
+ <div class="sticky-sidebar space-y-8">
+ <!-- TOC Card -->
+ <div class="glass-card p-6">
+ <span class="kicker">On this page</span>
+ <ul class="space-y-3 font-mono text-sm mt-4">
+ <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">1. The End of Metaverse Hype</a></li>
+ <li><a href="#definition" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. What it Means Now</a></li>
+ <li><a href="#enterprise" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Enterprise Adoption</a></li>
+ <li><a href="#branches" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Immersive vs Ambient</a></li>
+ <li><a href="#ai-context" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. AI & Contextual Value</a></li>
+ <li><a href="#use-cases" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">6. Real Use Cases</a></li>
+ <li><a href="#faq" class="text-gray-600 dark:text-gray-400 hover:text-fuchsia-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">7. FAQ</a></li>
+ </ul>
+ </div>
+
+ <!-- Sidebar Sticky Ad Slot -->
+ <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[600px] reveal-element">
+ <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+ <ins class="adsbygoogle" style="display:inline-block; width:300px; height:600px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+ </div>
+ </div>
+
+ </aside>
+
+ </div>
+</main>
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+ // 1. Intersection Observer for Scroll Reveals & Data Animations
+ const observerOptions = { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 };
+ const observer = new IntersectionObserver((entries, obs) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) {
+ entry.target.classList.add('is-visible');
+ 
+ // Animate Numbers (Counters)
+ if (entry.target.classList.contains('num-counter') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ const targetVal = parseInt(entry.target.dataset.count, 10);
+ let currentVal = 0;
+ const duration = 1500; // ms
+ const stepTime = Math.abs(Math.floor(duration / targetVal));
+ const timer = setInterval(() => {
+ currentVal += 1;
+ entry.target.innerText = currentVal + (entry.target.dataset.suffix || '%');
+ if (currentVal >= targetVal) clearInterval(timer);
+ }, stepTime);
+ }
+
+ // Animate Bar Charts
+ if (entry.target.classList.contains('data-section') && !entry.target.dataset.animated) {
+ entry.target.dataset.animated = 'true';
+ document.querySelectorAll('.bar-fill').forEach(bar => {
+ bar.style.width = bar.dataset.width;
+ });
+
+ // Animate Radial Chart
+ const ring = document.getElementById('progressRing');
+ const ringVal = document.getElementById('ringValue');
+ if (ring && ringVal) {
+ const fullDash = 628.32; // 2 * PI * 100
+ const targetPct = 88;
+ let currentPct = 0;
+ const ringTimer = setInterval(() => {
+ currentPct += 1;
+ ring.style.strokeDashoffset = fullDash - (fullDash * (currentPct / 100));
+ ringVal.innerText = currentPct + '%';
+ if (currentPct >= targetPct) clearInterval(ringTimer);
+ }, 15);
+ }
+ }
+ obs.unobserve(entry.target); 
+ }
+ });
+ }, observerOptions);
+
+ // Observing explicitly
+ document.querySelectorAll('.reveal-element, .num-counter, .data-section').forEach(el => observer.observe(el));
+
+ // 2. 3D Tilt Interaction
+ document.querySelectorAll('.tilt-fx').forEach(card => {
+ card.addEventListener('mousemove', (e) => {
+ const rect = card.getBoundingClientRect();
+ const x = e.clientX - rect.left;
+ const y = e.clientY - rect.top;
+ const centerX = rect.width / 2;
+ const centerY = rect.height / 2;
+ const rotateX = ((y - centerY) / centerY) * -8;
+ const rotateY = ((x - centerX) / centerX) * 8;
+ card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+ });
+ card.addEventListener('mouseleave', () => {
+ card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+ card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+ });
+ card.addEventListener('mouseenter', () => {
+ card.style.transition = 'none'; 
+ });
+ });
+
+ // 3. Hero Particle Canvas Animation (Indigo/Fuchsia Theme)
+ const canvas = document.getElementById('hero-canvas');
+ if(canvas) {
+ const ctx = canvas.getContext('2d');
+ let width, height, particles;
+
+ function initCanvas() {
+ width = canvas.width = window.innerWidth;
+ height = canvas.height = canvas.parentElement.offsetHeight;
+ particles = [];
+ const count = Math.min(Math.floor(width / 30), 80); 
+
+ for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function drawCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.classList.contains('dark');
+            const dotColor = isDark ? 'rgba(232, 121, 249, 0.5)' : 'rgba(217, 70, 239, 0.5)'; 
+            const lineColorBase = isDark ? '129, 140, 248' : '79, 70, 229';
+
+            particles.forEach((p, index) => {
+ p.x += p.vx; p.y += p.vy;
+ if(p.x < 0 || p.x > width) p.vx *= -1;
+ if(p.y < 0 || p.y > height) p.vy *= -1;
+ 
+ ctx.fillStyle = dotColor;
+ ctx.beginPath();
+ ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+ ctx.fill();
+
+ for(let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 120) {
+                        ctx.strokeStyle = `rgba(${lineColorBase}, ${(1 - dist/120) * 0.3})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawCanvas();
+    }
+
+    // 4. Spatial Simulator Logic
+    const btnSimVision = document.getElementById('btn-sim-vision');
+    const btnSimMeta = document.getElementById('btn-sim-meta');
+    const termSim = document.getElementById('sim-terminal');
+    let isSimRunning = false;
+
+    if (btnSimVision && btnSimMeta && termSim) {
+        const typeOut = (text, colorClass, callback) => {
+ const div = document.createElement('div');
+ div.className = colorClass + ' mt-4 border-t border-gray-800 pt-4';
+ termSim.appendChild(div);
+ let i = 0;
+ const type = setInterval(() => {
+ div.innerHTML = text.substring(0, i) + (i < text.length ? "<span class='animate-blink'>█</span>" : "");
+ i++;
+ if (i > text.length) {
+ clearInterval(type);
+ if(callback) callback();
+ }
+ }, 10);
+ };
+
+ const resetButtons = () => {
+ btnSimVision.style.opacity = '1';
+ btnSimMeta.style.opacity = '1';
+ isSimRunning = false;
+ };
+
+ btnSimVision.addEventListener('click', () => {
+ if (isSimRunning) return;
+ isSimRunning = true;
+ btnSimVision.style.opacity = '0.5'; btnSimMeta.style.opacity = '0.5';
+ termSim.innerHTML = "<div class='text-gray-500'>> INGRESS: Activating high-fidelity 3D workspace.</div>";
+ 
+ setTimeout(() => {
+ typeOut("> [VISION_OS] Anchoring 3D schematic to physical table.<br>> Calculating spatial occlusions. Hand-tracking engaged.<br>> Render latency: 12ms.<br><span class='text-fuchsia-500 font-bold'>[ IMMERSIVE WORKSPACE ACTIVE ]</span>", 'text-gray-300', resetButtons);
+ }, 500);
+ });
+
+ btnSimMeta.addEventListener('click', () => {
+ if (isSimRunning) return;
+ isSimRunning = true;
+ btnSimVision.style.opacity = '0.5'; btnSimMeta.style.opacity = '0.5';
+ termSim.innerHTML = "<div class='text-gray-500'>> INGRESS: Activating contextual wearable AI.</div>";
+ 
+ setTimeout(() => {
+ typeOut("> [META_AI] Processing visual field via camera.<br>> Translating German manual to English overlay.<br>> Voice command received. Audio guidance starting.<br><span class='text-indigo-400 font-bold'>[ AMBIENT ASSIST ACTIVE ]</span>", 'text-gray-300', resetButtons);
+ }, 500);
+ });
+ }
+})();
+</script>
+
+</body>
+</html>

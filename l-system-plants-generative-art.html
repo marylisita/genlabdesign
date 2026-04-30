@@ -1,0 +1,1021 @@
+
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The L-System: How Plants Generate Themselves // GenLab</title>
+    <meta name="description" content="Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://genlabdesign.com">
+    <meta property="og:title" content="The L-System: How Plants Generate Themselves // GenLab">
+    <meta property="og:description" content="Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript.">
+    <meta property="og:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://genlabdesign.com">
+    <meta property="twitter:title" content="The L-System: How Plants Generate Themselves // GenLab">
+    <meta property="twitter:description" content="Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript.">
+    <meta property="twitter:image" content="https://genlabdesign.com/images/win98.jpg">
+
+    <!-- CORREÇÃO: O ponto antes da barra garante que o ícone da aba funciona na Hostinger -->
+    <link rel="icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="shortcut icon" href="./images/win98.jpg?v=20260314" type="image/jpeg">
+    <link rel="apple-touch-icon" href="./images/win98.jpg?v=20260314">
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8880613950129960" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        }
+    </script>
+
+    <!-- DOMAINS PRECONNECT FOR PAGESPEED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        purpleBrand: '#a78bfa',
+                        darkBg: '#120e1f',
+                        darkSurface: '#1a1625',
+                        darkBorder: '#2d243f',
+                        darkText: '#e2d5f8',
+                        darkMuted: '#a392b8'
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::selection { background-color: #e9d5ff; color: #4c1d95; }
+        .dark ::selection { background-color: #4c1d95; color: #e9d5ff; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .animate-blink { animation: blink 1s infinite; }
+    </style>
+
+    
+
+<link rel="canonical" href="https://www.genlabdesign.com/l-system-plants-generative-art.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="GenLab">
+<meta property="og:title" content="The L-System: How Plants Generate Themselves">
+<meta property="og:description" content="Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200&auto=format&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Article",
+ "headline":"The L-System: How Plants Generate Themselves",
+ "description":"Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript.",
+ "author":{"@type":"Person","name":"GenLab"},
+ "publisher":{"@type":"Organization","name":"GenLab Design","logo":{"@type":"ImageObject","url":"https://genlabdesign.com/images/win98.jpg"}},
+ "datePublished":"2026-04-01"
+}
+</script>
+
+<style>
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { transition: background-color 0.5s ease, color 0.5s ease; }
+
+  .premium-hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .dark .premium-hero { border-bottom-color: rgba(255,255,255,0.05); }
+
+  #hero-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.5;
+      pointer-events: none;
+  }
+
+  .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .dark .glass-card {
+      background: rgba(19, 27, 50, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .glass-card:hover { border-color: rgba(134, 239, 172, 0.3); }
+
+  .tilt-fx { transform-style: preserve-3d; transform: perspective(1000px); }
+
+  .ed-dropcap::first-letter {
+      float: left;
+      font-family: 'Playfair Display', serif;
+      font-size: 6.5rem;
+      line-height: 0.75;
+      padding-top: 0.4rem;
+      padding-right: 1rem;
+      color: #111;
+      font-weight: 800;
+  }
+  .dark .ed-dropcap::first-letter { color: #fff; }
+
+  .kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #22c55e;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+  }
+
+  .text-gradient {
+      background: linear-gradient(90deg, #22c55e, #86efac, #22c55e);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient-shift 6s ease infinite;
+  }
+  @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  .reveal-element {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+      will-change: opacity, transform;
+  }
+  .reveal-element.is-visible { opacity: 1; transform: translateY(0); }
+
+  .sticky-sidebar { position: sticky; top: 100px; }
+
+  .code-block {
+      background: #0d1117;
+      color: #e2d5f8;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1.5rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin: 2rem 0;
+      line-height: 1.7;
+  }
+  .code-comment { color: #6b7280; }
+  .code-string { color: #86efac; }
+  .code-keyword { color: #a78bfa; }
+
+  .production-rule {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      background: rgba(34, 197, 94, 0.08);
+      
+      padding: 0.75rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+      color: #22c55e;
+      letter-spacing: 0.05em;
+  }
+  .dark .production-rule { background: rgba(34, 197, 94, 0.05); }
+
+  /* L-System Demo */
+  #lsystem-canvas {
+      background: #050d05;
+      border-radius: 12px 12px 0 0;
+      display: block;
+      width: 100%;
+  }
+
+  .demo-control label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #22c55e;
+      display: block;
+      margin-bottom: 6px;
+  }
+
+  .demo-input {
+      width: 100%;
+      background: #0d1117;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #e2d5f8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+  }
+  .demo-input:focus { border-color: #22c55e; }
+
+  .demo-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+  }
+  .demo-btn-primary { background: #22c55e; color: #050d05; }
+  .demo-btn-primary:hover { background: #16a34a; transform: translateY(-1px); }
+  .demo-btn-secondary { background: transparent; border: 1px solid #22c55e; color: #22c55e; }
+  .demo-btn-secondary:hover { background: rgba(34,197,94,0.1); }
+
+  input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: 4px;
+      outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #22c55e;
+      cursor: pointer;
+  }
+</style>
+
+</head>
+<body class="bg-[#fcfafc] text-[#111] dark:bg-darkBg dark:text-darkText transition-colors duration-500 flex flex-col min-h-screen">
+
+    <div class="fixed top-0 left-0 w-full h-full bg-gradient-to-b from-[#f3e8ff]/80 via-[#ffe4e6]/50 to-[#fcfafc] dark:from-darkBg dark:via-[#1f1833]/40 dark:to-darkBg pointer-events-none -z-20"></div>
+
+    <nav class="relative z-50 border-b border-black/5 dark:border-white/5">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 py-6 max-w-7xl">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <a href="index.html" class="font-serif text-2xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white hover:opacity-80 transition-opacity flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </a>
+
+                <div class="flex flex-wrap items-center gap-4 md:gap-6 text-xs md:text-sm font-mono font-semibold text-gray-600 dark:text-darkMuted bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/60 dark:border-darkBorder px-4 md:px-6 py-3 rounded-2xl lg:rounded-full shadow-sm transition-all duration-500">
+                    <a href="experiments.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Experiments</a>
+                    <a href="index.html" class="text-[#d8b4fe] dark:text-white transition-colors">Writing</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- CORREÇÃO: Adicionado window.toggleTheme() para funcionar garantidamente -->
+                    <button onclick="window.toggleTheme()" class="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle Dark Mode">
+                        <svg class="w-4 h-4 hidden dark:block text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-1.42a1 1 0 011.415 0l.708.708a1 1 0 01-1.414 1.414l-.708-.708a1 1 0 010-1.414zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.708.708a1 1 0 01-1.414-1.414l.708-.708a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<header class="premium-hero z-10 transition-colors duration-500">
+    <canvas id="hero-canvas"></canvas>
+
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 pt-20 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-8">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6 reveal-element">
+                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-600 dark:text-gray-300">Kinetic Lab</span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] tracking-tight mb-6 reveal-element">
+                    The <span class="text-gradient">L-System</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-serif italic mb-8 reveal-element">
+                    How Plants Generate Themselves
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 reveal-element">
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1">1968</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Year Invented</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1">∞</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Possible Forms</div>
+                    </div>
+                    <div class="glass-card p-5 tilt-fx">
+                        <div class="font-bold text-3xl text-gray-900 dark:text-white mb-1">~5</div>
+                        <div class="text-xs font-mono uppercase tracking-wide text-gray-500 dark:text-gray-400">Rules to Write a Fern</div>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-4 reveal-element hidden lg:block">
+                <div class="glass-card overflow-hidden h-[340px] relative tilt-fx group">
+                    <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200&auto=format&fit=crop" alt="Fern fractal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-white">
+                            <h4 class="font-bold font-serif text-lg mb-1">Fractal Botany</h4>
+                            <p class="text-xs text-gray-300 font-mono">A grammar that writes biological form.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl py-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+
+        <article class="lg:col-span-8 space-y-12">
+
+            <section id="intro" class="glass-card p-8 md:p-12 reveal-element">
+                <span class="kicker">Introduction</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">The Biologist Who Wrote Plants</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6">
+                    <p class="ed-dropcap">In 1968, a Hungarian biologist named Aristid Lindenmayer published a paper nobody in computer science was initially watching. His interest was not in rendering or animation. He wanted to formalize the way biological cells duplicate and speciate during development, specifically, the filamentous algae he studied in his Utrecht laboratory.</p>
+                    <p>What he produced was not a biological theorem. It was a formal grammar. A rewriting system whose output, when run through a geometric interpreter, looked precisely like the organism he was trying to model. He had accidentally invented a machine that could write flora.</p>
+                    <p>This mechanism is now called an L-System, short for Lindenmayer System. The formalism is ruthlessly simple: a handful of letters, a handful of substitution rules, and a number of repetitions. The complexity that accumulates from that simplicity is botanical, fractal, and formally infinite.</p>
+                </div>
+            </section>
+
+            <section id="grammar" class="reveal-element mt-16">
+                <span class="kicker pl-4">The Grammar</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">2. Production Rules: Text Before Drawing</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>An L-System has three components: an <strong>alphabet</strong> of symbols, an <strong>axiom</strong> (the starting string), and a set of <strong>production rules</strong> that substitute each symbol simultaneously with every application.</p>
+                    <p>Consider the simplest non-trivial example. The alphabet is <code>{A, B}</code>, the axiom is <code>A</code>, and there are two rules:</p>
+                    
+                    <div class="production-rule">A → AB</div>
+                    <div class="production-rule">B → A</div>
+
+                    <p>Applied once: <code>A</code> becomes <code>AB</code>. Applied twice: <code>AB</code> becomes <code>ABA</code>. Applied three times: <code>ABA</code> becomes <code>ABAAB</code>. The lengths grow as Fibonacci numbers. No drawing involved, just string rewriting. The geometry comes later.</p>
+                    <p>Now consider the first rule that produces visible geometry. The Koch Snowflake:</p>
+                    <ul class="list-none space-y-2 my-4">
+                        <li><strong>Axiom:</strong> <code class="bg-black/5 dark:bg-white/5 px-2 py-1 rounded text-sm">F--F--F</code></li>
+                        <li><strong>Rule:</strong></li>
+                    </ul>
+                    <div class="production-rule">F → F+F--F+F</div>
+
+                    <p>At depth 0, the string is <code>F--F--F</code>, a triangle. At depth 1, each <code>F</code> expands into <code>F+F--F+F</code>. At depth 2, each of those <code>F</code>s expands again. The string grows exponentially. No pixel has been placed. The shape exists only as text.</p>
+                    <p>This is the key insight Lindenmayer offered: <em>form is latent in grammar</em>. Before the drawing begins, the structure is complete. The interpreter merely reveals it.</p>
+                    
+                    <div class=" pl-4 py-2 bg-green-50 dark:bg-green-500/10 rounded-r-lg shadow-sm my-6">
+                        <strong class="text-green-700 dark:text-green-400 block mb-2 font-serif text-xl">Symbol Glossary</strong>
+                        <ul class="text-gray-700 dark:text-gray-300 text-base space-y-1 font-mono text-sm">
+                            <li><code>F</code>, Move forward, draw segment</li>
+                            <li><code>G</code>, Move forward, no draw</li>
+                            <li><code>+</code>, Rotate left by angle δ</li>
+                            <li><code>-</code>, Rotate right by angle δ</li>
+                            <li><code>[</code>, Push state onto stack (save position and angle)</li>
+                            <li><code>]</code>, Pop state from stack (return to saved position)</li>
+                            <li><code>X</code>, Placeholder (no geometric meaning, drives expansion)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="turtle" class="reveal-element mt-16">
+                <span class="kicker pl-4">Interpretation</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">3. The Turtle Interpreter</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>The geometric interpreter for an L-System borrows from Logo's "turtle graphics", a concept developed at MIT in 1967. A turtle sits at a point in space, facing a direction. It understands two instructions: move forward a fixed distance, and rotate by a fixed angle.</p>
+                    <p>To draw an L-System, the turtle reads the final string character by character. <code>F</code> moves it forward and draws. <code>+</code> and <code>-</code> rotate it. The square brackets implement a stack, the mechanical equivalent of a branch: push your current state, walk the branch, pop back to the fork and continue.</p>
+
+<pre class="code-block"><code><span class="code-comment">// The complete turtle interpreter, compacted</span>
+<span class="code-keyword">function</span> <span class="code-string">drawLSystem</span>(ctx, sentence, angle, stepLen) {
+  <span class="code-keyword">let</span> x = 0, y = 0, dir = -90; <span class="code-comment">// start pointing up</span>
+  <span class="code-keyword">const</span> stack = [];
+
+  <span class="code-keyword">for</span> (<span class="code-keyword">const</span> ch <span class="code-keyword">of</span> sentence) {
+    <span class="code-keyword">if</span> (ch === <span class="code-string">'F'</span>) {
+      <span class="code-keyword">const</span> rad = (dir * Math.PI) / 180;
+      <span class="code-keyword">const</span> nx = x + Math.cos(rad) * stepLen;
+      <span class="code-keyword">const</span> ny = y + Math.sin(rad) * stepLen;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(nx, ny);
+      ctx.stroke();
+      x = nx; y = ny;
+    } <span class="code-keyword">else if</span> (ch === <span class="code-string">'+'</span>) { dir += angle; }
+    <span class="code-keyword">else if</span> (ch === <span class="code-string">'-'</span>) { dir -= angle; }
+    <span class="code-keyword">else if</span> (ch === <span class="code-string">'['</span>) { stack.push({ x, y, dir }); }
+    <span class="code-keyword">else if</span> (ch === <span class="code-string">']'</span>) {
+      ({ x, y, dir } = stack.pop()); <span class="code-comment">// return to branch fork</span>
+    }
+  }
+}</code></pre>
+
+                    <p>This is the entirety of the interpreter. The grammar does everything else. The same loop, given different strings, produces a snowflake, a tree, or a fern, the difference lives entirely in the production rules.</p>
+                </div>
+            </section>
+
+            <section id="progression" class="reveal-element mt-16">
+                <span class="kicker pl-4">Progression</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">4. From Snowflake to Fern</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-10 pl-4">
+
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-3">I. Koch Snowflake (angle 60°)</h3>
+                        <p>The Koch curve emerges from a single rule applied to an equilateral triangle. Each straight segment is replaced by four segments that jut outward at 60°. At depth 4, the perimeter is fractal: finite area, theoretically infinite boundary.</p>
+                        <div class="production-rule">Axiom: F--F--F &nbsp;&nbsp; Rule: F → F+F--F+F</div>
+                        <p>The resulting string at depth 2 contains <code>F</code>s separated by structured turns. The snowflake emerges not from drawing a special shape, but from a rule that has no knowledge of its own visual consequence.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-3">II. Binary Tree (angle 25°)</h3>
+                        <p>The substitution rules now involve two alphabets, one that draws, one that doesn't, and the bracket operators that encode branching topology. Each <code>0</code> is a leaf that eventually becomes a node. Each <code>1</code> is a structural segment:</p>
+                        <div class="production-rule">Axiom: 0 &nbsp;&nbsp; Rules: 0 → 1[−0]+0 &nbsp; 1 → 11</div>
+                        <p>The brackets are the breakthrough. Before them, an L-System could only produce linear chains. The push/pop stack lets it simulate the recursive branching structure that characterizes every real vascular plant.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-3">III. Barnsley Fern (angle 25°)</h3>
+                        <p>The canonical generative fern requires four rules and two alphabets. <code>X</code> is a pure expansion driver, it draws nothing directly. <code>F</code> draws segments. At depth 5 or 6, the output is indistinguishable from a scanned leaf:</p>
+                        <div class="production-rule">Axiom: X</div>
+                        <div class="production-rule">X → F+[[X]-X]-F[-FX]+X</div>
+                        <div class="production-rule">F → FF</div>
+                        <p>Lindenmayer's original insight is fully present here: the rule does not say "draw a fern." The rule says how a cell substitutes itself. The fern is a consequence of the combinatorics of that substitution, not an intention baked into any single line.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTERACTIVE DEMO SECTION -->
+            <section id="lab" class="glass-card p-8 md:p-12 reveal-element mt-16 bg-gradient-to-br from-green-50/60 to-emerald-50/30 dark:from-[#0a1a0f] dark:to-[#0d1117]">
+                <span class="kicker">Interactive</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-4">5. The Generative Lab</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-8">Modify the axiom and production rules below. Adjust depth and branching angle. Every combination generates a unique organism, the interpreter has no opinion on what it draws.</p>
+
+                <!-- Canvas -->
+                <div class="rounded-xl overflow-hidden border border-green-500/30 mb-6">
+                    <canvas id="lsystem-canvas" class="w-full" height="400"></canvas>
+                    <div class="bg-[#050d05] px-4 py-2 flex items-center justify-between border-t border-green-500/20">
+                        <span class="font-mono text-xs text-green-500 uppercase tracking-widest">> L-System Renderer</span>
+                        <span id="ls-chars" class="font-mono text-xs text-green-700">— chars</span>
+                    </div>
+                </div>
+
+                <!-- Preset pills -->
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button data-preset="0" class="demo-btn demo-btn-secondary text-[10px]">Koch Snowflake</button>
+                    <button data-preset="1" class="demo-btn demo-btn-secondary text-[10px]">Sierpiński</button>
+                    <button data-preset="2" class="demo-btn demo-btn-secondary text-[10px]">Binary Tree</button>
+                    <button data-preset="3" class="demo-btn demo-btn-secondary text-[10px]">Fern</button>
+                    <button data-preset="4" class="demo-btn demo-btn-secondary text-[10px]">Dragon Curve</button>
+                    <button data-preset="5" class="demo-btn demo-btn-secondary text-[10px]">Cross Fractal</button>
+                    <button data-preset="6" class="demo-btn demo-btn-secondary text-[10px]">Hilbert Curve</button>
+                </div>
+
+                <!-- Controls Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <div class="demo-control">
+                        <label>Axiom (starting string)</label>
+                        <input id="ls-axiom" class="demo-input" type="text" value="X">
+                    </div>
+                    <div class="demo-control">
+                        <label>Production Rules (use → and comma for multiple)</label>
+                        <input id="ls-rule" class="demo-input" type="text" value="X→F+[[X]-X]-F[-FX]+X,F→FF">
+                    </div>
+                    <div class="demo-control">
+                        <label>Depth, <span id="ls-depth-val">4</span></label>
+                        <input id="ls-depth" type="range" min="1" max="7" value="4">
+                    </div>
+                    <div class="demo-control">
+                        <label>Branch Angle, <span id="ls-angle-val">25°</span></label>
+                        <input id="ls-angle" type="range" min="5" max="90" value="25">
+                    </div>
+                </div>
+
+                <div class="flex gap-4 flex-wrap">
+                    <button id="btn-generate" class="demo-btn demo-btn-primary">[ Render ]</button>
+                    <button id="btn-random" class="demo-btn demo-btn-secondary">[ Random Preset ]</button>
+                </div>
+            </section>
+
+            <section id="conclusion" class="reveal-element mt-16">
+                <span class="kicker pl-4">Conclusion</span>
+                <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white mb-6 pl-4">Morphogenesis Without an Author</h2>
+                <div class="font-sans text-lg text-gray-700 dark:text-gray-300 leading-relaxed space-y-6 pl-4">
+                    <p>What Lindenmayer formalized in 1968 was not an algorithm for making plants look like plants. It was evidence that the visual complexity of biological form is a consequence of recursive rule application, not design, not intention, not intelligence.</p>
+                    <p>The generative artist who uses L-Systems occupies a strange position: author of the rules, but not the output. The grammar is written in minutes. The plant it produces is not anticipated. The surprise is structural, it belongs to the combinatorics of the substitution, not to any explicit creative decision.</p>
+                    <p>That gap between rule and consequence is where generative art lives.</p>
+                </div>
+            </section>
+
+            <!-- VIDEO -->
+            <div class="rounded-xl overflow-hidden shadow-lg mt-10">
+                <div class="relative" style="padding-top:56.25%">
+                    <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/E1B4UoSQMFw?rel=0" title="Coding Challenge #16: Fractal Trees - L-System (The Coding Train)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs font-mono text-gray-400 p-3 bg-gray-50 dark:bg-black/30 text-center">The Coding Train: Daniel Shiffman builds L-System fractal trees step by step in p5.js — a direct implementation of the concepts covered in this article.</p>
+            </div>
+
+            <!-- REFERENCES -->
+            <section id="references" class="reveal-element mt-10">
+                <div class="bg-gray-50/80 dark:bg-[#0a0b12]/80 rounded-2xl p-8 border border-gray-100 dark:border-white/5">
+                    <span class="kicker">References</span>
+                    <h2 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-8 mt-1">Sources &amp; Further Reading</h2>
+                    <ol class="space-y-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400 font-sans list-none">
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[1]</span>
+                            <span>Lindenmayer, A. (1968). <em>Mathematical models for cellular interaction in development.</em> Journal of Theoretical Biology, 18(3), 280–315. <a href="https://doi.org/10.1016/0022-5193(68)90079-9" target="_blank" rel="noopener" class="text-green-500 hover:underline break-all">doi:10.1016/0022-5193(68)90079-9</a> (The original 1968 paper.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[2]</span>
+                            <span>Prusinkiewicz, P. &amp; Lindenmayer, A. (1990). <em>The Algorithmic Beauty of Plants.</em> Springer-Verlag. ISBN 978-0-387-97297-8. Free PDF: <a href="http://algorithmicbotany.org/papers/#abop" target="_blank" rel="noopener" class="text-green-500 hover:underline break-all">algorithmicbotany.org</a></span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[3]</span>
+                            <span>Prusinkiewicz, P. &amp; Hanan, J. (1989). <em>Lindenmayer Systems, Fractals, and Plants.</em> Lecture Notes in Biomathematics, Vol. 79. Springer. ISBN 978-0-387-97092-9.</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[4]</span>
+                            <span>Mandelbrot, B. (1982). <em>The Fractal Geometry of Nature.</em> W.H. Freeman. ISBN 978-0-7167-1186-5. (Contextual framework for recursive biological geometry.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[5]</span>
+                            <span>Abelson, H. &amp; diSessa, A. (1981). <em>Turtle Geometry: The Computer as a Medium for Exploring Mathematics.</em> MIT Press. ISBN 978-0-262-51037-3.</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[6]</span>
+                            <span>Shiffman, D. (2012). <em>The Nature of Code: Simulating Natural Systems with Processing.</em> Self-published. Chapter 8: Fractals. <a href="https://natureofcode.com" target="_blank" rel="noopener" class="text-green-500 hover:underline break-all">natureofcode.com</a></span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[7]</span>
+                            <span>Hofstadter, D.R. (1979). <em>Gödel, Escher, Bach: An Eternal Golden Braid.</em> Basic Books. (Chapters on formal systems, string rewriting, and self-reference.) ISBN 978-0-465-02656-2.</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[8]</span>
+                            <span>Glassner, A. (1990). <em>Graphics Gems.</em> Academic Press. (Relevant chapter on turtle geometry rendering and branching systems.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[9]</span>
+                            <span>Barnsley, M. (1988). <em>Fractals Everywhere.</em> Academic Press. ISBN 978-0-12-079062-7. (Iterated function systems and their relationship to plant morphology.)</span>
+                        </li>
+
+                        <li class="flex gap-4">
+                            <span class="font-mono text-xs font-bold text-green-500 w-7 flex-shrink-0 pt-0.5">[10]</span>
+                            <span>University of Calgary Biological Modeling Group. (ongoing). <em>The Algorithmic Botany project.</em> <a href="http://algorithmicbotany.org" target="_blank" rel="noopener" class="text-green-500 hover:underline break-all">algorithmicbotany.org</a> (Prusinkiewicz's research lab, open access papers and L-System tools.)</span>
+                        </li>
+
+                    </ol>
+                </div>
+            </section>
+
+        </article>
+
+
+        <!-- Sidebar -->
+        <aside class="lg:col-span-4 space-y-8">
+            <div class="sticky-sidebar space-y-8">
+                <div class="glass-card p-6 reveal-element">
+                    <span class="kicker">On this page</span>
+                    <ul class="space-y-3 font-mono text-sm mt-4">
+                        <li><a href="#intro" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Introduction</a></li>
+                        <li><a href="#grammar" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">2. Production Rules</a></li>
+                        <li><a href="#turtle" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">3. Turtle Interpreter</a></li>
+                        <li><a href="#progression" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">4. Snowflake → Fern</a></li>
+                        <li><a href="#lab" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">5. Interactive Lab</a></li>
+                        <li><a href="#conclusion" class="text-gray-600 dark:text-gray-400 hover:text-green-500 transition-colors block p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">Conclusion</a></li>
+                    </ul>
+                </div>
+
+                <div class="p-6 bg-gray-50 dark:bg-white/5 border border-dashed border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center min-h-[400px] reveal-element">
+                    <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest mb-4">Advertisement</span>
+                    <ins class="adsbygoogle" style="display:inline-block; width:300px; height:250px;" data-ad-client="ca-pub-8880613950129960" data-ad-slot="auto"></ins>
+                    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+</main>
+
+
+
+
+
+
+<!-- AUTHOR BIO BOX (AD-SENSE E-E-A-T) -->
+<div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-4xl py-12 relative z-10">
+    <div class="bg-gray-50/80 dark:bg-darkSurface border border-gray-100 dark:border-white/5 p-8 rounded-2xl flex flex-col md:flex-row items-center md:items-start gap-6 shadow-sm reveal-element">
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purpleBrand to-pink-400 p-1 flex-shrink-0">
+            <img src="images/win98.jpg" alt="GenLab Editor" class="w-full h-full object-cover rounded-full mix-blend-multiply dark:mix-blend-normal filter grayscale hover:grayscale-0 transition-all duration-300">
+        </div>
+        <div class="text-center md:text-left">
+            <h3 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-2">Written by GenLab Editor</h3>
+            <p class="text-gray-600 dark:text-darkMuted text-sm font-sans mb-4 leading-relaxed">
+                Creative coder, digital artist, and tech researcher analyzing the intersections of code, design, and machine logic. Exploring the philosophical implications of emerging technologies.
+            </p>
+            <div class="font-mono text-xs uppercase tracking-widest text-[#d8b4fe]">
+                <a href="about.html" class="hover:text-purpleBrand transition-colors">View Full Profile &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="bg-gray-50 dark:bg-darkBg py-16 transition-colors duration-500 relative z-10">
+    <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="font-serif text-3xl font-bold text-gray-900 dark:text-white">Read Next</h2>
+            <a href="artigos.html" class="text-xs font-mono font-bold uppercase tracking-widest text-[#d8b4fe] hover:text-purpleBrand transition-colors">View All &rarr;</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+
+    <footer class="bg-white dark:bg-darkSurface py-12 border-t border-gray-100 dark:border-darkBorder transition-colors duration-500 mt-auto relative z-10">
+        <div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+                <div class="font-serif text-3xl font-bold tracking-tight text-gray-900 dark:text-white flex items-center">
+                    <span class="text-[#d8b4fe] font-mono mr-3">&gt;</span>GenLab
+                    <span class="animate-blink inline-block bg-[#d8b4fe] ml-4" style="width:0.45em;height:0.85em;transform:translateY(2px);"></span>
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-mono font-semibold text-gray-500 dark:text-darkMuted uppercase tracking-wide">
+                    <a href="privacy.html" class="hover:text-[#d8b4fe] transition-colors">Privacy</a>
+                    <a href="terms.html" class="hover:text-[#d8b4fe] transition-colors">Terms</a>
+                    <a href="about.html" class="hover:text-[#d8b4fe] transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-[#d8b4fe] transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="text-center md:text-right font-mono text-xs font-medium text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-darkBorder pt-8 transition-colors duration-500">
+                &copy; 2026 GenLab. Built with code.
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-gray-900 dark:bg-white text-white dark:text-gray-900 p-3 rounded-full shadow-[0_10px_20px_rgba(0,0,0,0.15)] opacity-0 pointer-events-none transition-all duration-500 z-50 hover:-translate-y-2 dark:shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        window.toggleTheme = function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        };
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        if (backToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            });
+        }
+    </script>
+
+    <!-- AdSense Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white dark:bg-darkSurface border-t border-gray-200 dark:border-darkBorder p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.1)] z-[100] transform translate-y-full transition-transform duration-500 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-sm">
+        <div class="text-gray-700 dark:text-darkText max-w-4xl">
+            We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners. 
+            <a href="privacy.html" class="text-purpleBrand hover:underline ml-1">Learn more</a>.
+        </div>
+        <div class="flex gap-3 flex-shrink-0">
+            <button id="cookie-accept" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-full font-semibold hover:bg-purpleBrand dark:hover:bg-purpleBrand dark:hover:text-white transition-colors duration-300">Got it!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieBanner.classList.remove('translate-y-full');
+                }, 1000);
+            }
+
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'true');
+                cookieBanner.classList.add('translate-y-full');
+            });
+        });
+    </script>
+
+    
+<script>
+(() => {
+    // ─── Scroll Reveal ───────────────────────────────────────────────
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+
+    // ─── Tilt FX ─────────────────────────────────────────────────────
+    document.querySelectorAll('.tilt-fx').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -6;
+            const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 6;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02,1.02,1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+        });
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+
+    // ─── Hero Background: Growing Fractal Tree ────────────────────────
+    const heroCanvas = document.getElementById('hero-canvas');
+    if (heroCanvas) {
+        const hCtx = heroCanvas.getContext('2d');
+        let hW, hH;
+        function initHero() {
+            hW = heroCanvas.width = window.innerWidth;
+            hH = heroCanvas.height = heroCanvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', () => { initHero(); drawHero(); });
+        initHero();
+
+        function drawBranch(ctx, x, y, angle, length, depth, isDark) {
+            if (depth === 0 || length < 1) return;
+            const rad = (angle * Math.PI) / 180;
+            const nx = x + Math.cos(rad) * length;
+            const ny = y + Math.sin(rad) * length;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(nx, ny);
+            const t = depth / 9;
+            const hue = isDark ? `hsl(${120 + depth * 8}, 60%, ${20 + depth * 4}%)` : `hsl(${120 + depth * 10}, 50%, ${40 + depth * 3}%)`;
+            ctx.strokeStyle = hue;
+            ctx.lineWidth = depth * 0.6;
+            ctx.stroke();
+            drawBranch(ctx, nx, ny, angle - 28, length * 0.72, depth - 1, isDark);
+            drawBranch(ctx, nx, ny, angle + 22, length * 0.68, depth - 1, isDark);
+        }
+
+        function drawHero() {
+            hCtx.clearRect(0, 0, hW, hH);
+            const isDark = document.documentElement.classList.contains('dark');
+            const trunkLen = hH * 0.22;
+            const trees = Math.max(1, Math.floor(hW / 300));
+            for (let i = 0; i < trees; i++) {
+                const x = (hW / trees) * i + (hW / trees) / 2;
+                drawBranch(hCtx, x, hH, -90, trunkLen, 9, isDark);
+            }
+        }
+        drawHero();
+
+        // Redraw on theme toggle
+        const themeBtn = document.querySelector('[onclick="window.toggleTheme()"]');
+        if (themeBtn) themeBtn.addEventListener('click', () => setTimeout(drawHero, 600));
+    }
+
+    // ─── L-System Interactive Engine ─────────────────────────────────
+    const presets = [
+        { name: 'Koch Snowflake', axiom: 'F--F--F', rule: 'F→F+F--F+F', angle: 60 },
+        { name: 'Sierpiński Triangle', axiom: 'F-G-G', rule: 'F→F-G+F+G-F,G→GG', angle: 120 },
+        { name: 'Binary Tree', axiom: '0', rule: '0→1[−0]+0,1→11', angle: 25 },
+        { name: 'Fern', axiom: 'X', rule: 'X→F+[[X]-X]-F[-FX]+X,F→FF', angle: 25 },
+        { name: 'Dragon Curve', axiom: 'FX', rule: 'X→X+YF+,Y→-FX-Y', angle: 90 },
+        { name: 'Cross Fractal', axiom: 'F+F+F+F', rule: 'F→F+F-F-FF+F+F-F', angle: 90 },
+        { name: 'Hilbert Curve', axiom: 'A', rule: 'A→-BF+AFA+FB-,B→+AF-BFB-FA+', angle: 90 },
+    ];
+
+    let lsAngle = 25;
+    let currentPreset = presets[3]; // default: Fern
+
+    function applyRules(axiom, rulesStr, depth) {
+        const ruleMap = {};
+        rulesStr.split(',').forEach(r => {
+            const [from, to] = r.split('→');
+            if (from && to) ruleMap[from.trim()] = to.trim();
+        });
+
+        let current = axiom;
+        for (let i = 0; i < depth; i++) {
+            let next = '';
+            for (const ch of current) {
+                next += ruleMap[ch] !== undefined ? ruleMap[ch] : ch;
+            }
+            current = next;
+            if (current.length > 500000) break; // Safety cap
+        }
+        return current;
+    }
+
+    function drawLSystem(canvas, sentence, angle, lineLen) {
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        // First pass: bounding box
+        let x = 0, y = 0, dir = -90;
+        let minX = 0, maxX = 0, minY = 0, maxY = 0;
+        const stack = [];
+        for (const ch of sentence) {
+            if (ch === 'F' || ch === 'G' || ch === '0' || ch === '1') {
+                const rad = (dir * Math.PI) / 180;
+                x += Math.cos(rad) * lineLen;
+                y += Math.sin(rad) * lineLen;
+                minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+                minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+            } else if (ch === '+') { dir += angle; }
+            else if (ch === '-') { dir -= angle; }
+            else if (ch === '[') { stack.push({ x, y, dir }); }
+            else if (ch === ']') { const s = stack.pop(); x = s.x; y = s.y; dir = s.dir; }
+        }
+
+        const rangeX = maxX - minX || 1;
+        const rangeY = maxY - minY || 1;
+        const scale = Math.min((w * 0.88) / rangeX, (h * 0.9) / rangeY);
+        const offsetX = w / 2 - ((minX + maxX) / 2) * scale;
+        const offsetY = h / 2 - ((minY + maxY) / 2) * scale;
+
+        // Second pass: draw
+        x = 0; y = 0; dir = -90;
+        stack.length = 0;
+        let depth = 0;
+        const maxDepth = sentence.split('[').length;
+
+        ctx.strokeStyle = '#22c55e';
+        ctx.lineWidth = Math.max(0.5, 1.5 / Math.log(sentence.length + 2));
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x * scale + offsetX, y * scale + offsetY);
+
+        for (const ch of sentence) {
+            if (ch === 'F' || ch === 'G' || ch === '0' || ch === '1') {
+                if (ch === 'G') {
+                    ctx.stroke(); ctx.beginPath();
+                }
+                const rad = (dir * Math.PI) / 180;
+                x += Math.cos(rad) * lineLen;
+                y += Math.sin(rad) * lineLen;
+                const px = x * scale + offsetX;
+                const py = y * scale + offsetY;
+                const t = (depth / (maxDepth || 1));
+                ctx.strokeStyle = `hsl(${110 + t * 40}, ${60 + t * 20}%, ${35 + t * 25}%)`;
+                ctx.lineTo(px, py);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(px, py);
+            } else if (ch === '+') { dir += angle; }
+            else if (ch === '-') { dir -= angle; }
+            else if (ch === '[') {
+                ctx.stroke(); ctx.beginPath();
+                stack.push({ x, y, dir });
+                depth++;
+                ctx.moveTo(x * scale + offsetX, y * scale + offsetY);
+            } else if (ch === ']') {
+                ctx.stroke(); ctx.beginPath();
+                const s = stack.pop();
+                x = s.x; y = s.y; dir = s.dir;
+                depth--;
+                ctx.moveTo(x * scale + offsetX, y * scale + offsetY);
+            }
+        }
+        ctx.stroke();
+    }
+
+    function generate() {
+        const canvas   = document.getElementById('lsystem-canvas');
+        const axiomEl  = document.getElementById('ls-axiom');
+        const ruleEl   = document.getElementById('ls-rule');
+        const depthEl  = document.getElementById('ls-depth');
+        const depthVal = document.getElementById('ls-depth-val');
+        const angleEl  = document.getElementById('ls-angle');
+
+        if (!canvas || !axiomEl || !ruleEl || !depthEl) return;
+
+        const depth    = parseInt(depthEl.value);
+        lsAngle        = parseFloat(angleEl ? angleEl.value : 25);
+        const sentence = applyRules(axiomEl.value.trim(), ruleEl.value.trim(), depth);
+        const chars    = Math.max(sentence.length / depth, 1);
+        const linePx   = Math.max(1.5, 18 / Math.log(sentence.length + 10));
+        drawLSystem(canvas, sentence, lsAngle, linePx);
+
+        canvas.parentElement.querySelector('#ls-chars').textContent = sentence.length.toLocaleString() + ' chars';
+    }
+
+    function loadPreset(preset) {
+        currentPreset = preset;
+        lsAngle = preset.angle;
+        const axiomEl = document.getElementById('ls-axiom');
+        const ruleEl  = document.getElementById('ls-rule');
+        const angleEl = document.getElementById('ls-angle');
+        const angleValEl = document.getElementById('ls-angle-val');
+        if (axiomEl) axiomEl.value = preset.axiom;
+        if (ruleEl)  ruleEl.value  = preset.rule;
+        if (angleEl) { angleEl.value = preset.angle; if(angleValEl) angleValEl.textContent = preset.angle + '°'; }
+        generate();
+    }
+
+    function randomRule() {
+        const pick = presets[Math.floor(Math.random() * presets.length)];
+        loadPreset(pick);
+    }
+
+    // Wire up events
+    window.addEventListener('DOMContentLoaded', () => {
+        const depthEl  = document.getElementById('ls-depth');
+        const depthVal = document.getElementById('ls-depth-val');
+        const angleEl  = document.getElementById('ls-angle');
+        const angleVal = document.getElementById('ls-angle-val');
+
+        if (depthEl) {
+            depthEl.addEventListener('input', () => {
+                if (depthVal) depthVal.textContent = depthEl.value;
+                generate();
+            });
+        }
+        if (angleEl) {
+            angleEl.addEventListener('input', () => {
+                if (angleVal) angleVal.textContent = angleEl.value + '°';
+                lsAngle = parseFloat(angleEl.value);
+                generate();
+            });
+        }
+
+        document.getElementById('btn-generate')?.addEventListener('click', generate);
+        document.getElementById('btn-random')?.addEventListener('click', randomRule);
+
+        // Preset pills
+        document.querySelectorAll('[data-preset]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.preset);
+                loadPreset(presets[idx]);
+            });
+        });
+
+        // Initial size for canvas
+        const canvas = document.getElementById('lsystem-canvas');
+        if (canvas) {
+            canvas.width  = canvas.parentElement.offsetWidth;
+            canvas.height = 400;
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.parentElement.offsetWidth;
+                generate();
+            });
+        }
+
+        // Load default (Fern)
+        loadPreset(presets[3]);
+    });
+})();
+</script>
+
+</body>
+</html>
