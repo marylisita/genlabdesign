@@ -588,7 +588,7 @@
     let currentPage = 1;
     const PER_PAGE = 9;
 
-    window.setCategory = function(cat) { currentCategory = cat; currentPage = 1; renderGrid(); renderFilters(); };
+    window.setCategory = function(cat) { currentCategory = cat; currentPage = 1; renderGrid(); renderFilters(); renderGrid(); };
     window.setSearch = function(query) { searchQuery = query; currentPage = 1; renderGrid(); };
     window.clearFilters = function() { currentCategory = "All"; searchQuery = ""; currentPage = 1; renderGrid(); renderFilters(); };
     window.goToPage = function(page) {
@@ -666,10 +666,13 @@
 
 
     <script>
-    setTimeout(() => {
-        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
-        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
-    }, 1000);
+    window.addEventListener('load', () => {
+        if (typeof renderGrid === 'function') renderGrid();
+        if (typeof renderHome === 'function') renderHome();
+        setTimeout(() => {
+            document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        }, 300);
+    });
     </script>
     </body>
 </html>
