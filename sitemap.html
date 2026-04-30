@@ -107,18 +107,7 @@
                 </div>
             </div>
         </div>
-    </nav>';
-?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://www.genlabdesign.com/</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-    </url>
-
-
-</urlset>
-
+    </nav>
 
 
 
@@ -231,5 +220,12 @@
     </script>
 
     
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

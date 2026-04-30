@@ -107,12 +107,7 @@
                 </div>
             </div>
         </div>
-    </nav><?php
-// Redirect to canonical version - avoids duplicate content penalty
-header("HTTP/1.1 301 Moved Permanently");
-header("Location: /agentic-ai-autonomous-agents.php");
-exit();
-
+    </nav>
 
 
 
@@ -225,5 +220,12 @@ exit();
     </script>
 
     
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

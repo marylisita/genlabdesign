@@ -838,5 +838,12 @@
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

@@ -209,124 +209,69 @@
                 </div>
             </div>
         </div>
-    </nav><div id="app-view" class="mt-8"><div class="bento-grid"><div class="bento-3">
-    <a href="consumer-devices-ai-training.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop" alt="The Invisible Harvest: How Consumer Devices Train AI Without You Knowing" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
+    </nav>
+
+<div id="scroll-indicator"></div>
+
+<!-- HERO SECTION ESPECÍFICA DA HOME -->
+<div id="header-container" class="relative overflow-hidden rounded-b-[3rem] border-b border-black/5 dark:border-white/5 shadow-sm pb-16 md:pb-24 pt-8 transition-all duration-500">
+    
+    <!-- LIQUID MOUSE FOLLOWER -->
+    <div id="liquid-cursor" class="liquid-cursor-bg absolute top-0 left-0 w-[600px] h-[600px] mix-blend-overlay pointer-events-none transition-all duration-[600ms] ease-out z-0 opacity-0 transform scale-0"></div>
+
+    <!-- PARTICLE CANVAS -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Floating Code Fragments -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="code-fragment text-purpleBrand/40 dark:text-purpleBrand/20 font-mono text-3xl" style="left: 10%; top: 30%; animation-duration: 25s; animation-delay: 0s;">{ }</div>
+        <div class="code-fragment text-pink-400/40 dark:text-pink-400/20 font-mono text-2xl" style="left: 85%; top: 60%; animation-duration: 20s; animation-delay: -5s;">;</div>
+        <div class="code-fragment text-blue-400/40 dark:text-blue-400/20 font-mono text-4xl" style="left: 70%; top: 20%; animation-duration: 28s; animation-delay: -12s;">+</div>
+        <div class="code-fragment text-purpleBrand/30 dark:text-purpleBrand/15 font-mono text-2xl" style="left: 25%; top: 80%; animation-duration: 22s; animation-delay: -3s;">[ ]</div>
+        <div class="code-fragment text-pink-400/30 dark:text-pink-400/15 font-mono text-3xl" style="left: 50%; top: 90%; animation-duration: 30s; animation-delay: -18s;">&lt;/&gt;</div>
+    </div>
+
+    <section class="py-12 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto relative z-10 flex flex-col text-left pointer-events-none">
+        <div class="animate-fade-up delay-100 inline-block px-4 py-2 rounded-md bg-white/60 dark:bg-darkSurface/60 backdrop-blur-md border border-white/80 dark:border-darkBorder text-xs font-mono font-bold tracking-widest text-gray-700 dark:text-gray-300 uppercase mb-8 shadow-sm w-fit pointer-events-auto">
+            > CREATIVE CODER · DIGITAL ARTIST · BUILDER
         </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">critical-analysis</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">APR.01.2026</span>
+        
+        <h1 class="animate-title-blur delay-300 text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-gray-900 dark:text-white mb-6 leading-[1.05] tracking-tight max-w-4xl pointer-events-auto">
+            Ideas that shape <br class="hidden md:block" />
+            <span class="gradient-text-animated">the digital world</span>
+        </h1>
+        
+        <p class="animate-fade-up delay-600 text-lg md:text-xl text-gray-600 dark:text-darkMuted max-w-2xl leading-relaxed font-medium mb-10 pointer-events-auto">
+            Experimental lab focused on code, generative art, and immersive UI/UX. Exploring the intersection of human philosophy and machine logic.
+        </p>
+
+        <!-- Creative SEO / About Block -->
+        <div class="animate-fade-up delay-600 bg-white/40 dark:bg-[#111]/60 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-2xl p-8 shadow-2xl max-w-3xl relative overflow-hidden group hover:border-purpleBrand/40 transition-colors pointer-events-auto">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purpleBrand to-pink-400 opacity-70 group-hover:opacity-100 transition-opacity"></div>
+            <h2 class="font-serif text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+                <svg class="w-5 h-5 text-purpleBrand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                A Research Lab for Creative Technology
+            </h2>
+            <div class="text-gray-800 dark:text-gray-300 space-y-4 font-sans leading-relaxed text-sm md:text-base">
+                <p><strong>GenLab</strong> is an independent digital laboratory and editorial platform dedicated to the critical analysis of generative algorithms, creative coding, and modern digital aesthetics. I bridge the gap between abstract computer science concepts and human-centric design, providing deep dives into how machine logic shapes our online and physical environments.</p>
+                <p>From exploring the mathematics of recursive structures and shader programming to analyzing the architectural implications of autonomous AI agents, my mission is to empower developers, artists, and researchers with high-quality, human-authored insights into the future of technology.</p>
             </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">The Invisible Harvest: How Consumer Devices Train AI Without You Knowing</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Pokemon Go maps your city. Meta glasses scan your face. Your earbuds profile your voice. How games, wearables, and audio devices became the largest passive AI training operation ever built, and what the consequences are.</p>
         </div>
-    </a></div><div class="bento-3">
-    <a href="code-as-writing-poetics.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Code as Writing: The Poetics of the Source File" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">academic-theory</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">APR.01.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">Code as Writing: The Poetics of the Source File</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Programs are read by humans before machines. An analysis of literate programming, the literary structure of source code, and why variable naming is an aesthetic choice.</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="algorithm-as-curator-recommendation-systems-culture.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1665690399857-9de8bbbeb108?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Algorithm as Curator: How Recommendation Systems Shape Culture" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">critical-analysis</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">APR.01.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">The Algorithm as Curator: How Recommendation Systems Shape Culture</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, and how recommendation systems became the most powerful editors in history.</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="glsl-fragment-shaders-from-zero.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="./images/GLSL.png" alt="GLSL Fragment Shaders From Zero: Your First 10 Lines" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">tech-design</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">JUN.30.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">GLSL Fragment Shaders From Zero: Your First 10 Lines</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="css-generative-medium.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="./images/purecss.png" alt="CSS as a Generative Medium: What Pure CSS Can Actually Do" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">tech-design</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">MAY.20.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">CSS as a Generative Medium: What Pure CSS Can Actually Do</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Discover why generative art does not require JavaScript. An architectural analysis of CSS art, constraint-based aesthetics, and Houdini algorithms.</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="the-uncanny-valley-of-the-fake.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="./images/deepfake.jpg" alt="The Uncanny Valley of the Fake: Deepfakes, Simulacra, and Evidence" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">critical-analysis</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">MAY.15.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">The Uncanny Valley of the Fake: Deepfakes, Simulacra, and Evidence</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="cybernetics-and-feedback-systems.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cybernetics and Feedback: How Systems Think" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">critical-analysis</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">MAY.10.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">Cybernetics and Feedback: How Systems Think</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="aesthetics-of-the-glitch.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1610337673044-720471f83677?q=80&w=1072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="The Aesthetics of the Glitch: When Error Becomes Medium" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">digital-culture</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">APR.01.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">The Aesthetics of the Glitch: When Error Becomes Medium</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Glitch art is not broken art. From Nam June Paik\</p>
-        </div>
-    </a></div><div class="bento-3">
-    <a href="color-theory-generative-art.html" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element">
-        <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] h-64 md:h-80">
-            <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop" alt="Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
-        </div>
-        <div class="p-8 flex flex-col flex-grow relative z-10">
-            <div class="flex items-center gap-3 mb-5">
-                <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">tech-design</span>
-                <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide">APR.01.2026</span>
-            </div>
-            <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 text-2xl font-bold">Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity</h3>
-            <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">Most color theory tutorials are for static design. This is for algorithmic systems. Learn how to generate infinite mathematically harmonic palettes using HSL, Oklab, and procedural noise.</p>
-        </div>
-    </a></div></div></div></main>
+    </section>
+</div>
+
+<!-- MAIN DYNAMIC CONTAINER -->
+<main class="container mx-auto px-6 md:px-12 lg:px-20 pb-20 relative z-10 mt-12 max-w-7xl flex-grow">
+
+    <!-- Area de Filtros e Pesquisa -->
+    <div class="text-center mb-10">
+        <span class="font-mono text-xs font-bold tracking-[0.2em] text-gray-400 dark:text-gray-500 uppercase">LATEST EXPERIMENTS & WRITING</span>
+    </div>
+    <div id="filter-bar-container"></div>
+    
+    <!-- Grelha de Artigos Renderizada via PHP + Paginação -->
+    
+    <div id="app-view" class="mt-8"></div></main>
 
 <!-- Inclui o Rodapé Global -->
 
@@ -409,6 +354,326 @@
         });
     </script>
 
-    <script>window.articles = [{"id":"consumer-devices-ai-training","category":"critical-analysis","title":"The Invisible Harvest: How Consumer Devices Train AI Without You Knowing","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: SURVEILLANCE_LAB","summary":"Pokemon Go maps your city. Meta glasses scan your face. Your earbuds profile your voice. How games, wearables, and audio devices became the largest passive AI training operation ever built, and what the consequences are.","image":"https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop"},{"id":"code-as-writing-poetics","category":"academic-theory","title":"Code as Writing: The Poetics of the Source File","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: LITERATURE_LAB","summary":"Programs are read by humans before machines. An analysis of literate programming, the literary structure of source code, and why variable naming is an aesthetic choice.","image":"https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop"},{"id":"algorithm-as-curator-recommendation-systems-culture","category":"critical-analysis","title":"The Algorithm as Curator: How Recommendation Systems Shape Culture","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: CRITICAL_LAB","summary":"What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, and how recommendation systems became the most powerful editors in history.","image":"https://images.unsplash.com/photo-1665690399857-9de8bbbeb108?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"glsl-fragment-shaders-from-zero","category":"tech-design","title":"GLSL Fragment Shaders From Zero: Your First 10 Lines","meta":"TIMESTAMP: JUN.30.2026 // SYSTEM: AESTHETICS_LAB","summary":"Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.","image":"./images/GLSL.png"},{"id":"css-generative-medium","category":"tech-design","title":"CSS as a Generative Medium: What Pure CSS Can Actually Do","meta":"TIMESTAMP: MAY.20.2026 // SYSTEM: AESTHETICS_LAB","summary":"Discover why generative art does not require JavaScript. An architectural analysis of CSS art, constraint-based aesthetics, and Houdini algorithms.","image":"./images/purecss.png"},{"id":"the-uncanny-valley-of-the-fake","category":"critical-analysis","title":"The Uncanny Valley of the Fake: Deepfakes, Simulacra, and Evidence","meta":"TIMESTAMP: MAY.15.2026 // SYSTEM: EPISTEMOLOGY_LAB","summary":"An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.","image":"./images/deepfake.jpg"},{"id":"cybernetics-and-feedback-systems","category":"critical-analysis","title":"Cybernetics and Feedback: How Systems Think","meta":"TIMESTAMP: MAY.10.2026 // SYSTEM: KINETIC_LAB","summary":"From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\\","image":"https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"aesthetics-of-the-glitch","category":"digital-culture","title":"The Aesthetics of the Glitch: When Error Becomes Medium","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: CRITICAL_LAB","summary":"Glitch art is not broken art. From Nam June Paik\\","image":"https://images.unsplash.com/photo-1610337673044-720471f83677?q=80&w=1072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"color-theory-generative-art","category":"tech-design","title":"Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Most color theory tutorials are for static design. This is for algorithmic systems. Learn how to generate infinite mathematically harmonic palettes using HSL, Oklab, and procedural noise.","image":"https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop"},{"id":"l-system-plants-generative-art","category":"tech-design","title":"The L-System: How Plants Generate Themselves","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: KINETIC_LAB","summary":"Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript, with an interactive editor.","image":"https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200&auto=format&fit=crop"},{"id":"drawing-with-math-lissajous-curves","category":"creative-coding","title":"Drawing with Math: How to Use Lissajous Curves in Generative Art","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Before GPUs and LEDs, humanity drew with sound. The physics, math, and JavaScript of Lissajous curves, from oscilloscope physics to generative art.","image":"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"},{"id":"voronoi-diagrams-javascript-generative-art","category":"digital-culture","title":"The Hidden Math Behind Voronoi Diagrams","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Giraffe skin, city planning, and generative art, one algorithm. A practical guide to building Voronoi diagrams in JavaScript, from brute-force distance fields to Fortune\\","image":"https://images.unsplash.com/photo-1558470598-a5dda9640f68?q=80&w=1200&auto=format&fit=crop"},{"id":"building-real-time-audio-visualizer","category":"tech-design","title":"Building a Real-Time Audio Visualizer with Web Audio API","meta":"TIMESTAMP: MAR.30.2026 // SYSTEM: KINETIC_LAB","summary":"A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.","image":"https://images.unsplash.com/photo-1692838952665-a7a9577fde9e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"reaction-diffusion-systems","category":"tech-design","title":"Reaction-Diffusion Systems: Simulating Life with Code","meta":"TIMESTAMP: MAR.29.2026 // SYSTEM: KINETIC_LAB","summary":"Alan Turing\\","image":"./images/reaction_diffusion.png"},{"id":"truchet-tiles-javascript-infinite-patterns","category":"tech-design","title":"How to Create Infinite Patterns with Truchet Tiles in JavaScript","meta":"TIMESTAMP: MAR.28.2026 // SYSTEM: AESTHETICS_LAB","summary":"A practical guide to algorithmic geometry. Learn how to construct, animate, and scale Truchet tile patterns using JavaScript and the HTML5 Canvas API.","image":"./images/truchet_tiles.png"},{"id":"latent-space-as-canvas","category":"tech-design","title":"Latent Space as Canvas: How Diffusion Models Actually \"See\"","meta":"TIMESTAMP: MAR.27.2026 // SYSTEM: NEURAL_LAB","summary":"A technical and artistic exploration of latent spaces, reverse diffusion, and how AI navigates high-dimensional mathematics to synthesize images.","image":"./images/digitalnoise.jpg"},{"id":"hauntology-and-the-internet","category":"digital-culture","title":"Hauntology and the Internet: Why the Web Feels Like It\\","meta":"TIMESTAMP: MAR.26.2026 // SYSTEM: CRITICAL_LAB","summary":"Digital decay, link rot, and how generative AI operates as algorithmic necromancy in the post-reality web. A philosophical reading of why the internet feels like it is mourning its own past.","image":"https://images.unsplash.com/photo-1765410852123-e08fb6dd400a?q=80&w=1369&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"why-ai-art-is-not-generative-art","category":"digital-culture","title":"Why AI Art Is Not Generative Art","meta":"TIMESTAMP: MAR.25.2026 // SYSTEM: AESTHETICS_LAB","summary":"Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different, and why the confusion erases 60 years of history.","image":"https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1200&auto=format&fit=crop"},{"id":"p5js-vs-threejs-generative-art","category":"digital-culture","title":"p5.js vs Three.js: When to Use Each for Generative Art","meta":"TIMESTAMP: MAR.24.2026 // SYSTEM: CREATIVE_LAB","summary":"A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.","image":"./images/p5.js_vs_three.js_article_banner.png"},{"id":"procedural-identity-generative-branding","category":"tech-design","title":"Procedural Identity: When the Brand Becomes an Algorithm","meta":"TIMESTAMP: MAR.23.2026 // SYSTEM: AESTHETICS_LAB","summary":"The dissolution of the static logo. A technical analysis of generative branding, data-driven identity, and algorithmic architecture.","image":"./images/Identity.png"},{"id":"the-architecture-of-chance-procedural-logic","category":"digital-culture","title":"The Architecture of Chance: Noise, Seeds, and Algorithmic Surprise","meta":"TIMESTAMP: MAR.22.2026 // SYSTEM: AESTHETICS_LAB","summary":"An analysis of procedural generation, Perlin Noise, and how coherent randomness dismantled the sterile perfection of early computer graphics.","image":"https://images.unsplash.com/photo-1771789815969-7ed5f8564409?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"living-architectures-real-time-data","category":"tech-design","title":"Living Architectures: Real-Time Data and the Death of the Static Canvas","meta":"TIMESTAMP: MAR.21.2026 // SYSTEM: SYSTEMS_LAB","summary":"The transition of digital art into data-driven living systems. Exploring APIs, real-time rendering, and procedural environments.","image":"https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"digital-organisms-cellular-automata","category":"tech-design","title":"Digital Organisms: Cellular Automata and the Simulation of Life","meta":"TIMESTAMP: MAR.20.2026 // SYSTEM: KINETIC_LAB","summary":"Artificial Life, cellular automata, L-Systems, and reaction-diffusion models in biocybernetics. What happens when software learns to grow.","image":"./images/game-of-life.png"},{"id":"math-of-the-sublime-shaders","category":"digital-culture","title":"The Math of the Sublime: Shaders, GLSL, and the Rendering of the Infinite","meta":"TIMESTAMP: MAR.19.2026 // SYSTEM: AESTHETICS_LAB","summary":"Fragment Shaders, GPU architecture, and how pure mathematics becomes tactile digital art. On the technical and philosophical dimensions of rendering the infinite.","image":"https://images.unsplash.com/photo-1648543444430-369be2e19bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"technopolitics-digital-colonialism-brazil","category":"critical-analysis","title":"Digital Colonialism and Technopolitics: The Struggle for Sovereign Infrastructure","meta":"TIMESTAMP: MAR.18.2026 // SYSTEM: GOVERNANCE_LAB","summary":"An analysis of digital colonialism in Brazil, epistemic extractivism, critical digital literacy, and the illusion of the sovereign cloud.","image":"./images/technopolitics.jpg"},{"id":"seeing-sounds-synesthesia-touchdesigner","category":"digital-culture","title":"Seeing Sounds: The Geometry of Silence","meta":"TIMESTAMP: MAR.17.2026 // SYSTEM: GENLAB_DIARY","summary":"My journey through university graduation, TouchDesigner node soup, drone music, and making the invisible visible.","image":"./images/kandinsky-td.png"},{"id":"decolonial-ai-indigenous-data-sovereignty","category":"critical-analysis","title":"Decolonial AI and Indigenous Data Sovereignty","meta":"TIMESTAMP: MAR.16.2026 // SYSTEM: SOVEREIGNTY_LAB","summary":"Explore how Decolonial AI and Indigenous Data Sovereignty are challenging historical patterns of knowledge extraction and technical domination.","image":"./images/secure.jpg"},{"id":"networked-ontologies-technoshamanism","category":"critical-analysis","title":"Networked Ontologies: Technoshamanism & Digital Sovereignty","meta":"TIMESTAMP: MAR.15.2026 // SYSTEM: ANCESTRAL_LAB","summary":"Exploring the intersection of indigenous knowledge, digital sovereignty, and the confrontation of epistemic extractivism in the digital age.","image":"https://images.unsplash.com/photo-1759324348805-8576e7094ae5?q=80&w=1170&auto=format&fit=crop"},{"id":"blogging-in-2026-trends-strategies","category":"tech-design","title":"Blogging in 2026: 12 Powerful Trends, Tools, and Strategies","meta":"TIMESTAMP: MAR.14.2026 // SYSTEM: CONTENT_LAB","summary":"Blogging is far from dead. Learn the latest SEO strategies, AI workflows, and monetization tools to build a profitable digital media business.","image":"https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop"},{"id":"build-autogpt-ai-agent","category":"tech-design","title":"How to Build Your Own AutoGPT-Style AI Agent Step-by-Step","meta":"TIMESTAMP: MAR.13.2026 // SYSTEM: BUILDER_LAB","summary":"A 12-stage practical tutorial for designing and shipping your own autonomous agent. From planning loops to tool guardrails.","image":"./images/autogpt.jpg"},{"id":"ai-agent-architecture-guide","category":"tech-design","title":"The Architecture Behind AI Agents: A Complete Technical Guide","meta":"TIMESTAMP: MAR.12.2026 // SYSTEM: ARCH_ENGINE_04","summary":"Explore the blueprint of AutoGPT-style systems. From ReAct loops and memory hierarchies to tool integration and multi-agent coordination.","image":"./images/ai.jpg"},{"id":"autonomous-ai-agents","category":"critical-analysis","title":"Autonomous AI Agents","meta":"TIMESTAMP: MAR.03.2026 // SYSTEM: AI AGENTS","summary":"Discover how Autonomous AI Agents are changing the way we work, automate tasks, and build businesses. Learn how this emerging technology could redefine productivity and the future of digital work.","image":"./images/robo.jpg"},{"id":"sustainable-it-green-computing","category":"critical-analysis","title":"Sustainable IT & Green Computing","meta":"TIMESTAMP: MAR.01.2026 // SYSTEM: Green Tech","summary":"Sustainable IT and green computing have gone from being a secondary topic to becoming key technology KPIs. Understand carbon-aware scheduling, sustainable-by-design architectures, and how AI is forcing the reconstruction of digital operations.","image":"https://www.consultancy.uk/illustrations/news/detail/2024-01-19-012504785-Sustainability_and_AI_to_dominate_2024_IT_agenda.jpg"},{"id":"post-quantum-cryptography","category":"tech-design","title":"Post-Quantum Cryptography: Why Organizations Need to Prepare Before Quantum Computers Arrive","meta":"TIMESTAMP: FEV.28.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Post-quantum cryptography is moving from theory to urgent enterprise planning. Learn why harvest-now-decrypt-later attacks matter and what NIST finalized.","image":"https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop"},{"id":"spatial-computing-enterprise","category":"tech-design","title":"Beyond the Metaverse: How Spatial Computing Became a Real Business Tool","meta":"TIMESTAMP: FEV.02.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping training, design, collaboration, and real-world workflows.","image":"https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=1200&auto=format&fit=crop"},{"id":"preemptive-cybersecurity-digital-provenance","category":"critical-analysis","title":"Preemptive Cybersecurity and Digital Provenance in the Age of AI","meta":"TIMESTAMP: FEV.15.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Learn how AI-powered defense, content credentials, watermarking, and provenance tools are changing cyber resilience and deepfake verification.","image":"https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"},{"id":"ai-native-infrastructure-cloud","category":"tech-design","title":"AI-Native Infrastructure and Cloud 3.0: Why AI Is Forcing a New Cloud Strategy","meta":"TIMESTAMP: FEV.14.2026 // SYSTEM: CLOUD_ARCH_LAB","summary":"AI-native infrastructure and Cloud 3.0 are reshaping enterprise technology in 2026. Learn how hybrid cloud, sovereign cloud, AI factories, and new energy strategies are redefining data centers.","image":"https://images.stockcake.com/public/5/3/6/53625b81-8ee7-4aba-8c28-b10f0fa04f24_large/vast-data-center-stockcake.jpg"},{"id":"physical-ai-and-robotics","category":"tech-design","title":"Physical AI and Robotics: The Next Major Shift in Industrial Automation","meta":"TIMESTAMP: FEV.13.2026 // SYSTEM: KINETIC_LAB","summary":"Physical AI and robotics are pushing intelligence beyond screens and into factories, warehouses, and logistics networks. Learn how humanoid robots and autonomous systems are reshaping business.","image":"https://www.manufacturingtodayindia.com/cloud/2024/08/19/Teslas-Optimus-AI-robot.jpg"},{"id":"domain-specific-language-models","category":"tech-design","title":"Domain-Specific Language Models (DSLMs): 6 Powerful Ways Specialized AI Is Transforming Industries","meta":"TIMESTAMP: FEV.12.2026 // SYSTEM: ENTERPRISE_LAB","summary":"Discover how DSLMs are transforming AI in 2026 by delivering higher accuracy, lower costs, and better compliance across healthcare, finance, and legal industries.","image":"https://i0.wp.com/ittech-pulse.com/wp-content/uploads/2026/03/DSLMs-in-Healthcare-Improving-Clinical-Accuracy-Compliance-and-Decision-Support.webp?fit=1920%2C1080&ssl=1"},{"id":"agentic-ai-autonomous-agents","category":"tech-design","title":"Agentic AI & Autonomous Agents: 7 Powerful Tech Shifts Transforming 2026","meta":"TIMESTAMP: FEV.11.2026 // SYSTEM: AGENTIC_LAB","summary":"Discover how Agentic AI & Autonomous Agents are transforming the 2026 technology landscape, enabling digital coworkers, autonomous workflows, and real business ROI.","image":"https://em360tech.com/sites/default/files/styles/cover_image/public/2025-07/adobestock_1225534257.jpeg.webp?h=7f61dc89&itok=_cwFq3Ar"},{"id":"digital-identity-age-of-ai","category":"critical-analysis","title":"Digital Identity in the Age of AI","meta":"TIMESTAMP: FEV.10.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"An immersive editorial page exploring how AI is reshaping digital identity, trust, verification, and online reputation. Featuring animated data and layout vogue.","image":"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80"},{"id":"post-reality-internet","category":"critical-analysis","title":"We Are Entering the Post-Reality Internet: 7 Powerful Reasons the Digital World Is Changing Reality","meta":"TIMESTAMP: FEV.06.2026 // SYSTEM: HYPERREALITY_LAB","summary":"Explore how AI, deepfakes, algorithms, and digital culture are transforming truth, perception, and online reality.","image":"./images/post-reality.jpg"},{"id":"what-is-generative-art","category":"critical-analysis","title":"What Is Generative Art? A Clear Guide Beyond the AI Hype","meta":"TIMESTAMP: FEV.02.2026 // SYSTEM: AESTHETICS_LAB","summary":"Discover what generative art truly is beyond the AI hype. Explore system-based creativity, pioneering artists, and the intersection of code and art.","image":"https://cdn.sanity.io/images/6e7gp05s/production/f2a2a08d971ed7ef9a93c3b2e91e1f0f2eb2466c-3001x1688.jpg?w=1600&q=85&fit=clip&auto=format"},{"id":"ai-agents-creative-work","category":"tech-design","title":"How AI Agents Are Changing Creative Work in 2026, for Better and for Worse","meta":"TIMESTAMP: FEV.01.2026 // SYSTEM: AGENTIC_LAB","summary":"Explore how AI agents are changing creative work in 2026, including the good and bad sides of agentic AI for designers, writers, and marketers.","image":"https://images.unsplash.com/photo-1677442135136-760c813028c0?q=80&w=1200&auto=format&fit=crop"},{"id":"robotics-interactive-systems","category":"tech-design","title":"How Robotics and Interactive Systems Are Influencing Digital Culture","meta":"TIMESTAMP: JAN.22.2026 // SYSTEM: KINETIC_LAB","summary":"Explore how robotics and interactive systems are influencing digital culture through responsive media, creative technology, immersive experiences, and human-machine collaboration.","image":"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop"},{"id":"creative-coding-art-technology","category":"tech-design","title":"Creative Coding in Art Technology: 15 Powerful Ways Code is Revolutionizing Modern Art","meta":"TIMESTAMP: JAN.13.2026 // SYSTEM: CREATIVE_LAB","summary":"Creative coding in art technology is transforming digital creativity through programming, generative design, and interactive media.","image":"./images/creativecoding.jpg"},{"id":"scrollytelling-interaction-design","category":"tech-design","title":"The Scrollytelling Revolution: Data, Design & Human Attention","meta":"TIMESTAMP: JAN.12.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"How editorial design, microinteractions, and data visualization are merging to save human attention in an AI-generated web.","image":"https://images.unsplash.com/photo-1746014601523-db2b450dee40?q=80&w=1171&auto=format&fit=crop"},{"id":"obsolescence-of-the-monomyth","category":"critical-analysis","title":"The Obsolescence of Linear Narrative: Hypermedia, AI, and the Death of the Monomyth","meta":"TIMESTAMP: JAN.10.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"A comprehensive critique of the Hero\\","image":"./images/hypermedia2.jpg"},{"id":"pov-paradox-interface","category":"critical-analysis","title":"The POV Paradox: Narrative Perspective as a Biocybernetic Interface","meta":"TIMESTAMP: JAN.04.2026 // SYSTEM: NEURO_NARRATIVE_LAB","summary":"Analyzing the neurobiological foundations of perspective, LLM syntax, and the post-human narrative interfaces of 2026.","image":"./images/biocibernetic.jpg"},{"id":"death-of-the-interface","category":"tech-design","title":"The Death of the Interface: Zero UI and the Generative Era","meta":"TIMESTAMP: JAN.02.2026 // SYSTEM: ZERO_UI_PROTOCOL","summary":"As Generative AI kills classic Web Design, we explore the rise of Invisible Minimalism, semantic branding, and pure intent interaction.","image":"./images/zeroui.webp"},{"id":"the-wired-soul-lain","category":"critical-analysis","title":"The Wired Soul: Lain, Cyberfeminism & The Beige Ghost","meta":"TIMESTAMP: JAN.01.2026 // SYSTEM: PROTOCOL_7","summary":"Exploring Serial Experiments Lain as the ultimate materialization of Haraway\\","image":"./images/lainsimulacrum.png"}];</script>
-</body>
+    
+<script>window.articles = [{"id":"consumer-devices-ai-training","category":"critical-analysis","title":"The Invisible Harvest: How Consumer Devices Train AI Without You Knowing","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: SURVEILLANCE_LAB","summary":"Pokemon Go maps your city. Meta glasses scan your face. Your earbuds profile your voice. How games, wearables, and audio devices became the largest passive AI training operation ever built, and what the consequences are.","image":"https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop"},{"id":"code-as-writing-poetics","category":"academic-theory","title":"Code as Writing: The Poetics of the Source File","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: LITERATURE_LAB","summary":"Programs are read by humans before machines. An analysis of literate programming, the literary structure of source code, and why variable naming is an aesthetic choice.","image":"https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop"},{"id":"algorithm-as-curator-recommendation-systems-culture","category":"critical-analysis","title":"The Algorithm as Curator: How Recommendation Systems Shape Culture","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: CRITICAL_LAB","summary":"What you see online is not what exists, it is what a model predicts you will engage with. A deep look at collaborative filtering, filter bubbles, and how recommendation systems became the most powerful editors in history.","image":"https://images.unsplash.com/photo-1665690399857-9de8bbbeb108?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"glsl-fragment-shaders-from-zero","category":"tech-design","title":"GLSL Fragment Shaders From Zero: Your First 10 Lines","meta":"TIMESTAMP: JUN.30.2026 // SYSTEM: AESTHETICS_LAB","summary":"Learn how to write WebGL fragment shaders from scratch. A practical, interactive guide to gradients, noise, raymarching, and procedural rendering in GLSL.","image":"./images/GLSL.png"},{"id":"css-generative-medium","category":"tech-design","title":"CSS as a Generative Medium: What Pure CSS Can Actually Do","meta":"TIMESTAMP: MAY.20.2026 // SYSTEM: AESTHETICS_LAB","summary":"Discover why generative art does not require JavaScript. An architectural analysis of CSS art, constraint-based aesthetics, and Houdini algorithms.","image":"./images/purecss.png"},{"id":"the-uncanny-valley-of-the-fake","category":"critical-analysis","title":"The Uncanny Valley of the Fake: Deepfakes, Simulacra, and Evidence","meta":"TIMESTAMP: MAY.15.2026 // SYSTEM: EPISTEMOLOGY_LAB","summary":"An epistemological analysis of deepfakes, the Uncanny Valley, and what happens to society when visual evidence ceases to exist.","image":"./images/deepfake.jpg"},{"id":"cybernetics-and-feedback-systems","category":"critical-analysis","title":"Cybernetics and Feedback: How Systems Think","meta":"TIMESTAMP: MAY.10.2026 // SYSTEM: KINETIC_LAB","summary":"From WWII anti-aircraft guns to AI reinforcement learning. An architectural analysis of Norbert Wiener\\","image":"https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"aesthetics-of-the-glitch","category":"digital-culture","title":"The Aesthetics of the Glitch: When Error Becomes Medium","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: CRITICAL_LAB","summary":"Glitch art is not broken art. From Nam June Paik\\","image":"https://images.unsplash.com/photo-1610337673044-720471f83677?q=80&w=1072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"color-theory-generative-art","category":"tech-design","title":"Color Theory for Generative Art: HSL, Palettes, and Perceptual Uniformity","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Most color theory tutorials are for static design. This is for algorithmic systems. Learn how to generate infinite mathematically harmonic palettes using HSL, Oklab, and procedural noise.","image":"https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop"},{"id":"l-system-plants-generative-art","category":"tech-design","title":"The L-System: How Plants Generate Themselves","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: KINETIC_LAB","summary":"Aristid Lindenmayer invented a grammar that writes plants. A technical guide to rewriting systems, turtle geometry, and fractal botany in JavaScript, with an interactive editor.","image":"https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1200&auto=format&fit=crop"},{"id":"drawing-with-math-lissajous-curves","category":"creative-coding","title":"Drawing with Math: How to Use Lissajous Curves in Generative Art","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Before GPUs and LEDs, humanity drew with sound. The physics, math, and JavaScript of Lissajous curves, from oscilloscope physics to generative art.","image":"https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop"},{"id":"voronoi-diagrams-javascript-generative-art","category":"digital-culture","title":"The Hidden Math Behind Voronoi Diagrams","meta":"TIMESTAMP: APR.01.2026 // SYSTEM: AESTHETICS_LAB","summary":"Giraffe skin, city planning, and generative art, one algorithm. A practical guide to building Voronoi diagrams in JavaScript, from brute-force distance fields to Fortune\\","image":"https://images.unsplash.com/photo-1558470598-a5dda9640f68?q=80&w=1200&auto=format&fit=crop"},{"id":"building-real-time-audio-visualizer","category":"tech-design","title":"Building a Real-Time Audio Visualizer with Web Audio API","meta":"TIMESTAMP: MAR.30.2026 // SYSTEM: KINETIC_LAB","summary":"A dense, complete tutorial on the Web Audio API, Fast Fourier Transforms (FFT), and procedural rendering to synthesize sound into tactile visual geometry.","image":"https://images.unsplash.com/photo-1692838952665-a7a9577fde9e?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"reaction-diffusion-systems","category":"tech-design","title":"Reaction-Diffusion Systems: Simulating Life with Code","meta":"TIMESTAMP: MAR.29.2026 // SYSTEM: KINETIC_LAB","summary":"Alan Turing\\","image":"./images/reaction_diffusion.png"},{"id":"truchet-tiles-javascript-infinite-patterns","category":"tech-design","title":"How to Create Infinite Patterns with Truchet Tiles in JavaScript","meta":"TIMESTAMP: MAR.28.2026 // SYSTEM: AESTHETICS_LAB","summary":"A practical guide to algorithmic geometry. Learn how to construct, animate, and scale Truchet tile patterns using JavaScript and the HTML5 Canvas API.","image":"./images/truchet_tiles.png"},{"id":"latent-space-as-canvas","category":"tech-design","title":"Latent Space as Canvas: How Diffusion Models Actually \"See\"","meta":"TIMESTAMP: MAR.27.2026 // SYSTEM: NEURAL_LAB","summary":"A technical and artistic exploration of latent spaces, reverse diffusion, and how AI navigates high-dimensional mathematics to synthesize images.","image":"./images/digitalnoise.jpg"},{"id":"hauntology-and-the-internet","category":"digital-culture","title":"Hauntology and the Internet: Why the Web Feels Like It\\","meta":"TIMESTAMP: MAR.26.2026 // SYSTEM: CRITICAL_LAB","summary":"Digital decay, link rot, and how generative AI operates as algorithmic necromancy in the post-reality web. A philosophical reading of why the internet feels like it is mourning its own past.","image":"https://images.unsplash.com/photo-1765410852123-e08fb6dd400a?q=80&w=1369&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"why-ai-art-is-not-generative-art","category":"digital-culture","title":"Why AI Art Is Not Generative Art","meta":"TIMESTAMP: MAR.25.2026 // SYSTEM: AESTHETICS_LAB","summary":"Stable Diffusion and p5.js are not the same thing. A precise breakdown of why AI image generation and generative art are structurally different, and why the confusion erases 60 years of history.","image":"https://images.unsplash.com/photo-1617791160536-598cf32026fb?q=80&w=1200&auto=format&fit=crop"},{"id":"p5js-vs-threejs-generative-art","category":"digital-culture","title":"p5.js vs Three.js: When to Use Each for Generative Art","meta":"TIMESTAMP: MAR.24.2026 // SYSTEM: CREATIVE_LAB","summary":"A technical and practical comparison of p5.js and Three.js for creative coding and generative art. Learn which library fits your project, your skills, and your vision.","image":"./images/p5.js_vs_three.js_article_banner.png"},{"id":"procedural-identity-generative-branding","category":"tech-design","title":"Procedural Identity: When the Brand Becomes an Algorithm","meta":"TIMESTAMP: MAR.23.2026 // SYSTEM: AESTHETICS_LAB","summary":"The dissolution of the static logo. A technical analysis of generative branding, data-driven identity, and algorithmic architecture.","image":"./images/Identity.png"},{"id":"the-architecture-of-chance-procedural-logic","category":"digital-culture","title":"The Architecture of Chance: Noise, Seeds, and Algorithmic Surprise","meta":"TIMESTAMP: MAR.22.2026 // SYSTEM: AESTHETICS_LAB","summary":"An analysis of procedural generation, Perlin Noise, and how coherent randomness dismantled the sterile perfection of early computer graphics.","image":"https://images.unsplash.com/photo-1771789815969-7ed5f8564409?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"living-architectures-real-time-data","category":"tech-design","title":"Living Architectures: Real-Time Data and the Death of the Static Canvas","meta":"TIMESTAMP: MAR.21.2026 // SYSTEM: SYSTEMS_LAB","summary":"The transition of digital art into data-driven living systems. Exploring APIs, real-time rendering, and procedural environments.","image":"https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"digital-organisms-cellular-automata","category":"tech-design","title":"Digital Organisms: Cellular Automata and the Simulation of Life","meta":"TIMESTAMP: MAR.20.2026 // SYSTEM: KINETIC_LAB","summary":"Artificial Life, cellular automata, L-Systems, and reaction-diffusion models in biocybernetics. What happens when software learns to grow.","image":"./images/game-of-life.png"},{"id":"math-of-the-sublime-shaders","category":"digital-culture","title":"The Math of the Sublime: Shaders, GLSL, and the Rendering of the Infinite","meta":"TIMESTAMP: MAR.19.2026 // SYSTEM: AESTHETICS_LAB","summary":"Fragment Shaders, GPU architecture, and how pure mathematics becomes tactile digital art. On the technical and philosophical dimensions of rendering the infinite.","image":"https://images.unsplash.com/photo-1648543444430-369be2e19bd3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},{"id":"technopolitics-digital-colonialism-brazil","category":"critical-analysis","title":"Digital Colonialism and Technopolitics: The Struggle for Sovereign Infrastructure","meta":"TIMESTAMP: MAR.18.2026 // SYSTEM: GOVERNANCE_LAB","summary":"An analysis of digital colonialism in Brazil, epistemic extractivism, critical digital literacy, and the illusion of the sovereign cloud.","image":"./images/technopolitics.jpg"},{"id":"seeing-sounds-synesthesia-touchdesigner","category":"digital-culture","title":"Seeing Sounds: The Geometry of Silence","meta":"TIMESTAMP: MAR.17.2026 // SYSTEM: GENLAB_DIARY","summary":"My journey through university graduation, TouchDesigner node soup, drone music, and making the invisible visible.","image":"./images/kandinsky-td.png"},{"id":"decolonial-ai-indigenous-data-sovereignty","category":"critical-analysis","title":"Decolonial AI and Indigenous Data Sovereignty","meta":"TIMESTAMP: MAR.16.2026 // SYSTEM: SOVEREIGNTY_LAB","summary":"Explore how Decolonial AI and Indigenous Data Sovereignty are challenging historical patterns of knowledge extraction and technical domination.","image":"./images/secure.jpg"},{"id":"networked-ontologies-technoshamanism","category":"critical-analysis","title":"Networked Ontologies: Technoshamanism & Digital Sovereignty","meta":"TIMESTAMP: MAR.15.2026 // SYSTEM: ANCESTRAL_LAB","summary":"Exploring the intersection of indigenous knowledge, digital sovereignty, and the confrontation of epistemic extractivism in the digital age.","image":"https://images.unsplash.com/photo-1759324348805-8576e7094ae5?q=80&w=1170&auto=format&fit=crop"},{"id":"blogging-in-2026-trends-strategies","category":"tech-design","title":"Blogging in 2026: 12 Powerful Trends, Tools, and Strategies","meta":"TIMESTAMP: MAR.14.2026 // SYSTEM: CONTENT_LAB","summary":"Blogging is far from dead. Learn the latest SEO strategies, AI workflows, and monetization tools to build a profitable digital media business.","image":"https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop"},{"id":"build-autogpt-ai-agent","category":"tech-design","title":"How to Build Your Own AutoGPT-Style AI Agent Step-by-Step","meta":"TIMESTAMP: MAR.13.2026 // SYSTEM: BUILDER_LAB","summary":"A 12-stage practical tutorial for designing and shipping your own autonomous agent. From planning loops to tool guardrails.","image":"./images/autogpt.jpg"},{"id":"ai-agent-architecture-guide","category":"tech-design","title":"The Architecture Behind AI Agents: A Complete Technical Guide","meta":"TIMESTAMP: MAR.12.2026 // SYSTEM: ARCH_ENGINE_04","summary":"Explore the blueprint of AutoGPT-style systems. From ReAct loops and memory hierarchies to tool integration and multi-agent coordination.","image":"./images/ai.jpg"},{"id":"autonomous-ai-agents","category":"critical-analysis","title":"Autonomous AI Agents","meta":"TIMESTAMP: MAR.03.2026 // SYSTEM: AI AGENTS","summary":"Discover how Autonomous AI Agents are changing the way we work, automate tasks, and build businesses. Learn how this emerging technology could redefine productivity and the future of digital work.","image":"./images/robo.jpg"},{"id":"sustainable-it-green-computing","category":"critical-analysis","title":"Sustainable IT & Green Computing","meta":"TIMESTAMP: MAR.01.2026 // SYSTEM: Green Tech","summary":"Sustainable IT and green computing have gone from being a secondary topic to becoming key technology KPIs. Understand carbon-aware scheduling, sustainable-by-design architectures, and how AI is forcing the reconstruction of digital operations.","image":"https://www.consultancy.uk/illustrations/news/detail/2024-01-19-012504785-Sustainability_and_AI_to_dominate_2024_IT_agenda.jpg"},{"id":"post-quantum-cryptography","category":"tech-design","title":"Post-Quantum Cryptography: Why Organizations Need to Prepare Before Quantum Computers Arrive","meta":"TIMESTAMP: FEV.28.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Post-quantum cryptography is moving from theory to urgent enterprise planning. Learn why harvest-now-decrypt-later attacks matter and what NIST finalized.","image":"https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=1000&auto=format&fit=crop"},{"id":"spatial-computing-enterprise","category":"tech-design","title":"Beyond the Metaverse: How Spatial Computing Became a Real Business Tool","meta":"TIMESTAMP: FEV.02.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Spatial computing is moving beyond hype and into practical enterprise use. Learn how Apple Vision Pro, AI glasses, AR, and VR are reshaping training, design, collaboration, and real-world workflows.","image":"https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=1200&auto=format&fit=crop"},{"id":"preemptive-cybersecurity-digital-provenance","category":"critical-analysis","title":"Preemptive Cybersecurity and Digital Provenance in the Age of AI","meta":"TIMESTAMP: FEV.15.2026 // SYSTEM: CYBER_SEC_LAB","summary":"Learn how AI-powered defense, content credentials, watermarking, and provenance tools are changing cyber resilience and deepfake verification.","image":"https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"},{"id":"ai-native-infrastructure-cloud","category":"tech-design","title":"AI-Native Infrastructure and Cloud 3.0: Why AI Is Forcing a New Cloud Strategy","meta":"TIMESTAMP: FEV.14.2026 // SYSTEM: CLOUD_ARCH_LAB","summary":"AI-native infrastructure and Cloud 3.0 are reshaping enterprise technology in 2026. Learn how hybrid cloud, sovereign cloud, AI factories, and new energy strategies are redefining data centers.","image":"https://images.stockcake.com/public/5/3/6/53625b81-8ee7-4aba-8c28-b10f0fa04f24_large/vast-data-center-stockcake.jpg"},{"id":"physical-ai-and-robotics","category":"tech-design","title":"Physical AI and Robotics: The Next Major Shift in Industrial Automation","meta":"TIMESTAMP: FEV.13.2026 // SYSTEM: KINETIC_LAB","summary":"Physical AI and robotics are pushing intelligence beyond screens and into factories, warehouses, and logistics networks. Learn how humanoid robots and autonomous systems are reshaping business.","image":"https://www.manufacturingtodayindia.com/cloud/2024/08/19/Teslas-Optimus-AI-robot.jpg"},{"id":"domain-specific-language-models","category":"tech-design","title":"Domain-Specific Language Models (DSLMs): 6 Powerful Ways Specialized AI Is Transforming Industries","meta":"TIMESTAMP: FEV.12.2026 // SYSTEM: ENTERPRISE_LAB","summary":"Discover how DSLMs are transforming AI in 2026 by delivering higher accuracy, lower costs, and better compliance across healthcare, finance, and legal industries.","image":"https://i0.wp.com/ittech-pulse.com/wp-content/uploads/2026/03/DSLMs-in-Healthcare-Improving-Clinical-Accuracy-Compliance-and-Decision-Support.webp?fit=1920%2C1080&ssl=1"},{"id":"agentic-ai-autonomous-agents","category":"tech-design","title":"Agentic AI & Autonomous Agents: 7 Powerful Tech Shifts Transforming 2026","meta":"TIMESTAMP: FEV.11.2026 // SYSTEM: AGENTIC_LAB","summary":"Discover how Agentic AI & Autonomous Agents are transforming the 2026 technology landscape, enabling digital coworkers, autonomous workflows, and real business ROI.","image":"https://em360tech.com/sites/default/files/styles/cover_image/public/2025-07/adobestock_1225534257.jpeg.webp?h=7f61dc89&itok=_cwFq3Ar"},{"id":"digital-identity-age-of-ai","category":"critical-analysis","title":"Digital Identity in the Age of AI","meta":"TIMESTAMP: FEV.10.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"An immersive editorial page exploring how AI is reshaping digital identity, trust, verification, and online reputation. Featuring animated data and layout vogue.","image":"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80"},{"id":"post-reality-internet","category":"critical-analysis","title":"We Are Entering the Post-Reality Internet: 7 Powerful Reasons the Digital World Is Changing Reality","meta":"TIMESTAMP: FEV.06.2026 // SYSTEM: HYPERREALITY_LAB","summary":"Explore how AI, deepfakes, algorithms, and digital culture are transforming truth, perception, and online reality.","image":"./images/post-reality.jpg"},{"id":"what-is-generative-art","category":"critical-analysis","title":"What Is Generative Art? A Clear Guide Beyond the AI Hype","meta":"TIMESTAMP: FEV.02.2026 // SYSTEM: AESTHETICS_LAB","summary":"Discover what generative art truly is beyond the AI hype. Explore system-based creativity, pioneering artists, and the intersection of code and art.","image":"https://cdn.sanity.io/images/6e7gp05s/production/f2a2a08d971ed7ef9a93c3b2e91e1f0f2eb2466c-3001x1688.jpg?w=1600&q=85&fit=clip&auto=format"},{"id":"ai-agents-creative-work","category":"tech-design","title":"How AI Agents Are Changing Creative Work in 2026, for Better and for Worse","meta":"TIMESTAMP: FEV.01.2026 // SYSTEM: AGENTIC_LAB","summary":"Explore how AI agents are changing creative work in 2026, including the good and bad sides of agentic AI for designers, writers, and marketers.","image":"https://images.unsplash.com/photo-1677442135136-760c813028c0?q=80&w=1200&auto=format&fit=crop"},{"id":"robotics-interactive-systems","category":"tech-design","title":"How Robotics and Interactive Systems Are Influencing Digital Culture","meta":"TIMESTAMP: JAN.22.2026 // SYSTEM: KINETIC_LAB","summary":"Explore how robotics and interactive systems are influencing digital culture through responsive media, creative technology, immersive experiences, and human-machine collaboration.","image":"https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop"},{"id":"creative-coding-art-technology","category":"tech-design","title":"Creative Coding in Art Technology: 15 Powerful Ways Code is Revolutionizing Modern Art","meta":"TIMESTAMP: JAN.13.2026 // SYSTEM: CREATIVE_LAB","summary":"Creative coding in art technology is transforming digital creativity through programming, generative design, and interactive media.","image":"./images/creativecoding.jpg"},{"id":"scrollytelling-interaction-design","category":"tech-design","title":"The Scrollytelling Revolution: Data, Design & Human Attention","meta":"TIMESTAMP: JAN.12.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"How editorial design, microinteractions, and data visualization are merging to save human attention in an AI-generated web.","image":"https://images.unsplash.com/photo-1746014601523-db2b450dee40?q=80&w=1171&auto=format&fit=crop"},{"id":"obsolescence-of-the-monomyth","category":"critical-analysis","title":"The Obsolescence of Linear Narrative: Hypermedia, AI, and the Death of the Monomyth","meta":"TIMESTAMP: JAN.10.2026 // SYSTEM: UX_RESEARCH_LAB","summary":"A comprehensive critique of the Hero\\","image":"./images/hypermedia2.jpg"},{"id":"pov-paradox-interface","category":"critical-analysis","title":"The POV Paradox: Narrative Perspective as a Biocybernetic Interface","meta":"TIMESTAMP: JAN.04.2026 // SYSTEM: NEURO_NARRATIVE_LAB","summary":"Analyzing the neurobiological foundations of perspective, LLM syntax, and the post-human narrative interfaces of 2026.","image":"./images/biocibernetic.jpg"},{"id":"death-of-the-interface","category":"tech-design","title":"The Death of the Interface: Zero UI and the Generative Era","meta":"TIMESTAMP: JAN.02.2026 // SYSTEM: ZERO_UI_PROTOCOL","summary":"As Generative AI kills classic Web Design, we explore the rise of Invisible Minimalism, semantic branding, and pure intent interaction.","image":"./images/zeroui.webp"},{"id":"the-wired-soul-lain","category":"critical-analysis","title":"The Wired Soul: Lain, Cyberfeminism & The Beige Ghost","meta":"TIMESTAMP: JAN.01.2026 // SYSTEM: PROTOCOL_7","summary":"Exploring Serial Experiments Lain as the ultimate materialization of Haraway\\","image":"./images/lainsimulacrum.png"}];</script>
+
+<script>
+(() => {
+    // 1. SCROLL INDICATOR
+    window.addEventListener('scroll', () => {
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        if (scrollIndicator) {
+            const scrollY = window.scrollY;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollY / height) * 100;
+            scrollIndicator.style.width = scrolled + "%";
+        }
+    }, { passive: true });
+
+    // 2. LIQUID MOUSE FOLLOWER
+    const headerContainer = document.getElementById('header-container');
+    const liquidCursor = document.getElementById('liquid-cursor');
+    let mouseX = -1000, mouseY = -1000;
+    let cursorX = -1000, cursorY = -1000;
+    let isHovering = false;
+    
+    if (headerContainer && liquidCursor) {
+        headerContainer.addEventListener('mousemove', (e) => {
+            const rect = headerContainer.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+            if (!isHovering) {
+                liquidCursor.style.opacity = '1';
+                isHovering = true;
+            }
+        }, { passive: true });
+        
+        headerContainer.addEventListener('mouseleave', () => {
+            liquidCursor.style.opacity = '0';
+            isHovering = false;
+        });
+
+        function animateCursor() {
+            if (isHovering) {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                liquidCursor.style.transform = `translate3d(${cursorX - 300}px, ${cursorY - 300}px, 0) scale(1)`;
+            }
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+    }
+
+    // 3. HERO PARTICLE CANVAS
+    const canvas = document.getElementById('hero-canvas');
+    if(canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height, particles;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+            particles = [];
+            const count = Math.min(Math.floor(width / 40), 40); 
+
+            for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    isPurple: Math.random() > 0.5
+                });
+            }
+        }
+
+        function drawCanvas() {
+            if (window.scrollY > height + 100) {
+                requestAnimationFrame(drawCanvas);
+                return;
+            }
+
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.classList.contains('dark');
+            const dotColor1 = isDark ? 'rgba(216, 180, 254, 0.5)' : 'rgba(167, 139, 250, 0.5)';
+            const dotColor2 = isDark ? 'rgba(252, 165, 165, 0.5)' : 'rgba(248, 113, 113, 0.5)';
+            const lineBase = isDark ? '216, 180, 254' : '167, 139, 250';
+            
+            particles.forEach((p, index) => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.fillStyle = p.isPurple ? dotColor1 : dotColor2; 
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+
+                for(let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const distSq = dx * dx + dy * dy;
+                    
+                    if(distSq < 14400) {
+                        const dist = Math.sqrt(distSq);
+                        ctx.strokeStyle = `rgba(${lineBase}, ${(1 - dist/120) * 0.2})`;
+                        ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawCanvas);
+        }
+        window.addEventListener('resize', initCanvas, { passive: true });
+        initCanvas(); drawCanvas();
+    }
+
+    // 4. SCROLL REVEAL OBSERVER
+    const observerOptions = { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target); 
+            }
+        });
+    }, observerOptions);
+
+    window.initObserversAndTilt = function() {
+        document.querySelectorAll('.reveal-element').forEach(el => observer.observe(el));
+        
+        // Tilt 3D
+        document.querySelectorAll('.tilt-fx').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -4;
+                const rotateY = ((x - centerX) / centerX) * 4;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+            }, { passive: true });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+            });
+            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+        });
+    };
+
+    // 5. UI & FILTER LOGIC
+    let currentCategory = "All";
+    let searchQuery = "";
+
+    const CATEGORY_LABELS = {
+        "All": "All",
+        "ai-ethics": "AI Ethics",
+        "cybersecurity": "Cybersecurity",
+        "infrastructure": "Cloud & Infra",
+        "robotics-spatial": "Robotics & Spatial",
+        "digital-culture": "Digital Culture",
+        "ux-design": "UX & Design",
+        "tech-design": "Tech & Design",
+        "critical-analysis": "Critical Analysis",
+    };
+
+    function getCategoryLabel(cat) {
+        return CATEGORY_LABELS[cat] || cat;
+    }
+    
+    function getFilterBarHTML(categories) {
+        let pills = categories.map(c => `
+            <button onclick="setCategory('${c}')" class="px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 hover:-translate-y-1 ${currentCategory === c ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md' : 'bg-white dark:bg-darkSurface border border-gray-200 dark:border-darkBorder text-gray-600 dark:text-darkMuted hover:bg-gray-50'}">${getCategoryLabel(c)}</button>
+        `).join('');
+
+        return `
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8 reveal-element">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 w-full md:w-auto">
+                    ${pills}
+                </div>
+                <div class="relative w-full md:w-80 group shrink-0">
+                    <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-purpleBrand transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search articles..." value="${searchQuery}" oninput="setSearch(this.value)" class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 dark:border-darkBorder font-mono text-sm focus:outline-none focus:ring-2 focus:ring-purpleBrand/50 bg-white dark:bg-darkSurface dark:text-white shadow-sm">
+                </div>
+            </div>
+        `;
+    }
+
+    function getCardHTML(post, isFeatured, indexDelay = 0, hOverride = null, titleOverride = null) {
+        const hClass = hOverride || (isFeatured ? 'h-56 md:h-72' : 'h-40');
+        const titleClass = titleOverride || (isFeatured ? 'text-2xl md:text-3xl font-bold' : 'text-xl font-bold');
+        const imgUrl = post.image || "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop";
+        const badge = isFeatured ? `<div class="absolute top-6 right-6 bg-purpleBrand text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10 shadow-lg animate-pulse flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"></path></svg> Featured</div>` : '';
+        const topGradient = isFeatured ? 'bg-gradient-to-r from-purple-500 to-pink-500' : 'bg-gradient-to-r from-blue-500 to-cyan-400';
+        const catLabel = getCategoryLabel(post.category);
+        const metaDate = post.meta ? post.meta.split('//')[0].replace('TIMESTAMP:', '').trim() : '';
+
+        const border = 'shadow-sm hover:shadow-xl';
+        return `
+        <a href="${post.id}.html" style="transition-delay: ${indexDelay}ms;" class="block group bg-white dark:bg-darkSurface rounded-[2rem] overflow-hidden ${border} transition-all duration-500 ease-out flex flex-col h-full cursor-pointer hover:-translate-y-1 reveal-element relative">
+            <div class="absolute top-0 left-0 w-full h-1.5 ${topGradient} z-20"></div>
+            <div class="relative overflow-hidden bg-gray-50 dark:bg-[#111] ${hClass}">
+                ${badge}
+                <div class="absolute inset-0 bg-gray-200 dark:bg-gray-800 -z-10"></div>
+                <img src="${imgUrl}" alt="${post.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-start p-8">
+                    <span class="text-white font-mono font-bold tracking-widest uppercase text-xs translate-y-4 group-hover:translate-y-0 transition-transform duration-500 border border-white/30 backdrop-blur-md px-4 py-2 rounded-full bg-black/30 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> Read the full protocol
+                    </span>
+                </div>
+            </div>
+            <div class="p-8 flex flex-col flex-grow relative z-10">
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="bg-purple-50 dark:bg-purpleBrand/10 text-purple-700 dark:text-purpleBrand border border-purple-100 dark:border-purpleBrand/20 font-mono text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        ${catLabel}
+                    </span>
+                    <span class="text-gray-400 dark:text-darkMuted font-mono text-[10px] font-bold uppercase tracking-wide flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        ${metaDate}
+                    </span>
+                </div>
+                <h3 class="font-serif text-gray-900 dark:text-white mb-4 leading-[1.1] group-hover:text-purpleBrand transition-colors duration-300 ${titleClass}">${post.title}</h3>
+                <p class="text-gray-600 dark:text-darkMuted text-sm leading-relaxed flex-grow">${post.summary}</p>
+            </div>
+        </a>
+        `;
+    }
+
+    function getAdHTML(variant) {
+        const hClass = variant === 'horizontal' ? 'h-40 w-full' : 'h-full min-h-[300px] w-full';
+        return `
+            <div class="ad-placeholder-box relative bg-gray-50/50 dark:bg-[#111]/50 backdrop-blur-sm rounded-[2rem] border border-dashed border-gray-200 dark:border-gray-800 flex items-center justify-center font-mono text-xs tracking-[0.2em] text-gray-400 font-bold p-8 shadow-sm reveal-element transition-all duration-500 overflow-hidden group ${hClass}">
+                <span class="relative z-10 flex items-center gap-2">AD_SPACE_RESERVED</span>
+            </div>
+        `;
+    }
+
+    let currentPage = 1;
+    const PER_PAGE = 9;
+
+    window.setCategory = function(cat) { currentCategory = cat; currentPage = 1; renderGrid(); renderFilters(); };
+    window.setSearch = function(query) { searchQuery = query; currentPage = 1; renderGrid(); };
+    window.clearFilters = function() { currentCategory = "All"; searchQuery = ""; currentPage = 1; renderGrid(); renderFilters(); };
+    window.goToPage = function(page) {
+        currentPage = page;
+        renderGrid();
+        const top = (document.getElementById('app-view') || document.body).offsetTop - 120;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    };
+
+    const orderedCategories = ["All", "ai-ethics", "cybersecurity", "infrastructure", "robotics-spatial", "digital-culture", "ux-design", "tech-design", "critical-analysis"];
+    
+    function renderFilters() {
+        const filterBar = document.getElementById('filter-bar-container');
+        if (filterBar) filterBar.innerHTML = getFilterBarHTML(orderedCategories);
+    }
+
+    function renderGrid() {
+        const appView = document.getElementById('app-view');
+        if (typeof articles === 'undefined') { console.error("artigos.js not loaded."); return; }
+
+        let filtered = articles.filter(post => {
+            const matchCat = currentCategory === "All" || post.category === currentCategory;
+            const matchSearch = !searchQuery || post.title.toLowerCase().includes(searchQuery.toLowerCase()) || post.summary.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchCat && matchSearch;
+        });
+
+        const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+        if (currentPage > totalPages) currentPage = totalPages;
+        const paginated = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+
+        let html = "";
+        if (filtered.length === 0) {
+            html = `<div class="text-center py-20 reveal-element"><p class="text-gray-500 font-mono text-sm">> No articles found.</p><button onclick="clearFilters()" class="mt-4 font-mono text-sm font-bold text-purpleBrand">Clear filters</button></div>`;
+        } else {
+            const BENTO = [
+                { cls: 'bento-4', h: 'h-64 md:h-80', t: 'text-2xl md:text-3xl font-bold' },
+                { cls: 'bento-2', h: 'h-64 md:h-80', t: 'text-lg font-bold' },
+                { cls: 'bento-2', h: 'h-40',         t: 'text-base font-bold' },
+                { cls: 'bento-2', h: 'h-40',         t: 'text-base font-bold' },
+                { cls: 'bento-2', h: 'h-40',         t: 'text-base font-bold' },
+                { cls: 'bento-2', h: 'h-64 md:h-80', t: 'text-lg font-bold' },
+                { cls: 'bento-4', h: 'h-64 md:h-80', t: 'text-2xl md:text-3xl font-bold' },
+                { cls: 'bento-3', h: 'h-52',         t: 'text-xl font-bold' },
+                { cls: 'bento-3', h: 'h-52',         t: 'text-xl font-bold' },
+            ];
+            html += `<div class="bento-grid">`;
+            paginated.forEach((p, i) => {
+                const b = BENTO[i % BENTO.length];
+                html += `<div class="${b.cls}">${getCardHTML(p, false, (i % 3) * 30, b.h, b.t)}</div>`;
+            });
+            html += `</div>`;
+        }
+
+        if (totalPages > 1) {
+            html += `<div class="flex items-center justify-center gap-2 mt-12 pt-8 border-t border-gray-100 dark:border-darkBorder">`;
+            if (currentPage > 1) html += `<button onclick="goToPage(${currentPage - 1})" class="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-white dark:bg-darkSurface border border-gray-200 dark:border-darkBorder text-gray-600 dark:text-darkMuted hover:-translate-y-0.5 transition-all">← Prev</button>`;
+            for (let p = 1; p <= totalPages; p++) {
+                html += `<button onclick="goToPage(${p})" class="w-9 h-9 rounded-full font-mono text-xs font-bold transition-all ${p === currentPage ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md' : 'bg-white dark:bg-darkSurface border border-gray-200 dark:border-darkBorder text-gray-600 dark:text-darkMuted hover:bg-gray-50'}">${p}</button>`;
+            }
+            if (currentPage < totalPages) html += `<button onclick="goToPage(${currentPage + 1})" class="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-white dark:bg-darkSurface border border-gray-200 dark:border-darkBorder text-gray-600 dark:text-darkMuted hover:-translate-y-0.5 transition-all">Next →</button>`;
+            html += `</div>`;
+        }
+
+        appView.innerHTML = html;
+        setTimeout(initObserversAndTilt, 50);
+    }
+
+    window.onload = () => {
+        renderFilters();
+        initObserversAndTilt();
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+    };
+})();
+</script>
+
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

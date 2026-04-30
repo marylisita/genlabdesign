@@ -151,7 +151,7 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
                 </div>
             </div>
         </div>
-    </nav>﻿
+    </nav>
 
 <main class="relative z-10 w-full pt-16 pb-20 flex-grow">
         <!-- Abstract Background Elements -->
@@ -264,7 +264,6 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
 
                 
     </main>
-
 
 
 
@@ -405,5 +404,12 @@ function toggleTheme() {
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

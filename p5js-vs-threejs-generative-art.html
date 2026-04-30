@@ -289,7 +289,7 @@
                 </div>
             </div>
         </div>
-    </nav>﻿
+    </nav>
 
 <!-- 1. HERO SECTION -->
 <header class="premium-hero z-10">
@@ -558,9 +558,9 @@ scene.<span class="fn">add</span>(cube);
  <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
  <nav class="space-y-2">
  
- <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+ <a href="" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
  <span class="text-purple-400 font-mono text-xs">→</span>
- <?= htmlspecialchars($label) ?>
+ 
  </a>
  
  </nav>
@@ -623,7 +623,6 @@ scene.<span class="fn">add</span>(cube);
  </aside>
  </div>
 </main>
-
 
 
 
@@ -928,5 +927,12 @@ scene.<span class="fn">add</span>(cube);
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

@@ -327,7 +327,7 @@
                 </div>
             </div>
         </div>
-    </nav>﻿
+    </nav>
 
 <!-- ═══ HERO ════════════════════════════════════════════════════════ -->
 <header class="premium-hero z-10">
@@ -495,8 +495,8 @@
                     <div class="space-y-4">
                         
                         <div class="flex gap-4 items-start border-b border-gray-100 dark:border-gray-800 pb-4 last:border-0 last:pb-0">
-                            <span class="font-mono text-xs font-bold text-purple-400 min-w-[80px] pt-0.5"><?= $domain ?></span>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><?= htmlspecialchars($text) ?></p>
+                            <span class="font-mono text-xs font-bold text-purple-400 min-w-[80px] pt-0.5"></span>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"></p>
                         </div>
                         
                     </div>
@@ -585,9 +585,9 @@
                     <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
                     <nav class="space-y-1">
                         
-                        <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+                        <a href="" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
                             <span class="text-purple-400 font-mono text-xs">→</span>
-                            <?= htmlspecialchars($label) ?>
+                            
                         </a>
                         
                     </nav>
@@ -598,8 +598,8 @@
                     <div class="space-y-3 text-sm">
                         
                         <div class="border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0 last:pb-0">
-                            <strong class="text-gray-900 dark:text-white block mb-0.5 text-sm"><?= htmlspecialchars($term) ?></strong>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs leading-relaxed"><?= htmlspecialchars($def) ?></span>
+                            <strong class="text-gray-900 dark:text-white block mb-0.5 text-sm"></strong>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs leading-relaxed"></span>
                         </div>
                         
                     </div>
@@ -616,9 +616,9 @@
                     <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Related Posts</h3>
                     <div class="space-y-4">
                         
-                        <a href="<?= $href ?>" class="block group <?= $i ? 'border-t border-gray-100 dark:border-gray-800 pt-4' : '' ?>">
-                            <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"><?= htmlspecialchars($title) ?></p>
-                            <p class="font-mono text-xs text-gray-400 mt-1"><?= $sys ?></p>
+                        <a href="" class="block group ">
+                            <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"></p>
+                            <p class="font-mono text-xs text-gray-400 mt-1"></p>
                         </a>
                         
                     </div>
@@ -629,7 +629,6 @@
 
     </div>
 </main>
-
 
 
 
@@ -1055,5 +1054,12 @@
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

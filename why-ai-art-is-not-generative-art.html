@@ -277,7 +277,7 @@
                 </div>
             </div>
         </div>
-    </nav>﻿
+    </nav>
 
 <!-- ═══════════════════════════════════════════════
      HERO
@@ -572,9 +572,9 @@
  <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Contents</h3>
  <nav class="space-y-1">
  
- <a href="<?= $href ?>" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
+ <a href="" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors py-1.5 border-b border-gray-100 dark:border-gray-800 last:border-0">
  <span class="text-purple-400 font-mono text-xs">→</span>
- <?= htmlspecialchars($label) ?>
+ 
  </a>
  
  </nav>
@@ -587,10 +587,10 @@
  
  <div class="flex flex-col border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0 last:pb-0">
  <div class="flex justify-between mb-0.5">
- <span class="font-bold text-gray-900 dark:text-white"><?= $name ?></span>
- <span class="font-mono text-xs text-purple-400"><?= $year ?></span>
+ <span class="font-bold text-gray-900 dark:text-white"></span>
+ <span class="font-mono text-xs text-purple-400"></span>
  </div>
- <span class="text-xs text-gray-500 dark:text-gray-400"><?= $note ?></span>
+ <span class="text-xs text-gray-500 dark:text-gray-400"></span>
  </div>
  
  </div>
@@ -609,9 +609,9 @@
  <h3 class="font-mono text-xs text-purple-500 uppercase tracking-widest mb-5">Related Posts</h3>
  <div class="space-y-4">
  
- <a href="<?= $href ?>" class="block group <?= $i > 0 ? 'border-t border-gray-100 dark:border-gray-800 pt-4' : '' ?>">
- <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"><?= htmlspecialchars($title) ?></p>
- <p class="font-mono text-xs text-gray-400 mt-1"><?= $sys ?></p>
+ <a href="" class="block group ">
+ <p class="text-sm font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors leading-snug"></p>
+ <p class="font-mono text-xs text-gray-400 mt-1"></p>
  </a>
  
  </div>
@@ -622,7 +622,6 @@
 
  </div>
 </main>
-
 
 
 
@@ -904,5 +903,12 @@
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

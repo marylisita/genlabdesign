@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </nav>﻿
+    </nav>
 
 <header class="premium-hero z-10"><canvas id="hero-canvas" aria-hidden="true"></canvas><div class="container mx-auto px-6 md:px-12 lg:px-20 max-w-7xl relative z-10 py-16"><div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"><div class="lg:col-span-7"><span class="kicker reveal">Kinetic Lab // Audio Architecture</span><h1 class="font-serif text-5xl md:text-7xl font-bold text-gray-900 dark:text-white leading-[1.05] mb-5 reveal">Building a <span class="text-gradient">Real-Time</span><br>Audio Visualizer</h1><p class="text-xl text-gray-600 dark:text-gray-400 reveal">From waveform to frequency bins: a practical guide to build expressive audio-reactive visuals in the browser.</p></div><div class="lg:col-span-5 reveal"><div class="glass overflow-hidden h-[420px]"><img src="https://images.unsplash.com/photo-1614064641913-6b0598122bb4?q=80&w=1200&auto=format&fit=crop" alt="Audio waveform art" class="w-full h-full object-cover"></div></div></div></div></header>
 
@@ -145,8 +145,6 @@ function tick(){
 </article>
 <aside class="lg:col-span-4"><div class="sticky-sidebar space-y-6"><div class="glass p-6 reveal"><span class="kicker">Article Map</span><ul class="space-y-3 font-mono text-sm mt-3"><li><a href="#intro" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">1. Introduction</a></li><li><a href="#fft" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">2. FFT</a></li><li><a href="#code" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">3. Engine</a></li><li><a href="#simulator" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">4. Simulator</a></li><li><a href="#conclusion" class="toc-link block p-2 rounded-lg text-gray-600 dark:text-gray-400">5. Conclusion</a></li></ul></div><div class="glass p-6 reveal"><span class="kicker">Related</span><div class="space-y-4 mt-2"><a href="creative-coding-art-technology.html" class="block p-4 rounded-xl border border-black/10 dark:border-white/10 hover:border-purple-500"><h3 class="font-semibold text-gray-900 dark:text-white">Creative Coding in Art Technology</h3></a><a href="robotics-interactive-systems.html" class="block p-4 rounded-xl border border-black/10 dark:border-white/10 hover:border-cyan-500"><h3 class="font-semibold text-gray-900 dark:text-white">Robotics and Interactive Systems</h3></a></div></div></div></aside>
 </div></main>
-
-
 
 
 
@@ -269,5 +267,12 @@ btn.onclick=async()=>{btn.disabled=true;try{if(!p){ac=new (window.AudioContext |
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>

@@ -326,7 +326,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         We begin by normalizing the screen coordinates. <code>gl_FragCoord.xy</code> provides the exact pixel location (e.g., 800x600). Dividing this by <code>u_resolution.xy</code> yields our <code>uv</code> vector, ranging from 0.0 to 1.0 on both axes. Mapping <code>uv.x</code> to the Red channel and <code>uv.y</code> to the Green channel generates an absolute gradient.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["01"]); ?>)'>[ LOAD EXAMPLE 01 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 01 ]</button>
                 </div>
 
                 <!-- 02 -->
@@ -338,7 +338,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         In GLSL, we draw shapes using math, not commands. By measuring the distance <code>length()</code> from the current pixel to the center of the screen <code>vec2(0.5)</code>, we acquire a radial gradient. The <code>smoothstep()</code> function acts as a threshold, converting that gradient into a solid, anti-aliased circle.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["02"]); ?>)'>[ LOAD EXAMPLE 02 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 02 ]</button>
                 </div>
 
                 <!-- 03 -->
@@ -350,7 +350,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         The <code>fract()</code> function is a cornerstone of generative logic. It returns only the fractional part of a number (e.g., <code>fract(1.2) = 0.2</code>). By multiplying our <code>uv</code> coordinates by 10 and applying <code>fract()</code>, we instantly subdivide our space into a repeating 10x10 grid. The <code>step()</code> function draws the sharp boundary lines.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["03"]); ?>)'>[ LOAD EXAMPLE 03 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 03 ]</button>
                 </div>
 
                 <!-- 04 -->
@@ -362,7 +362,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         GLSL does not possess a native <code>random()</code> function. To generate noise, we manipulate sine waves destructively. We take the dot product of our coordinates against an arbitrary large vector, apply a sine function, and multiply it by a massive number (43758.5453) to obliterate any visible pattern.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["04"]); ?>)'>[ LOAD EXAMPLE 04 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 04 ]</button>
                 </div>
 
                 <!-- 05 -->
@@ -374,7 +374,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Introduced by Inigo Quilez, this algorithm utilizes a simple cosine wave offset by different phases for Red, Green, and Blue channels. By injecting <code>u_time</code> (a uniform variable constantly updated by JavaScript) into the equation, the colors cycle infinitely and organically.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["05"]); ?>)'>[ LOAD EXAMPLE 05 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 05 ]</button>
                 </div>
 
                 <!-- 06 -->
@@ -386,7 +386,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Instead of animating the color, we can animate the fabric of space itself. By adding a time-driven sine wave to the <code>uv.x</code> coordinate based on the <code>uv.y</code> coordinate, the space distorts, generating fluid, flag-like movements.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["06"]); ?>)'>[ LOAD EXAMPLE 06 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 06 ]</button>
                 </div>
 
                 <!-- 07 -->
@@ -398,7 +398,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Pure static noise is harsh. Nature exhibits structure. FBM superimposes multiple layers (octaves) of smoothed noise, progressively increasing the frequency and decreasing the amplitude. This algorithm is the architectural foundation of rendering digital clouds, mountains, and fog.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["07"]); ?>)'>[ LOAD EXAMPLE 07 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 07 ]</button>
                 </div>
 
                 <!-- 08 -->
@@ -410,7 +410,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Returning to the <code>fract()</code> function: if we multiply our coordinates, apply <code>fract()</code>, and subtract 0.5, we reset the center of our coordinate system multiple times across the screen. Drawing a single circle within this warped domain yields an infinite array of identical circles.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["08"]); ?>)'>[ LOAD EXAMPLE 08 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 08 ]</button>
                 </div>
 
                 <!-- 09 -->
@@ -422,7 +422,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Shaders operate in 2D, but we can simulate 3D via Raymarching. We cast a virtual ray from a camera (Ray Origin) through every pixel on the screen (Ray Direction), stepping forward until we intersect a mathematical Signed Distance Field (SDF) of a sphere.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["09"]); ?>)'>[ LOAD EXAMPLE 09 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 09 ]</button>
                 </div>
 
                 <!-- 10 -->
@@ -434,7 +434,7 @@
                     <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Real generative art relies on layering. By calculating multiple masks (e.g., two moving circles) and utilizing the <code>mix()</code> function, we can interpolate between diverse colors seamlessly based on intersecting geometries.
                     </p>
-                    <button class="btn-cyber btn-load" onclick='loadShaderExample(<?= json_encode($shaders["10"]); ?>)'>[ LOAD EXAMPLE 10 ]</button>
+                    <button class="btn-cyber btn-load" onclick='loadShaderExample()'>[ LOAD EXAMPLE 10 ]</button>
                 </div>
             </section>
         </article>
@@ -453,7 +453,7 @@
                     <div class="flex-grow flex flex-col p-4">
                         <div class="text-[10px] font-mono text-gray-500 mb-2">// Edit GLSL code below. Runs automatically.</div>
                         
-                        <textarea id="shader-code" class="glsl-textarea" spellcheck="false"><?= $shaders["01"]; ?></textarea>
+                        <textarea id="shader-code" class="glsl-textarea" spellcheck="false"></textarea>
                         
                         <div id="compile-error" class="hidden mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded text-red-400 font-mono text-[10px] whitespace-pre-wrap overflow-x-auto shrink-0"></div>
                         
@@ -721,5 +721,12 @@
 })();
 </script>
 
-</body>
+
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+        document.querySelectorAll('.animate-fade-up, .animate-title-blur').forEach(el => el.style.opacity = '1');
+    }, 1000);
+    </script>
+    </body>
 </html>
