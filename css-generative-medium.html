@@ -824,13 +824,9 @@
 
 
     <script>
-    window.addEventListener('load', () => {
-        if (typeof renderGrid === 'function') renderGrid();
-        if (typeof renderHome === 'function') renderHome();
-        setTimeout(() => {
-            document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
-        }, 300);
-    });
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-element').forEach(el => el.classList.add('is-visible'));
+    }, 500);
     </script>
     </body>
 </html>
